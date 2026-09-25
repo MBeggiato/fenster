@@ -628,8 +628,16 @@ func (d *dbTaskSearcher) Search(opts *taskSearchOptions) (tasks []*Task, totalCo
 		}
 	}
 
+	var eisenhowerCond builder.Cond
+	if opts.eisenhowerQuadrant != "" {
+		eisenhowerCond, err = eisenhowerQuadrantCond(opts.eisenhowerQuadrant, d.a, "tasks")
+		if err != nil {
+			return nil, 0, err
+		}
+	}
+
 	limit, start := getLimitFromPageIndex(opts.page, opts.perPage)
-	cond := builder.And(builder.Or(projectIDCond, favoritesCond), where, filterCond)
+	cond := builder.And(builder.Or(projectIDCond, favoritesCond), where, filterCond, eisenhowerCond)
 
 	// When the favorites arm is still part of the query (Favorites view, or
 	// out-of-scope favorites exist), its shape is unsupported — stay unranked.

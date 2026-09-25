@@ -1492,6 +1492,33 @@ func (err *ErrNeedsFullRecalculation) HTTPError() web.HTTPError {
 	}
 }
 
+// ErrInvalidEisenhowerQuadrant represents an error where an unknown Eisenhower matrix quadrant was requested
+type ErrInvalidEisenhowerQuadrant struct {
+	Quadrant string
+}
+
+// IsErrInvalidEisenhowerQuadrant checks if an error is ErrInvalidEisenhowerQuadrant.
+func IsErrInvalidEisenhowerQuadrant(err error) bool {
+	_, ok := err.(ErrInvalidEisenhowerQuadrant)
+	return ok
+}
+
+func (err ErrInvalidEisenhowerQuadrant) Error() string {
+	return fmt.Sprintf("Eisenhower quadrant is invalid [Quadrant: %s]", err.Quadrant)
+}
+
+// ErrCodeInvalidEisenhowerQuadrant holds the unique world-error code of this error
+const ErrCodeInvalidEisenhowerQuadrant = 4036
+
+// HTTPError holds the http error description
+func (err ErrInvalidEisenhowerQuadrant) HTTPError() web.HTTPError {
+	return web.HTTPError{
+		HTTPCode: http.StatusBadRequest,
+		Code:     ErrCodeInvalidEisenhowerQuadrant,
+		Message:  fmt.Sprintf("The eisenhower quadrant '%s' is invalid. It must be one of do, schedule, delegate, eliminate, unclassified.", err.Quadrant),
+	}
+}
+
 // ============
 // Team errors
 // ============

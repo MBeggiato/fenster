@@ -1,0 +1,44 @@
+# user 1: one task per quadrant, plus a done task in "do"
+- id: 1
+  task_id: 1
+  user_id: 1
+  urgent: true
+  important: true
+  created: 2018-12-01 15:13:12
+  updated: 2018-12-01 15:13:12
+- id: 2
+  task_id: 3
+  user_id: 1
+  urgent: false
+  important: true
+  created: 2018-12-01 15:13:12
+  updated: 2018-12-01 15:13:12
+- id: 3
+  task_id: 4
+  user_id: 1
+  urgent: true
+  important: false
+  created: 2018-12-01 15:13:12
+  updated: 2018-12-01 15:13:12
+- id: 4
+  task_id: 5
+  user_id: 1
+  urgent: false
+  important: false
+  created: 2018-12-01 15:13:12
+  updated: 2018-12-01 15:13:12
+- id: 5
+  task_id: 2 # done
+  user_id: 1
+  urgent: true
+  important: true
+  created: 2018-12-01 15:13:12
+  updated: 2018-12-01 15:13:12
+# user 2 on task 32 (project 3, shared read-only with users 1 and 2); user 1 leaves it unclassified
+- id: 6
+  task_id: 32
+  user_id: 2
+  urgent: true
+  important: true
+  created: 2018-12-01 15:13:12
+  updated: 2018-12-01 15:13:12

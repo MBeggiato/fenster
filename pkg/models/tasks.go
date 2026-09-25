@@ -134,6 +134,8 @@ type Task struct {
 
 	IsUnread *bool `xorm:"-" json:"is_unread,omitempty" readOnly:"true" doc:"Whether the task is unread for the requesting user. Only present when requested via the is_unread expand option."`
 
+	Eisenhower *TaskEisenhowerClassification `xorm:"-" json:"eisenhower,omitempty" readOnly:"true" doc:"The requesting user's personal Eisenhower matrix classification of this task. Only present when requested via the eisenhower expand option and the task is classified; use the eisenhower endpoints to change it."`
+
 	// The subscription status for the user reading this task. You can only read this property, use the subscription endpoints to modify it.
 	// Will only returned when retrieving one task.
 	Subscription *Subscription `xorm:"-" json:"subscription,omitempty" readOnly:"true" doc:"The requesting user's subscription to this task. Read-only here; use the subscription endpoints to change it. Only present when reading a single task."`
@@ -241,6 +243,10 @@ type taskSearchOptions struct {
 	projectIDs         []int64
 	expand             []TaskCollectionExpandable
 	projectViewID      int64
+
+	// eisenhowerQuadrant limits the result to one area of the requesting
+	// user's personal Eisenhower matrix. Empty means no restriction.
+	eisenhowerQuadrant EisenhowerQuadrant
 
 	// userProvidedSort distinguishes an explicit sort_by from the id/position
 	// defaults appended later, so relevance ordering only replaces the default sort.
@@ -810,6 +816,11 @@ func addMoreInfoToTasks(s *xorm.Session, taskMap map[int64]*Task, a web.Auth, vi
 				}
 			case TaskCollectionExpandIsUnread:
 				err = addIsUnreadToTasks(s, taskIDs, taskMap, a)
+				if err != nil {
+					return
+				}
+			case TaskCollectionExpandEisenhower:
+				err = addEisenhowerToTasks(s, taskIDs, taskMap, a)
 				if err != nil {
 					return
 				}
@@ -2188,6 +2199,12 @@ func hardDeleteTask(s *xorm.Session, t *Task) (err error) {
 
 	// Favorites of all users, not just the doer's
 	_, err = s.Where("entity_id = ? AND kind = ?", t.ID, FavoriteKindTask).Delete(&Favorite{})
+	if err != nil {
+		return
+	}
+
+	// Eisenhower classifications of all users, not just the doer's
+	_, err = s.Where("task_id = ?", t.ID).Delete(&TaskEisenhowerClassification{})
 	if err != nil {
 		return
 	}

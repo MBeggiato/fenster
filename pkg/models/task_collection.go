@@ -64,6 +64,11 @@ type TaskCollection struct {
 	// former sets this so a kanban view path still yields tasks.
 	forceFlatTasks bool
 
+	// eisenhowerQuadrant limits the result to one area of the caller's personal
+	// Eisenhower matrix. It isn't part of the filter language because the
+	// classification is per user and filters have no user context.
+	eisenhowerQuadrant EisenhowerQuadrant
+
 	web.CRUDable    `xorm:"-" json:"-"`
 	web.Permissions `xorm:"-" json:"-"`
 }
@@ -77,6 +82,7 @@ const TaskCollectionExpandComments TaskCollectionExpandable = `comments`
 const TaskCollectionExpandCommentCount TaskCollectionExpandable = `comment_count`
 const TaskCollectionExpandTimeEntriesCount TaskCollectionExpandable = `time_entries_count`
 const TaskCollectionExpandIsUnread TaskCollectionExpandable = `is_unread`
+const TaskCollectionExpandEisenhower TaskCollectionExpandable = `eisenhower`
 
 // Validate validates if the TaskCollectionExpandable value is valid.
 func (t TaskCollectionExpandable) Validate() error {
@@ -95,9 +101,11 @@ func (t TaskCollectionExpandable) Validate() error {
 		return nil
 	case TaskCollectionExpandIsUnread:
 		return nil
+	case TaskCollectionExpandEisenhower:
+		return nil
 	}
 
-	return InvalidFieldErrorWithMessage([]string{"expand"}, "Expand must be one of the following values: subtasks, buckets, reactions, comments, comment_count, time_entries_count, is_unread")
+	return InvalidFieldErrorWithMessage([]string{"expand"}, "Expand must be one of the following values: subtasks, buckets, reactions, comments, comment_count, time_entries_count, is_unread, eisenhower")
 }
 
 func validateTaskField(fieldName string) error {
@@ -147,6 +155,7 @@ func getTaskFilterOptsFromCollection(tf *TaskCollection, projectView *ProjectVie
 		filterIncludeNulls: tf.FilterIncludeNulls,
 		filter:             tf.Filter,
 		filterTimezone:     tf.FilterTimezone,
+		eisenhowerQuadrant: tf.eisenhowerQuadrant,
 	}
 
 	if projectView != nil {
@@ -161,6 +170,12 @@ func getTaskFilterOptsFromCollection(tf *TaskCollection, projectView *ProjectVie
 // The v2 tasks endpoint uses it; v1 leaves it unset for the polymorphic shape.
 func (tf *TaskCollection) SetForceFlatTasks() {
 	tf.forceFlatTasks = true
+}
+
+// SetEisenhowerQuadrant limits ReadAll to one area of the caller's personal
+// Eisenhower matrix. Only the v2 matrix endpoint sets it.
+func (tf *TaskCollection) SetEisenhowerQuadrant(q EisenhowerQuadrant) {
+	tf.eisenhowerQuadrant = q
 }
 
 func getTaskOrTasksInBuckets(s *xorm.Session, a web.Auth, projects []*Project, view *ProjectView, opts *taskSearchOptions, filteringForBucket, forceFlatTasks bool) (tasks interface{}, resultCount int, totalItems int64, err error) {
@@ -304,6 +319,7 @@ func (tf *TaskCollection) ReadAll(s *xorm.Session, a web.Auth, search string, pa
 		tc.isSavedFilter = true
 		tc.Expand = tf.Expand
 		tc.forceFlatTasks = tf.forceFlatTasks
+		tc.eisenhowerQuadrant = tf.eisenhowerQuadrant
 
 		if tf.Filter != "" {
 			if tc.Filter != "" {

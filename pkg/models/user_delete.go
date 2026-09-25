@@ -168,6 +168,7 @@ func DeleteUser(s *xorm.Session, u *user.User) (err error) {
 		{"owner_id", &SavedFilter{}},
 		{"user_id", &Reaction{}},
 		{"user_id", &Favorite{}},
+		{"user_id", &TaskEisenhowerClassification{}},
 		{"owner_id", &APIToken{}},
 	}
 

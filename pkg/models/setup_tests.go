@@ -85,6 +85,7 @@ func SetupTests() {
 		"totp",
 		"oauth_codes",
 		"notifications",
+		"task_eisenhower_classifications",
 	)
 	if err != nil {
 		log.Fatal(err)
