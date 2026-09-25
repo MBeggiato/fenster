@@ -2103,6 +2103,10 @@ export type Task = {
      */
     readonly done_at?: string;
     due_date?: string;
+    /**
+     * The requesting user's personal Eisenhower matrix classification of this task. Only present when requested via the eisenhower expand option and the task is classified; use the eisenhower endpoints to change it.
+     */
+    readonly eisenhower?: TaskEisenhowerClassification;
     end_date?: string;
     /**
      * The task color as a hex string without the leading '#'.
@@ -2354,6 +2358,37 @@ export type TaskDuplicate = {
     readonly duplicated_task?: Task;
 };
 
+export type TaskEisenhowerClassification = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * Whether the requesting user has classified this task. False means the task is unclassified; urgent and important are then false.
+     */
+    readonly classified?: boolean;
+    /**
+     * When the task was first classified.
+     */
+    readonly created?: string;
+    /**
+     * Whether the requesting user considers the task important.
+     */
+    important?: boolean;
+    /**
+     * The id of the classified task.
+     */
+    readonly task_id?: number;
+    /**
+     * When the classification last changed.
+     */
+    readonly updated?: string;
+    /**
+     * Whether the requesting user considers the task urgent.
+     */
+    urgent?: boolean;
+};
+
 export type TaskPosition = {
     /**
      * A URL to the JSON Schema for this object.
@@ -2436,6 +2471,10 @@ export type TaskReadOneBody = {
      */
     readonly done_at?: string;
     due_date?: string;
+    /**
+     * The requesting user's personal Eisenhower matrix classification of this task. Only present when requested via the eisenhower expand option and the task is classified; use the eisenhower endpoints to change it.
+     */
+    readonly eisenhower?: TaskEisenhowerClassification;
     end_date?: string;
     /**
      * The task color as a hex string without the leading '#'.
@@ -4472,6 +4511,17 @@ export type TaskDuplicateWritable = {
     [key: string]: never;
 };
 
+export type TaskEisenhowerClassificationWritable = {
+    /**
+     * Whether the requesting user considers the task important.
+     */
+    important?: boolean;
+    /**
+     * Whether the requesting user considers the task urgent.
+     */
+    urgent?: boolean;
+};
+
 export type TaskPositionWritable = {
     /**
      * The task's sort position within the view, as a float so a task can be placed between any two others. To drop a task between two neighbours, set this to their midpoint. Values below the minimum spacing trigger a server-side recalculation of all positions in the view, so the stored value may differ from what you sent.
@@ -5619,6 +5669,80 @@ export type BackgroundsUnsplashSearchResponses = {
 };
 
 export type BackgroundsUnsplashSearchResponse = BackgroundsUnsplashSearchResponses[keyof BackgroundsUnsplashSearchResponses];
+
+export type EisenhowerTasksListData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * The matrix area to list: do (urgent and important), schedule (important, not urgent), delegate (urgent, not important), eliminate (neither), or unclassified (tasks the user has not placed yet).
+         */
+        quadrant: 'do' | 'schedule' | 'delegate' | 'eliminate' | 'unclassified';
+        /**
+         * If true, also return done tasks. By default only open tasks are listed.
+         */
+        include_done?: boolean;
+        /**
+         * 1-based page number.
+         */
+        page?: number;
+        /**
+         * Items per page. Defaults to the instance's configured maximum (service.maxitemsperpage, reported as max_items_per_page by /info) and is silently capped at it; asking for more is not an error.
+         */
+        per_page?: number;
+        /**
+         * Search query; filters the list to items matching this string.
+         */
+        q?: string;
+        /**
+         * Filter query to match tasks by. See https://vikunja.io/docs/filters.
+         */
+        filter?: string;
+        /**
+         * Timezone used to resolve relative date filters like "now".
+         */
+        filter_timezone?: string;
+        /**
+         * If true, also include tasks whose filtered field is null.
+         */
+        filter_include_nulls?: boolean;
+        /**
+         * Fields to sort by (e.g. done, priority). Repeatable; pair positionally with order_by. The special value relevance sorts by search relevance (most relevant first, requires s; ignored when the database cannot score the query).
+         */
+        sort_by?: Array<string> | null;
+        /**
+         * Sort order per sort_by field, asc or desc. Repeatable; defaults to asc.
+         */
+        order_by?: Array<string> | null;
+        /**
+         * Embed extra, more expensive data per task. Repeatable.
+         */
+        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower'> | null;
+        /**
+         * How rich-text fields are exchanged. See the API description.
+         */
+        format?: 'html' | 'markdown';
+    };
+    url: '/eisenhower/tasks';
+};
+
+export type EisenhowerTasksListErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type EisenhowerTasksListError = EisenhowerTasksListErrors[keyof EisenhowerTasksListErrors];
+
+export type EisenhowerTasksListResponses = {
+    /**
+     * OK
+     */
+    200: PaginatedTask;
+};
+
+export type EisenhowerTasksListResponse = EisenhowerTasksListResponses[keyof EisenhowerTasksListResponses];
 
 export type FiltersCreateData = {
     body: SavedFilterWritable;
@@ -7469,7 +7593,7 @@ export type ProjectTasksListData = {
         /**
          * Embed extra, more expensive data per task. Repeatable.
          */
-        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread'> | null;
+        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower'> | null;
         /**
          * How rich-text fields are exchanged. See the API description.
          */
@@ -7600,7 +7724,7 @@ export type TasksReadByIndexData = {
         /**
          * Embed extra data per task. Repeatable.
          */
-        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread'> | null;
+        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower'> | null;
         /**
          * How rich-text fields are exchanged. See the API description.
          */
@@ -8219,7 +8343,7 @@ export type ProjectViewBucketsTasksListData = {
         /**
          * Embed extra, more expensive data per task. Repeatable.
          */
-        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread'> | null;
+        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower'> | null;
         /**
          * How rich-text fields are exchanged. See the API description.
          */
@@ -8381,7 +8505,7 @@ export type ProjectViewTasksListData = {
         /**
          * Embed extra, more expensive data per task. Repeatable.
          */
-        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread'> | null;
+        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower'> | null;
         /**
          * How rich-text fields are exchanged. See the API description.
          */
@@ -8722,7 +8846,7 @@ export type TasksListData = {
         /**
          * Embed extra, more expensive data per task. Repeatable.
          */
-        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread'> | null;
+        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower'> | null;
         /**
          * How rich-text fields are exchanged. See the API description.
          */
@@ -8876,7 +9000,7 @@ export type TasksReadData = {
         /**
          * Embed extra data per task. Repeatable.
          */
-        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread'> | null;
+        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower'> | null;
         /**
          * How rich-text fields are exchanged. See the API description.
          */
@@ -9481,6 +9605,126 @@ export type TasksDuplicateResponses = {
 };
 
 export type TasksDuplicateResponse = TasksDuplicateResponses[keyof TasksDuplicateResponses];
+
+export type TaskEisenhowerDeleteData = {
+    body?: never;
+    path: {
+        /**
+         * The numeric id of the task.
+         */
+        task: number;
+    };
+    query?: never;
+    url: '/tasks/{task}/eisenhower';
+};
+
+export type TaskEisenhowerDeleteErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type TaskEisenhowerDeleteError = TaskEisenhowerDeleteErrors[keyof TaskEisenhowerDeleteErrors];
+
+export type TaskEisenhowerDeleteResponses = {
+    /**
+     * No Content
+     */
+    204: void;
+};
+
+export type TaskEisenhowerDeleteResponse = TaskEisenhowerDeleteResponses[keyof TaskEisenhowerDeleteResponses];
+
+export type TaskEisenhowerReadData = {
+    body?: never;
+    path: {
+        /**
+         * The numeric id of the task.
+         */
+        task: number;
+    };
+    query?: never;
+    url: '/tasks/{task}/eisenhower';
+};
+
+export type TaskEisenhowerReadErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type TaskEisenhowerReadError = TaskEisenhowerReadErrors[keyof TaskEisenhowerReadErrors];
+
+export type TaskEisenhowerReadResponses = {
+    /**
+     * OK
+     */
+    200: TaskEisenhowerClassification;
+};
+
+export type TaskEisenhowerReadResponse = TaskEisenhowerReadResponses[keyof TaskEisenhowerReadResponses];
+
+export type PatchTaskEisenhowerReadData = {
+    body: Array<JsonPatchOp> | null;
+    path: {
+        /**
+         * The numeric id of the task.
+         */
+        task: number;
+    };
+    query?: never;
+    url: '/tasks/{task}/eisenhower';
+};
+
+export type PatchTaskEisenhowerReadErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PatchTaskEisenhowerReadError = PatchTaskEisenhowerReadErrors[keyof PatchTaskEisenhowerReadErrors];
+
+export type PatchTaskEisenhowerReadResponses = {
+    /**
+     * OK
+     */
+    200: TaskEisenhowerClassification;
+};
+
+export type PatchTaskEisenhowerReadResponse = PatchTaskEisenhowerReadResponses[keyof PatchTaskEisenhowerReadResponses];
+
+export type TaskEisenhowerUpdateData = {
+    body: TaskEisenhowerClassificationWritable;
+    path: {
+        /**
+         * The numeric id of the task.
+         */
+        task: number;
+    };
+    query?: never;
+    url: '/tasks/{task}/eisenhower';
+};
+
+export type TaskEisenhowerUpdateErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type TaskEisenhowerUpdateError = TaskEisenhowerUpdateErrors[keyof TaskEisenhowerUpdateErrors];
+
+export type TaskEisenhowerUpdateResponses = {
+    /**
+     * OK
+     */
+    200: TaskEisenhowerClassification;
+};
+
+export type TaskEisenhowerUpdateResponse = TaskEisenhowerUpdateResponses[keyof TaskEisenhowerUpdateResponses];
 
 export type TaskLabelsListData = {
     body?: never;
