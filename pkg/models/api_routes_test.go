@@ -476,7 +476,7 @@ func TestCanDoAPIRoute_ExpandScopes(t *testing.T) {
 	})
 
 	t.Run("unprotected expansions stay available to a tasks-only token", func(t *testing.T) {
-		for _, expand := range []string{"subtasks", "buckets", "is_unread", "eisenhower"} {
+		for _, expand := range []string{"subtasks", "buckets", "is_unread", "eisenhower", "pomodoro"} {
 			assert.True(t, do(t, "/api/v1/tasks?expand="+expand, tasksOnly))
 		}
 		assert.True(t, do(t, "/api/v1/tasks?expand=subtasks&expand=buckets&expand=is_unread", tasksOnly))
