@@ -39,6 +39,15 @@ export default class UserSettingsModel extends AbstractModel<IUserSettings> impl
 		desktopQuickEntryShortcut: 'CmdOrCtrl+Shift+A',
 		quickAddDefaultReminders: [],
 		defaultDueTime: undefined,
+		pomodoroFocusMinutes: 25,
+		pomodoroShortBreakMinutes: 5,
+		pomodoroLongBreakMinutes: 15,
+		pomodoroLongBreakEvery: 4,
+		pomodoroAutoStartBreaks: false,
+		pomodoroAutoStartFocus: false,
+		pomodoroSound: true,
+		pomodoroNotifications: false,
+		pomodoroLogTimeEntries: false,
 	}
 	extraSettingsLinks = {}
 

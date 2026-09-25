@@ -54,6 +54,7 @@ import {
 	faMinus,
 	faPaperclip,
 	faPaste,
+	faPause,
 	faPen,
 	faPencilAlt,
 	faPercent,
@@ -179,6 +180,7 @@ library.add(faPen)
 library.add(faPencilAlt)
 library.add(faPercent)
 library.add(faPlay)
+library.add(faPause)
 library.add(faPlus)
 library.add(faPowerOff)
 library.add(faRss)

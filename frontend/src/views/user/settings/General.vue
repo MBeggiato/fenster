@@ -254,6 +254,88 @@
 	</Card>
 
 	<Card
+		:title="$t('pomodoro.settings.title')"
+		class="general-settings section-block"
+		:loading="loading"
+	>
+		<div class="field-group">
+			<FormField
+				:label="$t('pomodoro.settings.focusMinutes')"
+				layout="two-col"
+			>
+				<FormInput
+					v-model.number="settings.frontendSettings.pomodoroFocusMinutes"
+					type="number"
+					min="1"
+					max="240"
+				/>
+			</FormField>
+			<FormField
+				:label="$t('pomodoro.settings.shortBreakMinutes')"
+				layout="two-col"
+			>
+				<FormInput
+					v-model.number="settings.frontendSettings.pomodoroShortBreakMinutes"
+					type="number"
+					min="1"
+					max="240"
+				/>
+			</FormField>
+			<FormField
+				:label="$t('pomodoro.settings.longBreakMinutes')"
+				layout="two-col"
+			>
+				<FormInput
+					v-model.number="settings.frontendSettings.pomodoroLongBreakMinutes"
+					type="number"
+					min="1"
+					max="240"
+				/>
+			</FormField>
+			<FormField
+				:label="$t('pomodoro.settings.longBreakEvery')"
+				layout="two-col"
+			>
+				<FormInput
+					v-model.number="settings.frontendSettings.pomodoroLongBreakEvery"
+					type="number"
+					min="1"
+					max="12"
+				/>
+			</FormField>
+			<FormCheckbox
+				v-model="settings.frontendSettings.pomodoroAutoStartBreaks"
+				:label="$t('pomodoro.settings.autoStartBreaks')"
+			/>
+			<FormCheckbox
+				v-model="settings.frontendSettings.pomodoroAutoStartFocus"
+				:label="$t('pomodoro.settings.autoStartFocus')"
+			/>
+			<FormCheckbox
+				v-model="settings.frontendSettings.pomodoroSound"
+				:label="$t('pomodoro.settings.sound')"
+			/>
+			<FormCheckbox
+				:model-value="settings.frontendSettings.pomodoroNotifications"
+				:label="$t('pomodoro.settings.notifications')"
+				@update:modelValue="onPomodoroNotificationsChange"
+			/>
+			<p
+				v-if="notificationsDenied"
+				class="pomodoro-notifications-denied"
+			>
+				{{ $t('pomodoro.settings.notificationsDenied') }}
+			</p>
+			<!-- Only the optional time-entry logging needs the licensed feature; the timer itself is free. -->
+			<FormCheckbox
+				v-if="timeTrackingEnabled"
+				v-model="settings.frontendSettings.pomodoroLogTimeEntries"
+				:label="$t('pomodoro.settings.logTimeEntries')"
+			/>
+		</div>
+	</Card>
+
+	<Card
 		v-if="isDesktop"
 		:title="$t('user.settings.sections.desktop')"
 		class="general-settings section-block"
@@ -326,6 +408,7 @@ import {formatDisplayDateFormat} from '@/helpers/time/formatDate'
 
 import {useTitle} from '@/composables/useTitle'
 
+import {usePomodoro} from '@/composables/usePomodoro'
 import {useProjects} from '@/composables/useProjects'
 import {useAuthStore} from '@/stores/auth'
 import {useConfigStore} from '@/stores/config'
@@ -422,6 +505,21 @@ const languageOptions = computed(() =>
 const authStore = useAuthStore()
 const configStore = useConfigStore()
 const timeTrackingEnabled = computed(() => configStore.isProFeatureEnabled(PRO_FEATURE.TIME_TRACKING))
+
+const notificationsDenied = ref(false)
+
+// Enabling notifications has to ask the browser first: a setting saved without
+// the permission would silently never fire.
+async function onPomodoroNotificationsChange(enabled: boolean) {
+	if (!enabled) {
+		settings.value.frontendSettings.pomodoroNotifications = false
+		notificationsDenied.value = false
+		return
+	}
+	const granted = await usePomodoro().requestNotificationPermission()
+	settings.value.frontendSettings.pomodoroNotifications = granted
+	notificationsDenied.value = !granted
+}
 
 const settings = ref<IUserSettings>({
 	...authStore.settings,
@@ -635,5 +733,10 @@ async function updateSettings() {
 	position: sticky;
 	inset-block-end: 0;
 	padding: .25rem 1rem 1rem;
+}
+
+.pomodoro-notifications-denied {
+	color: var(--warning);
+	font-size: .85rem;
 }
 </style>

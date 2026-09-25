@@ -13,6 +13,10 @@ export const SHORTCUTS = {
 		labels: 'KeyG KeyA',
 		teams: 'KeyG KeyM',
 	},
+	pomodoro: {
+		toggle: 'Space',
+		stop: 'Escape',
+	},
 	taskDetail: {
 		openProject: 'KeyU',
 		done: 'KeyT',

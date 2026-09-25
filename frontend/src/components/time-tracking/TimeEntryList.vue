@@ -123,6 +123,7 @@ import {useQueries} from '@tanstack/vue-query'
 import {getProjectTitle} from '@/helpers/getProjectTitle'
 import {formatDate} from '@/helpers/time/formatDate'
 import {parseDateOrNull} from '@/helpers/parseDateOrNull'
+import {formatDuration} from '@/helpers/time/formatDuration'
 import {useTimeFormat} from '@/composables/useTimeFormat'
 import {TIME_FORMAT} from '@/constants/timeFormat'
 
@@ -199,12 +200,6 @@ const rows = computed(() => props.entries.map(entry => {
 }))
 
 const totalSeconds = computed(() => rows.value.reduce((sum, row) => sum + (row.seconds ?? 0), 0))
-
-function formatDuration(seconds: number): string {
-	const hours = Math.floor(seconds / 3600)
-	const minutes = Math.floor((seconds % 3600) / 60)
-	return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`
-}
 
 function formatTime(date: Date): string {
 	return formatDate(date, timeFormat.value === TIME_FORMAT.HOURS_24 ? 'HH:mm' : 'hh:mm A')

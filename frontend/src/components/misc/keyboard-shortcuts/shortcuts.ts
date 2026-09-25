@@ -57,6 +57,20 @@ export const KEYBOARD_SHORTCUTS: ShortcutGroup[] = [
 		],
 	},
 	{
+		title: 'keyboardShortcuts.pomodoro.title',
+		available: (route) => route.name === 'pomodoro',
+		shortcuts: [
+			{
+				title: 'keyboardShortcuts.pomodoro.toggle',
+				...shortcutBindingToDisplay(SHORTCUTS.pomodoro.toggle),
+			},
+			{
+				title: 'keyboardShortcuts.pomodoro.stop',
+				...shortcutBindingToDisplay(SHORTCUTS.pomodoro.stop),
+			},
+		],
+	},
+	{
 		title: 'keyboardShortcuts.list.title',
 		available: (route) => route.name === 'project.view',
 		shortcuts: [

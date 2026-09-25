@@ -29,6 +29,15 @@ export interface IFrontendSettings {
 	quickAddDefaultReminders: {relativePeriod?: number}[]
 	timeTrackingDefaultStart?: string
 	defaultDueTime?: string
+	pomodoroFocusMinutes: number
+	pomodoroShortBreakMinutes: number
+	pomodoroLongBreakMinutes: number
+	pomodoroLongBreakEvery: number
+	pomodoroAutoStartBreaks: boolean
+	pomodoroAutoStartFocus: boolean
+	pomodoroSound: boolean
+	pomodoroNotifications: boolean
+	pomodoroLogTimeEntries: boolean
 }
 
 export function taskRemindersFromSettings(

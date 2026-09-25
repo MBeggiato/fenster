@@ -64,6 +64,7 @@
 
 		<div class="navbar-end">
 			<TimerBadge />
+			<PomodoroBadge />
 			<OpenQuickActions />
 			<Notifications />
 			<Dropdown>
@@ -140,6 +141,7 @@ import Dropdown from '@/components/misc/Dropdown.vue'
 import DropdownItem from '@/components/misc/DropdownItem.vue'
 import Notifications from '@/components/notifications/Notifications.vue'
 import TimerBadge from '@/components/time-tracking/TimerBadge.vue'
+import PomodoroBadge from '@/components/pomodoro/PomodoroBadge.vue'
 import Logo from '@/components/home/Logo.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import MenuButton from '@/components/home/MenuButton.vue'

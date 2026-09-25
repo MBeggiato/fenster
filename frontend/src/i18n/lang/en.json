@@ -838,6 +838,7 @@
     "overview": "Overview",
     "upcoming": "Upcoming",
     "eisenhower": "Eisenhower matrix",
+    "pomodoro": "Focus",
     "settings": "Settings",
     "imprint": "Imprint",
     "privacy": "Privacy Policy",
@@ -1486,6 +1487,11 @@
       "teams": "Navigate to teams",
       "projects": "Navigate to projects"
     },
+    "pomodoro": {
+      "title": "Focus Timer",
+      "toggle": "Start or pause the focus timer",
+      "stop": "Stop the focus timer"
+    },
     "list": {
       "title": "Task List",
       "navigateDown": "Highlight next task",
@@ -1696,6 +1702,94 @@
     "frontendVersion": "Frontend version: {version}",
     "apiVersion": "API version: {version}",
     "proActive": "Pro active"
+  },
+  "pomodoro": {
+    "title": "Focus",
+    "start": "Start focus",
+    "startWithDuration": "Start focus ({minutes} min)",
+    "switchHere": "Switch focus here",
+    "pause": "Pause",
+    "resume": "Resume",
+    "stop": "Stop",
+    "stopConfirm": "Stop the running focus session? It will be recorded as interrupted.",
+    "openFocusPage": "Open the focus page",
+    "idle": "No focus session running",
+    "phase": {
+      "focus": "Focus",
+      "short_break": "Short break",
+      "long_break": "Long break"
+    },
+    "done": {
+      "focus": "Focus done",
+      "short_break": "Break over",
+      "long_break": "Break over",
+      "next": {
+        "focus": "Back to focus — {minutes} min",
+        "short_break": "Time for a {minutes} min break",
+        "long_break": "Time for a long {minutes} min break"
+      }
+    },
+    "next": {
+      "start": "Start {phase}",
+      "skip": "Skip"
+    },
+    "task": {
+      "working": "Working on",
+      "none": "No task",
+      "search": "Search for a task…",
+      "clear": "Work without a task",
+      "estimate": "Estimate in focus sessions",
+      "estimateShort": "{completed} of {estimate}",
+      "focusTime": "Focus time",
+      "noneYet": "No focus sessions on this task yet."
+    },
+    "today": {
+      "title": "Today",
+      "focusTime": "{duration} focus",
+      "untilLongBreak": "long break after {count} more",
+      "untilLongBreakNow": "long break next",
+      "empty": "No focus sessions today yet.",
+      "completedAt": "Completed at {time}",
+      "interruptedAt": "Interrupted at {time}"
+    },
+    "tabs": {
+      "timer": "Timer",
+      "stats": "Stats"
+    },
+    "stats": {
+      "title": "Statistics",
+      "range": {
+        "thisWeek": "This week",
+        "lastWeek": "Last week",
+        "thisMonth": "This month",
+        "custom": "Custom"
+      },
+      "empty": "No focus sessions in this range.",
+      "focusTime": "Focus time",
+      "completed": "Completed",
+      "interrupted": "Interrupted",
+      "completionRate": "Completion rate",
+      "perDay": "Focus per day",
+      "topTasks": "Top tasks",
+      "topProjects": "Top projects",
+      "task": "Task",
+      "project": "Project",
+      "estimate": "Estimate",
+      "day": "Day"
+    },
+    "settings": {
+      "title": "Pomodoro",
+      "focusMinutes": "Focus length (minutes)",
+      "shortBreakMinutes": "Short break (minutes)",
+      "longBreakMinutes": "Long break (minutes)",
+      "longBreakEvery": "Long break after this many focus sessions",
+      "autoStartBreaks": "Start breaks automatically",
+      "autoStartFocus": "Start the next focus session automatically",
+      "sound": "Play a sound when a phase ends",
+      "notifications": "Show a desktop notification when a phase ends",
+      "notificationsDenied": "Your browser blocked notifications for Vikunja.",
+      "logTimeEntries": "Log finished focus sessions as time entries"
+    }
   },
   "timeTracking": {
     "title": "Time tracking",

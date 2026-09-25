@@ -470,6 +470,16 @@ const router = createRouter({
 			},
 		},
 		{
+			// Not license-gated: the focus timer is free. Only logging a finished
+			// focus phase as a time entry needs the time_tracking feature.
+			path: '/pomodoro',
+			name: 'pomodoro',
+			component: () => import('@/views/pomodoro/PomodoroView.vue'),
+			meta: {
+				title: 'pomodoro.title',
+			},
+		},
+		{
 			path: '/admin',
 			component: () => import('@/views/admin/AdminShell.vue'),
 			meta: {
