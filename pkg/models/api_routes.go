@@ -520,6 +520,7 @@ var expandScopeRoutes = map[string]bool{
 	"/api/v2/projects/:project/tasks/by-index/:index":     true,
 	"/api/v2/projects/:project/views/:view/tasks":         true,
 	"/api/v2/projects/:project/views/:view/buckets/tasks": true,
+	"/api/v2/eisenhower/tasks":                            true,
 }
 
 // ExpandScopeRoutes exposes the keys so pkg/webtests can assert they still match
@@ -540,7 +541,7 @@ func requiredScopeForExpand(value string) (group, permission string, needsScope 
 		return "reactions", "read_all", true
 	case TaskCollectionExpandTimeEntriesCount:
 		return "time_entries", "read_all", true
-	case TaskCollectionExpandSubtasks, TaskCollectionExpandBuckets, TaskCollectionExpandIsUnread:
+	case TaskCollectionExpandSubtasks, TaskCollectionExpandBuckets, TaskCollectionExpandIsUnread, TaskCollectionExpandEisenhower:
 		return "", "", false
 	}
 	return "", "", false

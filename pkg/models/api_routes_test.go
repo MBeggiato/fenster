@@ -425,6 +425,7 @@ func TestCanDoAPIRoute_ExpandScopes(t *testing.T) {
 		{Method: "GET", Path: "/api/v2/projects/:project/tasks/by-index/:index"},
 		{Method: "GET", Path: "/api/v2/projects/:project/views/:view/tasks"},
 		{Method: "GET", Path: "/api/v2/projects/:project/views/:view/buckets/tasks"},
+		{Method: "GET", Path: "/api/v2/eisenhower/tasks"},
 	} {
 		CollectRoutesForAPITokenUsage(r, true)
 	}
@@ -475,7 +476,7 @@ func TestCanDoAPIRoute_ExpandScopes(t *testing.T) {
 	})
 
 	t.Run("unprotected expansions stay available to a tasks-only token", func(t *testing.T) {
-		for _, expand := range []string{"subtasks", "buckets", "is_unread"} {
+		for _, expand := range []string{"subtasks", "buckets", "is_unread", "eisenhower"} {
 			assert.True(t, do(t, "/api/v1/tasks?expand="+expand, tasksOnly))
 		}
 		assert.True(t, do(t, "/api/v1/tasks?expand=subtasks&expand=buckets&expand=is_unread", tasksOnly))
@@ -498,6 +499,30 @@ func TestCanDoAPIRoute_ExpandScopes(t *testing.T) {
 			assert.False(t, do(t, path+"?expand=comments", tasksOnly), "%s must require the comment scope", path)
 			assert.True(t, do(t, path+"?expand=comments", withScopes), "%s must allow the expansion with the scope", path)
 		}
+	})
+
+	t.Run("eisenhower matrix list", func(t *testing.T) {
+		var group, permission string
+		for g, routes := range GetAPITokenRoutes() {
+			for p, detail := range routes {
+				if detail != nil && detail.Path == "/api/v2/eisenhower/tasks" {
+					group, permission = g, p
+				}
+			}
+		}
+		require.NotEmpty(t, group, "the matrix list must be grantable to tokens")
+
+		matrixOnly := &APIToken{APIPermissions: APIPermissions{group: []string{permission}}}
+		assert.True(t, do(t, "/api/v2/eisenhower/tasks?quadrant=do&expand=eisenhower", matrixOnly),
+			"the caller's own classification needs no extra scope")
+		assert.False(t, do(t, "/api/v2/eisenhower/tasks?quadrant=do&expand=comments", matrixOnly),
+			"the matrix list must not unlock comments")
+
+		matrixWithComments := &APIToken{APIPermissions: APIPermissions{
+			group:            []string{permission},
+			"tasks_comments": []string{"read_all"},
+		}}
+		assert.True(t, do(t, "/api/v2/eisenhower/tasks?quadrant=do&expand=comments", matrixWithComments))
 	})
 
 	t.Run("expand is ignored on unrelated routes", func(t *testing.T) {

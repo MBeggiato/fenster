@@ -22,6 +22,7 @@ import (
 	"net/http"
 
 	"code.vikunja.io/api/pkg/models"
+	"code.vikunja.io/api/pkg/web"
 	"code.vikunja.io/api/pkg/web/handler"
 
 	"github.com/danielgtaylor/huma/v2"
@@ -60,7 +61,7 @@ type TaskListQueryParams struct {
 	FilterIncludeNulls bool     `query:"filter_include_nulls" doc:"If true, also include tasks whose filtered field is null."`
 	SortBy             []string `query:"sort_by,explode" doc:"Fields to sort by (e.g. done, priority). Repeatable; pair positionally with order_by. The special value relevance sorts by search relevance (most relevant first, requires s; ignored when the database cannot score the query)."`
 	OrderBy            []string `query:"order_by,explode" doc:"Sort order per sort_by field, asc or desc. Repeatable; defaults to asc."`
-	Expand             []string `query:"expand,explode" enum:"subtasks,buckets,reactions,comments,comment_count,time_entries_count,is_unread" doc:"Embed extra, more expensive data per task. Repeatable."`
+	Expand             []string `query:"expand,explode" enum:"subtasks,buckets,reactions,comments,comment_count,time_entries_count,is_unread,eisenhower" doc:"Embed extra, more expensive data per task. Repeatable."`
 	Format             string   `query:"format" enum:"html,markdown" doc:"How rich-text fields are exchanged. See the API description."`
 }
 
@@ -194,7 +195,13 @@ func readFlatTasks(ctx context.Context, f taskListFilters, page, perPage int, pr
 	if err != nil {
 		return nil, err
 	}
-	result, _, total, err := handler.DoReadAll(ctx, tc, a, f.Q, page, perPage)
+	return readTaskCollection(ctx, a, tc, f.Q, page, perPage)
+}
+
+// readTaskCollection runs DoReadAll on a prepared flat TaskCollection and
+// unwraps the result.
+func readTaskCollection(ctx context.Context, a web.Auth, tc *models.TaskCollection, search string, page, perPage int) (*taskListBody, error) {
+	result, _, total, err := handler.DoReadAll(ctx, tc, a, search, page, perPage)
 	if err != nil {
 		return nil, translateDomainError(err)
 	}
