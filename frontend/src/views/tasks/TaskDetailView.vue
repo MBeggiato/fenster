@@ -474,6 +474,12 @@
 						:task="taskQuery.task.value"
 					/>
 
+					<!-- Personal too: the focus history and estimate are the caller's own -->
+					<TaskPomodoro
+						v-if="canClassify && taskQuery.task.value"
+						:task="taskQuery.task.value"
+					/>
+
 					<template v-if="canWrite">
 						<span class="action-heading">{{ $t('task.detail.organization') }}</span>
 						
@@ -689,6 +695,7 @@ import Description from '@/components/tasks/partials/Description.vue'
 import EditAssignees from '@/components/tasks/partials/EditAssignees.vue'
 import EditLabels from '@/components/tasks/partials/EditLabels.vue'
 import EisenhowerToggles from '@/components/tasks/partials/EisenhowerToggles.vue'
+import TaskPomodoro from '@/components/pomodoro/TaskPomodoro.vue'
 import Heading from '@/components/tasks/partials/Heading.vue'
 import ProjectSearch from '@/components/tasks/partials/ProjectSearch.vue'
 import PercentDoneSelect from '@/components/tasks/partials/PercentDoneSelect.vue'
@@ -770,7 +777,7 @@ const taskQuery = useTask(
 		'is_unread',
 		'buckets',
 		...(timeTrackingEnabled.value ? ['time_entries_count' as const] : []),
-		...(canClassify.value ? ['eisenhower' as const] : []),
+		...(canClassify.value ? ['eisenhower' as const, 'pomodoro' as const] : []),
 	],
 )
 const task = ref<ITask>(createTaskDraft())
