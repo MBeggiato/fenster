@@ -73,6 +73,8 @@ func GetTables() []interface{} {
 		&TaskBucket{},
 		&TaskUnreadStatus{},
 		&TaskEisenhowerClassification{},
+		&PomodoroSession{},
+		&TaskPomodoroEstimate{},
 		&Session{},
 		&OAuthCode{},
 		&TimeEntry{},

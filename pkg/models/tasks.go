@@ -136,6 +136,8 @@ type Task struct {
 
 	Eisenhower *TaskEisenhowerClassification `xorm:"-" json:"eisenhower,omitempty" readOnly:"true" doc:"The requesting user's personal Eisenhower matrix classification of this task. Only present when requested via the eisenhower expand option and the task is classified; use the eisenhower endpoints to change it."`
 
+	Pomodoro *TaskPomodoroSummary `xorm:"-" json:"pomodoro,omitempty" readOnly:"true" doc:"The requesting user's own pomodoro history and estimate for this task. Only present when requested via the pomodoro expand option; use the pomodoro endpoints to change the estimate."`
+
 	// The subscription status for the user reading this task. You can only read this property, use the subscription endpoints to modify it.
 	// Will only returned when retrieving one task.
 	Subscription *Subscription `xorm:"-" json:"subscription,omitempty" readOnly:"true" doc:"The requesting user's subscription to this task. Read-only here; use the subscription endpoints to change it. Only present when reading a single task."`
@@ -821,6 +823,11 @@ func addMoreInfoToTasks(s *xorm.Session, taskMap map[int64]*Task, a web.Auth, vi
 				}
 			case TaskCollectionExpandEisenhower:
 				err = addEisenhowerToTasks(s, taskIDs, taskMap, a)
+				if err != nil {
+					return
+				}
+			case TaskCollectionExpandPomodoro:
+				err = addPomodoroToTasks(s, a, taskIDs, taskMap)
 				if err != nil {
 					return
 				}
@@ -2205,6 +2212,19 @@ func hardDeleteTask(s *xorm.Session, t *Task) (err error) {
 
 	// Eisenhower classifications of all users, not just the doer's
 	_, err = s.Where("task_id = ?", t.ID).Delete(&TaskEisenhowerClassification{})
+	if err != nil {
+		return
+	}
+
+	// Pomodoro estimates of all users, not just the doer's
+	_, err = s.Where("task_id = ?", t.ID).Delete(&TaskPomodoroEstimate{})
+	if err != nil {
+		return
+	}
+
+	// Pomodoro sessions are kept but detached, so the focus time and the
+	// statistics survive a deleted task.
+	_, err = s.Where("task_id = ?", t.ID).Cols("task_id").Update(&PomodoroSession{TaskID: 0})
 	if err != nil {
 		return
 	}

@@ -86,6 +86,8 @@ func SetupTests() {
 		"oauth_codes",
 		"notifications",
 		"task_eisenhower_classifications",
+		"pomodoro_sessions",
+		"task_pomodoro_estimates",
 	)
 	if err != nil {
 		log.Fatal(err)

@@ -1,0 +1,110 @@
+# user 1: a finished focus cycle on task 1, plus one interrupted phase and a break
+- id: 1
+  user_id: 1
+  task_id: 1
+  phase: focus
+  planned_seconds: 1500
+  started_at: 2018-12-01 10:00:00
+  ended_at: 2018-12-01 10:25:00
+  paused_at: ~
+  paused_seconds: 0
+  interrupted: false
+  log_time_entry: false
+  created: 2018-12-01 10:00:00
+  updated: 2018-12-01 10:25:00
+- id: 2
+  user_id: 1
+  task_id: 1
+  phase: focus
+  planned_seconds: 1500
+  started_at: 2018-12-01 11:00:00
+  ended_at: 2018-12-01 11:10:00
+  paused_at: ~
+  paused_seconds: 0
+  interrupted: true
+  log_time_entry: false
+  created: 2018-12-01 11:00:00
+  updated: 2018-12-01 11:10:00
+- id: 3
+  user_id: 1
+  task_id: 0
+  phase: short_break
+  planned_seconds: 300
+  started_at: 2018-12-01 11:10:00
+  ended_at: 2018-12-01 11:15:00
+  paused_at: ~
+  paused_seconds: 0
+  interrupted: false
+  log_time_entry: false
+  created: 2018-12-01 11:10:00
+  updated: 2018-12-01 11:15:00
+# Ran 30 wall minutes but 5 of them paused, so it counts 25 minutes of focus
+- id: 4
+  user_id: 1
+  task_id: 1
+  phase: focus
+  planned_seconds: 1500
+  started_at: 2018-12-01 12:00:00
+  ended_at: 2018-12-01 12:30:00
+  paused_at: ~
+  paused_seconds: 300
+  interrupted: false
+  log_time_entry: false
+  created: 2018-12-01 12:00:00
+  updated: 2018-12-01 12:30:00
+# user 2 on task 32 (project 3, shared read-only with users 1 and 2): user 1 must never see this
+- id: 5
+  user_id: 2
+  task_id: 32
+  phase: focus
+  planned_seconds: 1500
+  started_at: 2018-12-01 10:00:00
+  ended_at: 2018-12-01 10:25:00
+  paused_at: ~
+  paused_seconds: 0
+  interrupted: false
+  log_time_entry: false
+  created: 2018-12-01 10:00:00
+  updated: 2018-12-01 10:25:00
+# user 6: a running session whose phase expired long ago — the lazy finalizer closes it
+- id: 6
+  user_id: 6
+  task_id: 0
+  phase: focus
+  planned_seconds: 1500
+  started_at: 2018-12-01 13:00:00
+  ended_at: ~
+  paused_at: ~
+  paused_seconds: 0
+  interrupted: false
+  log_time_entry: false
+  created: 2018-12-01 13:00:00
+  updated: 2018-12-01 13:00:00
+# user 7: paused since 2018 — a paused session has no due time and must stay open
+- id: 7
+  user_id: 7
+  task_id: 0
+  phase: focus
+  planned_seconds: 1500
+  started_at: 2018-12-01 13:00:00
+  ended_at: ~
+  paused_at: 2018-12-01 13:01:00
+  paused_seconds: 0
+  interrupted: false
+  log_time_entry: false
+  created: 2018-12-01 13:00:00
+  updated: 2018-12-01 13:01:00
+# user 8: a running session on task 1 with time-entry logging asked for at start
+- id: 8
+  user_id: 8
+  task_id: 1
+  phase: focus
+  planned_seconds: 1500
+  started_at: 2018-12-01 13:00:00
+  ended_at: ~
+  paused_at: ~
+  paused_seconds: 0
+  interrupted: false
+  log_time_entry: true
+  created: 2018-12-01 13:00:00
+  updated: 2018-12-01 13:00:00

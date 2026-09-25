@@ -2911,3 +2911,35 @@ func (err ErrUserDataExportDoesNotExist) HTTPError() web.HTTPError {
 		Message:  "No user data export found.",
 	}
 }
+
+// ================
+// Pomodoro errors
+// ================
+
+// ErrNoActivePomodoroSession represents an error where a user has no running or
+// paused pomodoro session to act on.
+type ErrNoActivePomodoroSession struct {
+	UserID int64
+}
+
+// IsErrNoActivePomodoroSession checks if an error is ErrNoActivePomodoroSession.
+func IsErrNoActivePomodoroSession(err error) bool {
+	_, ok := err.(ErrNoActivePomodoroSession)
+	return ok
+}
+
+func (err ErrNoActivePomodoroSession) Error() string {
+	return fmt.Sprintf("No active pomodoro session [UserID: %d]", err.UserID)
+}
+
+// ErrCodeNoActivePomodoroSession holds the unique world-error code of this error
+const ErrCodeNoActivePomodoroSession = 20001
+
+// HTTPError holds the http error description
+func (err ErrNoActivePomodoroSession) HTTPError() web.HTTPError {
+	return web.HTTPError{
+		HTTPCode: http.StatusNotFound,
+		Code:     ErrCodeNoActivePomodoroSession,
+		Message:  "You do not have an active pomodoro session.",
+	}
+}
