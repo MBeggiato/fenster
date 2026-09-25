@@ -821,7 +821,8 @@ test.describe('Task', () => {
 
 			const dueDateColumn = page.locator('.task-view .columns.details .column').filter({hasText: 'Due Date'})
 			await expect(dueDateColumn).not.toBeVisible()
-			await page.locator('.task-view .action-buttons').click()
+			// Focus the page on a non-interactive heading; the column's center can hit a button.
+			await page.locator('.task-view .action-buttons .action-heading', {hasText: 'Organization'}).click()
 			await page.locator('body').press('d')
 			await expect(dueDateColumn).toBeVisible()
 

@@ -436,7 +436,7 @@
 				
 				<!-- Task Actions -->
 				<div
-					v-if="canWrite || isModal"
+					v-if="canWrite || isModal || canClassify"
 					class="column is-one-third action-buttons d-print-none"
 				>
 					<template v-if="canWrite">
@@ -466,7 +466,15 @@
 								task.is_favorite ? $t('task.detail.actions.unfavorite') : $t('task.detail.actions.favorite')
 							}}
 						</XButton>
-						
+					</template>
+
+					<!-- Personal, so read access is enough -->
+					<EisenhowerToggles
+						v-if="canClassify && taskQuery.task.value"
+						:task="taskQuery.task.value"
+					/>
+
+					<template v-if="canWrite">
 						<span class="action-heading">{{ $t('task.detail.organization') }}</span>
 						
 						<XButton
@@ -680,6 +688,7 @@ import Datepicker from '@/components/input/Datepicker.vue'
 import Description from '@/components/tasks/partials/Description.vue'
 import EditAssignees from '@/components/tasks/partials/EditAssignees.vue'
 import EditLabels from '@/components/tasks/partials/EditLabels.vue'
+import EisenhowerToggles from '@/components/tasks/partials/EisenhowerToggles.vue'
 import Heading from '@/components/tasks/partials/Heading.vue'
 import ProjectSearch from '@/components/tasks/partials/ProjectSearch.vue'
 import PercentDoneSelect from '@/components/tasks/partials/PercentDoneSelect.vue'
@@ -751,6 +760,8 @@ const authStore = useAuthStore()
 const timeTrackingEnabled = computed(() => configStore.isProFeatureEnabled(PRO_FEATURE.TIME_TRACKING)
 	&& !authStore.isLinkShareAuth)
 const baseStore = useBaseStore()
+// A link share has no user to own a classification.
+const canClassify = computed(() => !authStore.isLinkShareAuth)
 
 const taskQuery = useTask(
 	() => props.taskId ?? 0,
@@ -759,6 +770,7 @@ const taskQuery = useTask(
 		'is_unread',
 		'buckets',
 		...(timeTrackingEnabled.value ? ['time_entries_count' as const] : []),
+		...(canClassify.value ? ['eisenhower' as const] : []),
 	],
 )
 const task = ref<ITask>(createTaskDraft())
