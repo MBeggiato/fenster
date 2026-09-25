@@ -1226,6 +1226,18 @@ export type PaginatedLinkSharing = {
     total_pages?: number;
 };
 
+export type PaginatedPomodoroSession = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    items?: Array<PomodoroSession> | null;
+    page?: number;
+    per_page?: number;
+    total?: number;
+    total_pages?: number;
+};
+
 export type PaginatedProject = {
     /**
      * A URL to the JSON Schema for this object.
@@ -1409,6 +1421,158 @@ export type PasswordTokenRequest = {
      */
     readonly $schema?: string;
     email?: string;
+};
+
+export type PomodoroSession = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * A timestamp when this session was created.
+     */
+    readonly created?: string;
+    /**
+     * When the phase ended. Null while it is still running or paused.
+     */
+    readonly ended_at?: string | null;
+    /**
+     * The unique, numeric id of this session.
+     */
+    readonly id?: number;
+    /**
+     * True when the session was stopped early or replaced by a new one. An interrupted focus phase counts as focus time but not as a completed pomodoro.
+     */
+    readonly interrupted?: boolean;
+    /**
+     * Whether a finished focus phase should also be logged as a time entry. Only honoured with a task and a licensed time_tracking feature.
+     */
+    log_time_entry?: boolean;
+    /**
+     * When the running pause started. Null unless the session is paused.
+     */
+    readonly paused_at?: string | null;
+    /**
+     * Total seconds this session spent paused, excluding a pause that is still running.
+     */
+    readonly paused_seconds?: number;
+    /**
+     * Which leg of the cycle this session is: focus, short_break or long_break.
+     */
+    phase?: 'focus' | 'short_break' | 'long_break';
+    /**
+     * How long the phase was planned to run, in seconds. Between 60 and 14400.
+     */
+    planned_seconds?: number;
+    /**
+     * Seconds left in the phase when the response was built. Count down locally from here.
+     */
+    readonly remaining_seconds?: number;
+    /**
+     * When the phase started.
+     */
+    readonly started_at?: string;
+    /**
+     * The derived lifecycle of this session: running, paused or finished.
+     */
+    readonly status?: 'running' | 'paused' | 'finished';
+    /**
+     * The task this session is about, when it has one and you can read it.
+     */
+    readonly task?: Task;
+    /**
+     * The task this session is about, or 0 for a session without a task.
+     */
+    task_id?: number;
+    /**
+     * A timestamp when this session was last updated.
+     */
+    readonly updated?: string;
+};
+
+export type PomodoroStats = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * Focus phases completed in the range.
+     */
+    completed?: number;
+    /**
+     * One entry per day in the range that has sessions, oldest first.
+     */
+    days?: Array<PomodoroStatsDay> | null;
+    /**
+     * Total focus seconds in the range, interrupted phases included.
+     */
+    focus_seconds?: number;
+    /**
+     * Start of the range these numbers cover.
+     */
+    from?: string;
+    /**
+     * Focus phases stopped early in the range.
+     */
+    interrupted?: number;
+    /**
+     * Projects by focus time, most first.
+     */
+    projects?: Array<PomodoroStatsGroup> | null;
+    /**
+     * Tasks by focus time, most first.
+     */
+    tasks?: Array<PomodoroStatsGroup> | null;
+    /**
+     * End of the range these numbers cover.
+     */
+    to?: string;
+};
+
+export type PomodoroStatsDay = {
+    /**
+     * Focus phases completed that day.
+     */
+    completed?: number;
+    /**
+     * The day, as YYYY-MM-DD in the requested timezone.
+     */
+    date?: string;
+    /**
+     * Focus seconds on that day, interrupted phases included.
+     */
+    focus_seconds?: number;
+    /**
+     * Focus phases stopped early that day.
+     */
+    interrupted?: number;
+};
+
+export type PomodoroStatsGroup = {
+    /**
+     * Focus phases completed in this group.
+     */
+    completed?: number;
+    /**
+     * The user's estimate in focus phases for this task, 0 for projects and unestimated tasks.
+     */
+    estimate?: number;
+    /**
+     * Focus seconds in this group.
+     */
+    focus_seconds?: number;
+    /**
+     * The id of the task or project, or 0 for the catch-all group.
+     */
+    id?: number;
+    /**
+     * Focus phases stopped early in this group.
+     */
+    interrupted?: number;
+    /**
+     * The title of the task or project. "Other" collects sessions whose task was deleted or is no longer readable.
+     */
+    title?: string;
 };
 
 export type PreviewResult = {
@@ -2141,6 +2305,10 @@ export type Task = {
      */
     percent_done?: number;
     /**
+     * The requesting user's own pomodoro history and estimate for this task. Only present when requested via the pomodoro expand option; use the pomodoro endpoints to change the estimate.
+     */
+    readonly pomodoro?: TaskPomodoroSummary;
+    /**
      * The task's position, saved per view. Only non-zero when the task is fetched through a view endpoint; use the task-position endpoint to change it.
      */
     readonly position?: number;
@@ -2389,6 +2557,52 @@ export type TaskEisenhowerClassification = {
     urgent?: boolean;
 };
 
+export type TaskPomodoroEstimate = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * When the task was first estimated.
+     */
+    readonly created?: string;
+    /**
+     * How many focus phases the requesting user expects this task to take, 1 to 99.
+     */
+    estimate?: number;
+    /**
+     * Whether the requesting user has estimated this task. False means no estimate; estimate is then 0.
+     */
+    readonly estimated?: boolean;
+    /**
+     * The id of the estimated task.
+     */
+    readonly task_id?: number;
+    /**
+     * When the estimate last changed.
+     */
+    readonly updated?: string;
+};
+
+export type TaskPomodoroSummary = {
+    /**
+     * How many focus phases the requesting user completed on this task.
+     */
+    readonly completed?: number;
+    /**
+     * The requesting user's estimate in focus phases, or 0 when they have not estimated it.
+     */
+    readonly estimate?: number;
+    /**
+     * Total focus seconds the requesting user spent on this task, interrupted phases included.
+     */
+    readonly focus_seconds?: number;
+    /**
+     * How many focus phases the requesting user stopped early on this task.
+     */
+    readonly interrupted?: number;
+};
+
 export type TaskPosition = {
     /**
      * A URL to the JSON Schema for this object.
@@ -2512,6 +2726,10 @@ export type TaskReadOneBody = {
      * How far the task is from done, between 0 and 1.
      */
     percent_done?: number;
+    /**
+     * The requesting user's own pomodoro history and estimate for this task. Only present when requested via the pomodoro expand option; use the pomodoro endpoints to change the estimate.
+     */
+    readonly pomodoro?: TaskPomodoroSummary;
     /**
      * The task's position, saved per view. Only non-zero when the task is fetched through a view endpoint; use the task-position endpoint to change it.
      */
@@ -4053,6 +4271,14 @@ export type PaginatedLinkSharingWritable = {
     total_pages?: number;
 };
 
+export type PaginatedPomodoroSessionWritable = {
+    items?: Array<PomodoroSessionWritable> | null;
+    page?: number;
+    per_page?: number;
+    total?: number;
+    total_pages?: number;
+};
+
 export type PaginatedProjectWritable = {
     items?: Array<ProjectWritable> | null;
     page?: number;
@@ -4172,6 +4398,60 @@ export type PasswordResetWritable = {
 
 export type PasswordTokenRequestWritable = {
     email?: string;
+};
+
+export type PomodoroSessionWritable = {
+    /**
+     * Whether a finished focus phase should also be logged as a time entry. Only honoured with a task and a licensed time_tracking feature.
+     */
+    log_time_entry?: boolean;
+    /**
+     * Which leg of the cycle this session is: focus, short_break or long_break.
+     */
+    phase?: 'focus' | 'short_break' | 'long_break';
+    /**
+     * How long the phase was planned to run, in seconds. Between 60 and 14400.
+     */
+    planned_seconds?: number;
+    /**
+     * The task this session is about, or 0 for a session without a task.
+     */
+    task_id?: number;
+};
+
+export type PomodoroStatsWritable = {
+    /**
+     * Focus phases completed in the range.
+     */
+    completed?: number;
+    /**
+     * One entry per day in the range that has sessions, oldest first.
+     */
+    days?: Array<PomodoroStatsDay> | null;
+    /**
+     * Total focus seconds in the range, interrupted phases included.
+     */
+    focus_seconds?: number;
+    /**
+     * Start of the range these numbers cover.
+     */
+    from?: string;
+    /**
+     * Focus phases stopped early in the range.
+     */
+    interrupted?: number;
+    /**
+     * Projects by focus time, most first.
+     */
+    projects?: Array<PomodoroStatsGroup> | null;
+    /**
+     * Tasks by focus time, most first.
+     */
+    tasks?: Array<PomodoroStatsGroup> | null;
+    /**
+     * End of the range these numbers cover.
+     */
+    to?: string;
 };
 
 export type PreviewResultWritable = {
@@ -4520,6 +4800,13 @@ export type TaskEisenhowerClassificationWritable = {
      * Whether the requesting user considers the task urgent.
      */
     urgent?: boolean;
+};
+
+export type TaskPomodoroEstimateWritable = {
+    /**
+     * How many focus phases the requesting user expects this task to take, 1 to 99.
+     */
+    estimate?: number;
 };
 
 export type TaskPositionWritable = {
@@ -5717,7 +6004,7 @@ export type EisenhowerTasksListData = {
         /**
          * Embed extra, more expensive data per task. Repeatable.
          */
-        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower'> | null;
+        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower' | 'pomodoro'> | null;
         /**
          * How rich-text fields are exchanged. See the API description.
          */
@@ -7021,6 +7308,219 @@ export type OauthTokenResponses = {
 
 export type OauthTokenResponse = OauthTokenResponses[keyof OauthTokenResponses];
 
+export type PomodoroCurrentData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/pomodoro/current';
+};
+
+export type PomodoroCurrentErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PomodoroCurrentError = PomodoroCurrentErrors[keyof PomodoroCurrentErrors];
+
+export type PomodoroCurrentResponses = {
+    /**
+     * OK
+     */
+    200: PomodoroSession;
+};
+
+export type PomodoroCurrentResponse = PomodoroCurrentResponses[keyof PomodoroCurrentResponses];
+
+export type PomodoroPauseData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/pomodoro/current/pause';
+};
+
+export type PomodoroPauseErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PomodoroPauseError = PomodoroPauseErrors[keyof PomodoroPauseErrors];
+
+export type PomodoroPauseResponses = {
+    /**
+     * OK
+     */
+    200: PomodoroSession;
+};
+
+export type PomodoroPauseResponse = PomodoroPauseResponses[keyof PomodoroPauseResponses];
+
+export type PomodoroResumeData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/pomodoro/current/resume';
+};
+
+export type PomodoroResumeErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PomodoroResumeError = PomodoroResumeErrors[keyof PomodoroResumeErrors];
+
+export type PomodoroResumeResponses = {
+    /**
+     * OK
+     */
+    200: PomodoroSession;
+};
+
+export type PomodoroResumeResponse = PomodoroResumeResponses[keyof PomodoroResumeResponses];
+
+export type PomodoroStopData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/pomodoro/current/stop';
+};
+
+export type PomodoroStopErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PomodoroStopError = PomodoroStopErrors[keyof PomodoroStopErrors];
+
+export type PomodoroStopResponses = {
+    /**
+     * OK
+     */
+    200: PomodoroSession;
+};
+
+export type PomodoroStopResponse = PomodoroStopResponses[keyof PomodoroStopResponses];
+
+export type PomodoroSessionsListData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * 1-based page number.
+         */
+        page?: number;
+        /**
+         * Items per page. Defaults to the instance's configured maximum (service.maxitemsperpage, reported as max_items_per_page by /info) and is silently capped at it; asking for more is not an error.
+         */
+        per_page?: number;
+        /**
+         * Search query; filters the list to items matching this string.
+         */
+        q?: string;
+        /**
+         * Only return sessions that started at or after this time (RFC 3339).
+         */
+        from?: string;
+        /**
+         * Only return sessions that started at or before this time (RFC 3339).
+         */
+        to?: string;
+        /**
+         * Only return sessions about this task. 0 or absent means no restriction.
+         */
+        task_id?: number;
+    };
+    url: '/pomodoro/sessions';
+};
+
+export type PomodoroSessionsListErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PomodoroSessionsListError = PomodoroSessionsListErrors[keyof PomodoroSessionsListErrors];
+
+export type PomodoroSessionsListResponses = {
+    /**
+     * OK
+     */
+    200: PaginatedPomodoroSession;
+};
+
+export type PomodoroSessionsListResponse = PomodoroSessionsListResponses[keyof PomodoroSessionsListResponses];
+
+export type PomodoroStartData = {
+    body: PomodoroSessionWritable;
+    path?: never;
+    query?: never;
+    url: '/pomodoro/sessions';
+};
+
+export type PomodoroStartErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PomodoroStartError = PomodoroStartErrors[keyof PomodoroStartErrors];
+
+export type PomodoroStartResponses = {
+    /**
+     * Created
+     */
+    201: PomodoroSession;
+};
+
+export type PomodoroStartResponse = PomodoroStartResponses[keyof PomodoroStartResponses];
+
+export type PomodoroStatsData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Start of the range, inclusive (RFC 3339).
+         */
+        from: string;
+        /**
+         * End of the range, inclusive (RFC 3339). At most 366 days after from.
+         */
+        to: string;
+        /**
+         * IANA timezone name the days are bucketed in, e.g. Europe/Berlin. Defaults to UTC.
+         */
+        tz?: string;
+    };
+    url: '/pomodoro/stats';
+};
+
+export type PomodoroStatsErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PomodoroStatsError = PomodoroStatsErrors[keyof PomodoroStatsErrors];
+
+export type PomodoroStatsResponses = {
+    /**
+     * OK
+     */
+    200: PomodoroStats;
+};
+
+export type PomodoroStatsResponse = PomodoroStatsResponses[keyof PomodoroStatsResponses];
+
 export type ProjectsListData = {
     body?: never;
     path?: never;
@@ -7593,7 +8093,7 @@ export type ProjectTasksListData = {
         /**
          * Embed extra, more expensive data per task. Repeatable.
          */
-        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower'> | null;
+        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower' | 'pomodoro'> | null;
         /**
          * How rich-text fields are exchanged. See the API description.
          */
@@ -7724,7 +8224,7 @@ export type TasksReadByIndexData = {
         /**
          * Embed extra data per task. Repeatable.
          */
-        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower'> | null;
+        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower' | 'pomodoro'> | null;
         /**
          * How rich-text fields are exchanged. See the API description.
          */
@@ -8343,7 +8843,7 @@ export type ProjectViewBucketsTasksListData = {
         /**
          * Embed extra, more expensive data per task. Repeatable.
          */
-        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower'> | null;
+        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower' | 'pomodoro'> | null;
         /**
          * How rich-text fields are exchanged. See the API description.
          */
@@ -8505,7 +9005,7 @@ export type ProjectViewTasksListData = {
         /**
          * Embed extra, more expensive data per task. Repeatable.
          */
-        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower'> | null;
+        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower' | 'pomodoro'> | null;
         /**
          * How rich-text fields are exchanged. See the API description.
          */
@@ -8846,7 +9346,7 @@ export type TasksListData = {
         /**
          * Embed extra, more expensive data per task. Repeatable.
          */
-        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower'> | null;
+        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower' | 'pomodoro'> | null;
         /**
          * How rich-text fields are exchanged. See the API description.
          */
@@ -9000,7 +9500,7 @@ export type TasksReadData = {
         /**
          * Embed extra data per task. Repeatable.
          */
-        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower'> | null;
+        expand?: Array<'subtasks' | 'buckets' | 'reactions' | 'comments' | 'comment_count' | 'time_entries_count' | 'is_unread' | 'eisenhower' | 'pomodoro'> | null;
         /**
          * How rich-text fields are exchanged. See the API description.
          */
@@ -9850,6 +10350,66 @@ export type TaskLabelsDeleteResponses = {
 };
 
 export type TaskLabelsDeleteResponse = TaskLabelsDeleteResponses[keyof TaskLabelsDeleteResponses];
+
+export type TaskPomodoroEstimateDeleteData = {
+    body?: never;
+    path: {
+        /**
+         * The numeric id of the task.
+         */
+        task: number;
+    };
+    query?: never;
+    url: '/tasks/{task}/pomodoro-estimate';
+};
+
+export type TaskPomodoroEstimateDeleteErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type TaskPomodoroEstimateDeleteError = TaskPomodoroEstimateDeleteErrors[keyof TaskPomodoroEstimateDeleteErrors];
+
+export type TaskPomodoroEstimateDeleteResponses = {
+    /**
+     * No Content
+     */
+    204: void;
+};
+
+export type TaskPomodoroEstimateDeleteResponse = TaskPomodoroEstimateDeleteResponses[keyof TaskPomodoroEstimateDeleteResponses];
+
+export type TaskPomodoroEstimateUpdateData = {
+    body: TaskPomodoroEstimateWritable;
+    path: {
+        /**
+         * The numeric id of the task.
+         */
+        task: number;
+    };
+    query?: never;
+    url: '/tasks/{task}/pomodoro-estimate';
+};
+
+export type TaskPomodoroEstimateUpdateErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type TaskPomodoroEstimateUpdateError = TaskPomodoroEstimateUpdateErrors[keyof TaskPomodoroEstimateUpdateErrors];
+
+export type TaskPomodoroEstimateUpdateResponses = {
+    /**
+     * OK
+     */
+    200: TaskPomodoroEstimate;
+};
+
+export type TaskPomodoroEstimateUpdateResponse = TaskPomodoroEstimateUpdateResponses[keyof TaskPomodoroEstimateUpdateResponses];
 
 export type TasksPositionUpdateData = {
     body: TaskPositionWritable;
