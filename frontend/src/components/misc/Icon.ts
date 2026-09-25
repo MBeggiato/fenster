@@ -92,6 +92,7 @@ import {
 	faUmbrellaBeach,
 	faCalendarPlus,
 	faFlagCheckered,
+	faTableCellsLarge,
 } from '@fortawesome/free-solid-svg-icons'
 import {
 	faBellSlash,
@@ -120,6 +121,7 @@ library.add(faUnlink)
 library.add(faParagraph)
 library.add(faSquareCheck)
 library.add(faTable)
+library.add(faTableCellsLarge)
 library.add(faFile)
 library.add(faFileImage)
 library.add(faFilePdf)

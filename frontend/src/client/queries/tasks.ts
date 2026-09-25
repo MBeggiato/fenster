@@ -1,6 +1,7 @@
 import {queryOptions, type QueryKey} from '@tanstack/vue-query'
 import {projectTasksList, projectViewTasksList, tasksList, tasksRead} from '@/client/generated'
 import type {
+	EisenhowerTasksListData,
 	Label,
 	PaginatedTask,
 	Task,
@@ -17,6 +18,9 @@ import {queryClient} from '@/client/queryClient'
 
 export type TaskFilterParams = Omit<NonNullable<TasksListData['query']>, 'format' | 'page'>
 export type TaskExpansion = NonNullable<NonNullable<TasksReadData['query']>['expand']>
+// Matrix lists live under the task root so the task cache helpers patch them too.
+export type EisenhowerQuadrant = EisenhowerTasksListData['query']['quadrant']
+export type EisenhowerParams = Omit<EisenhowerTasksListData['query'], 'quadrant' | 'page' | 'format'>
 export type TaskScope = {
 	project?: number | null,
 	view?: number,
@@ -161,6 +165,12 @@ export const taskKeys = {
 		: undefined,
 	paramsOf: (key: QueryKey): TaskFilterParams | undefined => key[1] === 'list' || key[1] === 'all'
 		? key[4] as TaskFilterParams
+		: undefined,
+	eisenhowerLists: [...taskKeyRoot, 'eisenhower'] as const,
+	eisenhowerList: (quadrant: EisenhowerQuadrant, params: EisenhowerParams = {}, page = 1) =>
+		[...taskKeys.eisenhowerLists, quadrant, params, normalizePageNumber(page)] as const,
+	quadrantOf: (key: QueryKey): EisenhowerQuadrant | undefined => key[1] === 'eisenhower'
+		? key[2] as EisenhowerQuadrant
 		: undefined,
 }
 

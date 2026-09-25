@@ -233,6 +233,23 @@ const router = createRouter({
 			}),
 		},
 		{
+			path: '/tasks/by/eisenhower',
+			name: 'tasks.eisenhower',
+			component: () => import('@/views/tasks/EisenhowerMatrix.vue'),
+			props: route => ({
+				projectId: Number(route.query.project) || 0,
+				labelIds: String(route.query.labels ?? '')
+					.split(',')
+					.map(Number)
+					.filter(id => Number.isInteger(id) && id > 0),
+				search: typeof route.query.q === 'string' ? route.query.q : '',
+				showDone: route.query.done === 'true',
+			}),
+			meta: {
+				title: 'task.eisenhower.title',
+			},
+		},
+		{
 			// Redirect old list routes to the respective project routes
 			// see: https://router.vuejs.org/guide/essentials/dynamic-matching.html#catch-all-404-not-found-route
 			path: '/lists:pathMatch(.*)*',

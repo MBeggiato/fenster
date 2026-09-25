@@ -837,6 +837,7 @@
   "navigation": {
     "overview": "Overview",
     "upcoming": "Upcoming",
+    "eisenhower": "Eisenhower matrix",
     "settings": "Settings",
     "imprint": "Imprint",
     "privacy": "Privacy Policy",
@@ -1088,6 +1089,47 @@
       "clearLabelFilter": "Clear label filter",
       "savedFilterIgnored": "Your saved homepage filter is not applied while viewing tasks by label."
     },
+    "eisenhower": {
+      "title": "Eisenhower matrix",
+      "intro": "Sort your open tasks from every project by urgency and importance. Your placement is personal: nobody else sees or changes it.",
+      "dragHint": "Drag a task into another area to reclassify it, or into \"Unclassified\" to reset it.",
+      "urgent": "Urgent",
+      "notUrgent": "Not urgent",
+      "important": "Important",
+      "notImportant": "Not important",
+      "addLabel": "Add a task to {quadrant}",
+      "createdUnclassified": "\"{task}\" was created, but could not be placed in the matrix. You'll find it under \"Unclassified\".",
+      "empty": "No tasks here.",
+      "loadMore": "Load more",
+      "filter": {
+        "labelsPlaceholder": "Filter by labels…",
+        "search": "Search",
+        "searchPlaceholder": "Search tasks…",
+        "showDone": "Show done tasks"
+      },
+      "quadrants": {
+        "do": {
+          "title": "Do first",
+          "hint": "Urgent and important"
+        },
+        "schedule": {
+          "title": "Schedule",
+          "hint": "Important, not urgent"
+        },
+        "delegate": {
+          "title": "Delegate",
+          "hint": "Urgent, not important"
+        },
+        "eliminate": {
+          "title": "Eliminate",
+          "hint": "Neither urgent nor important"
+        },
+        "unclassified": {
+          "title": "Unclassified",
+          "hint": "Open tasks you haven't placed yet"
+        }
+      }
+    },
     "detail": {
       "chooseDueDate": "Click here to set a due date",
       "chooseStartDate": "Click here to set a start date",
@@ -1124,6 +1166,12 @@
         "header": "Delete this task",
         "text1": "Are you sure you want to remove this task?",
         "text2": "This will also remove all attachments, reminders and relations associated with this task and cannot be undone!"
+      },
+      "eisenhower": {
+        "heading": "My priority",
+        "openMatrix": "Open the Eisenhower matrix",
+        "unclassified": "Not in your matrix yet",
+        "reset": "Reset"
       },
       "actions": {
         "assign": "Assign to User",
@@ -1600,6 +1648,7 @@
     "4023": "Cannot create a task relation cycle.",
     "4034": "The file does not exist.",
     "4035": "The uploaded file exceeds the maximum configured file size.",
+    "4036": "This Eisenhower matrix area does not exist.",
     "6001": "The team name cannot be empty.",
     "6002": "The team does not exist.",
     "6004": "The team already has access to that project.",

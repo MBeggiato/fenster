@@ -21,9 +21,11 @@ export function mapTaskEverywhere(
 	client.setQueriesData<TaskResponse>({queryKey: taskKeys.details}, current =>
 		current && holds([current]) ? map([current])[0] : undefined,
 	)
-	client.setQueriesData<PaginatedTaskResponse>({queryKey: taskKeys.lists}, current =>
-		current && holds(current.items) ? {...current, items: map(current.items)} : undefined,
-	)
+	for (const queryKey of [taskKeys.lists, taskKeys.eisenhowerLists]) {
+		client.setQueriesData<PaginatedTaskResponse>({queryKey}, current =>
+			current && holds(current.items) ? {...current, items: map(current.items)} : undefined,
+		)
+	}
 	client.setQueriesData<BoardData>({queryKey: kanbanKeys.all}, current => {
 		if (!current) return undefined
 		const buckets = current.buckets.map(bucket =>
@@ -36,10 +38,10 @@ export function mapTaskEverywhere(
 }
 
 // undefined: task absent, entry stays untouched
-type TaskRemoval = (tasks: readonly TaskResponse[], id: number) => TaskResponse[] | undefined
+export type TaskRemoval = (tasks: readonly TaskResponse[], id: number) => TaskResponse[] | undefined
 
 // Relations cross projects, so a move only drops top-level membership.
-const dropMembership: TaskRemoval = (tasks, id) => tasks.some(task => task.id === id)
+export const dropMembership: TaskRemoval = (tasks, id) => tasks.some(task => task.id === id)
 	? tasks.filter(task => task.id !== id)
 	: undefined
 
@@ -64,6 +66,8 @@ export function taskQueryKeys(client: QueryClient, id: number): QueryKey[] {
 			.filter(([, tasks]) => tasks && containsTask(tasks, id)),
 		...client.getQueriesData<PaginatedTaskResponse>({queryKey: taskKeys.lists})
 			.filter(([, list]) => list && containsTask(list.items, id)),
+		...client.getQueriesData<PaginatedTaskResponse>({queryKey: taskKeys.eisenhowerLists})
+			.filter(([, list]) => list && containsTask(list.items, id)),
 		...client.getQueriesData<BoardData>({queryKey: kanbanKeys.all})
 			.filter(([, board]) => board?.buckets.some(bucket => containsTask(bucket.tasks, id))),
 	].map(([key]) => key)
@@ -81,27 +85,39 @@ function removeTaskFromCollections(client: QueryClient, id: number, removal: Col
 		const items = remove(tasks, id)
 		if (items) client.setQueryData(key, items)
 	}
-	// Every cached page of a scope shares total and total_pages, not only the page holding the task.
+	removeFromPagedLists(client, taskKeys.lists, key => inScope(taskKeys.projectOf(key)) ? remove : undefined, id)
+	// The matrix spans projects, so only a delete drops a task from it.
+	if (removal.kind === 'delete') removeFromPagedLists(client, taskKeys.eisenhowerLists, () => remove, id)
+	for (const [key, board] of client.getQueriesData<BoardData>({queryKey: kanbanKeys.all})) {
+		if (!board || !inScope(kanbanKeys.projectOf(key))) continue
+		const next = removeFromBoard(board, id, remove)
+		if (next) client.setQueryData(key, next)
+	}
+}
+
+// Every cached page of a scope shares total and total_pages, not only the page holding the task.
+export function removeFromPagedLists(
+	client: QueryClient,
+	queryKey: QueryKey,
+	removalFor: (key: QueryKey) => TaskRemoval | undefined,
+	id: number,
+) {
 	const removedPerScope = new Map<string, number>()
 	const scopeOf = (key: QueryKey) => hashKey(key.slice(0, -1))
-	for (const [key, list] of client.getQueriesData<PaginatedTaskResponse>({queryKey: taskKeys.lists})) {
-		if (!list || !inScope(taskKeys.projectOf(key))) continue
+	for (const [key, list] of client.getQueriesData<PaginatedTaskResponse>({queryKey})) {
+		const remove = removalFor(key)
+		if (!list || !remove) continue
 		const items = remove(list.items, id)
 		if (!items) continue
 		client.setQueryData(key, {...list, items})
 		removedPerScope.set(scopeOf(key), (removedPerScope.get(scopeOf(key)) ?? 0) + list.items.length - items.length)
 	}
-	for (const [key, list] of client.getQueriesData<PaginatedTaskResponse>({queryKey: taskKeys.lists})) {
+	for (const [key, list] of client.getQueriesData<PaginatedTaskResponse>({queryKey})) {
 		const removed = removedPerScope.get(scopeOf(key))
 		if (!list || !removed) continue
 		const total = Math.max(0, list.total - removed)
 		const total_pages = totalPagesFor(list, total)
 		client.setQueryData(key, {...list, total, total_pages})
-	}
-	for (const [key, board] of client.getQueriesData<BoardData>({queryKey: kanbanKeys.all})) {
-		if (!board || !inScope(kanbanKeys.projectOf(key))) continue
-		const next = removeFromBoard(board, id, remove)
-		if (next) client.setQueryData(key, next)
 	}
 }
 
@@ -143,6 +159,7 @@ export async function invalidateTaskMembership(
 	await Promise.all([
 		client.invalidateQueries({queryKey: taskKeys.lists, refetchType}),
 		client.invalidateQueries({queryKey: taskKeys.allLists, refetchType}),
+		client.invalidateQueries({queryKey: taskKeys.eisenhowerLists, refetchType}),
 		// Refetching a board returns only the first page per bucket, so mutations patch it instead of refetching.
 		client.invalidateQueries({queryKey: kanbanKeys.all, refetchType: 'none'}),
 		...(id === undefined ? [] : [client.invalidateQueries({queryKey: [...taskKeys.details, id], refetchType})]),
