@@ -1957,6 +1957,12 @@
         "priority": "Priority"
       }
     },
+    "kanban": {
+      "pagerLabel": "Buckets",
+      "moveTaskLabel": "Move task",
+      "moveToTitle": "Move to…",
+      "dragHandle": "Drag to reorder"
+    },
     "eisenhower": {
       "back": "Back to quadrants",
       "moveAction": "Move to quadrant",

@@ -19,7 +19,32 @@
 
 		<template #default>
 			<div class="kanban-view">
-				<div class="kanban kanban-bucket-container">
+				<div
+					v-if="isMobile && !initialLoading && buckets.length > 0"
+					class="bucket-pager"
+					role="tablist"
+					:aria-label="$t('mobile.kanban.pagerLabel')"
+				>
+					<button
+						v-for="bucket in buckets"
+						:key="bucket.id"
+						type="button"
+						role="tab"
+						class="bucket-pager__chip"
+						:class="{'is-active': activeBucketId === bucket.id}"
+						:aria-selected="activeBucketId === bucket.id"
+						@click="scrollToBucket(bucket.id)"
+					>
+						<span class="bucket-pager__title">{{ bucket.title }}</span>
+						<span class="bucket-pager__count">{{ bucket.count }}</span>
+					</button>
+				</div>
+
+				<div
+					ref="kanbanScrollRef"
+					class="kanban kanban-bucket-container"
+					@scroll.passive="onKanbanScroll"
+				>
 					<ul
 						v-if="initialLoading"
 						class="kanban-bucket-container kanban-skeleton"
@@ -258,15 +283,19 @@
 											<span
 												v-if="canWrite && isTouchDevice"
 												class="handle"
+												:aria-label="$t('mobile.kanban.dragHandle')"
 												@click="openTask(task)"
 												@touchstart.passive="onHandleTouchStart"
 												@touchmove.passive="onHandleTouchMove"
-											/>
+											>
+												<Icon icon="grip-lines" />
+											</span>
 											<KanbanCard
 												class="kanban-card"
 												:task="task"
 												:project-id="projectId"
 												@taskCompletedRecurring="handleRecurringTaskCompletion"
+												@moveTask="openMoveSheet"
 											/>
 										</li>
 									</template>
@@ -321,6 +350,14 @@
 						</p>
 					</template>
 				</Modal>
+
+				<KanbanMoveSheet
+					:enabled="moveSheetTask !== null"
+					:buckets="buckets"
+					:current-bucket-id="moveSheetTask?.bucket_id"
+					@close="closeMoveSheet"
+					@select="moveTaskViaSheet"
+				/>
 			</div>
 		</template>
 	</ProjectWrapper>
@@ -341,6 +378,7 @@ import {computed, nextTick, ref, watch, toRef} from 'vue'
 import {useQuery, useQueryClient} from '@tanstack/vue-query'
 import {useRouter} from 'vue-router'
 import {useRouteQuery} from '@vueuse/router'
+import {usePreferredReducedMotion} from '@vueuse/core'
 import {useI18n} from 'vue-i18n'
 import draggable from 'zhyswan-vuedraggable'
 
@@ -348,10 +386,12 @@ import {PERMISSIONS as Permissions} from '@/constants/permissions'
 
 import {useQuickAddTask} from '@/composables/useQuickAddTask'
 import {useTaskDragState} from '@/composables/useTaskDragState'
+import {useIsMobile} from '@/composables/useIsMobile'
 import {useAuthStore} from '@/stores/auth'
 
 import ProjectWrapper from '@/components/project/ProjectWrapper.vue'
 import FilterPopup from '@/components/project/partials/FilterPopup.vue'
+import KanbanMoveSheet from '@/components/project/partials/KanbanMoveSheet.vue'
 import KanbanCard from '@/components/tasks/partials/KanbanCard.vue'
 import Dropdown from '@/components/misc/Dropdown.vue'
 import DropdownItem from '@/components/misc/DropdownItem.vue'
@@ -492,6 +532,72 @@ if (typeof window !== 'undefined') {
 }
 const taskDragHandle = computed(() => isTouchDevice.value ? '.handle' : undefined)
 
+const isMobile = useIsMobile()
+const reducedMotion = usePreferredReducedMotion()
+
+// Sticky bucket pager: tracks which bucket is centred in the horizontally scrolling board.
+const kanbanScrollRef = ref<HTMLElement | null>(null)
+const activeBucketId = ref<number | null>(null)
+let pagerScrollRaf = 0
+
+function updateActiveBucketFromScroll() {
+	const container = kanbanScrollRef.value
+	if (!container) return
+	const center = container.scrollLeft + container.clientWidth / 2
+	let closestId: number | null = null
+	let closestDistance = Infinity
+	container.querySelectorAll<HTMLElement>('.bucket[data-bucket-id]').forEach(el => {
+		const elCenter = el.offsetLeft + el.offsetWidth / 2
+		const distance = Math.abs(elCenter - center)
+		if (distance < closestDistance) {
+			closestDistance = distance
+			closestId = Number(el.dataset.bucketId)
+		}
+	})
+	activeBucketId.value = closestId
+}
+
+function onKanbanScroll() {
+	if (pagerScrollRaf) return
+	pagerScrollRaf = requestAnimationFrame(() => {
+		pagerScrollRaf = 0
+		updateActiveBucketFromScroll()
+	})
+}
+
+function scrollToBucket(bucketId: number) {
+	const container = kanbanScrollRef.value
+	const el = container?.querySelector<HTMLElement>(`.bucket[data-bucket-id="${bucketId}"]`)
+	el?.scrollIntoView({
+		behavior: reducedMotion.value === 'reduce' ? 'auto' : 'smooth',
+		inline: 'center',
+		block: 'nearest',
+	})
+}
+
+// "Move to…" sheet: reuses moveMutation, the same mutation the drag-drop path (updateTaskPosition) uses.
+const moveSheetTask = ref<TaskResponse | null>(null)
+
+function openMoveSheet(task: TaskResponse) {
+	moveSheetTask.value = task
+}
+
+function closeMoveSheet() {
+	moveSheetTask.value = null
+}
+
+async function moveTaskViaSheet(bucketId: number) {
+	const task = moveSheetTask.value
+	closeMoveSheet()
+	if (!task || task.bucket_id === bucketId) return
+	await moveMutation.mutateAsync({
+		project: projectId.value,
+		view: props.viewId,
+		bucket: bucketId,
+		task,
+	})
+}
+
 const router = useRouter()
 const touchStartY = ref(0)
 
@@ -545,6 +651,11 @@ function updateBucket(patch: BucketPatch, mutation = updateBucketMutation) {
 }
 const initialLoading = board.isLoading
 const projectIdWithFallback = computed<number>(() => project.value?.id || projectId.value)
+
+watch(initialLoading, loading => {
+	if (loading) return
+	nextTick(() => updateActiveBucketFromScroll())
+})
 
 const taskLoading = computed(() => quickAddLoading.value || positionMutation.isPending.value)
 
@@ -908,6 +1019,47 @@ function unCollapseBucket(bucket: BucketResponse) {
 		font-size: var(--font-size-sm);
 	}
 }
+
+.bucket-pager {
+	position: sticky;
+	inset-block-start: 0;
+	z-index: 4;
+	display: flex;
+	gap: var(--space-2);
+	overflow-x: auto;
+	padding: var(--space-2) var(--space-4);
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+.bucket-pager__chip {
+	display: flex;
+	align-items: center;
+	gap: var(--space-1);
+	flex: 0 0 auto;
+	min-block-size: 44px;
+	padding: 0 var(--space-3);
+	border: none;
+	border-radius: 999px;
+	background: var(--grey-100);
+	color: var(--grey-600);
+	font-size: var(--font-size-sm);
+	white-space: nowrap;
+	cursor: pointer;
+
+	&.is-active {
+		background: var(--primary);
+		color: var(--white);
+	}
+}
+
+.bucket-pager__count {
+	opacity: .7;
+	font-size: var(--font-size-xs);
+}
 </style>
 
 
@@ -919,6 +1071,7 @@ $bucket-right-margin: 1rem;
 $crazy-height-calculation: '100vh - 4.5rem - 1.5rem - 1rem - 1.5rem - 11px';
 $crazy-height-calculation-tasks: '#{$crazy-height-calculation} - 1rem - 2.5rem - 2rem - #{$button-height} - 1rem';
 $filter-container-height: '1rem - #{$switch-view-height}';
+$bucket-pager-height: 3rem;
 
 .kanban {
 	overflow-x: auto;
@@ -932,7 +1085,7 @@ $filter-container-height: '1rem - #{$switch-view-height}';
 	}
 
 	@media screen and (max-width: $tablet) {
-		block-size: calc(#{$crazy-height-calculation} - #{$filter-container-height} + 9px);
+		block-size: calc(#{$crazy-height-calculation} - #{$filter-container-height} + 9px - #{$bucket-pager-height});
 		scroll-snap-type: x mandatory;
 		margin: 0 -0.5rem;
 	}
@@ -976,6 +1129,8 @@ $filter-container-height: '1rem - #{$switch-view-height}';
 
 		@media screen and (max-width: $tablet) {
 			scroll-snap-align: center;
+			inline-size: calc(100vw - 2 * var(--space-4));
+			max-inline-size: calc(100vw - 2 * var(--space-4));
 		}
 
 		.tasks {
@@ -997,14 +1152,28 @@ $filter-container-height: '1rem - #{$switch-view-height}';
 				padding-block-end: var(--space-2);
 			}
 
+			// Visible grip for the long-press drag handle (touch devices only; the span
+			// is not rendered on pointer-fine devices, see isTouchDevice).
 			.handle {
 				position: absolute;
-				inset: 0;
-				z-index: 1;
-				opacity: 0;
+				inset-block-start: var(--space-1);
+				inset-inline-end: var(--space-1);
+				inline-size: 44px;
+				block-size: 44px;
+				z-index: 2;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: $radius;
+				background: var(--grey-200);
+				color: var(--grey-500);
 				touch-action: none;
 				-webkit-touch-callout: none;
 				user-select: none;
+
+				svg {
+					pointer-events: none;
+				}
 			}
 		}
 

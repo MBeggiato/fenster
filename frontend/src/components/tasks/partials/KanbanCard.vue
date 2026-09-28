@@ -116,6 +116,15 @@
 					:task="task"
 					class="checklist"
 				/>
+				<button
+					v-if="isMobile"
+					type="button"
+					class="kanban-card__move"
+					:aria-label="$t('mobile.kanban.moveTaskLabel')"
+					@click.stop="$emit('moveTask', task)"
+				>
+					<Icon icon="right-left" />
+				</button>
 			</div>
 		</div>
 	</div>
@@ -126,6 +135,7 @@ import {computed, onBeforeUnmount, ref, watch} from 'vue'
 import {useRouter} from 'vue-router'
 
 import {useGlobalNow} from '@/composables/useGlobalNow'
+import {useIsMobile} from '@/composables/useIsMobile'
 
 import PriorityLabel from '@/components/tasks/partials/PriorityLabel.vue'
 import ProgressBar from '@/components/misc/ProgressBar.vue'
@@ -157,10 +167,12 @@ const props = defineProps<{
 
 const emit = defineEmits<{
 	'taskCompletedRecurring': [task: ITask]
+	'moveTask': [task: TaskResponse]
 }>()
 
 const router = useRouter()
 const updateTask = useUpdateTaskMutation()
+const isMobile = useIsMobile()
 
 const loadingInternal = ref(false)
 
@@ -266,6 +278,11 @@ $task-background: var(--white);
 	.kanban-card__header {
 		display: flex;
 		justify-content: space-between;
+
+		// The grip for long-press drag sits above the card, top-inline-end; leave it room.
+		@include mobile {
+			padding-inline-end: 48px;
+		}
 	}
 
 	.task-position {
@@ -379,7 +396,8 @@ $task-background: var(--white);
 
 		.footer .icon,
 		.due-date,
-		.priority-label {
+		.priority-label,
+		.kanban-card__move {
 			background: hsl(220, 13%, 91%);
 		}
 
@@ -399,8 +417,10 @@ $task-background: var(--white);
 
 		.footer .icon,
 		.due-date,
-		.priority-label {
+		.priority-label,
+		.kanban-card__move {
 			background: hsl(215, 27.9%, 16.9%); // grey-800
+			color: inherit;
 		}
 
 		.footer {
@@ -428,6 +448,25 @@ $task-background: var(--white);
 
 .kanban-card__done {
 	margin-inline-end: var(--space-1);
+}
+
+.kanban-card__move {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-inline-size: 44px;
+	min-block-size: 44px;
+	margin-inline-start: auto;
+	border: none;
+	border-radius: $radius;
+	background: var(--grey-100);
+	color: var(--grey-500);
+	cursor: pointer;
+
+	&:hover,
+	&:focus-visible {
+		background: var(--grey-200);
+	}
 }
 
 .task-progress {
