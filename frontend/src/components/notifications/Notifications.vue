@@ -19,7 +19,40 @@
 			</BaseButton>
 		</slot>
 
-		<CustomTransition name="fade">
+		<Modal
+			v-if="isMobile"
+			:enabled="showNotifications"
+			variant="sheet"
+			:title="$t('notification.title')"
+			@close="showNotifications = false"
+		>
+			<template #header-action>
+				<BaseButton
+					v-if="notifications.length > 0"
+					v-tooltip="$t('notification.clearAll')"
+					class="action-link"
+					:aria-label="$t('notification.clearAll')"
+					@click="clearAll"
+				>
+					<Icon icon="check-double" />
+				</BaseButton>
+			</template>
+			<div class="notifications-list is-sheet">
+				<NotificationRows
+					:notifications="notifications"
+					:unread-notifications="unreadNotifications"
+					:user-info="userInfo"
+					:is-sheet="true"
+					@open="(n, index) => to(n, index)()"
+					@markAllRead="markAllRead"
+				/>
+			</div>
+		</Modal>
+
+		<CustomTransition
+			v-else
+			name="fade"
+		>
 			<div
 				v-if="showNotifications"
 				ref="popup"
@@ -48,54 +81,12 @@
 						</BaseButton>
 					</div>
 				</div>
-				<div
-					v-for="(n, index) in notifications"
-					:key="n.id"
-					class="single-notification"
-					:class="{'is-clickable': notificationHasRoute(n)}"
-					@click="() => notificationHasRoute(n) && to(n, index)()"
-				>
-					<div
-						class="read-indicator"
-						:class="{'read': n.readAt !== null}"
-					/>
-					<User
-						v-if="n.notification.doer"
-						:user="n.notification.doer"
-						:show-username="false"
-						:avatar-size="16"
-					/>
-					<div class="detail">
-						<div>
-							<span
-								v-if="n.notification.doer"
-								class="has-text-weight-bold mie-1"
-							>
-								{{ getDisplayName(n.notification.doer) }}
-							</span>
-							{{ n.toText(userInfo) }}
-						</div>
-						<span
-							v-tooltip="formatDateLong(n.created)"
-							class="created"
-						>
-							{{ formatDisplayDate(n.created) }}
-						</span>
-					</div>
-				</div>
-				<XButton
-					v-if="notifications.length > 0 && unreadNotifications > 0"
-					variant="tertiary"
-					class="mbs-2 is-fullwidth"
-					@click="markAllRead"
-				>
-					{{ $t('notification.markAllRead') }}
-				</XButton>
-				<EmptyState
-					v-if="notifications.length === 0"
-					:icon="['far', 'bell-slash']"
-					:title="$t('notification.none')"
-					:text="$t('notification.explainer')"
+				<NotificationRows
+					:notifications="notifications"
+					:unread-notifications="unreadNotifications"
+					:user-info="userInfo"
+					@open="(n, index) => to(n, index)()"
+					@markAllRead="markAllRead"
 				/>
 			</div>
 		</CustomTransition>
@@ -110,17 +101,17 @@ import NotificationService from '@/services/notification'
 import NotificationModel from '@/models/notification'
 import BaseButton from '@/components/base/BaseButton.vue'
 import CustomTransition from '@/components/misc/CustomTransition.vue'
-import EmptyState from '@/components/misc/EmptyState.vue'
-import User from '@/components/misc/User.vue'
+import Modal from '@/components/misc/Modal.vue'
 import {NOTIFICATION_NAMES as names, type INotification} from '@/modelTypes/INotification'
 import {closeWhenClickedOutside} from '@/helpers/closeWhenClickedOutside'
-import {formatDateLong, formatDisplayDate} from '@/helpers/time/formatDate'
-import {getDisplayName} from '@/models/user'
 import {useAuthStore} from '@/stores/auth'
+import {useIsMobile} from '@/composables/useIsMobile'
 import {useWebSocket} from '@/composables/useWebSocket'
-import XButton from '@/components/input/Button.vue'
 import {success} from '@/message'
 import {useI18n} from 'vue-i18n'
+import NotificationRows from '@/components/notifications/NotificationRows.vue'
+
+const isMobile = useIsMobile()
 
 const {subscribe, connected: wsConnected} = useWebSocket()
 
@@ -229,15 +220,11 @@ function getNotificationRoute(n: INotification): RouteLocationRaw | null {
 	}
 }
 
-function notificationHasRoute(n: INotification): boolean {
-	return getNotificationRoute(n) !== null
-}
-
 function to(n: INotification, index: number) {
 	return async () => {
 		const route = getNotificationRoute(n)
 		if (route === null) return
-		
+
 		const failure = await router.push(route)
 		if (isNavigationFailure(failure, NavigationFailureType.duplicated)) {
 			router.go(0)
@@ -334,67 +321,31 @@ async function clearAll() {
 			}
 		}
 
-		.single-notification {
-			display: flex;
-			align-items: center;
-			padding: var(--space-1) 0;
-
-			transition: background-color $transition;
-
-			&.is-clickable {
-				cursor: pointer;
-			}
-
-			&:hover {
-				background: var(--grey-100);
-				border-radius: $radius;
-			}
-
-			.read-indicator {
-				inline-size: .35rem;
-				block-size: .35rem;
-				background: var(--primary);
-				border-radius: 100%;
-				margin: 0 var(--space-2);
-				flex-shrink: 0;
-
-				&.read {
-					background: transparent;
-				}
-			}
-
-			.user {
-				display: inline-flex;
-				align-items: center;
-				inline-size: auto;
-				margin: 0 var(--space-2);
-
-				span {
-					font-family: $family-sans-serif;
-				}
-
-				.avatar {
-					block-size: 16px;
-				}
-
-				img {
-					margin-inline-end: 0;
-				}
-			}
-
-			.created {
-				color: var(--grey-400);
-			}
-
-			&:last-child {
-				margin-block-end: var(--space-1);
-			}
-
-			a {
-				color: var(--grey-800);
-			}
+		// Sheet variant: Modal owns the glass panel + scroll, this just needs 44px
+		// tap targets for the list rows (same tokens Dropdown.vue's sheet uses).
+		&.is-sheet {
+			position: static;
+			inset: unset;
+			max-block-size: none;
+			overflow-y: visible;
+			background: transparent;
+			inline-size: auto;
+			max-inline-size: none;
+			padding: 0 var(--space-2) var(--space-2);
+			border-radius: 0;
+			box-shadow: none;
+			font-size: var(--font-size-sm);
 		}
+	}
+}
 
+.action-link {
+	color: var(--grey-500);
+	transition: color $transition;
+
+	&:hover,
+	&:focus {
+		color: var(--primary);
 	}
 }
 </style>

@@ -24,7 +24,24 @@
 			</BaseButton>
 		</slot>
 
-		<CustomTransition name="fade">
+		<Modal
+			v-if="asSheet && open"
+			variant="sheet"
+			:title="sheetTitle"
+			@close="closeFromSheet"
+		>
+			<div
+				class="dropdown-content is-sheet"
+				@click="onSheetContentClick"
+			>
+				<slot :close="close" />
+			</div>
+		</Modal>
+
+		<CustomTransition
+			v-else
+			name="fade"
+		>
 			<div
 				v-if="initialMount || open"
 				v-show="open"
@@ -48,18 +65,30 @@ import type {IconProp} from '@fortawesome/fontawesome-svg-core'
 
 import CustomTransition from '@/components/misc/CustomTransition.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
+import Modal from '@/components/misc/Modal.vue'
+import {useIsMobile} from '@/composables/useIsMobile'
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
 	triggerIcon?: IconProp
 	triggerLabel?: string
+	// Renders the menu as a bottom sheet on mobile instead of a floating dropdown-menu, mirroring
+	// Popup.vue's sheetOnMobile. Defaults on (unlike Popup's opt-in) so existing consumers get a
+	// sheet for free; pass `false` for a consumer where a sheet is the wrong call.
+	sheetOnMobile?: boolean
+	sheetTitle?: string
 }>(), {
 	triggerIcon: 'ellipsis-h',
 	triggerLabel: undefined,
+	sheetOnMobile: true,
+	sheetTitle: '',
 })
 
 const emit = defineEmits<{
-	'close': [event: PointerEvent]
+	'close': [event: Event]
 }>()
+
+const isMobile = useIsMobile()
+const asSheet = computed(() => props.sheetOnMobile && isMobile.value)
 
 defineSlots<{
 	'trigger': (props: {
@@ -80,6 +109,27 @@ const dropdownMenuOffset = computed(() => 4)
 
 function close() {
 	open.value = false
+}
+
+// Sheet mode: Modal owns backdrop-tap/Escape dismissal itself and emits 'close' with no
+// payload, so mirror that here for the one consumer (ProjectKanban's bucket menu) that
+// listens for the dropdown's own 'close' event to reset local state.
+function closeFromSheet(e?: Event) {
+	close()
+	emit('close', e as Event)
+}
+
+// Selecting an item (anything rendered by DropdownItem, which always carries the
+// `dropdown-item` class) closes the sheet, like tapping outside a floating dropdown
+// would. Consumers that need the sheet to stay open after a click (e.g. an inline
+// "set limit" input) already stop propagation on that click, same as they do for the
+// floating variant today.
+function onSheetContentClick(e: MouseEvent) {
+	if (!(e.target as HTMLElement)?.closest?.('.dropdown-item')) {
+		return
+	}
+	close()
+	emit('close', e)
 }
 
 async function updatePosition() {
@@ -143,7 +193,10 @@ watch(open, (isOpen) => {
 })
 
 onClickOutside(dropdown, (e) => {
-	if (!open.value) {
+	// The sheet is teleported to <body> by Modal, so it never sits inside `dropdown`'s
+	// DOM subtree — every tap inside it would otherwise look like an outside click.
+	// Modal already handles its own backdrop-tap/Escape dismissal (see closeFromSheet).
+	if (!open.value || asSheet.value) {
 		return
 	}
 	close()
@@ -178,6 +231,23 @@ onClickOutside(dropdown, (e) => {
 	padding-block-end: var(--space-2);
 	padding-block-start: var(--space-2);
 	box-shadow: var(--glass-specular), var(--shadow-lg);
+}
+
+// Modal already supplies the sheet's own glass background/border/shadow; reset the
+// floating-variant chrome here so it isn't nested inside itself, and bump tap targets to
+// 44px, same tokens MoreSheet.vue uses for its own DropdownItem list.
+.dropdown-content.is-sheet {
+	background: none;
+	backdrop-filter: none;
+	border: none;
+	border-radius: 0;
+	box-shadow: none;
+	padding-block: var(--space-2);
+
+	:deep(.dropdown-item) {
+		min-block-size: 44px;
+		font-size: var(--font-size-md);
+	}
 }
 
 .dropdown-divider {
