@@ -37,14 +37,14 @@
 						</template>
 						<span
 							v-if="item.duplicates > 0"
-							class="tw:text-xs tw:font-bold tw:ml-1"
+							class="duplicate-count"
 						>
 							×{{ item.duplicates + 1 }}
 						</span>
 					</div>
 					<div
 						v-if="item.data?.actions?.length > 0"
-						class="mbs-2 tw:flex tw:justify-end tw:gap-2"
+						class="mbs-2 notification-actions"
 					>
 						<XButton
 							v-for="(action, i) in item.data.actions"
@@ -103,6 +103,18 @@ onBeforeUnmount(() => {
 	 */
 	border-radius: var(--radius-md);
 	box-shadow: var(--glass-specular), var(--shadow-md);
+}
+
+.duplicate-count {
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-bold);
+	margin-inline-start: .25rem;
+}
+
+.notification-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: .5rem;
 }
 
 </style>

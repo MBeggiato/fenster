@@ -19,10 +19,10 @@
 			v-if="coverImageBlobUrl"
 			:src="coverImageBlobUrl"
 			alt=""
-			class="tw:w-full"
+			class="kanban-card__cover"
 		>
 		<div class="p-2">
-			<div class="tw:flex tw:justify-between">
+			<div class="kanban-card__header">
 				<span class="task-id">
 					<Done
 						class="kanban-card__done"
@@ -32,7 +32,7 @@
 					{{ getTaskIdentifier(task) }}
 					<span
 						v-if="showTaskPosition"
-						class="tw:text-red-600 tw:ps-2"
+						class="task-position"
 					>
 						{{ task.position }}
 					</span>
@@ -258,6 +258,20 @@ $task-background: var(--white);
 	border-radius: $radius;
 	background: $task-background;
 	overflow: hidden;
+
+	.kanban-card__cover {
+		inline-size: 100%;
+	}
+
+	.kanban-card__header {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.task-position {
+		color: var(--danger-text);
+		padding-inline-start: .5rem;
+	}
 
 	&.loader-container.is-loading::after {
 		inline-size: 1.5rem;

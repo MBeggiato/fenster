@@ -124,6 +124,4 @@ useColorScheme()
 useTimeTrackingFavicon()
 </script>
 
-<style src="@/styles/tailwind.css" />
-
 <style lang="scss" src="@/styles/global.scss" />

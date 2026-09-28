@@ -1,7 +1,7 @@
 <template>
 	<div class="heading">
-		<div class="tw:flex tw:items-center md:tw:items-stretch tw:flex-col tw:gap-1 task-properties">
-			<div class="tw:flex tw:items-center tw:gap-2">
+		<div class="task-properties">
+			<div class="task-id-row">
 				<ColorBubble
 					v-if="task.hex_color !== ''"
 					:color="getHexColor(task.hex_color)"
@@ -233,8 +233,23 @@ async function cancel(element: HTMLInputElement) {
 }
 
 .task-properties {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: .25rem;
+
+	@media screen and (min-width: $tablet) {
+		align-items: stretch;
+	}
+
 	@media screen and (max-width: $tablet) {
 		flex-direction: row;
 	}
+}
+
+.task-id-row {
+	display: flex;
+	align-items: center;
+	gap: .5rem;
 }
 </style>

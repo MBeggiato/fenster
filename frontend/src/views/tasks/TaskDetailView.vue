@@ -670,10 +670,10 @@
 			</template>
 
 			<template #text>
-				<p class="tw:text-balance">
+				<p class="delete-modal-text">
 					{{ $t('task.detail.delete.text1') }}
 				</p>
-				<p class="tw:text-balance">
+				<p class="delete-modal-text">
 					{{ $t('task.detail.delete.text2') }}
 				</p>
 			</template>
@@ -1304,6 +1304,10 @@ function setRelatedTasksActive() {
 </script>
 
 <style lang="scss" scoped>
+.delete-modal-text {
+	text-wrap: balance;
+}
+
 .task-view-container {
 	// simulate sass lighten($primary, 30) by increasing lightness 30% to 73%
 	--primary-light: hsla(var(--primary-h), var(--primary-s), 73%, var(--primary-a));
