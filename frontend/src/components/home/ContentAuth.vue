@@ -1,16 +1,20 @@
 <template>
 	<div class="content-auth">
-		<BaseButton
-			v-show="menuActive"
-			:aria-label="$t('navigation.closeSidebar')"
-			class="menu-hide-button d-print-none"
-			@click="baseStore.setMenuActive(false)"
-		>
-			<Icon icon="times" />
-		</BaseButton>
+		<template v-if="!isMobile">
+			<BaseButton
+				v-show="menuActive"
+				:aria-label="$t('navigation.closeSidebar')"
+				class="menu-hide-button d-print-none"
+				@click="baseStore.setMenuActive(false)"
+			>
+				<Icon icon="times" />
+			</BaseButton>
+			<AppHeader />
+		</template>
+
 		<div
 			class="app-container"
-			:class="{'has-background': background || blurHash}"
+			:class="{'has-background': background || blurHash, 'is-mobile': isMobile}"
 			:style="{'background-image': blurHash && `url(${blurHash})`}"
 		>
 			<div
@@ -21,7 +25,14 @@
 					'filter': backgroundBrightness && `brightness(${backgroundBrightness}%)`
 				}"
 			/>
-			<Navigation class="d-print-none" />
+			<Navigation
+				v-if="!isMobile"
+				class="d-print-none"
+			/>
+			<MobileHeader
+				v-else
+				@openMore="moreSheetOpen = true"
+			/>
 			<main
 				id="main-content"
 				tabindex="-1"
@@ -33,6 +44,7 @@
 				:style="{'--sidebar-width': sidebarWidth}"
 			>
 				<BaseButton
+					v-if="!isMobile"
 					v-show="menuActive"
 					:aria-label="$t('navigation.closeSidebar')"
 					class="mobile-overlay d-print-none"
@@ -64,6 +76,7 @@
 				</Modal>
 
 				<BaseButton
+					v-if="!isMobile"
 					v-shortcut="SHORTCUTS.showKeyboardShortcuts"
 					class="keyboard-shortcuts-button d-print-none"
 					@click="showKeyboardShortcuts()"
@@ -72,21 +85,39 @@
 					<Icon icon="keyboard" />
 				</BaseButton>
 			</main>
+
+			<MobileTabBar
+				v-if="isMobile"
+				:active-route-name="routeWithModal.name"
+				@capture="captureSheet.open()"
+			/>
 		</div>
+
+		<MoreSheet
+			v-if="isMobile"
+			:enabled="moreSheetOpen"
+			@close="moreSheetOpen = false"
+		/>
 	</div>
 </template>
 
 <script lang="ts" setup>
-import {watch, computed, onBeforeUnmount} from 'vue'
+import {watch, computed, onBeforeUnmount, ref} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 
 import {SHORTCUTS} from '@/constants/shortcuts'
+import AppHeader from '@/components/home/AppHeader.vue'
 import Navigation from '@/components/home/Navigation.vue'
+import MobileHeader from '@/components/home/mobile/MobileHeader.vue'
+import MobileTabBar from '@/components/home/mobile/MobileTabBar.vue'
+import MoreSheet from '@/components/home/mobile/MoreSheet.vue'
 import QuickActions from '@/components/quick-actions/QuickActions.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 
 import {useBaseStore} from '@/stores/base'
 
+import {useIsMobile} from '@/composables/useIsMobile'
+import {useCaptureSheet} from '@/composables/useCaptureSheet'
 import {useRouteWithModal} from '@/composables/useRouteWithModal'
 import {useRenewTokenOnFocus} from '@/composables/useRenewTokenOnFocus'
 import {useSidebarResize} from '@/composables/useSidebarResize'
@@ -102,6 +133,10 @@ const backgroundBrightness = computed(() =>
 const {sidebarWidth} = useSidebarResize()
 
 const {routeWithModal, currentModal, closeModal} = useRouteWithModal()
+
+const isMobile = useIsMobile()
+const moreSheetOpen = ref(false)
+const captureSheet = useCaptureSheet()
 
 const baseStore = useBaseStore()
 const background = computed(() => baseStore.background)
@@ -137,6 +172,16 @@ watch(() => route.name as string, (routeName) => {
 		baseStore.setCurrentProject(null)
 	}
 })
+
+// The mobile "New task" PWA shortcut and any other deep link land on `?capture=1`;
+// open the capture sheet once and strip the query so it doesn't reopen on refresh/back.
+watch(() => route.query.capture, (capture) => {
+	if (capture !== '1') return
+	captureSheet.open()
+	const query = {...route.query}
+	delete query.capture
+	router.replace({query})
+}, {immediate: true})
 
 // TODO: Reset the title if the page component does not set one itself
 
@@ -191,6 +236,12 @@ onBeforeUnmount(() => {
 	@media screen and (max-width: $tablet) {
 		padding-block-start: $navbar-height;
 	}
+
+	&.is-mobile {
+		min-block-size: 100dvh;
+		padding-block-start: calc(var(--mobile-header-height) + env(safe-area-inset-top));
+		padding-block-end: calc(var(--mobile-tabbar-height) + env(safe-area-inset-bottom));
+	}
 }
 
 .app-content {
@@ -211,6 +262,11 @@ onBeforeUnmount(() => {
 
 	@media screen and (min-width: $tablet) {
 		padding: $navbar-height + 1.5rem 1.5rem 0 1.5rem;
+	}
+
+	.is-mobile & {
+		min-block-size: 0;
+		padding: 0 var(--space-2);
 	}
 
 	&.is-menu-enabled {

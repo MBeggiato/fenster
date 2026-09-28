@@ -197,6 +197,10 @@ function getBuildConfig(env: Record<string, string>) {
 					background_color: '#000000',
 					shortcuts: [
 						{
+							name: 'New task',
+							url: '/?capture=1',
+						},
+						{
 							name: 'Overview',
 							url: '/',
 						},

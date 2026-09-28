@@ -1933,5 +1933,19 @@
       "empty": "No invite links yet. Create a link to invite people to this instance.",
       "futureExpiry": "Choose an expiry in the future."
     }
+  },
+  "mobile": {
+    "header": {
+      "openMore": "More"
+    },
+    "tabBar": {
+      "label": "Main navigation",
+      "home": "Home",
+      "capture": "Capture",
+      "focusActive": "Focus session active"
+    },
+    "moreSheet": {
+      "title": "More"
+    }
   }
 }

@@ -10,4 +10,9 @@
   --space-4: 1rem;
   --space-6: 1.5rem;
   --space-12: 3rem;
+
+  // Mobile chrome heights, used to size the fixed header/tab bar and to pad
+  // the scrollable content between them (safe-area insets are added on top).
+  --mobile-header-height: 3.5rem;
+  --mobile-tabbar-height: 4.5rem;
 }

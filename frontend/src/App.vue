@@ -16,10 +16,7 @@
 			>
 				{{ $t('misc.skipToContent') }}
 			</a>
-			<template v-if="showAuthLayout">
-				<AppHeader />
-				<ContentAuth />
-			</template>
+			<ContentAuth v-if="showAuthLayout" />
 			<ContentLinkShare v-else-if="authStore.authLinkShare" />
 			<NoAuthWrapper
 				v-else
@@ -50,7 +47,6 @@ import Notification from '@/components/misc/Notification.vue'
 import UpdateNotification from '@/components/home/UpdateNotification.vue'
 import KeyboardShortcuts from '@/components/misc/keyboard-shortcuts/index.vue'
 
-import AppHeader from '@/components/home/AppHeader.vue'
 import ContentAuth from '@/components/home/ContentAuth.vue'
 import ContentLinkShare from '@/components/home/ContentLinkShare.vue'
 import NoAuthWrapper from '@/components/misc/NoAuthWrapper.vue'
@@ -62,6 +58,7 @@ import {useAuthStore} from '@/stores/auth'
 import {useBaseStore} from '@/stores/base'
 
 import {useColorScheme} from '@/composables/useColorScheme'
+import {useThemeColor} from '@/composables/useThemeColor'
 import {useTimeTrackingFavicon} from '@/composables/useTimeTrackingFavicon'
 import {useBodyClass} from '@/composables/useBodyClass'
 import QuickAddOverlay from '@/components/quick-actions/QuickAddOverlay.vue'
@@ -121,6 +118,7 @@ watch(accountDeletionConfirm, async (accountDeletionConfirm) => {
 
 setLanguage(authStore.settings.language ?? DEFAULT_LANGUAGE)
 useColorScheme()
+useThemeColor()
 useTimeTrackingFavicon()
 </script>
 
