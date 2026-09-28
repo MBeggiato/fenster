@@ -41,6 +41,18 @@
 		"project": {
 			"importText": "Importiere deine Projekte und Aufgaben aus anderen Diensten in Vikunja:",
 			"import": "Importiere deine Daten in Vikunja"
+		},
+		"dashboard": {
+			"heading": "Übersicht",
+			"tiles": {
+				"overdue": "Überfällig",
+				"dueToday": "Heute fällig",
+				"dueWeek": "Diese Woche fällig",
+				"doneWeek": "Diese Woche erledigt"
+			},
+			"focus": {
+				"sessionsToday": "Heute noch keine Fokus-Sitzungen | {count} Fokus-Sitzung heute | {count} Fokus-Sitzungen heute"
+			}
 		}
 	},
 	"demo": {
@@ -1583,6 +1595,12 @@
 		"reactedWithAnd": "{users} und {lastUser} haben mit {value} reagiert",
 		"reactedWithAndMany": "{users} und {num} weitere haben mit {value} reagiert",
 		"add": "Reaktion hinzufügen"
+	},
+	"emptyState": {
+		"noSearchResults": "Keine Ergebnisse gefunden",
+		"noSearchResultsText": "Versuche es mit einem anderen Suchbegriff.",
+		"emptyKanbanBucket": "Dieser Bucket ist leer",
+		"emptyKanbanBucketText": "Ziehe eine Aufgabe hierher oder füge unten eine neue hinzu."
 	},
 	"error": {
 		"1001": "Es existiert bereits ein Account mit diesem Anmeldenamen.",
