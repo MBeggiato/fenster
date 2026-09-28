@@ -47,9 +47,9 @@ function getSentryConfig(env: Record<string, string>): SentryVitePluginOptions {
 		telemetry: false,
 
 		// sourcemaps: {
-			// assets: [], // TODO
-			// deleteFilesAfterUpload: [], // TODO define glob
-			// rewriteSources // might need that instead of `urlPrefix`
+		// assets: [], // TODO
+		// deleteFilesAfterUpload: [], // TODO define glob
+		// rewriteSources // might need that instead of `urlPrefix`
 		// },
 
 		release: {
@@ -122,11 +122,14 @@ function getBuildConfig(env: Record<string, string>) {
 			preprocessorOptions: {
 				sass: {
 					quietDeps: true, // silence deprecation warnings
+					// ponytail: @import/nth() can't move to @use while common-imports is injected via additionalData; lift when migrating to the module system
+					silenceDeprecations: ['import', 'global-builtin'],
 				},
 				scss: {
 					additionalData: PREFIXED_SCSS_STYLES,
 					charset: false, // fixes  "@charset" must be the first rule in the file" warnings,
 					quietDeps: true, // silence deprecation warnings
+					silenceDeprecations: ['import', 'global-builtin'],
 				},
 			},
 			postcss: {
@@ -135,7 +138,7 @@ function getBuildConfig(env: Record<string, string>) {
 					postcssPresetEnv({
 						features: {
 							'logical-properties-and-values': false,
-						}
+						},
 					}),
 				],
 			},
