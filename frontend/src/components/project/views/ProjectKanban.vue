@@ -997,6 +997,7 @@ $filter-container-height: '1rem - #{$switch-view-height}';
 
 	.bucket-header {
 		background-color: var(--grey-100);
+		border-block-start: 3px solid var(--project-color, var(--primary));
 		display: flex;
 		align-items: center;
 		justify-content: space-between;

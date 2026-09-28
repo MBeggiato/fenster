@@ -21,7 +21,7 @@
 			v-if="currentProject?.id"
 			class="project-title-wrapper"
 		>
-			<span class="project-title">
+			<span class="project-title project-title--current">
 				{{ currentProject.title === '' ? $t('misc.loading') : getProjectTitle(currentProject) }}
 			</span>
 
@@ -269,6 +269,14 @@ $user-dropdown-width-mobile: 5rem;
 
 	@media screen and (min-width: $tablet) {
 		font-size: 1.75rem;
+	}
+}
+
+// The project title is also shown as a heading in ProjectWrapper.vue on desktop;
+// keep it here for mobile only, where that heading may be off-screen.
+.project-title--current {
+	@media screen and (min-width: $tablet) {
+		display: none;
 	}
 }
 

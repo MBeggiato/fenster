@@ -255,10 +255,6 @@ async function toggleProjectFavorite() {
 	opacity: 1;
 }
 
-.list-menu:hover .color-bubble-wrapper > .color-bubble {
-	opacity: 0;
-}
-
 .color-bubble-wrapper {
 	position: relative;
 	inline-size: 1rem;

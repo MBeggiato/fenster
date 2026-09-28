@@ -5,8 +5,13 @@
 			'is-loading': isLoadingProject,
 			'is-archived': currentProject.is_archived,
 		}"
+		:style="{'--project-color': currentProject.hex_color || 'var(--primary)'}"
 	>
-		<h1 class="project-title-print">
+		<h1 class="project-heading">
+			<span
+				class="project-heading-accent"
+				aria-hidden="true"
+			/>
 			{{ getProjectTitle(currentProject) }}
 		</h1>
 
@@ -257,14 +262,28 @@ function getViewRoute(view: ProjectView) {
 	margin-block-end: 1rem;
 }
 
-.project-title-print {
-	display: none;
-	font-size: 1.75rem;
-	text-align: center;
-	margin-block-end: .5rem;
+.project-heading {
+	display: flex;
+	align-items: center;
+	gap: .5rem;
+	font-size: var(--font-size-xl);
+	margin-block-end: 1rem;
 
 	@media print {
 		display: block;
+		text-align: center;
+	}
+}
+
+.project-heading-accent {
+	inline-size: 4px;
+	block-size: 1.5em;
+	border-radius: 2px;
+	background: var(--project-color);
+	flex-shrink: 0;
+
+	@media print {
+		display: none;
 	}
 }
 </style>
