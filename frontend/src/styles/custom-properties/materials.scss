@@ -1,0 +1,54 @@
+// Liquid glass material tokens: translucent fills, blur filters, specular edges,
+// corner radii and motion. Glass is only for floating layers (chrome + overlays);
+// content surfaces stay opaque.
+
+:root {
+  // Fill: alpha floor of .72 so text keeps its contrast over any backdrop
+  --glass-chrome-bg: hsla(0, 0%, 100%, .72);
+  --glass-overlay-bg: hsla(0, 0%, 100%, .8);
+  --glass-filter: blur(20px) saturate(180%);
+  --glass-filter-strong: blur(32px) saturate(200%);
+
+  // Specular: bright inner top edge + faint dark bottom
+  --glass-specular: inset 0 1px 0 hsla(0, 0%, 100%, .7),
+                    inset 0 -1px 0 hsla(0, 0%, 0%, .04);
+  --glass-hairline: hsla(0, 0%, 100%, .28);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+
+  // One spring-ish curve for material motion; plain `ease` stays for utility transitions
+  --ease-glass: cubic-bezier(.32, .72, 0, 1);
+  --duration-glass: 320ms;
+
+  &.dark {
+    // Dark glass needs more opacity and less blur, or it turns to mud
+    --glass-chrome-bg: hsla(var(--grey-50-hsl), .68);
+    --glass-overlay-bg: hsla(var(--grey-100-hsl), .78);
+    --glass-filter: blur(16px) saturate(160%);
+    --glass-filter-strong: blur(24px) saturate(180%);
+    --glass-specular: inset 0 1px 0 hsla(0, 0%, 100%, .1),
+                      inset 0 -1px 0 hsla(0, 0%, 0%, .3);
+    --glass-hairline: hsla(0, 0%, 100%, .1);
+  }
+}
+
+@mixin glass-opaque-fallback {
+  :root,
+  :root.dark {
+    --glass-chrome-bg: var(--site-background);
+    --glass-overlay-bg: var(--white);
+    --glass-filter: none;
+    --glass-filter-strong: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  @include glass-opaque-fallback;
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  @include glass-opaque-fallback;
+}

@@ -36,8 +36,20 @@ a, button, input[type='checkbox'], input[type='radio'], select, [tabindex], [con
 }
 
 body {
-  background: var(--site-background);
+  // Tier-0 ambient substrate: faint primary-tinted glows so the glass chrome has something to refract
+  --ambient-glow-a: hsla(var(--primary-h), 70%, 70%, .16);
+  --ambient-glow-b: hsla(calc(var(--primary-h) + 40deg), 60%, 72%, .12);
+  background:
+    radial-gradient(60vmax 50vmax at 0% 0%, var(--ambient-glow-a), transparent 70%),
+    radial-gradient(50vmax 45vmax at 100% 100%, var(--ambient-glow-b), transparent 70%),
+    var(--site-background);
+  background-attachment: fixed;
   min-height: 100vh;
+
+  :root.dark & {
+    --ambient-glow-a: hsla(var(--primary-h), 60%, 45%, .1);
+    --ambient-glow-b: hsla(calc(var(--primary-h) + 40deg), 50%, 45%, .07);
+  }
  
   @media print {
     background: #fff;
