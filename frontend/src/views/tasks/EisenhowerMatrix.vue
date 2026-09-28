@@ -53,48 +53,91 @@
 			</FancyCheckbox>
 		</div>
 
-		<p class="matrix-drag-hint">
-			{{ $t('task.eisenhower.dragHint') }}
-		</p>
-
-		<div class="matrix-grid">
-			<span
-				class="axis axis-urgent"
-				aria-hidden="true"
-			>{{ $t('task.eisenhower.urgent') }}</span>
-			<span
-				class="axis axis-not-urgent"
-				aria-hidden="true"
-			>{{ $t('task.eisenhower.notUrgent') }}</span>
-			<span
-				class="axis axis-important"
-				aria-hidden="true"
-			>{{ $t('task.eisenhower.important') }}</span>
-			<span
-				class="axis axis-not-important"
-				aria-hidden="true"
-			>{{ $t('task.eisenhower.notImportant') }}</span>
+		<template v-if="isMobile && activeQuadrant">
+			<button
+				type="button"
+				class="quadrant-back"
+				@click="activeQuadrant = null"
+			>
+				<Icon icon="arrow-left" />
+				{{ $t('mobile.eisenhower.back') }}
+			</button>
 
 			<EisenhowerQuadrant
-				v-for="{quadrant} in EISENHOWER_QUADRANTS"
-				:key="quadrant"
-				:class="`area-${quadrant}`"
-				:quadrant="quadrant"
-				:title="$t(`task.eisenhower.quadrants.${quadrant}.title`)"
-				:hint="$t(`task.eisenhower.quadrants.${quadrant}.hint`)"
+				:quadrant="activeQuadrant"
+				:title="activeQuadrantTitle"
+				:hint="activeQuadrantHint"
 				:params="params"
 				:project-id="newTaskProjectId"
 			/>
-		</div>
+		</template>
 
-		<EisenhowerQuadrant
-			class="matrix-unclassified"
-			quadrant="unclassified"
-			:title="$t('task.eisenhower.quadrants.unclassified.title')"
-			:hint="$t('task.eisenhower.quadrants.unclassified.hint')"
-			:params="params"
-			:project-id="newTaskProjectId"
-		/>
+		<template v-else>
+			<p class="matrix-drag-hint">
+				{{ $t('task.eisenhower.dragHint') }}
+			</p>
+
+			<div class="matrix-grid">
+				<span
+					class="axis axis-urgent"
+					aria-hidden="true"
+				>{{ $t('task.eisenhower.urgent') }}</span>
+				<span
+					class="axis axis-not-urgent"
+					aria-hidden="true"
+				>{{ $t('task.eisenhower.notUrgent') }}</span>
+				<span
+					class="axis axis-important"
+					aria-hidden="true"
+				>{{ $t('task.eisenhower.important') }}</span>
+				<span
+					class="axis axis-not-important"
+					aria-hidden="true"
+				>{{ $t('task.eisenhower.notImportant') }}</span>
+
+				<template v-if="isMobile">
+					<EisenhowerQuadrantTile
+						v-for="{quadrant} in EISENHOWER_QUADRANTS"
+						:key="quadrant"
+						:class="`area-${quadrant}`"
+						:quadrant="quadrant"
+						:title="$t(`task.eisenhower.quadrants.${quadrant}.title`)"
+						:params="params"
+						@open="activeQuadrant = quadrant"
+					/>
+				</template>
+				<template v-else>
+					<EisenhowerQuadrant
+						v-for="{quadrant} in EISENHOWER_QUADRANTS"
+						:key="quadrant"
+						:class="`area-${quadrant}`"
+						:quadrant="quadrant"
+						:title="$t(`task.eisenhower.quadrants.${quadrant}.title`)"
+						:hint="$t(`task.eisenhower.quadrants.${quadrant}.hint`)"
+						:params="params"
+						:project-id="newTaskProjectId"
+					/>
+				</template>
+			</div>
+
+			<EisenhowerQuadrantTile
+				v-if="isMobile"
+				class="matrix-unclassified"
+				quadrant="unclassified"
+				:title="$t('task.eisenhower.quadrants.unclassified.title')"
+				:params="params"
+				@open="activeQuadrant = 'unclassified'"
+			/>
+			<EisenhowerQuadrant
+				v-else
+				class="matrix-unclassified"
+				quadrant="unclassified"
+				:title="$t('task.eisenhower.quadrants.unclassified.title')"
+				:hint="$t('task.eisenhower.quadrants.unclassified.hint')"
+				:params="params"
+				:project-id="newTaskProjectId"
+			/>
+		</template>
 	</div>
 </template>
 
@@ -105,14 +148,17 @@ import {useI18n} from 'vue-i18n'
 import {watchDebounced} from '@vueuse/core'
 
 import EisenhowerQuadrant from '@/components/tasks/eisenhower/EisenhowerQuadrant.vue'
+import EisenhowerQuadrantTile from '@/components/tasks/eisenhower/EisenhowerQuadrantTile.vue'
 import ProjectSearch from '@/components/tasks/partials/ProjectSearch.vue'
 import Multiselect from '@/components/input/Multiselect.vue'
 import FancyCheckbox from '@/components/input/FancyCheckbox.vue'
-import {EISENHOWER_QUADRANTS, type EisenhowerParams} from '@/client/queries/eisenhower'
+import Icon from '@/components/misc/Icon'
+import {EISENHOWER_QUADRANTS, type EisenhowerParams, type EisenhowerQuadrant as EisenhowerQuadrantId} from '@/client/queries/eisenhower'
 import type {ProjectResponse} from '@/client/queries/projects'
 import type {Label} from '@/client/generated'
 import {useProjects} from '@/composables/useProjects'
 import {useLabels} from '@/composables/useLabels'
+import {useIsMobile} from '@/composables/useIsMobile'
 import {useAuthStore} from '@/stores/auth'
 import {setTitle} from '@/helpers/setTitle'
 
@@ -134,6 +180,15 @@ const router = useRouter()
 const authStore = useAuthStore()
 const projectList = useProjects()
 const {filterLabelsByQuery, getLabelsByIds} = useLabels()
+const isMobile = useIsMobile()
+
+const activeQuadrant = ref<EisenhowerQuadrantId | null>(null)
+const activeQuadrantTitle = computed(() => activeQuadrant.value
+	? t(`task.eisenhower.quadrants.${activeQuadrant.value}.title`)
+	: '')
+const activeQuadrantHint = computed(() => activeQuadrant.value
+	? t(`task.eisenhower.quadrants.${activeQuadrant.value}.hint`)
+	: '')
 
 watchEffect(() => setTitle(t('task.eisenhower.title')))
 
@@ -262,19 +317,34 @@ const newTaskProjectId = computed(() => props.projectId > 0
 .area-delegate { grid-area: delegate; }
 .area-eliminate { grid-area: eliminate; }
 
-@media screen and (max-width: $tablet) {
-	.matrix-grid {
-		grid-template-columns: minmax(0, 1fr);
-		grid-template-rows: none;
-		grid-template-areas:
-			"do"
-			"schedule"
-			"delegate"
-			"eliminate";
+.quadrant-back {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	min-block-size: 44px;
+	margin-block-end: var(--space-2);
+	padding-inline: var(--space-2);
+	border: none;
+	border-radius: $radius;
+	background: transparent;
+	color: var(--text);
+	font-size: var(--font-size-md);
+	font-weight: 700;
+	cursor: pointer;
+
+	&:hover,
+	&:focus-visible {
+		background: var(--grey-100);
+	}
+}
+
+@include mobile {
+	.eisenhower-matrix {
+		--axis-size: 1rem;
 	}
 
-	.axis {
-		display: none;
+	.matrix-grid {
+		gap: var(--space-2);
 	}
 }
 </style>

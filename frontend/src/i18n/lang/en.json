@@ -1956,6 +1956,15 @@
         "label": "Label",
         "priority": "Priority"
       }
+    },
+    "eisenhower": {
+      "back": "Back to quadrants",
+      "moveAction": "Move to quadrant",
+      "moveActionAria": "Move \"{task}\" to another quadrant",
+      "moveSheet": {
+        "title": "Move \"{task}\"",
+        "current": "Current"
+      }
     }
   }
 }
