@@ -1977,6 +1977,10 @@
         "filters": "Filters",
         "noDueDate": "No due date"
       }
+    },
+    "swipe": {
+      "done": "Done",
+      "reschedule": "Reschedule"
     }
   }
 }
