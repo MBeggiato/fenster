@@ -827,7 +827,7 @@ watch(
 		min-block-size: 10rem;
 
 		.ProseMirror {
-			padding: .5rem;
+			padding: var(--space-2);
 		}
 
 		ul[data-type='taskList'] li > div {
@@ -846,7 +846,7 @@ watch(
 
 // Basic editor styles
 .ProseMirror {
-	padding: .5rem .5rem .5rem 0;
+	padding: var(--space-2) var(--space-2) var(--space-2) 0;
 	overflow-wrap: break-word;
 
 	&:focus-within, &:focus {
@@ -859,7 +859,7 @@ watch(
 
 	ul,
 	ol {
-		padding: 0 1rem;
+		padding: 0 var(--space-4);
 	}
 
 	h1,
@@ -881,7 +881,7 @@ watch(
 		background: var(--grey-200);
 		color: var(--grey-700);
 		font-family: JetBrainsMono, monospace;
-		padding: 0.75rem 1rem;
+		padding: var(--space-3) var(--space-4);
 		border-radius: $radius;
 
 		code {
@@ -953,7 +953,7 @@ watch(
 	}
 
 	blockquote {
-		padding-inline-start: 1rem;
+		padding-inline-start: var(--space-4);
 		border-inline-start: 2px solid rgba(#0d0d0d, 0.1);
 	}
 
@@ -1021,7 +1021,7 @@ watch(
 	// Lists
 
 	ul {
-		margin-inline-start: .5rem;
+		margin-inline-start: var(--space-2);
 		margin-block-start: 0 !important;
 
 		li {
@@ -1056,11 +1056,11 @@ ul[data-type='taskList'] {
 
 	li {
 		display: flex;
-		margin-block-start: 0.25rem;
+		margin-block-start: var(--space-1);
 
 		> label {
 			flex: 0 0 auto;
-			margin-inline-end: 0.5rem;
+			margin-inline-end: var(--space-2);
 			user-select: none;
 		}
 
@@ -1094,7 +1094,7 @@ ul[data-type='taskList'] {
 		display: block;
 		inline-size: 2rem;
 		block-size: 2rem;
-		padding: .5rem;
+		padding: var(--space-2);
 		margin: 0;
 	}
 
@@ -1103,7 +1103,7 @@ ul[data-type='taskList'] {
 	}
 
 	&--text {
-		padding: .5rem .75rem;
+		padding: var(--space-2) var(--space-3);
 		font-size: .9rem;
 		white-space: nowrap;
 	}
@@ -1118,7 +1118,7 @@ ul.tiptap__editor-actions {
 
 		&::after {
 			content: '·';
-			padding: 0 .25rem;
+			padding: 0 var(--space-1);
 		}
 
 		&:last-child:after {

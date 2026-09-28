@@ -158,13 +158,13 @@ function clear() {
 .shortcut-recorder {
 	display: flex;
 	align-items: center;
-	gap: .5rem;
+	gap: var(--space-2);
 }
 
 .recorder-button {
 	display: inline-flex;
 	align-items: center;
-	gap: .25rem;
+	gap: var(--space-1);
 	cursor: pointer;
 	min-inline-size: 150px;
 	text-align: start;
@@ -200,7 +200,7 @@ kbd {
 
 .clear-button {
 	color: var(--grey-500);
-	padding: .25rem;
+	padding: var(--space-1);
 
 	&:hover {
 		color: var(--danger);

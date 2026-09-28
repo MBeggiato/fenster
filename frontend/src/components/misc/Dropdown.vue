@@ -175,8 +175,8 @@ onClickOutside(dropdown, (e) => {
 	backdrop-filter: var(--glass-filter-strong);
 	border: 1px solid var(--glass-hairline);
 	border-radius: var(--radius-md);
-	padding-block-end: .5rem;
-	padding-block-start: .5rem;
+	padding-block-end: var(--space-2);
+	padding-block-start: var(--space-2);
 	box-shadow: var(--glass-specular), var(--shadow-lg);
 }
 
@@ -185,6 +185,6 @@ onClickOutside(dropdown, (e) => {
 	border: none;
 	display: block;
 	block-size: 1px;
-	margin: 0.5rem 0;
+	margin: var(--space-2) 0;
 }
 </style>

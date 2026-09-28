@@ -372,7 +372,7 @@ onBeforeUnmount(() => {
 .filter-container {
 	display: flex;
 	align-items: center;
-	gap: .5rem;
+	gap: var(--space-2);
 
 	:deep(.popup) {
 		max-inline-size: 300px;
@@ -380,14 +380,14 @@ onBeforeUnmount(() => {
 }
 
 .tasks {
-	padding: .5rem;
+	padding: var(--space-2);
 }
 
 .list-view__skeleton-row {
 	display: flex;
 	align-items: center;
-	gap: .75rem;
-	padding: .5rem .75rem;
+	gap: var(--space-3);
+	padding: var(--space-2) var(--space-3);
 }
 
 .task-ghost {
@@ -401,7 +401,7 @@ onBeforeUnmount(() => {
 }
 
 .list-view__add-task {
-	padding: 1rem 1rem 0;
+	padding: var(--space-4) var(--space-4) 0;
 }
 
 .link-share-view .card {
@@ -411,7 +411,7 @@ onBeforeUnmount(() => {
 
 :deep(.single-task .handle) {
 	cursor: grab;
-	margin-inline-end: .25rem;
+	margin-inline-end: var(--space-1);
 	color: var(--grey-400);
 }
 
@@ -433,7 +433,7 @@ onBeforeUnmount(() => {
 }
 
 .list-view {
-	padding-block-end: 1rem;
+	padding-block-end: var(--space-4);
 
 	:deep(.card) {
 		margin-block-end: 0;

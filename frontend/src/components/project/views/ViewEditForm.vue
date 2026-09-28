@@ -388,13 +388,13 @@ function handleBubbleSave(event: FocusEvent) {
 		background: transparent;
 		border: none;
 		color: var(--danger);
-		padding-inline-end: .75rem;
+		padding-inline-end: var(--space-3);
 		cursor: pointer;
 	}
 
 	&-form {
-		margin-block-end: .5rem;
-		padding: .5rem;
+		margin-block-end: var(--space-2);
+		padding: var(--space-2);
 		border: 1px solid var(--grey-200);
 		border-radius: $radius;
 		inline-size: 100%;

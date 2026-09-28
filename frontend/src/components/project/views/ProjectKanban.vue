@@ -897,11 +897,11 @@ function unCollapseBucket(bucket: BucketResponse) {
 }
 
 .bucket-empty-state {
-	padding: 1rem .5rem;
+	padding: var(--space-4) var(--space-2);
 
 	:deep(.empty-state__icon) {
 		font-size: var(--font-size-lg);
-		margin-block-end: .5rem;
+		margin-block-end: var(--space-2);
 	}
 
 	:deep(.empty-state__title) {
@@ -925,7 +925,7 @@ $filter-container-height: '1rem - #{$switch-view-height}';
 	overflow-y: hidden;
 	block-size: calc(#{$crazy-height-calculation});
 	margin: 0 -1.5rem;
-	padding: 0 1.5rem;
+	padding: 0 var(--space-6);
 
 	&:focus, .bucket .tasks:focus {
 		box-shadow: none;
@@ -953,10 +953,10 @@ $filter-container-height: '1rem - #{$switch-view-height}';
 			content: '';
 			position: absolute;
 			display: block;
-			inset-block-start: 0.25rem;
-			inset-inline-end: 0.5rem;
-			inset-block-end: 0.25rem;
-			inset-inline-start: 0.5rem;
+			inset-block-start: var(--space-1);
+			inset-inline-end: var(--space-2);
+			inset-block-end: var(--space-1);
+			inset-inline-start: var(--space-2);
 			border: 3px dashed var(--grey-300);
 			border-radius: $radius;
 		}
@@ -986,15 +986,15 @@ $filter-container-height: '1rem - #{$switch-view-height}';
 
 		.task-item {
 			background-color: var(--grey-100);
-			padding: .25rem .5rem;
+			padding: var(--space-1) var(--space-2);
 			position: relative;
 
 			&:first-of-type {
-				padding-block-start: .5rem;
+				padding-block-start: var(--space-2);
 			}
 
 			&:last-of-type {
-				padding-block-end: .5rem;
+				padding-block-end: var(--space-2);
 			}
 
 			.handle {
@@ -1013,7 +1013,7 @@ $filter-container-height: '1rem - #{$switch-view-height}';
 		}
 
 		h2 {
-			font-size: 1rem;
+			font-size: var(--font-size-md);
 			margin: 0;
 			font-weight: 600 !important;
 		}
@@ -1052,7 +1052,7 @@ $filter-container-height: '1rem - #{$switch-view-height}';
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: .5rem;
+		padding: var(--space-2);
 		block-size: $bucket-header-height;
 
 		.icon.has-text-success {
@@ -1060,7 +1060,7 @@ $filter-container-height: '1rem - #{$switch-view-height}';
 		}
 
 		.limit {
-			padding: 0 .5rem;
+			padding: 0 var(--space-2);
 			font-weight: bold;
 
 			&.is-max {
@@ -1070,14 +1070,14 @@ $filter-container-height: '1rem - #{$switch-view-height}';
 
 		.title.input {
 			block-size: auto;
-			padding: .4rem .5rem;
+			padding: .4rem var(--space-2);
 			display: inline-block;
 			cursor: pointer;
 		}
 	}
 
 	:deep(.dropdown-trigger) {
-		padding: .5rem;
+		padding: var(--space-2);
 	}
 
 	.bucket-footer {
@@ -1085,7 +1085,7 @@ $filter-container-height: '1rem - #{$switch-view-height}';
 		inset-block-end: 0;
 		z-index: 2;
 		block-size: min-content;
-		padding: .5rem;
+		padding: var(--space-2);
 		background-color: var(--grey-100);
 		border-end-start-radius: $radius;
 		border-end-end-radius: $radius;

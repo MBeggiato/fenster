@@ -225,7 +225,7 @@ function timeRange(entry: ITimeEntry): string {
 	transition: color $transition;
 
 	& + & {
-		margin-inline-start: .5rem;
+		margin-inline-start: var(--space-2);
 	}
 
 	&:hover {

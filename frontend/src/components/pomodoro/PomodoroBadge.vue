@@ -153,7 +153,7 @@ async function startFocus(close: () => void) {
 .pomodoro-badge {
 	display: inline-flex;
 	align-items: center;
-	gap: .25rem;
+	gap: var(--space-1);
 	white-space: nowrap;
 }
 
@@ -161,7 +161,7 @@ async function startFocus(close: () => void) {
 	display: inline-flex;
 	align-items: center;
 	gap: .375rem;
-	padding-inline: .75rem .25rem;
+	padding-inline: var(--space-3) var(--space-1);
 	color: var(--text);
 	font-variant-numeric: tabular-nums;
 	font-weight: 600;
@@ -199,7 +199,7 @@ async function startFocus(close: () => void) {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	padding-inline: .5rem;
+	padding-inline: var(--space-2);
 	color: var(--grey-400);
 	transition: color $transition;
 
@@ -219,8 +219,8 @@ async function startFocus(close: () => void) {
 
 .pomodoro-badge__link {
 	display: block;
-	margin-block-start: .75rem;
+	margin-block-start: var(--space-3);
 	color: var(--primary);
-	font-size: .875rem;
+	font-size: var(--font-size-sm);
 }
 </style>

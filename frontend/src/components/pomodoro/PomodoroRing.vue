@@ -105,7 +105,7 @@ const label = computed(() => `${props.time} ${t(`pomodoro.phase.${props.phase}`)
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: .25rem;
+	gap: var(--space-1);
 }
 
 .pomodoro-ring__time {
@@ -117,7 +117,7 @@ const label = computed(() => `${props.time} ${t(`pomodoro.phase.${props.phase}`)
 }
 
 .pomodoro-ring__phase {
-	font-size: .875rem;
+	font-size: var(--font-size-sm);
 	color: var(--grey-500);
 }
 </style>

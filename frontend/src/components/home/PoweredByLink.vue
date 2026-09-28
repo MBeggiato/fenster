@@ -25,8 +25,8 @@ const computedUrl = computed(() => `${poweredByUrl}&utm_medium=${props.utmMedium
 	color: var(--grey-300);
 	text-align: center;
 	display: block;
-	padding-block-start: 1rem;
-	padding-block-end: 1rem;
+	padding-block-start: var(--space-4);
+	padding-block-end: var(--space-4);
 	font-size: .8rem;
 }
 </style>

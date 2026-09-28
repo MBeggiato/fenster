@@ -68,11 +68,11 @@ function close() {
 }
 
 .message:not(:last-child) {
-	margin-block-end: 1rem;
+	margin-block-end: var(--space-4);
 }
 
 .message-body {
-	padding: .75rem;
+	padding: var(--space-3);
 }
 
 .shortcut-list {
@@ -81,11 +81,11 @@ function close() {
 }
 
 .shortcut-title {
-	margin-block-end: .5rem;
+	margin-block-end: var(--space-2);
 }
 
 .shortcut-keys {
 	justify-content: end;
-	margin-block-end: .5rem;
+	margin-block-end: var(--space-2);
 }
 </style>

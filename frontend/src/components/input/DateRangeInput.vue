@@ -100,10 +100,10 @@ const {rangeStart, rangeEnd, pickDay} = useRangePick(
 }
 
 .bottom-sheet .date-range-input__popup {
-	padding-block-end: 1.5rem;
+	padding-block-end: var(--space-6);
 }
 
 .date-range-input__popup {
-	padding: .75rem 1rem 1rem;
+	padding: var(--space-3) var(--space-4) var(--space-4);
 }
 </style>

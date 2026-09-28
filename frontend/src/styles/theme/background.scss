@@ -14,7 +14,7 @@
     border-radius: $radius;
 
     @media screen and (min-width: $tablet) {
-      margin-inline: 1rem;
+      margin-inline: var(--space-4);
     }
   }
 

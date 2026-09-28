@@ -380,7 +380,7 @@ $modal-width: 1024px;
 	}
 
 	.button {
-		margin: 0 0.5rem;
+		margin: 0 var(--space-2);
 	}
 }
 
@@ -393,7 +393,7 @@ $modal-width: 1024px;
 	border: 1px solid var(--glass-hairline);
 	border-radius: var(--radius-lg);
 	box-shadow: var(--glass-specular), var(--shadow-lg);
-	padding: 1.5rem;
+	padding: var(--space-6);
 
 	@media screen and (max-width: $tablet) {
 		color: inherit;
@@ -408,7 +408,7 @@ $modal-width: 1024px;
 
 // anchored below the top edge instead of centered, used for QuickActions
 .top .modal-content {
-	inset-block-start: 3rem;
+	inset-block-start: var(--space-12);
 	transform: translate(-50%, 0);
 	max-block-size: calc(100dvh - 6rem);
 	overflow: auto;
@@ -533,7 +533,7 @@ $modal-width: 1024px;
 .bottom-sheet__handle {
 	inline-size: 2.5rem;
 	block-size: 5px;
-	margin: .5rem auto 0;
+	margin: var(--space-2) auto 0;
 	border-radius: $radius-rounded;
 	background: var(--grey-200);
 	flex-shrink: 0;
@@ -543,7 +543,7 @@ $modal-width: 1024px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: .5rem 1rem .75rem;
+	padding: var(--space-2) var(--space-4) var(--space-3);
 	flex-shrink: 0;
 }
 
@@ -568,7 +568,7 @@ $modal-width: 1024px;
 .close {
 	$close-button-padding: 26px;
 	position: fixed;
-	inset-block-start: .5rem;
+	inset-block-start: var(--space-2);
 	inset-inline-end: $close-button-padding;
 	color: var(--white);
 	font-size: 2rem;
@@ -581,14 +581,14 @@ $modal-width: 1024px;
 
 		// fullscreen has no card to hug — keep the corner position instead
 		.fullscreen & {
-			inset-block-start: .5rem;
+			inset-block-start: var(--space-2);
 			inset-inline-end: $close-button-padding;
 			transform: none;
 		}
 	}
 
 	@media screen and (min-width: $tablet) and (max-width: #{$desktop + $close-button-min-space}) {
-		inset-block-start: .75rem;
+		inset-block-start: var(--space-3);
 	}
 }
 
@@ -668,7 +668,7 @@ $modal-width: 1024px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	padding: 0 1rem;
+	padding: 0 var(--space-4);
 	min-block-size: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
 }
 

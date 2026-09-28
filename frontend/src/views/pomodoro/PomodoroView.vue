@@ -236,41 +236,41 @@ onKeyStroke(SHORTCUTS.pomodoro.stop, event => {
 <style lang="scss" scoped>
 .pomodoro-view__tabs {
 	display: flex;
-	gap: .5rem;
-	margin-block-end: 1.5rem;
+	gap: var(--space-2);
+	margin-block-end: var(--space-6);
 }
 
 .pomodoro-view__timer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 1.5rem;
+	gap: var(--space-6);
 }
 
 .pomodoro-view__phases {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	gap: .5rem;
+	gap: var(--space-2);
 }
 
 .pomodoro-view__controls {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	gap: .5rem;
+	gap: var(--space-2);
 }
 
 .pomodoro-view__finished {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	gap: .75rem;
+	gap: var(--space-3);
 }
 
 .pomodoro-view__finished-actions {
 	display: flex;
-	gap: .5rem;
+	gap: var(--space-2);
 }
 
 .pomodoro-view__task {
@@ -284,9 +284,9 @@ onKeyStroke(SHORTCUTS.pomodoro.stop, event => {
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: center;
-	gap: .5rem;
+	gap: var(--space-2);
 	color: var(--grey-500);
-	font-size: .875rem;
+	font-size: var(--font-size-sm);
 }
 
 .pomodoro-view__today-label {
@@ -300,7 +300,7 @@ onKeyStroke(SHORTCUTS.pomodoro.stop, event => {
 
 .pomodoro-view__tomatoes {
 	display: flex;
-	gap: .25rem;
+	gap: var(--space-1);
 	margin: 0;
 	padding: 0;
 	list-style: none;

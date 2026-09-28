@@ -345,7 +345,7 @@ function cancelEdit() {
 <style lang="scss" scoped>
 .field-columns {
 	display: flex;
-	gap: 1rem;
+	gap: var(--space-4);
 
 	> .field {
 		flex: 1;
@@ -374,6 +374,6 @@ function cancelEdit() {
 
 .form-actions {
 	display: flex;
-	gap: .5rem;
+	gap: var(--space-2);
 }
 </style>

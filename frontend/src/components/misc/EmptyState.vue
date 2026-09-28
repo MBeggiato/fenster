@@ -41,14 +41,14 @@ defineProps<{
 	flex-direction: column;
 	align-items: center;
 	text-align: center;
-	padding: 2rem 1rem;
+	padding: 2rem var(--space-4);
 	color: var(--text-muted);
 }
 
 .empty-state__icon {
 	font-size: var(--font-size-2xl);
 	color: var(--grey-400);
-	margin-block-end: .75rem;
+	margin-block-end: var(--space-3);
 }
 
 .empty-state__title {
@@ -59,10 +59,10 @@ defineProps<{
 
 .empty-state__text {
 	font-size: var(--font-size-sm);
-	margin-block-start: .25rem;
+	margin-block-start: var(--space-1);
 }
 
 .empty-state__action {
-	margin-block-start: 1rem;
+	margin-block-start: var(--space-4);
 }
 </style>

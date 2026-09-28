@@ -125,7 +125,7 @@ const showHowItWorks = ref(false)
 .calendar-container {
 	inline-size: 70%;
 	border-inline-start: 1px solid var(--grey-200);
-	padding: 1rem;
+	padding: var(--space-4);
 	font-size: .9rem;
 
 	:deep(.label),
@@ -138,7 +138,7 @@ const showHowItWorks = ref(false)
 	inline-size: 30%;
 	display: flex;
 	flex-direction: column;
-	padding-block-start: .5rem;
+	padding-block-start: var(--space-2);
 	overflow-y: auto;
 	max-block-size: 30rem;
 
@@ -146,7 +146,7 @@ const showHowItWorks = ref(false)
 		display: block;
 		inline-size: 100%;
 		text-align: start;
-		padding: .5rem 1rem;
+		padding: var(--space-2) var(--space-4);
 		transition: $transition;
 		font-size: .9rem;
 		color: var(--text);
@@ -173,8 +173,8 @@ const showHowItWorks = ref(false)
 	flex-wrap: nowrap;
 	inline-size: 100%;
 	max-block-size: none;
-	gap: .5rem;
-	padding: .75rem 1rem;
+	gap: var(--space-2);
+	padding: var(--space-3) var(--space-4);
 	overflow-x: auto;
 	overflow-y: hidden;
 	border-block-end: 1px solid var(--grey-200);

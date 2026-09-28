@@ -326,13 +326,13 @@ defineExpose({
 		
 		.value {
 			border-radius: $radius;
-			padding: .125rem .25rem;
+			padding: .125rem var(--space-1);
 			background: var(--grey-100);
 		}
 		
 		.label-value {
 			border-radius: $radius;
-			padding: .125rem .25rem;
+			padding: .125rem var(--space-1);
 		}
 		
 		.date-value {
@@ -391,6 +391,6 @@ defineExpose({
 
 .editor-content {
 	line-height: 1.5;
-	padding: .5rem .75rem;
+	padding: var(--space-2) var(--space-3);
 }
 </style>

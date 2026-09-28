@@ -84,7 +84,7 @@ const textOnlyDescription = computed(() => {
 
 <style lang="scss" scoped>
 .project-card {
-	--project-card-padding: 1rem;
+	--project-card-padding: var(--space-4);
 	background: var(--white);
 	padding: var(--project-card-padding);
 	border-radius: $radius;
@@ -129,7 +129,7 @@ const textOnlyDescription = computed(() => {
 }
 
 .is-archived {
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 	float: inline-start;
 }
 
@@ -137,7 +137,7 @@ const textOnlyDescription = computed(() => {
 	align-self: flex-end;
 	font-family: $vikunja-font;
 	font-weight: 400;
-	font-size: 1.5rem;
+	font-size: var(--font-size-xl);
 	line-height: var(--title-line-height);
 	color: var(--text);
 	inline-size: 100%;

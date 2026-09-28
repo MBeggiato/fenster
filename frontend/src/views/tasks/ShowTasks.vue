@@ -326,16 +326,16 @@ watchEffect(() => setTitle(pageTitle.value))
 }
 
 .llama-cool {
-	margin: 3rem auto 0;
+	margin: var(--space-12) auto 0;
 	display: block;
 }
 
 .label-filter-info {
-	margin-block-end: 1rem;
+	margin-block-end: var(--space-4);
 	
 	.clear-filter-button {
 		margin-inline-start: auto;
-		padding: 0.25rem 0.5rem;
+		padding: var(--space-1) var(--space-2);
 		
 		&:hover {
 			color: var(--danger);
@@ -347,7 +347,7 @@ watchEffect(() => setTitle(pageTitle.value))
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 0.5rem;
+		gap: var(--space-2);
 	}
 }
 </style>

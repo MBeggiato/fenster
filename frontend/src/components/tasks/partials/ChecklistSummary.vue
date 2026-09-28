@@ -67,14 +67,14 @@ const label = computed(() => {
 	color: var(--text-muted);
 	display: inline-flex;
 	align-items: center;
-	padding-inline-start: .5rem;
+	padding-inline-start: var(--space-2);
 	font-size: .9rem;
 }
 
 svg {
 	transform: rotate(-90deg);
 	transition: stroke-dashoffset 0.35s;
-	margin-inline-end: .25rem;
+	margin-inline-end: var(--space-1);
 }
 
 circle {

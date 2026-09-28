@@ -71,11 +71,11 @@ defineEmits<{
 		display: flex;
 		align-content: center;
   		align-items: center;
-  		gap: .5rem;
+  		gap: var(--space-2);
 	}
 
 	:deep(.user > .username) {
-		font-size: .75rem;
+		font-size: var(--font-size-xs);
 	}
 
 	&.is-inline {
@@ -108,7 +108,7 @@ defineEmits<{
 	background: var(--white);
 	display: block;
 	border-radius: 100%;
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 	inline-size: 18px;
 	block-size: 18px;
 	// Only needs to beat the overlapping sibling avatars, so keep it low enough

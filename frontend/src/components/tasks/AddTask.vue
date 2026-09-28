@@ -276,7 +276,7 @@ defineExpose({
 .task-add .add-task__field {
 	display: flex;
 	justify-content: flex-start;
-	gap: .75rem;
+	gap: var(--space-3);
 
 	.control {
 		flex-shrink: 0;
@@ -300,15 +300,15 @@ defineExpose({
 	.task-icon, 
 	:deep(.quick-add-magic-trigger-btn) {
 		position: absolute;
-		inset-block-start: .75rem;
+		inset-block-start: var(--space-3);
 	}
 
 	:deep(.quick-add-magic-trigger-btn) {
-		inset-inline-end: .75rem;
+		inset-inline-end: var(--space-3);
 	}
 
 	.task-icon {
-		inset-inline-start: 1rem;
+		inset-inline-start: var(--space-4);
 	}
 }
 

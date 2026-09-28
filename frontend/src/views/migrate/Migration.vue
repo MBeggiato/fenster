@@ -51,13 +51,13 @@ const availableMigrators = computed(() => configStore.availableMigrators
     justify-content: flex-end;
     inline-size: 100px;
     text-transform: capitalize;
-    margin-inline-end: 1rem;
+    margin-inline-end: var(--space-4);
 }
 
 .migration-service-image {
 	display: block;
 	max-block-size: 80px;
 	inline-size: auto;
-	margin-block-end: 0.5rem;
+	margin-block-end: var(--space-2);
 }
 </style>

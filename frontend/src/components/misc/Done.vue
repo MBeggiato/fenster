@@ -24,7 +24,7 @@ withDefaults(defineProps<{
   // bright brand green with fixed dark text passes contrast in both themes
   background: var(--success);
   color: hsl(215, 27.9%, 16.9%);
-  padding: .5rem;
+  padding: var(--space-2);
   font-weight: bold;
   line-height: 1;
   border-radius: 4px;

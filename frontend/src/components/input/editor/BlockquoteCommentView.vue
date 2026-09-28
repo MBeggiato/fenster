@@ -85,13 +85,13 @@ function onJump() {
 
 <style lang="scss">
 .tiptap blockquote.comment-quote {
-	margin-block: .5rem;
+	margin-block: var(--space-2);
 
 	.comment-quote__header {
 		display: flex;
 		align-items: center;
-		gap: .5rem;
-		padding-block-end: .25rem;
+		gap: var(--space-2);
+		padding-block-end: var(--space-1);
 		font-size: .85rem;
 		color: var(--grey-600);
 		user-select: none;
@@ -117,7 +117,7 @@ function onJump() {
 		align-items: center;
 		justify-content: center;
 		color: var(--grey-500);
-		padding: .15rem .25rem;
+		padding: .15rem var(--space-1);
 		border-radius: 9999px;
 		transition: background-color $transition, color $transition;
 

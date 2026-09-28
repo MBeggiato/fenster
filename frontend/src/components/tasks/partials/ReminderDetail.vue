@@ -304,19 +304,19 @@ function translateUnit(amount: number, unit: PeriodUnit): string {
 		border: 0;
 		box-shadow: none;
 		border-radius: 0;
-		padding-block-end: .5rem;
+		padding-block-end: var(--space-2);
 
 		.option-button {
 			inline-size: 100%;
-			padding: .75rem 1rem;
-			font-size: 1rem;
+			padding: var(--space-3) var(--space-4);
+			font-size: var(--font-size-md);
 		}
 	}
 
 	.option-button {
 		font-size: .85rem;
 		border-radius: 0;
-		padding: .5rem;
+		padding: var(--space-2);
 		margin: 0;
 
 		&:hover {
@@ -326,7 +326,7 @@ function translateUnit(amount: number, unit: PeriodUnit): string {
 }
 
 .reminder__close-button {
-	margin: .5rem;
+	margin: var(--space-2);
 	inline-size: calc(100% - 1rem);
 }
 

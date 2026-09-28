@@ -167,20 +167,20 @@ function formatPreset(hours: number) {
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
-	gap: .75rem 1rem;
-	padding: .75rem 1rem;
+	gap: var(--space-3) var(--space-4);
+	padding: var(--space-3) var(--space-4);
 	border-block-start: 1px solid var(--grey-200);
 }
 
 .time-control__clock {
 	display: flex;
 	align-items: center;
-	gap: .25rem;
+	gap: var(--space-1);
 	color: var(--grey-500);
 }
 
 .time-control__icon {
-	margin-inline-end: .25rem;
+	margin-inline-end: var(--space-1);
 }
 
 .time-control__segment {
@@ -195,7 +195,7 @@ function formatPreset(hours: number) {
 	color: var(--grey-400);
 	font-size: .6rem;
 	line-height: 1;
-	padding: .125rem .25rem;
+	padding: .125rem var(--space-1);
 	cursor: pointer;
 	transition: color $transition;
 
@@ -243,7 +243,7 @@ function formatPreset(hours: number) {
 
 .time-control__meridiem {
 	margin-inline-start: .375rem;
-	padding: .25rem .5rem;
+	padding: var(--space-1) var(--space-2);
 	border: 1px solid var(--grey-200);
 	border-radius: $radius;
 	background: var(--white);
@@ -261,12 +261,12 @@ function formatPreset(hours: number) {
 }
 
 .time-control__preset {
-	padding: .25rem .5625rem;
+	padding: var(--space-1) .5625rem;
 	border: 1px solid var(--grey-200);
 	border-radius: $radius-rounded;
 	background: var(--white);
 	color: var(--grey-600);
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 	font-weight: 600;
 	cursor: pointer;
 	transition: all $transition;

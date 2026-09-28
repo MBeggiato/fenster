@@ -180,9 +180,9 @@ async function addTask() {
 .eisenhower-quadrant {
 	display: flex;
 	flex-direction: column;
-	gap: .5rem;
+	gap: var(--space-2);
 	min-block-size: 12rem;
-	padding: .75rem;
+	padding: var(--space-3);
 	border-radius: $radius;
 	background: var(--white);
 	box-shadow: var(--shadow-sm);
@@ -208,14 +208,14 @@ async function addTask() {
 .quadrant-title {
 	display: flex;
 	align-items: center;
-	gap: .5rem;
+	gap: var(--space-2);
 	margin: 0;
 	font-size: 1.1rem;
 	font-weight: 700;
 }
 
 .quadrant-count {
-	padding-inline: .5rem;
+	padding-inline: var(--space-2);
 	border-radius: 1rem;
 	background: var(--grey-100);
 	color: var(--grey-600);
@@ -240,7 +240,7 @@ async function addTask() {
 // Sits on top of the empty list and lets drops through to it.
 .quadrant-empty {
 	margin: -3rem 0 0;
-	padding: 1rem .5rem;
+	padding: var(--space-4) var(--space-2);
 	pointer-events: none;
 	color: var(--grey-500);
 	text-align: center;

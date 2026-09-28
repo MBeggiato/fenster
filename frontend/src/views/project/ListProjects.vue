@@ -67,8 +67,8 @@ const projects = computed(() => {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	gap: 1rem;
-	margin-block-end: 1rem;
+	gap: var(--space-4);
+	margin-block-end: var(--space-4);
 
 	@media screen and (max-width: $tablet) {
 		flex-direction: column;
@@ -78,7 +78,7 @@ const projects = computed(() => {
 .action-buttons {
 	display: flex;
 	justify-content: space-between;
-	gap: 1rem;
+	gap: var(--space-4);
 
 	@media screen and (max-width: $tablet) {
 		inline-size: 100%;
@@ -88,7 +88,7 @@ const projects = computed(() => {
 }
 
 .project:not(:first-child) {
-	margin-block-start: 1rem;
+	margin-block-start: var(--space-4);
 }
 
 .project-title {
@@ -97,13 +97,13 @@ const projects = computed(() => {
 }
 
 .is-archived {
-	font-size: 0.75rem;
+	font-size: var(--font-size-xs);
 	border: 1px solid var(--grey-500);
 	color: $grey !important;
 	padding: 2px 4px;
 	border-radius: 3px;
 	font-family: $vikunja-font;
 	background: var(--white-translucent);
-	margin-inline-start: .5rem;
+	margin-inline-start: var(--space-2);
 }
 </style>

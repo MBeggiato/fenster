@@ -262,7 +262,7 @@ async function toggleProjectFavorite() {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
-	margin-inline-end: .25rem;
+	margin-inline-end: var(--space-1);
 	flex-shrink: 0;
 
 	.color-bubble, .icon {
@@ -296,7 +296,7 @@ async function toggleProjectFavorite() {
 
 .saved-filter-icon {
 	color: var(--grey-300) !important;
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 }
 
 @media (pointer: coarse) {

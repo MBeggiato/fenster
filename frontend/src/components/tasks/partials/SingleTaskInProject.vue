@@ -557,7 +557,7 @@ defineExpose({
 	:deep(.fancy-checkbox) {
 		block-size: 18px;
 		padding-block-start: 0;
-		padding-inline-end: .5rem;
+		padding-inline-end: var(--space-2);
 
 		span {
 			display: none;
@@ -592,7 +592,7 @@ defineExpose({
 	}
 
 	.show-project .parent-tasks {
-		padding-inline-start: .25rem;
+		padding-inline-start: var(--space-1);
 	}
 
 	.remove {
@@ -645,7 +645,7 @@ defineExpose({
 	color: var(--text);
 
 	&.is-open {
-		padding: 1rem;
+		padding: var(--space-4);
 		border: 1px solid var(--grey-200);
 	}
 }

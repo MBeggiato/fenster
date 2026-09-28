@@ -85,11 +85,11 @@ const blurHashUrl = useBlurHashUrl(() => props.image.blur_hash ?? '')
 	position: absolute;
 	inset-block-end: 0;
 	inline-size: 100%;
-	padding: .25rem 0;
+	padding: var(--space-1) 0;
 	opacity: 0;
 	text-align: center;
 	background: rgba(0, 0, 0, 0.5);
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 	font-weight: bold;
 	color: $white;
 	transition: opacity $transition;

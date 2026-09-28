@@ -211,9 +211,9 @@ const newTaskProjectId = computed(() => props.projectId > 0
 .matrix-filters {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-	gap: .75rem 1rem;
+	gap: var(--space-3) var(--space-4);
 	align-items: end;
-	margin-block: 1rem;
+	margin-block: var(--space-4);
 
 	.field {
 		margin: 0;
@@ -232,8 +232,8 @@ const newTaskProjectId = computed(() => props.projectId > 0
 		". urgent not-urgent"
 		"important do schedule"
 		"not-important delegate eliminate";
-	gap: 1rem;
-	margin-block: 1rem;
+	gap: var(--space-4);
+	margin-block: var(--space-4);
 }
 
 .axis {

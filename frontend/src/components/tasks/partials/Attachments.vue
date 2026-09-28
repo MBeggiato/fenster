@@ -627,7 +627,7 @@ defineExpose({openFilePicker})
 }
 
 .files {
-	margin-block-end: 1rem;
+	margin-block-end: var(--space-4);
 }
 
 .attachment {
@@ -636,7 +636,7 @@ defineExpose({openFilePicker})
 	align-items: center;
 	inline-size: 100%;
 	
-	padding: .5rem;
+	padding: var(--space-2);
 	
 	transition: background-color $transition;
 	background-color: transparent;
@@ -683,7 +683,7 @@ defineExpose({openFilePicker})
 
 .attachment-actions {
 	display: flex;
-	margin-block-start: .25rem;
+	margin-block-start: var(--space-1);
 	margin-block-end: 0;
 }
 
@@ -721,11 +721,11 @@ defineExpose({openFilePicker})
 	}
 
 	.hint {
-		margin: .5rem auto 2rem;
+		margin: var(--space-2) auto 2rem;
 		border-radius: $radius;
 		box-shadow: var(--shadow-md);
 		background: var(--primary);
-		padding: 1rem;
+		padding: var(--space-4);
 		color: $white; // Should always be white because of the background, regardless of the theme
 		inline-size: 100%;
 		max-inline-size: 300px;
@@ -745,7 +745,7 @@ defineExpose({openFilePicker})
 	margin-block: 0;
 
 	> span {
-		padding: 0 .25rem;
+		padding: 0 var(--space-1);
 	}
 
 	:deep(.avatar-wrapper) {
@@ -755,7 +755,7 @@ defineExpose({openFilePicker})
 
 .attachment-info-meta-button {
 	color: var(--link);
-	padding: 0 .25rem;
+	padding: 0 var(--space-1);
 }
 
 @keyframes bounce {
@@ -832,16 +832,16 @@ defineExpose({openFilePicker})
 	text-align: center;
 
 	p {
-		margin-block-end: 1rem;
+		margin-block-end: var(--space-4);
 	}
 }
 
 .is-task-cover {
 	background: var(--primary);
 	color: var(--white);
-	margin-inline-start: .25rem;
-	padding: .25rem .35rem;
+	margin-inline-start: var(--space-1);
+	padding: var(--space-1) .35rem;
 	border-radius: 4px;
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 }
 </style>

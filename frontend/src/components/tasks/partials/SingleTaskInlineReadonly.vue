@@ -171,7 +171,7 @@ const project = computed(() => projectList.projects[props.task.project_id ?? 0])
 	.avatar {
 		border-radius: 50%;
 		vertical-align: bottom;
-		margin-inline-start: .5rem;
+		margin-inline-start: var(--space-2);
 		block-size: 21px;
 		inline-size: 21px;
 	}
@@ -202,7 +202,7 @@ const project = computed(() => projectList.projects[props.task.project_id ?? 0])
 	span.parent-tasks {
 		color: var(--grey-500);
 		inline-size: auto;
-		margin-inline-start: .25rem;
+		margin-inline-start: var(--space-1);
 	}
 }
 </style>

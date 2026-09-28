@@ -11,7 +11,7 @@
       height: 12px;
       flex: 0 0 12px;
       opacity: 1;
-      margin: 0 .5rem 0 .25rem;
+      margin: 0 var(--space-2) 0 var(--space-1);
     }
   }
 
@@ -58,7 +58,7 @@
 
     .menu-list-dropdown-trigger {
       display: flex;
-      padding: 0.5rem;
+      padding: var(--space-2);
     }
 
     .flip-list-move {
@@ -80,7 +80,7 @@
     .list-menu-link,
     li, li > div {
       .collapse-project-button {
-        padding: .5rem .25rem .5rem .5rem;
+        padding: var(--space-2) var(--space-1) var(--space-2) var(--space-2);
 
         svg {
           transition: all $transition;
@@ -96,7 +96,7 @@
 
       > a {
         color: $vikunja-nav-color;
-        padding: .75rem .5rem .75rem .25rem;
+        padding: var(--space-3) var(--space-2) var(--space-3) var(--space-1);
         transition: all 0.2s ease;
 
         border-radius: 0;
@@ -112,7 +112,7 @@
         .icon {
           height: 1rem;
           vertical-align: middle;
-          padding-inline-end: 0.5rem;
+          padding-inline-end: var(--space-2);
         }
 
         &.router-link-exact-active .icon:not(.handle) {

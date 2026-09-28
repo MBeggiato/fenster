@@ -270,7 +270,7 @@ $task-background: var(--white);
 
 	.task-position {
 		color: var(--danger-text);
-		padding-inline-start: .5rem;
+		padding-inline-start: var(--space-2);
 	}
 
 	&.loader-container.is-loading::after {
@@ -296,11 +296,11 @@ $task-background: var(--white);
 		float: inline-end;
 		display: flex;
 		align-items: center;
-		padding: 0 .25rem;
+		padding: 0 var(--space-1);
 		font-size: .85rem;
 
 		.icon {
-			margin-inline-end: .25rem;
+			margin-inline-end: var(--space-1);
 		}
 
 	}
@@ -310,7 +310,7 @@ $task-background: var(--white);
 	}
 
 	.label-wrapper .tag {
-		margin: .5rem .5rem 0 0;
+		margin: var(--space-2) var(--space-2) 0 0;
 	}
 
 	.footer {
@@ -319,8 +319,8 @@ $task-background: var(--white);
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: .25rem;
-		margin-block-start: .25rem;
+		gap: var(--space-1);
+		margin-block-start: var(--space-1);
 
 		:deep(.checklist-summary) {
 			padding-inline-start: 0;
@@ -340,12 +340,12 @@ $task-background: var(--white);
 		}
 
 		.priority-label {
-			font-size: .75rem;
-			padding: 0 .5rem 0 .25rem;
+			font-size: var(--font-size-xs);
+			padding: 0 var(--space-2) 0 var(--space-1);
 
 			.icon {
 				block-size: 1rem;
-				padding: 0 .25rem;
+				padding: 0 var(--space-1);
 				margin-block-start: 0;
 			}
 		}
@@ -356,13 +356,13 @@ $task-background: var(--white);
 	.priority-label {
 		background: var(--grey-100);
 		border-radius: $radius;
-		padding: 0 .5rem;
+		padding: 0 var(--space-2);
 	}
 
 	.task-id, .project-title {
 		color: var(--grey-500);
 		font-size: .8rem;
-		margin-block-end: .25rem;
+		margin-block-end: var(--space-1);
 		display: flex;
 	}
 
@@ -427,7 +427,7 @@ $task-background: var(--white);
 }
 
 .kanban-card__done {
-	margin-inline-end: .25rem;
+	margin-inline-end: var(--space-1);
 }
 
 .task-progress {
@@ -439,6 +439,6 @@ $task-background: var(--white);
 :deep(.comment-count) {
 	background: var(--grey-100);
 	border-radius: $radius;
-	padding: 0.25rem;
+	padding: var(--space-1);
 }
 </style>

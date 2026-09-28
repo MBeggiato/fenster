@@ -121,9 +121,9 @@ const monthGroups = computed(() => {
 		font-family: $vikunja-font;
 		font-weight: bold;
 		border-inline-end: 1px solid var(--grey-200);
-		padding: 0.5rem 0;
+		padding: var(--space-2) 0;
 		text-align: center;
-		font-size: 1rem;
+		font-size: var(--font-size-md);
 		color: var(--grey-800);
 	}
 }
@@ -133,8 +133,8 @@ const monthGroups = computed(() => {
 
 	.timeunit {
 		.timeunit-wrapper {
-			padding: 0.5rem 0;
-			font-size: 1rem;
+			padding: var(--space-2) 0;
+			font-size: var(--font-size-md);
 			display: flex;
 			flex-direction: column;
 			align-items: center;

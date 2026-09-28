@@ -232,7 +232,7 @@ $user-dropdown-width-mobile: 5rem;
 		align-self: stretch;
 		display: flex;
 		align-items: center;
-		margin-inline-end: .5rem;
+		margin-inline-end: var(--space-2);
 	}
 }
 
@@ -242,7 +242,7 @@ $user-dropdown-width-mobile: 5rem;
 	flex: 0 0 auto;
 
 	@media screen and (max-width: $tablet) {
-		margin-inline-start: 1rem;
+		margin-inline-start: var(--space-4);
 	}
 }
 
@@ -261,7 +261,7 @@ $user-dropdown-width-mobile: 5rem;
 }
 
 .project-title {
-	font-size: 1rem;
+	font-size: var(--font-size-md);
 	// We need the following for overflowing ellipsis to work
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -309,12 +309,12 @@ $user-dropdown-width-mobile: 5rem;
 }
 
 .username-dropdown-trigger {
-	padding-inline-start: .75rem;
+	padding-inline-start: var(--space-3);
 	display: inline-flex;
 	align-items: center;
 	font-size: .85rem;
 	font-weight: 700;
-	gap: .5rem;
+	gap: var(--space-2);
 	
 	:deep(.avatar) {
 		margin-inline-end: 0;
@@ -325,11 +325,11 @@ $user-dropdown-width-mobile: 5rem;
 	}
 
 	@media screen and (max-width: $tablet) {
-		padding-inline-end: .5rem;
+		padding-inline-end: var(--space-2);
 	}
 
 	@media screen and (min-width: $tablet) {
-		padding-inline-end: .75rem;
+		padding-inline-end: var(--space-3);
 	}
 }
 
@@ -349,6 +349,6 @@ $user-dropdown-width-mobile: 5rem;
 	border-radius: 100%;
 	vertical-align: middle;
 	block-size: 40px;
-	margin-inline-end: .5rem;
+	margin-inline-end: var(--space-2);
 }
 </style>

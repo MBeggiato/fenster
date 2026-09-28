@@ -188,9 +188,9 @@ const savedFilterProjects = computed(() => projectList.savedFilterProjects)
 .logo {
 	display: block;
 
-	padding-inline-start: 1rem;
-	margin-inline-end: 1rem;
-	margin-block-end: 1rem;
+	padding-inline-start: var(--space-4);
+	margin-inline-end: var(--space-4);
+	margin-block-end: var(--space-4);
 
 	@media screen and (min-width: $tablet) {
 		display: none;
@@ -206,7 +206,7 @@ const savedFilterProjects = computed(() => projectList.savedFilterProjects)
 	backdrop-filter: var(--glass-filter);
 	box-shadow: var(--glass-specular);
 	color: $vikunja-nav-color;
-	padding: 1rem 0;
+	padding: var(--space-4) 0;
 	transition: transform $transition-duration ease-in;
 	position: fixed;
 	inset-block-start: $navbar-height;
@@ -265,7 +265,7 @@ const savedFilterProjects = computed(() => projectList.savedFilterProjects)
 		display: inline-block;
 
 		.icon {
-			padding-block-end: .25rem;
+			padding-block-end: var(--space-1);
 		}
 	}
 }

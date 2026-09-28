@@ -247,11 +247,11 @@ onUnmounted(hide)
 }
 
 .task-glance-content {
-	padding: 0.75rem;
+	padding: var(--space-3);
 	display: flex;
 	flex-direction: column;
-	gap: 0.5rem;
-	font-size: 0.875rem;
+	gap: var(--space-2);
+	font-size: var(--font-size-sm);
 	color: var(--text);
 }
 
@@ -259,19 +259,19 @@ onUnmounted(hide)
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-between;
-	gap: 1rem;
+	gap: var(--space-4);
 }
 
 .task-glance-title-section {
 	display: flex;
 	flex-direction: column;
-	gap: 0.25rem;
+	gap: var(--space-1);
 	flex: 1;
 	min-inline-size: 0; /* Allow text to wrap */
 }
 
 .task-identifier {
-	font-size: 0.75rem;
+	font-size: var(--font-size-xs);
 	color: var(--grey-500);
 	font-weight: 600;
 }
@@ -284,7 +284,7 @@ onUnmounted(hide)
 
 .task-glance-description {
 	color: var(--grey-700);
-	font-size: 0.875rem;
+	font-size: var(--font-size-sm);
 	line-height: 1.4;
 	word-wrap: break-word;
 	white-space: pre-wrap;
@@ -297,7 +297,7 @@ onUnmounted(hide)
 .task-glance-due {
 	display: flex;
 	align-items: center;
-	gap: 0.5rem;
+	gap: var(--space-2);
 	color: var(--grey-700);
 
 	.icon {
@@ -309,8 +309,8 @@ onUnmounted(hide)
 .task-glance-meta {
 	display: flex;
 	flex-direction: column;
-	gap: 0.25rem;
-	padding-block-start: 0.25rem;
+	gap: var(--space-1);
+	padding-block-start: var(--space-1);
 	border-block-start: 1px solid var(--grey-200);
 	font-size: 0.8rem;
 	color: var(--grey-600);
@@ -319,7 +319,7 @@ onUnmounted(hide)
 .task-glance-created {
 	display: flex;
 	align-items: center;
-	gap: 0.5rem;
+	gap: var(--space-2);
 }
 
 .task-glance-indicators {
@@ -338,7 +338,7 @@ onUnmounted(hide)
 
 .task-glance-icon {
 	color: var(--grey-500);
-	font-size: 0.875rem;
+	font-size: var(--font-size-sm);
 	display: inline-flex;
 	align-items: center;
 	margin-inline-end: 6px;

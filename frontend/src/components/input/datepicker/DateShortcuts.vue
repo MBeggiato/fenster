@@ -92,7 +92,7 @@ function confirmShortcut(date: Date) {
 	display: flex;
 	flex-direction: column;
 	gap: .125rem;
-	padding: .75rem;
+	padding: var(--space-3);
 	background: var(--grey-50);
 	border-inline-end: 1px solid var(--grey-200);
 	inline-size: 13rem;
@@ -104,13 +104,13 @@ function confirmShortcut(date: Date) {
 		text-transform: uppercase;
 		letter-spacing: .05em;
 		color: var(--grey-600);
-		padding: .125rem .625rem .5rem;
+		padding: .125rem .625rem var(--space-2);
 	}
 
 	.date-shortcuts__item {
 		display: flex;
 		align-items: center;
-		gap: .5rem;
+		gap: var(--space-2);
 		inline-size: 100%;
 		padding: .4375rem .625rem;
 		border-radius: $radius;
@@ -153,8 +153,8 @@ function confirmShortcut(date: Date) {
 .date-shortcuts--chips {
 	display: flex;
 	flex-wrap: wrap;
-	gap: .5rem;
-	padding: .75rem 1rem;
+	gap: var(--space-2);
+	padding: var(--space-3) var(--space-4);
 	border-block-end: 1px solid var(--grey-200);
 
 	.bottom-sheet & {
@@ -170,7 +170,7 @@ function confirmShortcut(date: Date) {
 	.date-shortcuts__item {
 		display: inline-flex;
 		align-items: center;
-		gap: .25rem;
+		gap: var(--space-1);
 		padding: .3125rem .6875rem;
 		border: 1px solid var(--grey-200);
 		border-radius: $radius-rounded;

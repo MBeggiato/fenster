@@ -1314,23 +1314,23 @@ function setRelatedTasksActive() {
 	padding-block-end: 0;
 
 	@media screen and (min-width: $desktop) {
-		padding-block-end: 1rem;
+		padding-block-end: var(--space-4);
 	}
 }
 
 .task-view {
-	padding-block-start: 1rem;
-	padding-inline: .5rem;
+	padding-block-start: var(--space-4);
+	padding-inline: var(--space-2);
 	background-color: var(--site-background);
 
 	@media screen and (min-width: $desktop) {
-		padding: 1rem;
+		padding: var(--space-4);
 	}
 }
 
 .is-modal .task-view {
 	border-radius: $radius;
-	padding: 1rem;
+	padding: var(--space-4);
 	color: var(--text);
 	background-color: var(--site-background) !important;
 
@@ -1350,7 +1350,7 @@ function setRelatedTasksActive() {
 
 .subtitle {
 	color: var(--grey-500);
-	margin-block-end: 1rem;
+	margin-block-end: var(--space-4);
 
 	a {
 		color: var(--grey-800);
@@ -1373,7 +1373,7 @@ h2 .button {
 .remove {
 	color: var(--danger);
 	vertical-align: middle;
-	padding-inline-start: .5rem;
+	padding-inline-start: var(--space-2);
 	line-height: 1;
 }
 
@@ -1382,7 +1382,7 @@ h2 .button {
 
 	.show {
 		color: var(--text);
-		padding: .25rem .5rem;
+		padding: var(--space-1) var(--space-2);
 		transition: background-color $transition;
 		border-radius: $radius;
 		display: block;
@@ -1401,7 +1401,7 @@ h2 .button {
 }
 
 .details {
-	padding-block-end: 0.75rem;
+	padding-block-end: var(--space-3);
 	flex-flow: row wrap;
 	margin-block-end: 0;
 
@@ -1491,7 +1491,7 @@ h2 .button {
 
 	.button {
 		inline-size: 100%;
-		margin-block-end: .5rem;
+		margin-block-end: var(--space-2);
 		justify-content: left;
 
 		&.has-light-text {
@@ -1536,7 +1536,7 @@ h2 .button {
 }
 
 .checklist-summary {
-	padding-inline-start: .25rem;
+	padding-inline-start: var(--space-1);
 }
 
 .detail-content {
@@ -1548,9 +1548,9 @@ h2 .button {
 .action-heading {
 	text-transform: uppercase;
 	color: var(--grey-700);
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 	font-weight: 700;
-	margin: .5rem 0;
+	margin: var(--space-2) 0;
 	display: inline-block;
 }
 
@@ -1558,7 +1558,7 @@ h2 .button {
 	position: fixed;
 	// Position above the keyboard shortcuts button (which is at bottom: calc(1rem - 4px))
 	inset-block-end: 2.5rem;
-	inset-inline-end: .75rem;
+	inset-inline-end: var(--space-3);
 	z-index: 10;
 	inline-size: 2rem;
 	block-size: 2rem;
@@ -1588,8 +1588,8 @@ h2 .button {
 <style lang="scss">
 // global style to override position when the modal task detail is active
 .modal-content .scroll-to-comments-button {
-	inset-block-end: .75rem;
-	inset-inline-end: 1rem;
+	inset-block-end: var(--space-3);
+	inset-inline-end: var(--space-4);
 }
 
 // the task card spans the full width here, so the modal's white close button sits on it instead of the scrim

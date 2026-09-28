@@ -187,12 +187,12 @@ function getViewRoute(view: ProjectView) {
 .switch-view-container {
 	position: relative;
 	min-block-size: $switch-view-height;
-	margin-block-end: 1rem;
+	margin-block-end: var(--space-4);
 	
 	display: flex;
 	justify-content: space-between;
 	align-items: center;	
-	gap: 1rem;
+	gap: var(--space-4);
 	
 	@media screen and (max-width: $tablet) {
 		justify-content: center;
@@ -204,9 +204,9 @@ function getViewRoute(view: ProjectView) {
 	background: var(--white);
 	display: inline-flex;
 	border-radius: $radius;
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 	box-shadow: var(--shadow-sm);
-	padding: .5rem;
+	padding: var(--space-2);
 }
 
 .switch-view--hidden {
@@ -223,7 +223,7 @@ function getViewRoute(view: ProjectView) {
 	cursor: pointer;
 	display: inline-flex;
 	align-items: center;
-	gap: .25rem;
+	gap: var(--space-1);
 	font-weight: bold;
 	color: var(--switch-view-color);
 	background: var(--switch-view-active-background);
@@ -234,14 +234,14 @@ function getViewRoute(view: ProjectView) {
 }
 
 .switch-view-button {
-	padding: .25rem .5rem;
+	padding: var(--space-1) var(--space-2);
 	display: block;
 	white-space: nowrap;
 	border-radius: $radius;
 	transition: all 100ms;
 
 	&:not(:last-child) {
-		margin-inline-end: .5rem;
+		margin-inline-end: var(--space-2);
 	}
 
 	&:hover {
@@ -259,15 +259,15 @@ function getViewRoute(view: ProjectView) {
 
 // FIXME: this should be in notification and set via a prop
 .is-archived .notification.is-warning {
-	margin-block-end: 1rem;
+	margin-block-end: var(--space-4);
 }
 
 .project-heading {
 	display: flex;
 	align-items: center;
-	gap: .5rem;
+	gap: var(--space-2);
 	font-size: var(--font-size-xl);
-	margin-block-end: 1rem;
+	margin-block-end: var(--space-4);
 
 	@media print {
 		display: block;

@@ -280,8 +280,8 @@ async function clearAll() {
 
 	.unread-indicator {
 		position: absolute;
-		inset-block-start: 1rem;
-		inset-inline-end: .5rem;
+		inset-block-start: var(--space-4);
+		inset-inline-end: var(--space-2);
 		inline-size: .75rem;
 		block-size: .75rem;
 
@@ -292,7 +292,7 @@ async function clearAll() {
 
 	.notifications-list {
 		position: absolute;
-		inset-inline-end: 1rem;
+		inset-inline-end: var(--space-4);
 		inset-block-start: calc(100% + 1rem);
 		max-block-size: 400px;
 		overflow-y: auto;
@@ -300,7 +300,7 @@ async function clearAll() {
 		background: var(--white);
 		inline-size: 350px;
 		max-inline-size: calc(100vw - 2rem);
-		padding: .75rem .25rem;
+		padding: var(--space-3) var(--space-1);
 		border-radius: $radius;
 		box-shadow: var(--shadow-sm);
 		font-size: .85rem;
@@ -311,8 +311,8 @@ async function clearAll() {
 
 		.head {
 			font-family: $vikunja-font;
-			font-size: 1rem;
-			padding: .5rem;
+			font-size: var(--font-size-md);
+			padding: var(--space-2);
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
@@ -320,7 +320,7 @@ async function clearAll() {
 			.actions {
 				display: flex;
 				align-items: center;
-				gap: .5rem;
+				gap: var(--space-2);
 			}
 
 			.action-link {
@@ -337,7 +337,7 @@ async function clearAll() {
 		.single-notification {
 			display: flex;
 			align-items: center;
-			padding: 0.25rem 0;
+			padding: var(--space-1) 0;
 
 			transition: background-color $transition;
 
@@ -355,7 +355,7 @@ async function clearAll() {
 				block-size: .35rem;
 				background: var(--primary);
 				border-radius: 100%;
-				margin: 0 .5rem;
+				margin: 0 var(--space-2);
 				flex-shrink: 0;
 
 				&.read {
@@ -367,7 +367,7 @@ async function clearAll() {
 				display: inline-flex;
 				align-items: center;
 				inline-size: auto;
-				margin: 0 .5rem;
+				margin: 0 var(--space-2);
 
 				span {
 					font-family: $family-sans-serif;
@@ -387,7 +387,7 @@ async function clearAll() {
 			}
 
 			&:last-child {
-				margin-block-end: .25rem;
+				margin-block-end: var(--space-1);
 			}
 
 			a {

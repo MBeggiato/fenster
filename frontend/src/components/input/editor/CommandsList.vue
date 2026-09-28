@@ -141,8 +141,8 @@ export default {
 		inline-size: 2rem;
 		block-size: 2rem;
 		border: 1px solid var(--grey-300);
-		padding: .5rem;
-		margin-inline-end: .5rem;
+		padding: var(--space-2);
+		margin-inline-end: var(--space-2);
 		border-radius: $radius;
 		color: var(--grey-700);
 	}
@@ -155,7 +155,7 @@ export default {
 	color: var(--grey-800);
 	
 	p:last-child {
-		font-size: .75rem;
+		font-size: var(--font-size-xs);
 		color: var(--grey-500);
 	}
 }

@@ -162,8 +162,8 @@ onBeforeUnmount(() => {
 <style lang="scss" scoped>
 .menu-hide-button {
 	position: fixed;
-	inset-block-start: 0.5rem;
-	inset-inline-end: 0.5rem;
+	inset-block-start: var(--space-2);
+	inset-inline-end: var(--space-2);
 	z-index: 31;
 	inline-size: 3rem;
 	block-size: 3rem;
@@ -199,7 +199,7 @@ onBeforeUnmount(() => {
 	display: flow-root;
 	z-index: 10;
 	position: relative;
-	padding: 1.5rem 0.5rem 0;
+	padding: var(--space-6) var(--space-2) 0;
 	// TODO refactor: DRY `transition-timing-function` with `./Navigation.vue`.
 	transition: margin-inline-start $transition-duration;
 
@@ -253,7 +253,7 @@ onBeforeUnmount(() => {
 .keyboard-shortcuts-button {
 	position: fixed;
 	inset-block-end: calc(1rem - 4px);
-	inset-inline-end: 1rem;
+	inset-inline-end: var(--space-4);
 	z-index: 4500; // The modal has a z-index of 4000
 	color: var(--grey-500);
 	transition: color $transition;

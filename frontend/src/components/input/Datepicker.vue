@@ -230,16 +230,16 @@ defineExpose({
 .datepicker-popup__footer {
 	display: flex;
 	align-items: center;
-	gap: .75rem;
-	padding: .75rem 1rem;
+	gap: var(--space-3);
+	padding: var(--space-3) var(--space-4);
 	border-block-start: 1px solid var(--grey-200);
 	background: var(--grey-50);
 
 	.bottom-sheet & {
 		flex-direction: column;
 		align-items: stretch;
-		gap: .5rem;
-		padding-block-end: 1rem;
+		gap: var(--space-2);
+		padding-block-end: var(--space-4);
 		background: var(--white);
 	}
 }
@@ -247,7 +247,7 @@ defineExpose({
 .datepicker-popup__summary {
 	display: flex;
 	align-items: center;
-	gap: .5rem;
+	gap: var(--space-2);
 	flex: 1;
 	min-inline-size: 0;
 	white-space: nowrap;

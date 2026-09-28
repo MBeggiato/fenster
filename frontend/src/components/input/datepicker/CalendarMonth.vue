@@ -316,7 +316,7 @@ function onKeydown(event: KeyboardEvent) {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-block-end: .5rem;
+	margin-block-end: var(--space-2);
 }
 
 .calendar-month__nav-button {
@@ -336,7 +336,7 @@ function onKeydown(event: KeyboardEvent) {
 .calendar-month__title {
 	display: flex;
 	align-items: center;
-	gap: .25rem;
+	gap: var(--space-1);
 }
 
 // Both read as the plain "September 2026" heading; the native controls only show on interaction.
@@ -345,7 +345,7 @@ function onKeydown(event: KeyboardEvent) {
 	appearance: none;
 	border: 0;
 	background: transparent;
-	padding: .125rem .25rem;
+	padding: .125rem var(--space-1);
 	border-radius: $radius;
 	font-family: $vikunja-font;
 	font-weight: 700;
@@ -400,7 +400,7 @@ function onKeydown(event: KeyboardEvent) {
 	letter-spacing: .03em;
 	text-transform: uppercase;
 	color: var(--grey-600);
-	padding-block-end: .25rem;
+	padding-block-end: var(--space-1);
 }
 
 .calendar-month__cell {
@@ -438,7 +438,7 @@ function onKeydown(event: KeyboardEvent) {
 	transition: background-color $transition, color $transition;
 
 	.is-large & {
-		font-size: 1rem;
+		font-size: var(--font-size-md);
 	}
 
 	.is-outside & {

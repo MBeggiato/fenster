@@ -560,7 +560,7 @@ function focus() {
 	container-type: inline-size;
 
 	.control.is-loading::after {
-		inset-block-start: .75rem;
+		inset-block-start: var(--space-3);
 	}
 
 	&.is-disabled {
@@ -616,7 +616,7 @@ function focus() {
 
 	// doesn't seem to be used. maybe inside the slot?
 	.loader {
-		margin: 0 .5rem;
+		margin: 0 var(--space-2);
 	}
 }
 
@@ -658,7 +658,7 @@ function focus() {
 	text-transform: none;
 	font-family: $family-sans-serif;
 	font-weight: normal;
-	padding: .5rem;
+	padding: var(--space-2);
 	border: none;
 	cursor: pointer;
 	color: var(--grey-800);
@@ -695,15 +695,15 @@ function focus() {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
-	padding: .5rem .75rem;
+	padding: var(--space-2) var(--space-3);
 }
 
 
 .hint-text {
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 	color: transparent;
 	transition: color $transition;
-	padding-inline-start: .5rem;
+	padding-inline-start: var(--space-2);
 
 	&.is-always-visible {
 		color: var(--grey-500);
@@ -717,15 +717,15 @@ function focus() {
 }
 
 .search-result-hint {
-	padding: .5rem .75rem;
+	padding: var(--space-2) var(--space-3);
 	color: var(--grey-500);
 	font-size: .85rem;
 }
 
 .create-icon {
 	color: var(--success);
-	margin-inline-end: .25rem;
-	font-size: .75rem;
+	margin-inline-end: var(--space-1);
+	font-size: var(--font-size-xs);
 }
 
 .has-removal-button {
@@ -734,7 +734,7 @@ function focus() {
 
 .removal-button {
 	position: absolute;
-	inset-inline-end: .5rem;
+	inset-inline-end: var(--space-2);
 	color: var(--danger);
 }
 </style>

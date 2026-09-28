@@ -116,7 +116,7 @@ const filterFromView = computed(() => {
 	margin: 0;
 
 	&.is-open {
-		margin: 2rem 0 1rem;
+		margin: 2rem 0 var(--space-4);
 	}
 }
 

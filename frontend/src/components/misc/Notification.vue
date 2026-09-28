@@ -108,13 +108,13 @@ onBeforeUnmount(() => {
 .duplicate-count {
 	font-size: var(--font-size-xs);
 	font-weight: var(--font-weight-bold);
-	margin-inline-start: .25rem;
+	margin-inline-start: var(--space-1);
 }
 
 .notification-actions {
 	display: flex;
 	justify-content: flex-end;
-	gap: .5rem;
+	gap: var(--space-2);
 }
 
 </style>

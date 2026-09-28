@@ -56,6 +56,6 @@ const minimumPriority = computed(() => {
 .icon {
 	vertical-align: top;
 	inline-size: auto !important;
-	padding-inline-end: .5rem;
+	padding-inline-end: var(--space-2);
 }
 </style>

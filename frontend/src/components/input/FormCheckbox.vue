@@ -38,7 +38,7 @@ label.checkbox {
 
 	display: flex;
 	align-items: center;
-	gap: .5rem;
+	gap: var(--space-2);
 	inline-size: fit-content;
 
 	&:hover {
@@ -56,7 +56,7 @@ label.checkbox {
 	}
 
 	&:not(:last-child) {
-		margin-block-end: .75rem;
+		margin-block-end: var(--space-3);
 	}
 }
 </style>

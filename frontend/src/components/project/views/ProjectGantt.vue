@@ -143,7 +143,7 @@ const dateRange = computed({
 
 <style lang="scss" scoped>
 .gantt-chart-container {
-	padding-block-end: 1rem;
+	padding-block-end: var(--space-4);
 	position: relative;
 	z-index: 0;
 }
@@ -152,7 +152,7 @@ const dateRange = computed({
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-block-end: 1rem;
+	margin-block-end: var(--space-4);
 
 	@media screen and (max-width: $tablet) {
 		flex-direction: column;
@@ -164,7 +164,7 @@ const dateRange = computed({
 	box-shadow: none;
 
 	.card-content {
-		padding: .5rem;
+		padding: var(--space-2);
 	}
 }
 
@@ -173,13 +173,13 @@ const dateRange = computed({
 	inline-size: 33%;
 
 	&:not(:last-child) {
-		padding-inline-end: .5rem;
+		padding-inline-end: var(--space-2);
 	}
 
 	@media screen and (max-width: $tablet) {
 		inline-size: 100%;
 		max-inline-size: 100%;
-		margin-block-start: .5rem;
+		margin-block-start: var(--space-2);
 		padding-inline-end: 0 !important;
 	}
 

@@ -81,12 +81,12 @@ onUnmounted(() => {
 .timer-badge {
 	display: inline-flex;
 	align-items: center;
-	gap: .25rem;
+	gap: var(--space-1);
 	white-space: nowrap;
 }
 
 .timer-badge__elapsed {
-	padding-inline: .75rem .25rem;
+	padding-inline: var(--space-3) var(--space-1);
 	color: var(--primary);
 	font-variant-numeric: tabular-nums;
 	font-weight: 600;
@@ -96,7 +96,7 @@ onUnmounted(() => {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	padding-inline: .5rem;
+	padding-inline: var(--space-2);
 	color: var(--grey-400);
 	transition: color $transition;
 

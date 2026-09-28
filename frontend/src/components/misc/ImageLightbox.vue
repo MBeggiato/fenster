@@ -420,12 +420,12 @@ function onPointerUp(event: PointerEvent) {
 
 .image-lightbox__toolbar {
 	position: absolute;
-	inset-block-end: 1.5rem;
+	inset-block-end: var(--space-6);
 	inset-inline-start: 50%;
 	transform: translateX(-50%);
 	display: flex;
 	align-items: center;
-	gap: .25rem;
+	gap: var(--space-1);
 	padding: .35rem;
 	border-radius: 999px;
 	// literal colors: the scrim never flips with the theme
@@ -439,7 +439,7 @@ function onPointerUp(event: PointerEvent) {
 	justify-content: center;
 	min-inline-size: 2.25rem;
 	block-size: 2.25rem;
-	padding: 0 .5rem;
+	padding: 0 var(--space-2);
 	border-radius: 999px;
 	color: #ffffff;
 	cursor: pointer;

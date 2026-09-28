@@ -288,7 +288,7 @@ async function leave() {
 
 <style lang="scss" scoped>
 .card.is-fullwidth {
-	margin-block-end: 1rem;
+	margin-block-end: var(--space-4);
 
 	.content {
 		padding: 0;

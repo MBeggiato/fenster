@@ -204,7 +204,7 @@ async function cancel(element: HTMLInputElement) {
 	margin-inline-end: 0;
 
 	@media screen and (max-width: $tablet) {
-		margin: 0 -.3rem .5rem; // the title has 0.3rem padding - this make the text inside of it align with the rest
+		margin: 0 -.3rem var(--space-2); // the title has 0.3rem padding - this make the text inside of it align with the rest
 	}
 }
 
@@ -236,7 +236,7 @@ async function cancel(element: HTMLInputElement) {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	gap: .25rem;
+	gap: var(--space-1);
 
 	@media screen and (min-width: $tablet) {
 		align-items: stretch;
@@ -250,6 +250,6 @@ async function cancel(element: HTMLInputElement) {
 .task-id-row {
 	display: flex;
 	align-items: center;
-	gap: .5rem;
+	gap: var(--space-2);
 }
 </style>

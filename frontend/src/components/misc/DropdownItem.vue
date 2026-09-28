@@ -34,7 +34,7 @@ defineProps<DropDownItemProps>()
 <style scoped lang="scss">
 .dropdown-item {
 	color: var(--text);
-	font-size: 0.875rem;
+	font-size: var(--font-size-sm);
 	line-height: 1.5;
 	padding: $item-padding;
 	position: relative;
@@ -60,7 +60,7 @@ defineProps<DropDownItemProps>()
 }
 
 .icon {
-	padding-inline-end: .5rem;
+	padding-inline-end: var(--space-2);
 	color: var(--grey-300);
 }
 

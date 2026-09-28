@@ -173,14 +173,14 @@ const recentProjects = computed<ProjectResponse[]>(() => {
 
 <style lang="scss" scoped>
 .home-dashboard__heading {
-	margin-block-end: .75rem;
+	margin-block-end: var(--space-3);
 }
 
 .home-dashboard__tiles {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	gap: 1rem;
-	margin-block-end: 1rem;
+	gap: var(--space-4);
+	margin-block-end: var(--space-4);
 
 	@media screen and (min-width: $tablet) {
 		grid-template-columns: repeat(4, 1fr);
@@ -190,8 +190,8 @@ const recentProjects = computed<ProjectResponse[]>(() => {
 .home-dashboard__tile {
 	display: flex;
 	flex-direction: column;
-	gap: .25rem;
-	padding: 1rem;
+	gap: var(--space-1);
+	padding: var(--space-4);
 	background: var(--white);
 	border: 1px solid var(--card-border-color);
 	border-radius: var(--radius-lg);
@@ -216,9 +216,9 @@ const recentProjects = computed<ProjectResponse[]>(() => {
 .home-dashboard__focus {
 	display: flex;
 	align-items: center;
-	gap: 1rem;
-	padding: 1rem;
-	margin-block-end: 1.5rem;
+	gap: var(--space-4);
+	padding: var(--space-4);
+	margin-block-end: var(--space-6);
 	background: var(--white);
 	border: 1px solid var(--card-border-color);
 	border-radius: var(--radius-lg);
