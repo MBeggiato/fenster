@@ -56,15 +56,7 @@ body {
   }
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: $vikunja-font;
-  font-weight: 400 !important;
-}
+// Heading font-family/weight/size now live in theme/typography.scss.
 
 // FIXME: these helpers should be mixins
 .has-no-border {

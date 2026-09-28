@@ -1,0 +1,20 @@
+// Typography tokens: a fixed 6-step font-size scale (mapped 1:1 to h1..h6),
+// a 4-step font-weight scale, and two line-heights. No dark-mode variants —
+// typography doesn't change with theme.
+
+:root {
+  --font-size-xs: .75rem;
+  --font-size-sm: .875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 1.8rem;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+}

@@ -199,8 +199,8 @@ async function cancel(element: HTMLInputElement) {
 }
 
 .title.input {
-	// 1.8rem is the font-size, 1.125 is the line-height, .3rem padding everywhere, 1px border around the whole thing.
-	min-block-size: calc(1.8rem * 1.125 + .6rem + 2px);
+	// 1.125 is the line-height, .3rem padding everywhere, 1px border around the whole thing.
+	min-block-size: calc(var(--font-size-2xl) * 1.125 + .6rem + 2px);
 	margin-inline-end: 0;
 
 	@media screen and (max-width: $tablet) {
