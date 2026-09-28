@@ -1946,6 +1946,16 @@
     },
     "moreSheet": {
       "title": "More"
+    },
+    "capture": {
+      "title": "New task",
+      "chips": {
+        "today": "Today",
+        "tomorrow": "Tomorrow",
+        "project": "Project",
+        "label": "Label",
+        "priority": "Priority"
+      }
     }
   }
 }

@@ -98,6 +98,8 @@
 			:enabled="moreSheetOpen"
 			@close="moreSheetOpen = false"
 		/>
+
+		<CaptureSheet v-if="isMobile" />
 	</div>
 </template>
 
@@ -111,6 +113,7 @@ import Navigation from '@/components/home/Navigation.vue'
 import MobileHeader from '@/components/home/mobile/MobileHeader.vue'
 import MobileTabBar from '@/components/home/mobile/MobileTabBar.vue'
 import MoreSheet from '@/components/home/mobile/MoreSheet.vue'
+import CaptureSheet from '@/components/home/mobile/CaptureSheet.vue'
 import QuickActions from '@/components/quick-actions/QuickActions.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 

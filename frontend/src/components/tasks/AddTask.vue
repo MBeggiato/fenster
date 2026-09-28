@@ -22,6 +22,7 @@
 					class="add-task-textarea input"
 					:class="{'textarea-empty': newTaskTitle === ''}"
 					:placeholder="$t('project.list.addPlaceholder')"
+					:autofocus="autofocus || undefined"
 					rows="1"
 					@keydown="resetEmptyTitleError"
 					@keydown.enter="handleEnter"
@@ -60,7 +61,7 @@
 <script setup lang="ts">
 import {assertClientRequestContext, captureClientRequestContext} from '@/client/requestContext'
 import {useCreateTaskRelationMutation} from '@/client/queries/taskMutations'
-import {computed, ref} from 'vue'
+import {computed, nextTick, ref} from 'vue'
 import {useI18n} from 'vue-i18n'
 import {useElementHover} from '@vueuse/core'
 import {useRouter} from 'vue-router'
@@ -80,6 +81,12 @@ import {useConfigStore} from '@/stores/config'
 import {reportSkippedLabels, useQuickAddTask} from '@/composables/useQuickAddTask'
 
 import {useAutoHeightTextarea} from '@/composables/useAutoHeightTextarea'
+
+defineProps<{
+	// Native <dialog>-driven autofocus (the mobile capture sheet); v-focus above skips
+	// mobile viewports on purpose to avoid popping the keyboard on every page.
+	autofocus?: boolean,
+}>()
 
 const emit = defineEmits<{
 	tasksAdded: [tasks: ITask[]],
@@ -261,8 +268,29 @@ function blurTaskInput() {
 	newTaskInput.value?.blur()
 }
 
+// Inserts a quick-add magic token (e.g. "today ", "+") at the cursor, e.g. for the
+// mobile capture sheet's chip row. Adds a leading space so it doesn't glue onto
+// whatever was typed before; the token itself decides whether it needs a trailing one.
+function insertToken(token: string) {
+	const el = newTaskInput.value
+	const value = newTaskTitle.value
+	const start = el?.selectionStart ?? value.length
+	const end = el?.selectionEnd ?? value.length
+	const needsLeadingSpace = start > 0 && value.charAt(start - 1) !== ' '
+	const insert = (needsLeadingSpace ? ' ' : '') + token
+
+	newTaskTitle.value = value.slice(0, start) + insert + value.slice(end)
+
+	nextTick(() => {
+		el?.focus()
+		const pos = start + insert.length
+		el?.setSelectionRange(pos, pos)
+	})
+}
+
 defineExpose({
 	focusTaskInput,
+	insertToken,
 })
 </script>
 
