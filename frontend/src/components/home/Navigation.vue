@@ -202,7 +202,9 @@ const savedFilterProjects = computed(() => projectList.savedFilterProjects)
 
 	display: flex;
 	flex-direction: column;
-	background: var(--site-background);
+	background: var(--glass-chrome-bg);
+	backdrop-filter: var(--glass-filter);
+	box-shadow: var(--glass-specular);
 	color: $vikunja-nav-color;
 	padding: 1rem 0;
 	transition: transform $transition-duration ease-in;

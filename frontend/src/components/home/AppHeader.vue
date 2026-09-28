@@ -201,7 +201,9 @@ $user-dropdown-width-mobile: 5rem;
 	gap: var(--navbar-gap-width);
 	min-block-size: $navbar-height;
 
-	background: var(--site-background);
+	background: var(--glass-chrome-bg);
+	backdrop-filter: var(--glass-filter);
+	box-shadow: var(--glass-specular);
 
 	@media screen and (min-width: $tablet) {
 		padding-inline-start: 2rem;
