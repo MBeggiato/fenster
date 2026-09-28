@@ -224,7 +224,7 @@ onScopeDispose(() => {
 	opacity: 0;
 	// Fade in only: the closing fade would need display/overlay allow-discrete, which paints badly
 	// in Chromium (see Modal.vue).
-	transition: opacity $transition;
+	transition: opacity var(--duration-glass) var(--ease-glass);
 
 	&:popover-open {
 		opacity: 1;

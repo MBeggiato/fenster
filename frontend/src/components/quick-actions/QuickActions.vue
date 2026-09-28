@@ -753,17 +753,22 @@ onBeforeUnmount(() => {
 .quick-actions {
 	// global Bulma .card styles are gone (ported into Card.vue, scoped),
 	// so this bare .card div needs its own card visuals
-	background-color: var(--white);
-	border-radius: $radius;
-	border: 1px solid var(--card-border-color);
-	box-shadow: var(--shadow-sm);
+	background: var(--glass-overlay-bg);
+	backdrop-filter: var(--glass-filter-strong);
+	border-radius: var(--radius-lg);
+	border: 1px solid var(--glass-hairline);
+	box-shadow: var(--glass-specular), var(--shadow-lg);
 	color: var(--text);
 	overflow: hidden;
 	justify-content: flex-start !important;
 
+	// The Electron quick-entry popup IS the window, not a floating shell over app
+	// content — no page behind it to blur, so it stays fully opaque.
 	&.is-quick-add-mode {
 		padding: 0;
 		margin: 0;
+		background: var(--white);
+		backdrop-filter: none;
 		border: none;
 		box-shadow: none;
 	}

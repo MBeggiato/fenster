@@ -94,6 +94,15 @@ onBeforeUnmount(() => {
 <style scoped>
 .vue-notification {
 	z-index: 9999;
+
+	/*
+	 * The library injects its own per-type background (info/success/warn/error) at
+	 * runtime; that color-coding is the semantic signal so it stays untouched here.
+	 * backdrop-filter would be inert behind an opaque fill, so only the structural
+	 * glass properties (bevel, radius, elevation) are layered on top.
+	 */
+	border-radius: var(--radius-md);
+	box-shadow: var(--glass-specular), var(--shadow-md);
 }
 
 </style>

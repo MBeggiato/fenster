@@ -1,12 +1,10 @@
 .v-popper--theme-tooltip .v-popper__inner {
   padding: 5px 10px;
-  font-size: 0.8rem;	
-  background: var(--grey-900);
-  color: var(--white);
-  border-radius: 5px;
-}
-
-.dark .v-popper--theme-tooltip .v-popper__inner {
-  background: var(--white);
-  color: var(--grey-900);
+  font-size: 0.8rem;
+  background: var(--glass-overlay-bg);
+  backdrop-filter: var(--glass-filter-strong);
+  color: var(--text);
+  border: 1px solid var(--glass-hairline);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--glass-specular), var(--shadow-md);
 }

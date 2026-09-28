@@ -171,11 +171,13 @@ onClickOutside(dropdown, (e) => {
 }
 
 .dropdown-content {
-	background-color: var(--scheme-main);
-	border-radius: $radius;
+	background: var(--glass-overlay-bg);
+	backdrop-filter: var(--glass-filter-strong);
+	border: 1px solid var(--glass-hairline);
+	border-radius: var(--radius-md);
 	padding-block-end: .5rem;
 	padding-block-start: .5rem;
-	box-shadow: var(--shadow-md);
+	box-shadow: var(--glass-specular), var(--shadow-lg);
 }
 
 .dropdown-divider {
