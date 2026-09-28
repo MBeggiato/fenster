@@ -185,6 +185,22 @@ const recentProjects = computed<ProjectResponse[]>(() => {
 	@media screen and (min-width: $tablet) {
 		grid-template-columns: repeat(4, 1fr);
 	}
+
+	// A horizontally scrollable strip reads better than a cramped 2-column grid on a phone.
+	@include mobile {
+		display: flex;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		-webkit-overflow-scrolling: touch;
+		gap: var(--space-3);
+		margin-inline: calc(-1 * var(--space-2));
+		padding-inline: var(--space-2);
+		scrollbar-width: none;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
 }
 
 .home-dashboard__tile {
@@ -196,6 +212,13 @@ const recentProjects = computed<ProjectResponse[]>(() => {
 	border: 1px solid var(--card-border-color);
 	border-radius: var(--radius-lg);
 	box-shadow: var(--shadow-sm);
+
+	@include mobile {
+		flex: 0 0 auto;
+		inline-size: 40vw;
+		max-inline-size: 10rem;
+		scroll-snap-align: start;
+	}
 }
 
 .home-dashboard__tile-icon {

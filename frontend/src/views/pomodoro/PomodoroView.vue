@@ -245,6 +245,19 @@ onKeyStroke(SHORTCUTS.pomodoro.stop, event => {
 	flex-direction: column;
 	align-items: center;
 	gap: var(--space-6);
+
+	@include mobile {
+		// Full-height: the ring centers in the free space, controls land in the thumb zone near the bottom.
+		flex: 1;
+		justify-content: space-between;
+		min-block-size: calc(100dvh - var(--mobile-header-height) - var(--mobile-tabbar-height));
+		padding-block: var(--space-4);
+
+		:deep(.pomodoro-ring) {
+			inline-size: min(70vw, 18rem);
+			block-size: min(70vw, 18rem);
+		}
+	}
 }
 
 .pomodoro-view__phases {
@@ -259,6 +272,17 @@ onKeyStroke(SHORTCUTS.pomodoro.stop, event => {
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: var(--space-2);
+
+	@include mobile {
+		inline-size: 100%;
+		gap: var(--space-3);
+
+		:deep(.button) {
+			flex: 1;
+			min-block-size: 56px;
+			font-size: var(--font-size-lg);
+		}
+	}
 }
 
 .pomodoro-view__finished {

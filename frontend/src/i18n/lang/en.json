@@ -1971,6 +1971,12 @@
         "title": "Move \"{task}\"",
         "current": "Current"
       }
+    },
+    "screens": {
+      "upcoming": {
+        "filters": "Filters",
+        "noDueDate": "No due date"
+      }
     }
   }
 }

@@ -20,7 +20,7 @@
 			</RouterLink>
 		</Message>
 		<AddTask
-			class="is-max-width-desktop"
+			class="is-max-width-desktop home-add-task"
 			@tasksAdded="updateTaskKey"
 		/>
 		<ImportHint v-if="tasksLoaded" />
@@ -97,5 +97,12 @@ function handleClearLabelFilter() {
 <style scoped lang="scss">
 .show-tasks {
 	margin-block-start: 2rem;
+}
+
+// The tab bar's capture button replaces the inline add-task form on mobile.
+.home-add-task {
+	@include mobile {
+		display: none;
+	}
 }
 </style>
