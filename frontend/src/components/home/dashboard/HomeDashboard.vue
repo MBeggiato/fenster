@@ -52,6 +52,7 @@
 
 <script setup lang="ts">
 import {computed} from 'vue'
+import type {IconProp} from '@fortawesome/fontawesome-svg-core'
 import {useI18n} from 'vue-i18n'
 
 import Icon from '@/components/misc/Icon'
@@ -102,7 +103,7 @@ const doneWeekQuery = useTasks(
 	{enabled: authenticated},
 )
 
-const tiles = computed(() => [
+const tiles = computed<{key: string, icon: IconProp, value: number, loading: boolean, label: string}[]>(() => [
 	{
 		key: 'overdue',
 		icon: 'exclamation-circle',
