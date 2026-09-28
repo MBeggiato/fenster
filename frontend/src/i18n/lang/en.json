@@ -1957,6 +1957,11 @@
         "priority": "Priority"
       }
     },
+    "taskDetail": {
+      "actionBarLabel": "Task actions",
+      "more": "More",
+      "moreSheetTitle": "More actions"
+    },
     "kanban": {
       "pagerLabel": "Buckets",
       "moveTaskLabel": "Move task",

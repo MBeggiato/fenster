@@ -191,6 +191,7 @@ async function cancel(element: HTMLInputElement) {
 	@media screen and (max-width: $tablet) {
 		flex-direction: column;
 		align-items: start;
+		gap: var(--space-1);
 	}
 }
 
@@ -204,7 +205,10 @@ async function cancel(element: HTMLInputElement) {
 	margin-inline-end: 0;
 
 	@media screen and (max-width: $tablet) {
-		margin: 0 -.3rem var(--space-2); // the title has 0.3rem padding - this make the text inside of it align with the rest
+		// compact title on mobile: smaller type, tighter min-height
+		font-size: var(--font-size-xl);
+		min-block-size: calc(var(--font-size-xl) * 1.125 + .6rem + 2px);
+		margin: 0 -.3rem var(--space-1); // the title has 0.3rem padding - this make the text inside of it align with the rest
 	}
 }
 
