@@ -141,6 +141,7 @@ import {SUPPORTED_IMAGE_SUFFIX} from '@/helpers/attachmentPreview'
 import {fetchAttachmentUrl, releaseAttachmentUrl} from '@/helpers/attachments'
 
 import {formatDateLong, formatDisplayDate, formatISO} from '@/helpers/time/formatDate'
+import {dueDateState} from '@/helpers/time/dueDateState'
 import {colorIsDark} from '@/helpers/color/colorIsDark'
 import {useUpdateTaskMutation} from '@/client/queries/taskMutations'
 import AssigneeList from '@/components/tasks/partials/AssigneeList.vue'
@@ -179,12 +180,7 @@ const projectTitle = computed(() => {
 const showTaskPosition = computed(() => window.DEBUG_TASK_POSITION)
 
 const {now} = useGlobalNow()
-const isOverdue = computed(() => (
-	!props.task.done &&
-	props.task.due_date !== null &&
-	new Date(props.task.due_date ?? 0).getTime() > 0 &&
-	new Date(props.task.due_date ?? 0).getTime() <= now.value.getTime()
-))
+const isOverdue = computed(() => dueDateState(props.task.due_date, props.task.done, now.value) === 'overdue')
 
 async function toggleTaskDone(task: TaskResponse) {
 	const isRecurringTask = task.repeat_after > 0 || task.repeat_mode === TASK_REPEAT_MODES.REPEAT_MODE_MONTH

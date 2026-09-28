@@ -224,6 +224,10 @@
   --warning-a: 1;
   --warning: hsla(var(--warning-h), var(--warning-s), var(--warning-l), var(--warning-a));
 
+  // Darker than --warning: --warning as text fails WCAG contrast (~2.6:1 on white)
+  --warning-text-l: 35%;
+  --warning-text: hsla(var(--warning-h), var(--warning-s), var(--warning-text-l), var(--warning-a));
+
   // $success / $green is #00db60
   --success-h: 146.3deg;
   --success-s: 100%;
@@ -333,6 +337,7 @@
 
       // Bright values already pass contrast on dark backgrounds; skip the light-theme darkening
       --danger-text: var(--danger);
+      --warning-text: var(--warning);
 
       --scheme-main-bis: var(--grey-100);
       --scheme-main-ter: var(--grey-100);

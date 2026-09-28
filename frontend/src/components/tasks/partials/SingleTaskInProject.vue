@@ -5,10 +5,10 @@
 	>
 		<div
 			ref="taskRoot"
-			:class="{'is-loading': isLoading}"
+			:class="{'is-loading': isLoading, 'is-completing': isCompleting}"
 			class="task loader-container single-task"
 			tabindex="-1"
-			:data-is-overdue="isOverdue || undefined"
+			:data-due-state="dueState || undefined"
 			@click="openTaskDetail"
 			@keyup.enter="openTaskDetail"
 		>
@@ -225,6 +225,7 @@ import Popup from '@/components/misc/Popup.vue'
 
 
 import {formatDisplayDate, formatISO, formatDateLong} from '@/helpers/time/formatDate'
+import {dueDateState} from '@/helpers/time/dueDateState'
 import {success} from '@/message'
 
 import {useProjects} from '@/composables/useProjects'
@@ -310,17 +311,18 @@ onMounted(updateDueDate)
 watch(() => task.value.due_date, updateDueDate)
 
 const {now} = useGlobalNow()
-const isOverdue = computed(() => (
-	!task.value.done &&
-	task.value.due_date !== null &&
-	new Date(task.value.due_date ?? 0).getTime() > 0 &&
-	new Date(task.value.due_date ?? 0).getTime() <= now.value.getTime()
-))
+const dueState = computed(() => dueDateState(task.value.due_date, task.value.done ?? false, now.value))
+
+const isCompleting = ref(false)
 
 let oldTask: ITask
 
 async function markAsDone(checked: boolean, wasReverted: boolean = false) {
 	if (!wasReverted) oldTask = {...task.value}
+
+	// Play the fade/slide-out before the row is actually removed from the list; reset on undo
+	// or un-checking so the row doesn't stay hidden if it's not removed after all.
+	isCompleting.value = checked && !wasReverted
 
 	// Fire the request immediately and with the intended done value snapshotted, so a re-render or
 	// teardown during the animation delay can neither drop the save nor make it send a stale state.
@@ -333,7 +335,10 @@ async function markAsDone(checked: boolean, wasReverted: boolean = false) {
 
 	const finish = async () => {
 		const newTask = await updatePromise
-		if (!newTask) return
+		if (!newTask) {
+			isCompleting.value = false // request failed and was rolled back: the row stays, so un-fade it
+			return
+		}
 
 		updateDueDate()
 
@@ -462,8 +467,20 @@ defineExpose({
 		}
 	}
 
-	&[data-is-overdue] .dueDate {
+	&[data-due-state="overdue"] .dueDate {
 		color: var(--danger-text);
+	}
+
+	&[data-due-state="today"] .dueDate {
+		color: var(--warning-text);
+	}
+
+	&[data-due-state="soon"] .dueDate {
+		color: var(--primary);
+	}
+
+	&[data-due-state="later"] .dueDate {
+		color: var(--text-muted);
 	}
 
 	.task-project {
@@ -599,6 +616,21 @@ defineExpose({
 		block-size: 2rem;
 		border-inline-start-color: var(--grey-300);
 		border-block-end-color: var(--grey-300);
+	}
+
+	// Matches the 300ms delay markAsDone() waits before the row is actually removed from the list.
+	&.is-completing {
+		transition: opacity .3s ease, transform .3s ease;
+		transform: translateX(8px);
+		opacity: 0;
+		pointer-events: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.task.is-completing {
+		transition: opacity .15s linear;
+		transform: none;
 	}
 }
 

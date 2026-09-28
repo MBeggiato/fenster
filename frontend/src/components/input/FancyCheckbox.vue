@@ -109,4 +109,12 @@ const emit = defineEmits<{
 		transition-delay: 0.15s;
 	}
 }
+
+@media (prefers-reduced-motion: reduce) {
+	.fancy-checkbox__icon,
+	.fancy-checkbox__icon path,
+	.fancy-checkbox__icon polyline {
+		transition: none;
+	}
+}
 </style>

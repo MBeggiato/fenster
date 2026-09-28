@@ -3,7 +3,7 @@ import {PRIORITIES} from '@/constants/priorities'
 /**
  * Returns the CSS custom property name for a priority's color.
  * - UNSET/LOW → --info (blue)
- * - MEDIUM → --warning (orange)
+ * - MEDIUM → --warning-text (orange)
  * - HIGH/URGENT/DO_NOW → --danger-text (red)
  */
 export function getPriorityColorVar(priority: number): string {
@@ -11,7 +11,7 @@ export function getPriorityColorVar(priority: number): string {
 		return 'var(--danger-text)'
 	}
 	if (priority === PRIORITIES.MEDIUM) {
-		return 'var(--warning)'
+		return 'var(--warning-text)'
 	}
 	return 'var(--info)'
 }
