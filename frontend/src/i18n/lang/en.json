@@ -37,6 +37,18 @@
     "project": {
       "importText": "Import your projects and tasks from other services into Vikunja:",
       "import": "Import your data into Vikunja"
+    },
+    "dashboard": {
+      "heading": "Overview",
+      "tiles": {
+        "overdue": "Overdue",
+        "dueToday": "Due today",
+        "dueWeek": "Due this week",
+        "doneWeek": "Done this week"
+      },
+      "focus": {
+        "sessionsToday": "No focus sessions today | {count} focus session today | {count} focus sessions today"
+      }
     }
   },
   "demo": {
