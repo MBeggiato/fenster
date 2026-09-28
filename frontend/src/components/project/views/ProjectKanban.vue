@@ -19,11 +19,36 @@
 
 		<template #default>
 			<div class="kanban-view">
-				<div
-					:class="{ 'is-loading': initialLoading }"
-					class="kanban kanban-bucket-container loader-container"
-				>
+				<div class="kanban kanban-bucket-container">
+					<ul
+						v-if="initialLoading"
+						class="kanban-bucket-container kanban-skeleton"
+					>
+						<li
+							v-for="n in 3"
+							:key="n"
+							class="bucket"
+						>
+							<div class="bucket-header">
+								<Skeleton
+									shape="text"
+									width="60%"
+								/>
+							</div>
+							<Skeleton
+								shape="block"
+								height="6rem"
+								class="mbe-2"
+							/>
+							<Skeleton
+								shape="block"
+								height="6rem"
+							/>
+						</li>
+					</ul>
+
 					<draggable
+						v-else
 						v-bind="DRAG_OPTIONS"
 						:model-value="buckets"
 						group="buckets"
@@ -164,6 +189,17 @@
 									@start="handleTaskDragStart"
 									@end="updateTaskPosition"
 								>
+									<template #header>
+										<li v-if="!initialLoading && bucket.tasks.length === 0">
+											<EmptyState
+												icon="th"
+												:title="$t('emptyState.emptyKanbanBucket')"
+												:text="$t('emptyState.emptyKanbanBucketText')"
+												class="bucket-empty-state"
+											/>
+										</li>
+									</template>
+
 									<template #footer>
 										<li
 											v-if="canCreateTasks"
@@ -319,6 +355,8 @@ import FilterPopup from '@/components/project/partials/FilterPopup.vue'
 import KanbanCard from '@/components/tasks/partials/KanbanCard.vue'
 import Dropdown from '@/components/misc/Dropdown.vue'
 import DropdownItem from '@/components/misc/DropdownItem.vue'
+import EmptyState from '@/components/misc/EmptyState.vue'
+import Skeleton from '@/components/misc/Skeleton.vue'
 
 import {
 	type CollapsedBuckets,
@@ -856,6 +894,19 @@ function unCollapseBucket(bucket: BucketResponse) {
 
 	--loader-border-color: var(--grey-500);
   }
+}
+
+.bucket-empty-state {
+	padding: 1rem .5rem;
+
+	:deep(.empty-state__icon) {
+		font-size: var(--font-size-lg);
+		margin-block-end: .5rem;
+	}
+
+	:deep(.empty-state__title) {
+		font-size: var(--font-size-sm);
+	}
 }
 </style>
 

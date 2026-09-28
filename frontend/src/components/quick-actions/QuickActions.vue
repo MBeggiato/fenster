@@ -62,6 +62,13 @@
 				{{ resultAnnouncement }}
 			</div>
 
+			<EmptyState
+				v-if="selectedCmd === null && query !== '' && !loading && results.length === 0"
+				icon="search"
+				:title="$t('emptyState.noSearchResults')"
+				:text="$t('emptyState.noSearchResultsText')"
+			/>
+
 			<div
 				v-if="selectedCmd === null"
 				class="results"
@@ -131,6 +138,7 @@ import type {Team as ITeam} from '@/client/generated'
 import {refDebounced} from '@vueuse/core'
 
 import BaseButton from '@/components/base/BaseButton.vue'
+import EmptyState from '@/components/misc/EmptyState.vue'
 import QuickAddMagic from '@/components/tasks/partials/QuickAddMagic.vue'
 import XLabel from '@/components/tasks/partials/Label.vue'
 import SingleTaskInlineReadonly from '@/components/tasks/partials/SingleTaskInlineReadonly.vue'

@@ -22,7 +22,7 @@
 
 		<template #default>
 			<div
-				:class="{ 'is-loading': loading }"
+				:class="{ 'is-loading': loading && tasks.length > 0 }"
 				class="loader-container is-max-width-desktop list-view"
 			>
 				<Card
@@ -37,15 +37,39 @@
 						@tasksAdded="updateTaskList"
 					/>
 
-					<Nothing v-if="ctaVisible && tasks.length === 0 && !loading">
-						{{ $t('project.list.empty') }}
+					<ul
+						v-if="loading && tasks.length === 0"
+						class="tasks list-view__skeleton"
+					>
+						<li
+							v-for="n in 5"
+							:key="n"
+							class="list-view__skeleton-row"
+						>
+							<Skeleton
+								shape="circle"
+								width="1.4rem"
+								height="1.4rem"
+							/>
+							<Skeleton
+								shape="text"
+								width="40%"
+							/>
+						</li>
+					</ul>
+
+					<EmptyState
+						v-else-if="ctaVisible && tasks.length === 0 && !loading"
+						icon="list-check"
+						:title="$t('project.list.empty')"
+					>
 						<ButtonLink
 							v-if="project?.id > 0 && canWrite"
 							@click="focusNewTaskInput()"
 						>
 							{{ $t('project.list.newTaskCta') }}
 						</ButtonLink>
-					</Nothing>
+					</EmptyState>
 
 					<draggable
 						v-if="tasks && tasks.length > 0"
@@ -109,7 +133,8 @@ import ButtonLink from '@/components/misc/ButtonLink.vue'
 import AddTask from '@/components/tasks/AddTask.vue'
 import SingleTaskInProject from '@/components/tasks/partials/SingleTaskInProject.vue'
 import FilterPopup from '@/components/project/partials/FilterPopup.vue'
-import Nothing from '@/components/misc/Nothing.vue'
+import EmptyState from '@/components/misc/EmptyState.vue'
+import Skeleton from '@/components/misc/Skeleton.vue'
 import Pagination from '@/components/misc/Pagination.vue'
 import SortPopup from '@/components/project/partials/SortPopup.vue'
 
@@ -356,6 +381,13 @@ onBeforeUnmount(() => {
 
 .tasks {
 	padding: .5rem;
+}
+
+.list-view__skeleton-row {
+	display: flex;
+	align-items: center;
+	gap: .75rem;
+	padding: .5rem .75rem;
 }
 
 .task-ghost {

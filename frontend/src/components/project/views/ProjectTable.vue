@@ -90,7 +90,7 @@
 
 		<template #default>
 			<div
-				:class="{'is-loading': loading}"
+				:class="{'is-loading': loading && tasks.length > 0}"
 				class="loader-container"
 			>
 				<Card
@@ -327,8 +327,24 @@
 										/>
 									</td>
 								</tr>
+								<template v-if="loading && tasks.length === 0">
+									<tr
+										v-for="n in 5"
+										:key="n"
+									>
+										<td :colspan="visibleColumnCount">
+											<Skeleton shape="text" />
+										</td>
+									</tr>
+								</template>
 							</tbody>
 						</table>
+
+						<EmptyState
+							v-if="!loading && tasks.length === 0"
+							icon="list-check"
+							:title="$t('project.list.empty')"
+						/>
 					</div>
 
 					<Pagination
@@ -348,6 +364,8 @@ import {useStorage} from '@vueuse/core'
 
 import ProjectWrapper from '@/components/project/ProjectWrapper.vue'
 import Done from '@/components/misc/Done.vue'
+import EmptyState from '@/components/misc/EmptyState.vue'
+import Skeleton from '@/components/misc/Skeleton.vue'
 import User from '@/components/misc/User.vue'
 import PriorityLabel from '@/components/tasks/partials/PriorityLabel.vue'
 import Labels from '@/components/tasks/partials/Labels.vue'
@@ -404,6 +422,7 @@ const SORT_BY_DEFAULT: SortBy = {
 }
 
 const activeColumns = useStorage('tableViewColumns', {...ACTIVE_COLUMNS_DEFAULT})
+const visibleColumnCount = computed(() => Object.values(activeColumns.value).filter(Boolean).length)
 const sortBy = useStorage<SortBy>('tableViewSortBy', {...SORT_BY_DEFAULT})
 
 const taskList = useTaskList(

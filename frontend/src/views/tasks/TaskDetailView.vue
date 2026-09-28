@@ -3,13 +3,33 @@
 		ref="taskViewContainer"
 		class="loader-container task-view-container"
 		:class="{
-			'is-loading': taskLoading || taskMutating || !visible,
+			'is-loading': taskLoading || taskMutating,
 			'is-modal': isModal,
 		}"
 	>
+		<div
+			v-if="!visible"
+			class="task-view task-view-skeleton"
+		>
+			<Skeleton
+				shape="text"
+				width="50%"
+				height="var(--font-size-2xl)"
+				class="mbe-4"
+			/>
+			<Skeleton
+				:lines="3"
+			/>
+			<Skeleton
+				shape="block"
+				height="8rem"
+				class="mbs-4"
+			/>
+		</div>
+
 		<!-- Removing everything until the task is loaded to prevent empty initialization of other components -->
 		<div
-			v-if="visible"
+			v-else
 			class="task-view"
 		>
 			<BaseButton
@@ -705,6 +725,7 @@ import Reminders from '@/components/tasks/partials/Reminders.vue'
 import RepeatAfter from '@/components/tasks/partials/RepeatAfter.vue'
 import TaskSubscription from '@/components/misc/Subscription.vue'
 import CustomTransition from '@/components/misc/CustomTransition.vue'
+import Skeleton from '@/components/misc/Skeleton.vue'
 import AssigneeList from '@/components/tasks/partials/AssigneeList.vue'
 import BucketSelect from '@/components/tasks/partials/BucketSelect.vue'
 import Reactions from '@/components/input/Reactions.vue'

@@ -1596,6 +1596,12 @@
     "reactedWithAndMany": "{users} and {num} more reacted reacted with {value}",
     "add": "Add your reaction"
   },
+  "emptyState": {
+    "noSearchResults": "No results found",
+    "noSearchResultsText": "Try a different search term.",
+    "emptyKanbanBucket": "This bucket is empty",
+    "emptyKanbanBucketText": "Drag a task here or add a new one below."
+  },
   "error": {
     "error": "Error",
     "success": "Success",

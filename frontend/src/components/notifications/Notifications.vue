@@ -91,15 +91,12 @@
 				>
 					{{ $t('notification.markAllRead') }}
 				</XButton>
-				<p
+				<EmptyState
 					v-if="notifications.length === 0"
-					class="nothing"
-				>
-					{{ $t('notification.none') }}<br>
-					<span class="explainer">
-						{{ $t('notification.explainer') }}
-					</span>
-				</p>
+					:icon="['far', 'bell-slash']"
+					:title="$t('notification.none')"
+					:text="$t('notification.explainer')"
+				/>
 			</div>
 		</CustomTransition>
 	</div>
@@ -113,6 +110,7 @@ import NotificationService from '@/services/notification'
 import NotificationModel from '@/models/notification'
 import BaseButton from '@/components/base/BaseButton.vue'
 import CustomTransition from '@/components/misc/CustomTransition.vue'
+import EmptyState from '@/components/misc/EmptyState.vue'
 import User from '@/components/misc/User.vue'
 import {NOTIFICATION_NAMES as names, type INotification} from '@/modelTypes/INotification'
 import {closeWhenClickedOutside} from '@/helpers/closeWhenClickedOutside'
@@ -397,15 +395,6 @@ async function clearAll() {
 			}
 		}
 
-		.nothing {
-			text-align: center;
-			padding: 1rem 0;
-			color: var(--grey-500);
-
-			.explainer {
-				font-size: .75rem;
-			}
-		}
 	}
 }
 </style>

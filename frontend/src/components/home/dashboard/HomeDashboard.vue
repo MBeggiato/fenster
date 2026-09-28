@@ -15,7 +15,16 @@
 					aria-hidden="true"
 					class="home-dashboard__tile-icon"
 				/>
-				<span class="home-dashboard__tile-value">{{ tile.loading ? '–' : tile.value }}</span>
+				<Skeleton
+					v-if="tile.loading"
+					shape="text"
+					width="2ch"
+					class="home-dashboard__tile-value"
+				/>
+				<span
+					v-else
+					class="home-dashboard__tile-value"
+				>{{ tile.value }}</span>
 				<span class="home-dashboard__tile-label">{{ tile.label }}</span>
 			</div>
 		</div>
@@ -27,10 +36,24 @@
 				class="home-dashboard__focus-icon"
 			/>
 			<div class="home-dashboard__focus-body">
-				<span class="home-dashboard__focus-value">{{ formatDuration(pomodoro.todayFocusSeconds.value) }}</span>
-				<span class="home-dashboard__focus-label">
-					{{ $t('home.dashboard.focus.sessionsToday', pomodoro.completedToday.value) }}
-				</span>
+				<template v-if="pomodoro.todayLoading.value">
+					<Skeleton
+						shape="text"
+						width="4ch"
+						class="home-dashboard__focus-value"
+					/>
+					<Skeleton
+						shape="text"
+						width="8ch"
+						class="home-dashboard__focus-label"
+					/>
+				</template>
+				<template v-else>
+					<span class="home-dashboard__focus-value">{{ formatDuration(pomodoro.todayFocusSeconds.value) }}</span>
+					<span class="home-dashboard__focus-label">
+						{{ $t('home.dashboard.focus.sessionsToday', pomodoro.completedToday.value) }}
+					</span>
+				</template>
 			</div>
 		</div>
 
@@ -56,6 +79,7 @@ import type {IconProp} from '@fortawesome/fontawesome-svg-core'
 import {useI18n} from 'vue-i18n'
 
 import Icon from '@/components/misc/Icon'
+import Skeleton from '@/components/misc/Skeleton.vue'
 import ProjectCardGrid from '@/components/project/partials/ProjectCardGrid.vue'
 
 import {useTasks} from '@/composables/useTasks'
