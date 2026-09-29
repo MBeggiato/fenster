@@ -82,6 +82,8 @@ import {useProjects} from '@/composables/useProjects'
 import {useIsMobile} from '@/composables/useIsMobile'
 import {getProjectTitle} from '@/helpers/getProjectTitle'
 
+defineOptions({name: 'ListProjects'})
+
 const {t} = useI18n()
 const projectList = useProjects()
 const isMobile = useIsMobile()

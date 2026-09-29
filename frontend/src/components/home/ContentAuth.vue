@@ -14,7 +14,7 @@
 
 		<div
 			class="app-container"
-			:class="{'has-background': background || blurHash, 'is-mobile': isMobile}"
+			:class="{'has-background': background || blurHash, 'is-mobile': isMobile, 'has-tabbar': showTabBar}"
 			:style="{'background-image': blurHash && `url(${blurHash})`}"
 		>
 			<div
@@ -57,7 +57,10 @@
 					v-slot="{ Component }"
 					:route="routeWithModal"
 				>
-					<keep-alive :include="['project.view']">
+					<keep-alive
+						:include="['project.view', 'HomeView', 'ShowTasks', 'ListProjects', 'PomodoroView']"
+						:max="6"
+					>
 						<component :is="Component" />
 					</keep-alive>
 				</RouterView>
@@ -87,7 +90,7 @@
 			</main>
 
 			<MobileTabBar
-				v-if="isMobile"
+				v-if="showTabBar"
 				:active-route-name="routeWithModal.name"
 				@capture="captureSheet.open()"
 			/>
@@ -139,6 +142,9 @@ const {routeWithModal, currentModal, closeModal} = useRouteWithModal()
 
 const isMobile = useIsMobile()
 const moreSheetOpen = ref(false)
+
+// A task opened as a page brings its own bottom action bar, like a pushed screen on iOS.
+const showTabBar = computed(() => isMobile.value && routeWithModal.value.name !== 'task.detail')
 const captureSheet = useCaptureSheet()
 
 const baseStore = useBaseStore()
@@ -221,7 +227,7 @@ onBeforeUnmount(() => {
 	font-size: 2rem;
 	color: var(--grey-400);
 	line-height: 1;
-	transition: all $transition;
+	transition: color $transition;
 
 	@media screen and (min-width: $tablet) {
 		display: none;
@@ -243,7 +249,10 @@ onBeforeUnmount(() => {
 	&.is-mobile {
 		min-block-size: 100dvh;
 		padding-block-start: calc(var(--mobile-header-height) + env(safe-area-inset-top));
-		padding-block-end: calc(var(--mobile-tabbar-height) + env(safe-area-inset-bottom));
+
+		&.has-tabbar {
+			padding-block-end: calc(var(--mobile-tabbar-height) + env(safe-area-inset-bottom));
+		}
 	}
 }
 
@@ -260,7 +269,7 @@ onBeforeUnmount(() => {
 	@media screen and (max-width: $tablet) {
 		margin-inline-start: 0;
 		margin-inline-end: 0;
-		min-block-size: calc(100vh - 4rem);
+		min-block-size: calc(100dvh - 4rem);
 	}
 
 	@media screen and (min-width: $tablet) {
@@ -301,7 +310,7 @@ onBeforeUnmount(() => {
 	background: hsla(var(--grey-100-hsl), 0.8);
 	z-index: 5;
 	opacity: 0;
-	transition: all $transition;
+	transition: opacity $transition;
 
 	@media screen and (max-width: $tablet) {
 		display: block;

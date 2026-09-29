@@ -110,21 +110,24 @@ function countScope(filter: string): TaskScope {
 	}
 }
 
+// Counts change slowly; refetching them on every visit to Home is wasted round trips on mobile.
+const COUNT_STALE_TIME = 3 * 60 * 1000
+
 const overdueQuery = useTasks(
 	() => countScope('done = false && due_date < now/d'),
-	{enabled: authenticated},
+	{enabled: authenticated, staleTime: COUNT_STALE_TIME},
 )
 const dueTodayQuery = useTasks(
 	() => countScope('done = false && due_date >= now/d && due_date < now/d+1d'),
-	{enabled: authenticated},
+	{enabled: authenticated, staleTime: COUNT_STALE_TIME},
 )
 const dueWeekQuery = useTasks(
 	() => countScope('done = false && due_date >= now/d && due_date < now/d+7d'),
-	{enabled: authenticated},
+	{enabled: authenticated, staleTime: COUNT_STALE_TIME},
 )
 const doneWeekQuery = useTasks(
 	() => countScope('done = true && done_at >= now/d-7d'),
-	{enabled: authenticated},
+	{enabled: authenticated, staleTime: COUNT_STALE_TIME},
 )
 
 const tiles = computed<{key: string, icon: IconProp, value: number, loading: boolean, label: string}[]>(() => [

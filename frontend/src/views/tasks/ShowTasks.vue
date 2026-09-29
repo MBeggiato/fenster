@@ -173,7 +173,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, ref, watch, watchEffect} from 'vue'
+import {computed, onActivated, ref, watch, watchEffect} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import {useI18n} from 'vue-i18n'
 
@@ -220,6 +220,8 @@ const emit = defineEmits<{
 	'clearLabelFilter': void,
 }>()
 
+defineOptions({name: 'ShowTasks'})
+
 const authStore = useAuthStore()
 const projectList = useProjects()
 const {getLabelById} = useLabels()
@@ -232,7 +234,7 @@ const {t} = useI18n({useScope: 'global'})
 const taskScope = ref<TaskScope | null>(null)
 const taskQuery = useTasks(
 	() => taskScope.value ?? {},
-	{enabled: () => authStore.authenticated && taskScope.value !== null},
+	{enabled: () => authStore.authenticated && taskScope.value !== null, keepPrevious: true},
 )
 const tasks = taskQuery.tasks
 const showNothingToDo = ref<boolean>(false)
@@ -308,7 +310,7 @@ const groupedTasks = computed<TaskGroup[]>(() => {
 	return [...groups.values()]
 })
 const userAuthenticated = computed(() => authStore.authenticated)
-const loading = taskQuery.isFetching
+const loading = taskQuery.isPending
 const filterIdUsedOnOverview = computed(() => authStore.settings?.frontendSettings?.filterIdUsedOnOverview)
 
 interface dateStrings {
@@ -415,6 +417,14 @@ watch(
 	{immediate: true},
 )
 watchEffect(() => setTitle(pageTitle.value))
+
+// Kept alive: restore the title and revalidate stale data when the user comes back.
+onActivated(() => {
+	setTitle(pageTitle.value)
+	if (taskQuery.isStale.value && !taskQuery.isFetching.value) {
+		void taskQuery.refetch()
+	}
+})
 </script>
 
 <style lang="scss" scoped>

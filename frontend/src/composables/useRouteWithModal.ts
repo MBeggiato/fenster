@@ -1,7 +1,10 @@
-import {computed, defineAsyncComponent, h, shallowRef, type VNode, watchEffect} from 'vue'
+import {computed, type Component, defineAsyncComponent, h, shallowRef, type VNode, watchEffect} from 'vue'
 import {useRoute, useRouter, type RouteLocationNormalizedGeneric} from 'vue-router'
 import {useBaseStore} from '@/stores/base'
 import {useProjects} from '@/composables/useProjects'
+
+// defineAsyncComponent wraps a new component each call; cache per loader so reopening a task reuses it.
+const asyncComponents = new Map<unknown, Component>()
 
 export function useRouteWithModal() {
 	const router = useRouter()
@@ -49,7 +52,13 @@ export function useRouteWithModal() {
 		let component = route.matched[0]?.components?.default
 
 		if (typeof component === 'function') {
-			component = defineAsyncComponent(component)
+			const loader = component
+			let cached = asyncComponents.get(loader)
+			if (!cached) {
+				cached = defineAsyncComponent(loader as () => Promise<Component>)
+				asyncComponents.set(loader, cached)
+			}
+			component = cached
 		}
 
 		if (!component) {

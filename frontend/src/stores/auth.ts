@@ -334,6 +334,8 @@ export const useAuthStore = defineStore('auth', () => {
 		return response.data
 	}
 
+	let backgroundRefresh: Promise<unknown> | null = null
+
 	/**
 	 * Populates user information from jwt token saved in local storage in store
 	 */
@@ -351,6 +353,8 @@ export const useAuthStore = defineStore('auth', () => {
 
 		const jwt = getToken()
 		let isAuthenticated = false
+		// Only true when the JWT is valid as-is (no cookie refresh needed) for an already-loaded session.
+		let canRefreshInBackground = false
 		let jwtUserType: number | undefined
 		if (jwt) {
 			try {
@@ -365,6 +369,11 @@ export const useAuthStore = defineStore('auth', () => {
 
 				isAuthenticated = jwtUser.exp >= ts
 				currentSessionId.value = payload.sid ?? null
+
+				canRefreshInBackground = isAuthenticated &&
+					authenticated.value &&
+					jwtUser.type === AUTH_TYPES.USER &&
+					info.value?.id === jwtUser.id
 
 				if (isAuthenticated) {
 					// Only set user from JWT if we don't already have a fully loaded
@@ -413,6 +422,16 @@ export const useAuthStore = defineStore('auth', () => {
 				}
 			} catch (_) {
 				logout()
+			}
+
+			if (isAuthenticated && canRefreshInBackground) {
+				// Never block navigation on the network; refreshUserInfo handles 4xx by logging out itself.
+				if (!backgroundRefresh) {
+					backgroundRefresh = refreshUserInfo().catch(() => undefined).finally(() => {
+						backgroundRefresh = null
+					})
+				}
+				return true
 			}
 
 			if (isAuthenticated && jwtUserType !== AUTH_TYPES.LINK_SHARE) {
