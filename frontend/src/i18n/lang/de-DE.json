@@ -268,7 +268,7 @@
 				"title": "Quick Add Magic Modus",
 				"disabled": "Deaktiviert",
 				"todoist": "Todoist",
-				"vikunja": "Vikunja"
+				"vikunja": "Fenster"
 			},
 			"appearance": {
 				"title": "Farbschema",
@@ -1562,7 +1562,7 @@
 	},
 	"quickActions": {
 		"title": "Suchen und Quick Actions",
-		"notLoggedIn": "Bitte melde dich zuerst im Hauptfenster von Fenster an.",
+		"notLoggedIn": "Bitte melde dich zuerst im Hauptfenster an.",
 		"commands": "Befehle",
 		"placeholder": "Gib einen Befehl oder eine Suche ein …",
 		"hint": "Du kannst {project} verwenden, um die Suche auf ein Projekt zu beschränken. Kombiniere {project} oder {label} (Labels) mit einer Suchabfrage, um eine Aufgabe mit diesen Labels oder auf diesem Projekt zu suchen. Verwende {assignee}, um nur nach Teams zu suchen.",
