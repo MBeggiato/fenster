@@ -27,7 +27,9 @@ async function openDueDateSheet(page: Page) {
 
 	await page.goto(`/tasks/${TASK_ID}`)
 
-	const setDueDateButton = page.locator('.task-view .action-buttons .button').filter({hasText: 'Set Due Date'})
+	// The desktop action column (.action-buttons) is hidden at this viewport width — mobile drives
+	// the same setFieldActive('dueDate') handler through MobileTaskActionBar's sticky bar instead.
+	const setDueDateButton = page.locator('.mobile-task-action-bar .mobile-task-action-bar__btn', {hasText: 'Due Date'})
 	await expect(setDueDateButton).toBeVisible({timeout: 10000})
 	expect(await page.evaluate(() => document.documentElement.scrollHeight > window.innerHeight)).toBe(true)
 	await setDueDateButton.click()

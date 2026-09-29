@@ -1933,5 +1933,59 @@
 			"empty": "Noch keine Einladungslinks. Erstelle einen Link, um jemanden in diese Instanz einzuladen.",
 			"futureExpiry": "Wähle ein Ablaufdatum, das in der Zukunft liegt."
 		}
+	},
+	"mobile": {
+		"header": {
+			"openMore": "Mehr"
+		},
+		"tabBar": {
+			"label": "Hauptnavigation",
+			"home": "Startseite",
+			"capture": "Erfassen",
+			"focusActive": "Fokus-Sitzung aktiv"
+		},
+		"moreSheet": {
+			"title": "Mehr"
+		},
+		"capture": {
+			"title": "Neue Aufgabe",
+			"chips": {
+				"today": "Heute",
+				"tomorrow": "Morgen",
+				"project": "Projekt",
+				"label": "Label",
+				"priority": "Priorität"
+			}
+		},
+		"taskDetail": {
+			"actionBarLabel": "Aufgabenaktionen",
+			"more": "Mehr",
+			"moreSheetTitle": "Weitere Aktionen"
+		},
+		"kanban": {
+			"pagerLabel": "Spalten",
+			"moveTaskLabel": "Aufgabe verschieben",
+			"moveToTitle": "Verschieben in…",
+			"dragHandle": "Zum Sortieren ziehen"
+		},
+		"eisenhower": {
+			"back": "Zurück zu den Quadranten",
+			"moveAction": "Zu Quadrant verschieben",
+			"moveActionAria": "\"{task}\" zu anderem Quadrant verschieben",
+			"moveSheet": {
+				"title": "\"{task}\" verschieben",
+				"current": "Aktuell"
+			}
+		},
+		"screens": {
+			"upcoming": {
+				"filters": "Filter",
+				"noDueDate": "Kein Fälligkeitsdatum"
+			}
+		},
+		"swipe": {
+			"done": "Erledigt",
+			"reschedule": "Umdatieren"
+		}
 	}
 }
