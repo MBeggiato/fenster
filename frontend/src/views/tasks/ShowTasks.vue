@@ -112,7 +112,7 @@
 			<h3 class="has-text-centered mbs-6">
 				{{ $t('task.show.noTasks') }}
 			</h3>
-			<LlamaCool class="llama-cool" />
+			<EmptyArt class="empty-art" />
 		</template>
 
 		<Card
@@ -189,7 +189,7 @@ import SingleTaskInProject from '@/components/tasks/partials/SingleTaskInProject
 import DatepickerWithRange from '@/components/date/DatepickerWithRange.vue'
 import XLabel from '@/components/tasks/partials/Label.vue'
 import {DATE_RANGES} from '@/components/date/dateRanges'
-import LlamaCool from '@/assets/llama-cool.svg?component'
+import EmptyArt from '@/assets/glass-panes.svg?component'
 import {useAuthStore} from '@/stores/auth'
 import {useProjects} from '@/composables/useProjects'
 import {useLabels} from '@/composables/useLabels'
@@ -457,7 +457,7 @@ watchEffect(() => setTitle(pageTitle.value))
 	color: var(--text-muted);
 }
 
-.llama-cool {
+.empty-art {
 	margin: var(--space-12) auto 0;
 	display: block;
 }
