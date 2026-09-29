@@ -27,16 +27,13 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "vikunja",
-	Short: "Vikunja is the to-do app to organize your life.",
-	Long: `Vikunja (/vɪˈkuːnjə/)
+	Short: "Fenster is the to-do app to organize your life.",
+	Long: `Fenster
 The to-do app to organize your life.
 
-Also one of the two wild South American camelids which live in the high
-alpine areas of the Andes and a relative of the llama.
+Fenster is a self-hosted To-Do list application with a web app and mobile apps for all platforms, based on Vikunja (https://github.com/go-vikunja/vikunja). It is licensed under the AGPL-3.0-or-later.
 
-Vikunja is a self-hosted To-Do list application with a web app and mobile apps for all platforms. It is licensed under the AGPL-3.0-or-later.
-
-Find out more at vikunja.io.`,
+Find out more at https://github.com/MBeggiato/fenster.`,
 	PreRun: webCmd.PreRun,
 	Run:    webCmd.Run,
 }

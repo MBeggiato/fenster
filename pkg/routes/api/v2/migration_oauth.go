@@ -79,6 +79,6 @@ func registerOAuthMigrator(api huma.API, enabled bool, factory func() migration.
 
 	registerMigrationStatus(api, name, tags, factory)
 	registerMigrationMigrate[migrationMigrateBody](api, name, tags,
-		"Starts a migration of the authenticated user's data from this service into Vikunja. The migration runs asynchronously; this returns once it has been queued. Refuses with 412 if a migration for this service is already running.",
+		"Starts a migration of the authenticated user's data from this service into Fenster. The migration runs asynchronously; this returns once it has been queued. Refuses with 412 if a migration for this service is already running.",
 		factory)
 }

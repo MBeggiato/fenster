@@ -6,13 +6,13 @@
   "license": "AGPL-3.0-or-later",
   "repository": {
     "type": "git",
-    "url": "https://code.vikunja.io/vikunja"
+    "url": "https://github.com/MBeggiato/fenster.git"
   },
   "bugs": {
-    "url": "https://code.vikunja.io/vikunja/issues"
+    "url": "https://github.com/MBeggiato/fenster/issues"
   },
-  "homepage": "https://vikunja.io/",
-  "funding": "https://opencollective.com/vikunja",
+  "homepage": "https://github.com/MBeggiato/fenster",
+  "funding": "https://github.com/MBeggiato/fenster",
   "packageManager": "pnpm@11.27.0",
   "engines": {
     "node": ">=24.0.0"

@@ -1,6 +1,6 @@
 # AGENT Instructions
 
-Vikunja: self-hosted to-do app. Go API in `pkg/`, Vue 3 + TypeScript frontend in `frontend/` (pnpm). `veans/` is a separate Go module with its own `AGENTS.md`.
+Fenster: self-hosted to-do app, a soft fork of [Vikunja](https://github.com/go-vikunja/vikunja) (AGPL-3.0-or-later, see `NOTICE`). Go API in `pkg/`, Vue 3 + TypeScript frontend in `frontend/` (pnpm). `veans/` is a separate Go module with its own `AGENTS.md`.
 
 ## Commands
 
@@ -28,14 +28,22 @@ Invoke with the `Skill` tool before writing code in these areas:
 
 ## Releases
 
-Only a Docker image is released, to `ghcr.io/mbeggiato/vikunja-next` (built from the root `Dockerfile`: frontend + API in one `scratch` image). There are exactly two workflows in `.github/workflows/`:
+Only a Docker image is released, to `ghcr.io/mbeggiato/fenster` (built from the root `Dockerfile`: frontend + API in one `scratch` image). There are exactly two workflows in `.github/workflows/`:
 
 - **`release.yml`:** runs on every push to `main` (a merged PR is a push). Builds `linux/amd64` + `linux/arm64` and pushes `:latest` and `:<8-char sha>`. No tests run first.
 - **`preview.yml`:** manual only (Actions → Preview image → Run workflow, choose the branch in "Use workflow from"; the branch must contain the file). Builds `linux/amd64` and pushes `:preview-<branch>` (slashes become `-`).
 - **Auth:** the repo's `GITHUB_TOKEN` with job-level `packages: write`; no other secrets. The package must be linked to the repo (package settings → Manage Actions access) and Actions must be enabled.
 - **No versions/tags:** there are no git tags, so the version baked into the binary is the short commit SHA.
 - **No CI tests:** PRs run no checks. Run lint, unit tests and the e2e suite locally before merging.
-- **Manual local build:** `docker build -t ghcr.io/mbeggiato/vikunja-next:dev .` then `docker push` (login: `gh auth token | docker login ghcr.io -u MBeggiato --password-stdin`; needs a token with `write:packages`).
+- **Manual local build:** `docker build -t ghcr.io/mbeggiato/fenster:dev .` then `docker push` (login: `gh auth token | docker login ghcr.io -u MBeggiato --password-stdin`; needs a token with `write:packages`).
+
+## Fork rules
+
+- **Soft rebrand:** user-visible text says Fenster; internal identifiers stay Vikunja (Go module `code.vikunja.io/api`, `VIKUNJA_*` env vars, config/DB paths, `/api/v1` `/api/v2`, `X-Vikunja-*` headers, binary name, `pkg/license/`). Do not rename them.
+- **Attribution:** never edit `LICENSE`, `frontend/LICENSE` or the "Copyright 2018-present Vikunja and contributors" headers (enforced by `goheader`). Our copyright and the modification list live in `NOTICE`. The About page links the source repo, the license and upstream (AGPL section 13); keep those links working.
+- **Upstream:** `git remote add upstream https://github.com/go-vikunja/vikunja.git`, then `git fetch upstream && git merge upstream/main`.
+- **Generated files:** CI no longer regenerates them. Before a release run `go run github.com/magefile/mage generate:swagger-docs` and commit `pkg/swagger/` (`config.yml.sample` is gitignored). Never hand-edit generated files.
+- **Brand assets:** masters are in `frontend/originalMedia/brand/` (see its README.md).
 
 ## Details
 

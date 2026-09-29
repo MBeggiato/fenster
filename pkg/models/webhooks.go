@@ -366,7 +366,7 @@ func (w *Webhook) sendWebhookPayload(p *WebhookPayload) (err error) {
 		req.Header.Add("Authorization", "Basic "+base64.StdEncoding.EncodeToString([]byte(w.BasicAuthUser+":"+w.BasicAuthPassword)))
 	}
 
-	req.Header.Add("User-Agent", "Vikunja/"+version.Version)
+	req.Header.Add("User-Agent", "Fenster/"+version.Version)
 	req.Header.Add("Content-Type", "application/json")
 
 	client := getWebhookHTTPClient()

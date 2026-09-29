@@ -1,12 +1,12 @@
-# Contributing to Vikunja
+# Contributing to Fenster
 
 Thanks for your interest in contributing!
 
-For full documentation, visit https://vikunja.io/docs/development/
+Fenster is a fork of [Vikunja](https://github.com/go-vikunja/vikunja). The upstream documentation at https://vikunja.io/docs/development/ mostly applies, but may differ from Fenster.
 
 ## AI-Assisted Contributions
 
-Using AI tools to write code is fine. Parts of Vikunja are built that way too. What matters is what lands in the PR and who stands behind it:
+Using AI tools to write code is fine. Parts of Fenster are built that way too. What matters is what lands in the PR and who stands behind it:
 
 - **Disclose it.** If an AI wrote a meaningful part of your change, say so in the PR description. Disclosed assistance is fine; finding out during review is not.
 - **You are the author.** Understand every line you submit and be ready to answer questions about it — "that's what the AI did" is not an answer. There must be a human on the other end of the review.
@@ -14,13 +14,13 @@ Using AI tools to write code is fine. Parts of Vikunja are built that way too. W
 - **Features still need an issue first.** This goes double for AI-assisted work — a large generated diff for a feature nobody agreed on will be closed unreviewed.
 - **Don't file generated bug reports.** Only report bugs you have actually reproduced yourself. A plausible-sounding issue nobody has seen happen costs more time than it saves.
 - **Keep it short.** Generated prose especially is often very long and wordy when it does not need to be. Get to the point fast. This applies to generated issues, PRs, comments, and commit messages.
-- **Security reports are held to the same bar.** Only report a vulnerability you have verified yourself against a current version — see our [security policy](https://vikunja.io/security). Unverified reports will be ignored.
+- **Security reports are held to the same bar.** Only report a vulnerability you have verified yourself against a current version — report it privately through [GitHub security advisories](https://github.com/MBeggiato/fenster/security/advisories/new). Unverified reports will be ignored.
 
 PRs and issues that skip these steps may be closed without detailed review — maintainer time is the scarcest resource this project has. If review questions stay unanswered for two weeks, the PR gets closed automatically; comment to reopen.
 
 ## Ways to Contribute
 
-- **Bug reports**: Open an issue with steps to reproduce
+- **Bug reports**: Open an [issue](https://github.com/MBeggiato/fenster/issues) with steps to reproduce
 - **Bug fixes**: PRs welcome - link the issue you're fixing
 - **Features**: Please open an issue to discuss before starting work
 - **Translations**: See the Translations section below
@@ -119,8 +119,4 @@ mage test:e2e ""
 Only edit the English source file (`en.json`):
 - Frontend: `frontend/src/i18n/lang/en.json`
 - Backend: `pkg/i18n/lang/en.json`
-
-Actual translations happen through our translation platform, not via PRs.
-
-To learn more about translations, see https://vikunja.io/docs/translations/
 

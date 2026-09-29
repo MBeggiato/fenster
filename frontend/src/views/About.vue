@@ -21,6 +21,27 @@
 				<p v-if="proActive">
 					{{ $t('about.proActive') }}
 				</p>
+				<p>
+					<a
+						:href="LICENSE_URL"
+						target="_blank"
+						rel="noopener noreferrer"
+					>{{ $t('about.license') }}</a>
+				</p>
+				<p>
+					<a
+						:href="SOURCE_CODE"
+						target="_blank"
+						rel="noopener noreferrer"
+					>{{ $t('about.source') }}</a>
+					·
+					<a
+						:href="UPSTREAM"
+						target="_blank"
+						rel="noopener noreferrer"
+					>{{ $t('about.basedOn') }}</a>
+				</p>
+				<p>{{ $t('about.notAffiliated') }}</p>
 			</div>
 			<template #footer>
 				<XButton
@@ -40,6 +61,7 @@ import {computed} from 'vue'
 import {VERSION as frontendVersion} from '@/version.json'
 
 import {useConfigStore} from '@/stores/config'
+import {SOURCE_CODE, UPSTREAM, LICENSE_URL} from '@/urls'
 
 const configStore = useConfigStore()
 const apiVersion = computed(() => configStore.version)

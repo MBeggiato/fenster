@@ -1,3 +1,6 @@
 export const POWERED_BY = 'https://vikunja.io/?utm_source=powered_by'
 export const CALDAV_DOCS = 'https://vikunja.io/docs/caldav/'
 export const MCP_HELP = 'https://vikunja.io/help/mcp/'
+export const SOURCE_CODE = 'https://github.com/MBeggiato/fenster'
+export const UPSTREAM = 'https://github.com/go-vikunja/vikunja'
+export const LICENSE_URL = 'https://www.gnu.org/licenses/agpl-3.0.html'

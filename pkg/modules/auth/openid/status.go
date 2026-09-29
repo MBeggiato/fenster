@@ -35,7 +35,7 @@ import (
 // see RegisterProviderAvailabilityCron.
 type ProviderStatus struct {
 	Key       string `json:"key" doc:"The config key of the provider."`
-	Available bool   `json:"available" doc:"True when the provider is initialized and offered for login. This reflects the last initialization attempt, not the provider's current reachability. A configured but unavailable provider was unreachable or misconfigured when Vikunja last initialized its providers; initialization is retried automatically with exponential backoff, after at most 15 minutes."`
+	Available bool   `json:"available" doc:"True when the provider is initialized and offered for login. This reflects the last initialization attempt, not the provider's current reachability. A configured but unavailable provider was unreachable or misconfigured when Fenster last initialized its providers; initialization is retried automatically with exponential backoff, after at most 15 minutes."`
 }
 
 func availableProviderKeys() map[string]bool {

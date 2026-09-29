@@ -10,13 +10,12 @@ const docTemplate = `{
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
         "contact": {
-            "name": "General Vikunja contact",
-            "url": "https://vikunja.io/contact/",
-            "email": "hello@vikunja.io"
+            "name": "Fenster",
+            "url": "https://github.com/MBeggiato/fenster"
         },
         "license": {
             "name": "AGPL-3.0-or-later",
-            "url": "https://code.vikunja.io/api/src/branch/main/LICENSE"
+            "url": "https://www.gnu.org/licenses/agpl-3.0.html"
         },
         "version": "{{.Version}}"
     },
@@ -10236,6 +10235,9 @@ const docTemplate = `{
                     "description": "The time when the task is due.",
                     "type": "string"
                 },
+                "eisenhower": {
+                    "$ref": "#/definitions/models.TaskEisenhowerClassification"
+                },
                 "end_date": {
                     "description": "When this task ends.",
                     "type": "string"
@@ -10274,6 +10276,9 @@ const docTemplate = `{
                 "percent_done": {
                     "description": "Determines how far a task is left from being done",
                     "type": "number"
+                },
+                "pomodoro": {
+                    "$ref": "#/definitions/models.TaskPomodoroSummary"
                 },
                 "position": {
                     "description": "The position of the task - any task project can be sorted as usual by this parameter.\nWhen accessing tasks via views with buckets, this is primarily used to sort them based on a range.\nPositions are always saved per view. They will automatically be set if you request the tasks through a view\nendpoint, otherwise they will always be 0. To update them, take a look at the Task Position endpoint.",
@@ -10465,6 +10470,47 @@ const docTemplate = `{
                             "$ref": "#/definitions/models.Task"
                         }
                     ]
+                }
+            }
+        },
+        "models.TaskEisenhowerClassification": {
+            "type": "object",
+            "properties": {
+                "classified": {
+                    "description": "Classified is false when the requesting user has not placed the task in\nthe matrix yet. Urgent and important are then both false.",
+                    "type": "boolean"
+                },
+                "created": {
+                    "type": "string"
+                },
+                "important": {
+                    "type": "boolean"
+                },
+                "task_id": {
+                    "type": "integer"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "urgent": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "models.TaskPomodoroSummary": {
+            "type": "object",
+            "properties": {
+                "completed": {
+                    "type": "integer"
+                },
+                "estimate": {
+                    "type": "integer"
+                },
+                "focus_seconds": {
+                    "type": "integer"
+                },
+                "interrupted": {
+                    "type": "integer"
                 }
             }
         },
@@ -11571,8 +11617,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "",
 	BasePath:         "/api/v1",
 	Schemes:          []string{},
-	Title:            "Vikunja API",
-	Description:      "# Pagination\nEvery endpoint capable of pagination will return two headers:\n* `x-pagination-total-pages`: The total number of available pages for this request\n* `x-pagination-result-count`: The number of items returned for this request.\n# Permissions\nAll endpoints which return a single item (project, task, etc.) - no array - will also return a `x-max-permission` header with the max permission the user has on this item as an int where `0` is `Read Only`, `1` is `Read & Write` and `2` is `Admin`.\nThis can be used to show or hide ui elements based on the permissions the user has.\n# Errors\nAll errors have an error code and a human-readable error message in addition to the http status code. You should always check for the status code in the response, not only the http status code.\nDue to limitations in the swagger library we're using for this document, only one error per http status code is documented here. Make sure to check the [error docs](https://vikunja.io/docs/errors/) in Vikunja's documentation for a full list of available error codes.\n# Authorization\n**JWT-Auth:** Main authorization method, used for most of the requests. Needs `Authorization: Bearer <jwt-token>`-header to authenticate successfully.\n\n**API Token:** You can create scoped API tokens for your user and use the token to make authenticated requests in the context of that user. The token must be provided via an `Authorization: Bearer <token>` header, similar to jwt auth. See the documentation for the `api` group to manage token creation and revocation.\n\n**BasicAuth:** Only used when requesting tasks via CalDAV.\n<!-- ReDoc-Inject: <security-definitions> -->",
+	Title:            "Fenster API",
+	Description:      "# Pagination\nEvery endpoint capable of pagination will return two headers:\n* `x-pagination-total-pages`: The total number of available pages for this request\n* `x-pagination-result-count`: The number of items returned for this request.\n# Permissions\nAll endpoints which return a single item (project, task, etc.) - no array - will also return a `x-max-permission` header with the max permission the user has on this item as an int where `0` is `Read Only`, `1` is `Read & Write` and `2` is `Admin`.\nThis can be used to show or hide ui elements based on the permissions the user has.\n# Errors\nAll errors have an error code and a human-readable error message in addition to the http status code. You should always check for the status code in the response, not only the http status code.\nDue to limitations in the swagger library we're using for this document, only one error per http status code is documented here. Make sure to check the [error docs](https://vikunja.io/docs/errors/) in the upstream Vikunja documentation for a full list of available error codes.\n# Authorization\n**JWT-Auth:** Main authorization method, used for most of the requests. Needs `Authorization: Bearer <jwt-token>`-header to authenticate successfully.\n\n**API Token:** You can create scoped API tokens for your user and use the token to make authenticated requests in the context of that user. The token must be provided via an `Authorization: Bearer <token>` header, similar to jwt auth. See the documentation for the `api` group to manage token creation and revocation.\n\n**BasicAuth:** Only used when requesting tasks via CalDAV.\n<!-- ReDoc-Inject: <security-definitions> -->",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

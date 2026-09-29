@@ -248,7 +248,7 @@ const (
 	PluginsDir     Key = `plugins.dir`
 	PluginsLoader  Key = `plugins.loader`
 
-	// LicenseKey gates optional paid features and funds Vikunja's development.
+	// LicenseKey gates optional paid features and funds Fenster's development.
 	// See the package comment in pkg/license/license.go before removing.
 	LicenseKey Key = `license.key`
 )
@@ -326,7 +326,7 @@ func applyDefaultLogLevels() {
 	}
 }
 
-// getRootpathLocation determines the default root path for Vikunja data.
+// getRootpathLocation determines the default root path for Fenster data.
 // It prefers the current working directory, which respects systemd's
 // WorkingDirectory= setting and is the most intuitive default.
 // Falls back to the binary's directory if Getwd fails.
@@ -445,7 +445,7 @@ func initDefaultConfig() {
 	MailerUsername.setDefault("")
 	MailerPassword.setDefault("")
 	MailerSkipTLSVerify.setDefault(false)
-	MailerFromEmail.setDefault("mail@vikunja")
+	MailerFromEmail.setDefault("mail@fenster")
 	MailerQueuelength.setDefault(100)
 	MailerQueueTimeout.setDefault(30)
 	MailerForceSSL.setDefault(false)
