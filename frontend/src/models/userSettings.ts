@@ -9,6 +9,19 @@ import {DATE_DISPLAY} from '@/constants/dateDisplay'
 import {TIME_FORMAT} from '@/constants/timeFormat'
 import {RELATION_KIND} from '@/types/IRelationKind'
 
+// Also merged in by the auth store: users who never saved these have no keys in the api.
+export const POMODORO_DEFAULTS = {
+	pomodoroFocusMinutes: 25,
+	pomodoroShortBreakMinutes: 5,
+	pomodoroLongBreakMinutes: 15,
+	pomodoroLongBreakEvery: 4,
+	pomodoroAutoStartBreaks: false,
+	pomodoroAutoStartFocus: false,
+	pomodoroSound: true,
+	pomodoroNotifications: false,
+	pomodoroLogTimeEntries: false,
+}
+
 export default class UserSettingsModel extends AbstractModel<IUserSettings> implements IUserSettings {
 	name = ''
 	emailRemindersEnabled = true
@@ -39,15 +52,7 @@ export default class UserSettingsModel extends AbstractModel<IUserSettings> impl
 		desktopQuickEntryShortcut: 'CmdOrCtrl+Shift+A',
 		quickAddDefaultReminders: [],
 		defaultDueTime: undefined,
-		pomodoroFocusMinutes: 25,
-		pomodoroShortBreakMinutes: 5,
-		pomodoroLongBreakMinutes: 15,
-		pomodoroLongBreakEvery: 4,
-		pomodoroAutoStartBreaks: false,
-		pomodoroAutoStartFocus: false,
-		pomodoroSound: true,
-		pomodoroNotifications: false,
-		pomodoroLogTimeEntries: false,
+		...POMODORO_DEFAULTS,
 	}
 	extraSettingsLinks = {}
 
