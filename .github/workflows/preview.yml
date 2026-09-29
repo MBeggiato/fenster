@@ -14,7 +14,7 @@ jobs:
       - id: meta
         uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
         with:
-          images: ghcr.io/${{ github.repository_owner }}/vikunja-next
+          images: ghcr.io/mbeggiato/vikunja-next
           tags: type=ref,event=branch,prefix=preview-
       - uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435 # v3.11.1
       - uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
