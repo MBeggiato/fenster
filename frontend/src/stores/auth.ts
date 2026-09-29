@@ -23,7 +23,7 @@ import {AUTH_TYPES, type IUser} from '@/modelTypes/IUser'
 import type {IUserSettings} from '@/modelTypes/IUserSettings'
 import router from '@/router'
 import {useConfigStore} from '@/stores/config'
-import UserSettingsModel from '@/models/userSettings'
+import UserSettingsModel, {POMODORO_DEFAULTS} from '@/models/userSettings'
 import {MILLISECONDS_A_SECOND} from '@/constants/date'
 import {PrefixMode} from '@/modules/quickAddMagic'
 import {DATE_DISPLAY} from '@/constants/dateDisplay'
@@ -176,6 +176,7 @@ export const useAuthStore = defineStore('auth', () => {
 				commentSortOrder: 'asc',
 				desktopQuickEntryShortcut: 'CmdOrCtrl+Shift+A',
 				defaultDueTime: undefined,
+				...POMODORO_DEFAULTS,
 				...newSettings.frontendSettings,
 			},
 		})
