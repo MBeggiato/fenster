@@ -15,7 +15,6 @@ import { sentryVitePlugin, type SentryVitePluginOptions } from '@sentry/vite-plu
 import svgLoader from 'vite-svg-loader'
 import postcssPresetEnv from 'postcss-preset-env'
 import postcssEasingGradients from 'postcss-easing-gradients'
-import tailwindcss from '@tailwindcss/vite'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
 const pathSrc = fileURLToPath(new URL('./src', import.meta.url)).replaceAll('\\', '/')
@@ -47,9 +46,9 @@ function getSentryConfig(env: Record<string, string>): SentryVitePluginOptions {
 		telemetry: false,
 
 		// sourcemaps: {
-			// assets: [], // TODO
-			// deleteFilesAfterUpload: [], // TODO define glob
-			// rewriteSources // might need that instead of `urlPrefix`
+		// assets: [], // TODO
+		// deleteFilesAfterUpload: [], // TODO define glob
+		// rewriteSources // might need that instead of `urlPrefix`
 		// },
 
 		release: {
@@ -122,11 +121,14 @@ function getBuildConfig(env: Record<string, string>) {
 			preprocessorOptions: {
 				sass: {
 					quietDeps: true, // silence deprecation warnings
+					// ponytail: @import/nth() can't move to @use while common-imports is injected via additionalData; lift when migrating to the module system
+					silenceDeprecations: ['import', 'global-builtin'],
 				},
 				scss: {
 					additionalData: PREFIXED_SCSS_STYLES,
 					charset: false, // fixes  "@charset" must be the first rule in the file" warnings,
 					quietDeps: true, // silence deprecation warnings
+					silenceDeprecations: ['import', 'global-builtin'],
 				},
 			},
 			postcss: {
@@ -135,13 +137,12 @@ function getBuildConfig(env: Record<string, string>) {
 					postcssPresetEnv({
 						features: {
 							'logical-properties-and-values': false,
-						}
+						},
 					}),
 				],
 			},
 		},
 		plugins: [
-			tailwindcss(),
 			vue(),
 			svgLoader({
 				// Since the svgs are already manually optimized via https://jakearchibald.github.io/svgomg/
@@ -195,6 +196,10 @@ function getBuildConfig(env: Record<string, string>) {
 					display: 'standalone',
 					background_color: '#000000',
 					shortcuts: [
+						{
+							name: 'New task',
+							url: '/?capture=1',
+						},
 						{
 							name: 'Overview',
 							url: '/',

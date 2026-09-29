@@ -135,7 +135,7 @@ const exampleDate = computed(() => formatDateShort(now.value))
 <style scoped lang="scss">
 // FIXME: Remove style overwrites
 .how-it-works-modal {
-	font-size: 1rem;
+	font-size: var(--font-size-md);
 }
 
 p {

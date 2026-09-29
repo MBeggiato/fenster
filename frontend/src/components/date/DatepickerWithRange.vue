@@ -169,8 +169,8 @@ const buttonText = computed<string>(() => {
 <style lang="scss" scoped>
 .date-fields {
 	display: flex;
-	gap: .5rem;
-	margin-block-end: .5rem;
+	gap: var(--space-2);
+	margin-block-end: var(--space-2);
 
 	.label {
 		flex: 1;

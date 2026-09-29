@@ -265,7 +265,7 @@ async function submit() {
 .label-with-link {
 	display: flex;
 	justify-content: space-between;
-	margin-block-end: .5rem;
+	margin-block-end: var(--space-2);
 
 	.label {
 		margin-block-end: 0;

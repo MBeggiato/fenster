@@ -125,7 +125,7 @@ defineExpose({onKeyDown})
 
 .emoji-glyph {
 	font-size: 1.4rem;
-	margin-inline-end: 0.75rem;
+	margin-inline-end: var(--space-3);
 	flex-shrink: 0;
 }
 
@@ -150,7 +150,7 @@ defineExpose({onKeyDown})
 }
 
 .emoji-annotation {
-	font-size: 0.75rem;
+	font-size: var(--font-size-xs);
 	color: var(--grey-500);
 }
 </style>

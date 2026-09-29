@@ -42,7 +42,7 @@ withDefaults(defineProps<{
 	min-inline-size: 6vw;
 
 	inline-size: 50px;
-	margin: 0 .5rem 0 0;
+	margin: 0 var(--space-2) 0 0;
 	flex: 3 1 auto;
 
 	&::-moz-progress-bar,
@@ -51,7 +51,7 @@ withDefaults(defineProps<{
 	}
 
 	@media screen and (max-width: $tablet) {
-		margin: 0.5rem 0 0;
+		margin: var(--space-2) 0 0;
 		order: 1;
 		inline-size: 100%;
 	}

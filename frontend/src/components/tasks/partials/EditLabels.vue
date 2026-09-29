@@ -153,7 +153,7 @@ async function createAndAddLabel(title: string) {
 
 <style lang="scss" scoped>
 .tag {
-	margin: .25rem !important;
+	margin: var(--space-1) !important;
 }
 
 .tag.search-result {
@@ -161,10 +161,10 @@ async function createAndAddLabel(title: string) {
 }
 
 :deep(.input-wrapper) {
-	padding: .25rem !important;
+	padding: var(--space-1) !important;
 }
 
 :deep(input.input) {
-	padding: 0 .5rem;
+	padding: 0 var(--space-2);
 }
 </style>

@@ -121,7 +121,7 @@ defineExpose({
 	background: var(--white);
 	color: var(--grey-900);
 	overflow: hidden;
-	font-size: 0.875rem;
+	font-size: var(--font-size-sm);
 	box-shadow: var(--shadow-md);
 	border: 1px solid var(--grey-200);
 	max-block-size: 12rem;
@@ -138,7 +138,7 @@ defineExpose({
 	color: inherit;
 	border-radius: $radius;
 	border: 0;
-	padding: 0.375rem 0.5rem;
+	padding: 0.375rem var(--space-2);
 	transition: background-color var(--transition);
 	cursor: pointer;
 
@@ -164,11 +164,11 @@ defineExpose({
 }
 
 .filter-autocomplete__label {
-	font-size: 0.75rem;
+	font-size: var(--font-size-xs);
 }
 
 .filter-autocomplete__user {
-	font-size: 0.875rem;
+	font-size: var(--font-size-sm);
 }
 
 .filter-autocomplete__project {

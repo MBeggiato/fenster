@@ -62,6 +62,13 @@
 				{{ resultAnnouncement }}
 			</div>
 
+			<EmptyState
+				v-if="selectedCmd === null && query !== '' && !loading && results.length === 0"
+				icon="search"
+				:title="$t('emptyState.noSearchResults')"
+				:text="$t('emptyState.noSearchResultsText')"
+			/>
+
 			<div
 				v-if="selectedCmd === null"
 				class="results"
@@ -131,6 +138,7 @@ import type {Team as ITeam} from '@/client/generated'
 import {refDebounced} from '@vueuse/core'
 
 import BaseButton from '@/components/base/BaseButton.vue'
+import EmptyState from '@/components/misc/EmptyState.vue'
 import QuickAddMagic from '@/components/tasks/partials/QuickAddMagic.vue'
 import XLabel from '@/components/tasks/partials/Label.vue'
 import SingleTaskInlineReadonly from '@/components/tasks/partials/SingleTaskInlineReadonly.vue'
@@ -753,17 +761,22 @@ onBeforeUnmount(() => {
 .quick-actions {
 	// global Bulma .card styles are gone (ported into Card.vue, scoped),
 	// so this bare .card div needs its own card visuals
-	background-color: var(--white);
-	border-radius: $radius;
-	border: 1px solid var(--card-border-color);
-	box-shadow: var(--shadow-sm);
+	background: var(--glass-overlay-bg);
+	backdrop-filter: var(--glass-filter-strong);
+	border-radius: var(--radius-lg);
+	border: 1px solid var(--glass-hairline);
+	box-shadow: var(--glass-specular), var(--shadow-lg);
 	color: var(--text);
 	overflow: hidden;
 	justify-content: flex-start !important;
 
+	// The Electron quick-entry popup IS the window, not a floating shell over app
+	// content — no page behind it to blur, so it stays fully opaque.
 	&.is-quick-add-mode {
 		padding: 0;
 		margin: 0;
+		background: var(--white);
+		backdrop-filter: none;
 		border: none;
 		box-shadow: none;
 	}
@@ -775,20 +788,20 @@ onBeforeUnmount(() => {
 
 	.input {
 		border: 0;
-		font-size: 1.5rem;
+		font-size: var(--font-size-xl);
 
 		@media screen and (max-width: $tablet) {
-			padding-inline-end: .25rem;
+			padding-inline-end: var(--space-1);
 		}
 	}
 
 	&.has-active-cmd .input {
-		padding-inline-start: .5rem;
+		padding-inline-start: var(--space-2);
 	}
 
 	.close {
-		padding: 0 1rem 0 .5rem;
-		font-size: 1.5rem;
+		padding: 0 var(--space-4) 0 var(--space-2);
+		font-size: var(--font-size-xl);
 
 		@media screen and (min-width: $tablet + 1) {
 			display: none;
@@ -797,8 +810,8 @@ onBeforeUnmount(() => {
 }
 
 .active-cmd {
-	font-size: 1.25rem;
-	margin-inline-start: .5rem;
+	font-size: var(--font-size-lg);
+	margin-inline-start: var(--space-2);
 	background-color: var(--grey-100);
 	color: var(--grey-800);
 }
@@ -811,9 +824,9 @@ onBeforeUnmount(() => {
 
 .result-title {
 	background: var(--grey-100);
-	padding: .5rem;
+	padding: var(--space-2);
 	display: block;
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 }
 
 .result-item-button {
@@ -827,7 +840,7 @@ onBeforeUnmount(() => {
 	text-transform: none;
 	font-family: $family-sans-serif;
 	font-weight: normal;
-	padding: .5rem .75rem;
+	padding: var(--space-2) var(--space-3);
 	border: none;
 	cursor: pointer;
 
@@ -842,9 +855,9 @@ onBeforeUnmount(() => {
 	}
 
 	.saved-filter-icon {
-		font-size: .75rem;
+		font-size: var(--font-size-xs);
 		inline-size: .75rem;
-		margin-inline-end: .25rem;
+		margin-inline-end: var(--space-1);
 		color: var(--grey-400)
 	}
 

@@ -13,9 +13,9 @@
 			class="mbe-2"
 			@update:modelValue="() => change('modelValue')"
 		/>
-		<div 
+		<div
 			v-if="filterFromView"
-			class="tw:text-sm mbe-2"
+			class="filter-from-view mbe-2"
 		>
 			{{ $t('filters.fromView') }}
 			<code>{{ filterFromView }}</code><br>
@@ -198,3 +198,9 @@ defineExpose({
 	focusFilterInput,
 })
 </script>
+
+<style scoped>
+.filter-from-view {
+	font-size: var(--font-size-sm);
+}
+</style>

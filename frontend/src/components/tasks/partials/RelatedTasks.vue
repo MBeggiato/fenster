@@ -381,19 +381,19 @@ async function toggleTaskDone(task: ITask) {
 }
 
 .title {
-	font-size: 1rem;
+	font-size: var(--font-size-md);
 	margin: 0;
 }
 
 .tasks {
-	padding: .5rem;
+	padding: var(--space-2);
 }
 
 .task {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	padding: .75rem;
+	padding: var(--space-3);
 	transition: background-color $transition;
 	border-radius: $radius;
 
@@ -429,7 +429,7 @@ async function toggleTaskDone(task: ITask) {
 }
 
 :deep(.multiselect .search-results button) {
-	padding: 0.5rem;
+	padding: var(--space-2);
 }
 
 .task-relation-search-field {
@@ -437,8 +437,8 @@ async function toggleTaskDone(task: ITask) {
 
 	:deep(.quick-add-magic-trigger-btn) {
 		position: absolute;
-		inset-block-start: .75rem;
-		inset-inline-end: .75rem;
+		inset-block-start: var(--space-3);
+		inset-inline-end: var(--space-3);
 		z-index: 4;
 	}
 }
@@ -449,6 +449,6 @@ async function toggleTaskDone(task: ITask) {
 .task-done-checkbox {
 	padding: 0;
 	block-size: 18px; // The exact height of the checkbox in the container
-	margin-inline-end: .75rem;
+	margin-inline-end: var(--space-3);
 }
 </style>

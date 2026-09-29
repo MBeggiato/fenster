@@ -1,7 +1,7 @@
 <template>
 	<div class="heading">
-		<div class="tw:flex tw:items-center md:tw:items-stretch tw:flex-col tw:gap-1 task-properties">
-			<div class="tw:flex tw:items-center tw:gap-2">
+		<div class="task-properties">
+			<div class="task-id-row">
 				<ColorBubble
 					v-if="task.hex_color !== ''"
 					:color="getHexColor(task.hex_color)"
@@ -191,6 +191,7 @@ async function cancel(element: HTMLInputElement) {
 	@media screen and (max-width: $tablet) {
 		flex-direction: column;
 		align-items: start;
+		gap: var(--space-1);
 	}
 }
 
@@ -199,12 +200,15 @@ async function cancel(element: HTMLInputElement) {
 }
 
 .title.input {
-	// 1.8rem is the font-size, 1.125 is the line-height, .3rem padding everywhere, 1px border around the whole thing.
-	min-block-size: calc(1.8rem * 1.125 + .6rem + 2px);
+	// 1.125 is the line-height, .3rem padding everywhere, 1px border around the whole thing.
+	min-block-size: calc(var(--font-size-2xl) * 1.125 + .6rem + 2px);
 	margin-inline-end: 0;
 
 	@media screen and (max-width: $tablet) {
-		margin: 0 -.3rem .5rem; // the title has 0.3rem padding - this make the text inside of it align with the rest
+		// compact title on mobile: smaller type, tighter min-height
+		font-size: var(--font-size-xl);
+		min-block-size: calc(var(--font-size-xl) * 1.125 + .6rem + 2px);
+		margin: 0 -.3rem var(--space-1); // the title has 0.3rem padding - this make the text inside of it align with the rest
 	}
 }
 
@@ -233,8 +237,23 @@ async function cancel(element: HTMLInputElement) {
 }
 
 .task-properties {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: var(--space-1);
+
+	@media screen and (min-width: $tablet) {
+		align-items: stretch;
+	}
+
 	@media screen and (max-width: $tablet) {
 		flex-direction: row;
 	}
+}
+
+.task-id-row {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
 }
 </style>

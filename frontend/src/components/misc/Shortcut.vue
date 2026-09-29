@@ -35,10 +35,10 @@ kbd {
 	border: 1px solid var(--grey-300);
 	background: var(--grey-100);
 	border-radius: 3px;
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 }
 
 span {
-	padding: 0 .25rem;
+	padding: 0 var(--space-1);
 }
 </style>

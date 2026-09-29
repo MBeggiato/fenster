@@ -123,7 +123,7 @@ function onEstimateChange(event: Event) {
 
 	.button {
 		inline-size: 100%;
-		margin-block-end: .5rem;
+		margin-block-end: var(--space-2);
 		justify-content: left;
 	}
 }
@@ -131,14 +131,14 @@ function onEstimateChange(event: Event) {
 .action-heading {
 	text-transform: uppercase;
 	color: var(--grey-700);
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 	font-weight: 700;
-	margin: .5rem 0;
+	margin: var(--space-2) 0;
 	display: inline-block;
 }
 
 .task-pomodoro__link {
-	margin-inline-start: .25rem;
+	margin-inline-start: var(--space-1);
 	color: var(--grey-500);
 }
 
@@ -147,7 +147,7 @@ function onEstimateChange(event: Event) {
 	flex-wrap: wrap;
 	align-items: center;
 	gap: .375rem;
-	margin-block: .25rem .5rem;
+	margin-block: var(--space-1) var(--space-2);
 	color: var(--grey-500);
 	font-size: .85rem;
 }
@@ -172,10 +172,10 @@ function onEstimateChange(event: Event) {
 .task-pomodoro__estimate-label {
 	color: var(--grey-500);
 	font-size: .85rem;
-	margin-block-end: .25rem;
+	margin-block-end: var(--space-1);
 }
 
 .task-pomodoro__estimate {
-	margin-block-end: .75rem;
+	margin-block-end: var(--space-3);
 }
 </style>

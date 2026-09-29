@@ -21,7 +21,7 @@
 			v-if="currentProject?.id"
 			class="project-title-wrapper"
 		>
-			<span class="project-title">
+			<span class="project-title project-title--current">
 				{{ currentProject.title === '' ? $t('misc.loading') : getProjectTitle(currentProject) }}
 			</span>
 
@@ -201,7 +201,9 @@ $user-dropdown-width-mobile: 5rem;
 	gap: var(--navbar-gap-width);
 	min-block-size: $navbar-height;
 
-	background: var(--site-background);
+	background: var(--glass-chrome-bg);
+	backdrop-filter: var(--glass-filter);
+	box-shadow: var(--glass-specular);
 
 	@media screen and (min-width: $tablet) {
 		padding-inline-start: 2rem;
@@ -230,7 +232,7 @@ $user-dropdown-width-mobile: 5rem;
 		align-self: stretch;
 		display: flex;
 		align-items: center;
-		margin-inline-end: .5rem;
+		margin-inline-end: var(--space-2);
 	}
 }
 
@@ -240,7 +242,7 @@ $user-dropdown-width-mobile: 5rem;
 	flex: 0 0 auto;
 
 	@media screen and (max-width: $tablet) {
-		margin-inline-start: 1rem;
+		margin-inline-start: var(--space-4);
 	}
 }
 
@@ -259,7 +261,7 @@ $user-dropdown-width-mobile: 5rem;
 }
 
 .project-title {
-	font-size: 1rem;
+	font-size: var(--font-size-md);
 	// We need the following for overflowing ellipsis to work
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -267,6 +269,14 @@ $user-dropdown-width-mobile: 5rem;
 
 	@media screen and (min-width: $tablet) {
 		font-size: 1.75rem;
+	}
+}
+
+// The project title is also shown as a heading in ProjectWrapper.vue on desktop;
+// keep it here for mobile only, where that heading may be off-screen.
+.project-title--current {
+	@media screen and (min-width: $tablet) {
+		display: none;
 	}
 }
 
@@ -299,12 +309,12 @@ $user-dropdown-width-mobile: 5rem;
 }
 
 .username-dropdown-trigger {
-	padding-inline-start: .75rem;
+	padding-inline-start: var(--space-3);
 	display: inline-flex;
 	align-items: center;
 	font-size: .85rem;
 	font-weight: 700;
-	gap: .5rem;
+	gap: var(--space-2);
 	
 	:deep(.avatar) {
 		margin-inline-end: 0;
@@ -315,11 +325,11 @@ $user-dropdown-width-mobile: 5rem;
 	}
 
 	@media screen and (max-width: $tablet) {
-		padding-inline-end: .5rem;
+		padding-inline-end: var(--space-2);
 	}
 
 	@media screen and (min-width: $tablet) {
-		padding-inline-end: .75rem;
+		padding-inline-end: var(--space-3);
 	}
 }
 
@@ -339,6 +349,6 @@ $user-dropdown-width-mobile: 5rem;
 	border-radius: 100%;
 	vertical-align: middle;
 	block-size: 40px;
-	margin-inline-end: .5rem;
+	margin-inline-end: var(--space-2);
 }
 </style>

@@ -163,7 +163,7 @@ export default {
 	inline-size: 32px;
 	block-size: 32px;
 	border-radius: 50%;
-	margin-inline-end: 0.75rem;
+	margin-inline-end: var(--space-3);
 	flex-shrink: 0;
 }
 
@@ -188,7 +188,7 @@ export default {
 }
 
 .mention-username {
-	font-size: 0.75rem;
+	font-size: var(--font-size-xs);
 	color: var(--grey-500);
 }
 </style>

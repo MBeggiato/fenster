@@ -92,7 +92,7 @@ function isAliasActive(item: SideNavItem) {
 
 .navigation {
 	inline-size: 25%;
-	padding-inline-end: 1rem;
+	padding-inline-end: var(--space-4);
 
 	@media screen and (max-width: $tablet) {
 		inline-size: 100%;
@@ -102,7 +102,7 @@ function isAliasActive(item: SideNavItem) {
 
 .navigation-link {
 	display: block;
-	padding: .5rem;
+	padding: var(--space-2);
 	color: var(--text);
 	inline-size: 100%;
 	border-inline-start: 3px solid transparent;
@@ -120,7 +120,7 @@ function isAliasActive(item: SideNavItem) {
 	@media screen and (max-width: $tablet) {
 		inline-size: 100%;
 		padding-inline-start: 0;
-		padding-block-start: 1rem;
+		padding-block-start: var(--space-4);
 	}
 }
 </style>

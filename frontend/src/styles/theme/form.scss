@@ -77,9 +77,9 @@
 // - the <h2> in Kanban.vue
 // Contenteditable form
 .input.title {
-  font-size: 1.8rem;
+  font-size: var(--font-size-2xl);
   font-family: $vikunja-font;
-  font-weight: 400 !important;
+  font-weight: var(--font-weight-semibold) !important;
   background: transparent;
   border-color: transparent;
   margin: 0 .3rem;

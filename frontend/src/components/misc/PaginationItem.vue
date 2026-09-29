@@ -48,7 +48,7 @@ const emit = defineEmits<{
 	block-size: 2.5em;
 	justify-content: center;
 	line-height: 1.5;
-	margin: 0.25rem;
+	margin: var(--space-1);
 	padding: calc(0.5em - 1px) 0.5em;
 	position: relative;
 	text-align: center;

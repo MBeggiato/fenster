@@ -37,14 +37,14 @@
 						</template>
 						<span
 							v-if="item.duplicates > 0"
-							class="tw:text-xs tw:font-bold tw:ml-1"
+							class="duplicate-count"
 						>
 							×{{ item.duplicates + 1 }}
 						</span>
 					</div>
 					<div
 						v-if="item.data?.actions?.length > 0"
-						class="mbs-2 tw:flex tw:justify-end tw:gap-2"
+						class="mbs-2 notification-actions"
 					>
 						<XButton
 							v-for="(action, i) in item.data.actions"
@@ -94,6 +94,27 @@ onBeforeUnmount(() => {
 <style scoped>
 .vue-notification {
 	z-index: 9999;
+
+	/*
+	 * The library injects its own per-type background (info/success/warn/error) at
+	 * runtime; that color-coding is the semantic signal so it stays untouched here.
+	 * backdrop-filter would be inert behind an opaque fill, so only the structural
+	 * glass properties (bevel, radius, elevation) are layered on top.
+	 */
+	border-radius: var(--radius-md);
+	box-shadow: var(--glass-specular), var(--shadow-md);
+}
+
+.duplicate-count {
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-bold);
+	margin-inline-start: var(--space-1);
+}
+
+.notification-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: var(--space-2);
 }
 
 </style>

@@ -1,11 +1,8 @@
 <template>
 	<span
 		v-if="!done && (showAll || priority >= minimumPriority)"
-		:class="{
-			'negligible': priority <= priorities.LOW,
-			'not-so-high': priority > priorities.LOW && priority < priorities.HIGH,
-			'high-priority': priority >= priorities.HIGH
-		}"
+		:class="{'high-priority': priority >= priorities.HIGH}"
+		:style="{color: getPriorityColorVar(priority)}"
 		class="priority-label"
 	>
 		<span class="icon">
@@ -33,6 +30,7 @@
 import {computed} from 'vue'
 import {PRIORITIES as priorities} from '@/constants/priorities'
 import {useAuthStore} from '@/stores/auth'
+import {getPriorityColorVar} from '@/helpers/priorityColor'
 	
 withDefaults(defineProps<{
 	priority: number,
@@ -52,21 +50,12 @@ const minimumPriority = computed(() => {
 
 <style lang="scss" scoped>
 .high-priority {
-	color: var(--danger-text);
 	inline-size: auto !important; // To override the width set in tasks
-}
-
-.not-so-high {
-	color: var(--warning);
-}
-
-.negligible {
-	color: var(--info);
 }
 
 .icon {
 	vertical-align: top;
 	inline-size: auto !important;
-	padding-inline-end: .5rem;
+	padding-inline-end: var(--space-2);
 }
 </style>

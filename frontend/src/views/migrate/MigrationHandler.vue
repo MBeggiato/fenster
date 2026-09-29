@@ -375,6 +375,6 @@ function confirmMigrateAgain() {
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: flex-start;
-	gap: 0.5rem;
+	gap: var(--space-2);
 }
 </style>

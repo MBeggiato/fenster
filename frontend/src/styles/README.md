@@ -16,7 +16,6 @@ styles/
 ├── global.scss             Entry point: pulls in Bulma partials + theme + components + tokens
 ├── fonts.scss              @font-face declarations for Quicksand and Open Sans
 ├── transitions.scss        Vue <Transition> classes (fade, width)
-├── tailwind.css            Tailwind v4 entry (utilities only, `tw` prefix)
 │
 ├── custom-properties/      CSS custom-property token definitions
 │   ├── colors.scss         Color tokens (--scheme-*, --grey-*, --primary, …) + dark mode
@@ -149,21 +148,6 @@ lines except to update Bulma. The Vikunja-specific tokens and overrides start be
 3. Add the dark-mode override inside the `&.dark { @media screen { … } }` block.
 4. Consume it with `var(--token-name)` — never re-declare the token in a component.
 
-## Tailwind's limited role
-
-Tailwind v4 is loaded via `styles/tailwind.css` and imported exactly once in `App.vue`.
-Every utility is **prefixed with `tw`** (e.g. `class="tw-flex tw-gap-2"`) to avoid
-collisions with the Bulma class names used throughout the app:
-
-```css
-@import "tailwindcss/theme.css" layer(theme) prefix(tw);
-@import "tailwindcss/utilities.css" layer(utilities) prefix(tw);
-```
-
-Tailwind is meant for quick layout fixes inside `.vue` templates. For anything reusable —
-especially anything that needs dark mode — prefer a CSS custom property or a scoped
-`<style>` block.
-
 ## Theming and dark mode
 
 There is no SCSS-level light/dark split. Instead:
@@ -188,4 +172,3 @@ The `@media screen` wrapper exists so the dark-mode overrides don't apply to
 | A new Vue `<Transition>` class pair                            | `transitions.scss`                                 |
 | A global rule targeting a Bulma class we can't scope yet       | The matching file in `theme/`                      |
 | Re-enabling a Bulma partial                                    | Uncomment the `@import` in `global.scss`           |
-| A Tailwind utility                                             | Use it inline with the `tw-` prefix                |

@@ -404,35 +404,35 @@ function resetToUpload() {
 .card {
 	background: var(--white);
 	border-radius: var(--border-radius);
-	padding: 1.5rem;
-	margin-block-end: 1.5rem;
+	padding: var(--space-6);
+	margin-block-end: var(--space-6);
 	box-shadow: var(--shadow-sm);
 }
 
 .mapping-header {
-	margin-block-end: 1.5rem;
+	margin-block-end: var(--space-6);
 
 	h2 {
-		margin-block-end: 0.5rem;
+		margin-block-end: var(--space-2);
 	}
 }
 
 .parsing-options {
 	h3 {
-		margin-block-end: 1rem;
+		margin-block-end: var(--space-4);
 	}
 }
 
 .options-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-	gap: 1rem;
+	gap: var(--space-4);
 }
 
 .option-group {
 	display: flex;
 	flex-direction: column;
-	gap: 0.5rem;
+	gap: var(--space-2);
 
 	label {
 		font-weight: 500;
@@ -441,22 +441,22 @@ function resetToUpload() {
 
 .column-mappings {
 	h3 {
-		margin-block-end: 1rem;
+		margin-block-end: var(--space-4);
 	}
 }
 
 .mappings-grid {
 	display: flex;
 	flex-direction: column;
-	gap: 0.75rem;
+	gap: var(--space-3);
 }
 
 .mapping-row {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 1rem;
+	gap: var(--space-4);
 	align-items: center;
-	padding: 0.75rem;
+	padding: var(--space-3);
 	background: var(--grey-100);
 	border-radius: var(--border-radius);
 
@@ -468,7 +468,7 @@ function resetToUpload() {
 .column-name {
 	display: flex;
 	flex-direction: column;
-	gap: 0.25rem;
+	gap: var(--space-1);
 
 	.preview-value {
 		font-size: 0.85rem;
@@ -478,19 +478,19 @@ function resetToUpload() {
 
 .preview-section {
 	h3 {
-		margin-block-end: 0.5rem;
+		margin-block-end: var(--space-2);
 	}
 }
 
 .preview-tasks {
-	margin-block-start: 1rem;
+	margin-block-start: var(--space-4);
 }
 
 .actions {
 	display: flex;
-	gap: 1rem;
+	gap: var(--space-4);
 	justify-content: flex-end;
-	margin-block-start: 1.5rem;
+	margin-block-start: var(--space-6);
 }
 
 .success-step {

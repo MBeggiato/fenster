@@ -94,8 +94,8 @@ const variantClass = computed<string>(() => VARIANT_CLASS_MAP[props.variant])
 	min-block-size: $button-height;
 	box-shadow: var(--shadow-sm);
 	line-height: 1;
-	padding-inline: .5rem;
-	gap: .25rem;
+	padding-inline: var(--space-2);
+	gap: var(--space-1);
 
 	// Default/Primary variant colors
 	background-color: var(--primary);
@@ -148,7 +148,10 @@ const variantClass = computed<string>(() => VARIANT_CLASS_MAP[props.variant])
 
 	// Secondary/Outlined variant
 	&.is-outlined {
-		background-color: var(--scheme-main);
+		background-color: var(--glass-chrome-bg);
+		backdrop-filter: var(--glass-filter);
+		border: 1px solid var(--glass-hairline);
+		box-shadow: var(--glass-specular), var(--shadow-sm);
 		color: var(--grey-900);
 
 		&:hover {
@@ -163,8 +166,9 @@ const variantClass = computed<string>(() => VARIANT_CLASS_MAP[props.variant])
 		box-shadow: none;
 
 		&:hover {
-			background-color: var(--grey-100);
-			box-shadow: none;
+			background-color: var(--glass-chrome-bg);
+			backdrop-filter: var(--glass-filter);
+			box-shadow: var(--glass-specular), inset 0 0 0 1px var(--glass-hairline);
 		}
 	}
 

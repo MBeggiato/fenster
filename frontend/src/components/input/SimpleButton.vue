@@ -25,7 +25,7 @@ defineExpose({
 <style lang="scss" scoped>
 .simple-button {
 	color: var(--text);
-	padding: .25rem .5rem;
+	padding: var(--space-1) var(--space-2);
 	transition: background-color $transition;
 	border-radius: $radius;
 	display: block;

@@ -349,6 +349,7 @@ export const usePomodoro = createGlobalState(() => {
 		completedToday,
 		todayFocusSessions,
 		todayFocusSeconds,
+		todayLoading: todayQuery.isPending,
 		finishedPhase,
 		finishedTaskId,
 		dismissFinished,

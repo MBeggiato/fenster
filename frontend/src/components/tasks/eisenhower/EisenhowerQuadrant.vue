@@ -61,9 +61,26 @@
 						:the-task="task"
 						:can-mark-as-done="(projects.projects[task.project_id]?.max_permission ?? 0) > PERMISSIONS.READ"
 					/>
+					<button
+						v-if="isMobile"
+						type="button"
+						class="quadrant-move-trigger"
+						:aria-label="t('mobile.eisenhower.moveActionAria', {task: task.title})"
+						@click="moveTask = task"
+					>
+						<Icon icon="right-left" />
+						{{ $t('mobile.eisenhower.moveAction') }}
+					</button>
 				</li>
 			</template>
 		</draggable>
+
+		<QuadrantMoveSheet
+			v-if="isMobile"
+			:enabled="moveTask !== null"
+			:task="moveTask"
+			@close="moveTask = null"
+		/>
 
 		<p
 			v-if="visibleTasks.length === 0 && !isLoading"
@@ -93,15 +110,18 @@ import {computed, ref, useId} from 'vue'
 import {useI18n} from 'vue-i18n'
 import draggable from 'zhyswan-vuedraggable'
 
+import Icon from '@/components/misc/Icon'
 import SingleTaskInProject from '@/components/tasks/partials/SingleTaskInProject.vue'
+import QuadrantMoveSheet from '@/components/tasks/eisenhower/QuadrantMoveSheet.vue'
 import {
 	flagsFor,
 	useClassifyTaskMutation,
 	type EisenhowerParams,
 	type EisenhowerQuadrant,
 } from '@/client/queries/eisenhower'
-import {normalizeTask} from '@/client/queries/tasks'
+import {normalizeTask, type TaskResponse} from '@/client/queries/tasks'
 import {useEisenhowerQuadrant} from '@/composables/useEisenhowerQuadrant'
+import {useIsMobile} from '@/composables/useIsMobile'
 import {useProjects} from '@/composables/useProjects'
 import {useQuickAddTask} from '@/composables/useQuickAddTask'
 import {PERMISSIONS} from '@/constants/permissions'
@@ -119,6 +139,8 @@ const props = defineProps<{
 const {t} = useI18n({useScope: 'global'})
 const headingId = useId()
 const projects = useProjects()
+const isMobile = useIsMobile()
+const moveTask = ref<TaskResponse | null>(null)
 
 const {tasks, total, hasMore, isLoading, isFetching, loadMore} = useEisenhowerQuadrant(
 	() => props.quadrant,
@@ -180,9 +202,9 @@ async function addTask() {
 .eisenhower-quadrant {
 	display: flex;
 	flex-direction: column;
-	gap: .5rem;
+	gap: var(--space-2);
 	min-block-size: 12rem;
-	padding: .75rem;
+	padding: var(--space-3);
 	border-radius: $radius;
 	background: var(--white);
 	box-shadow: var(--shadow-sm);
@@ -208,14 +230,14 @@ async function addTask() {
 .quadrant-title {
 	display: flex;
 	align-items: center;
-	gap: .5rem;
+	gap: var(--space-2);
 	margin: 0;
 	font-size: 1.1rem;
 	font-weight: 700;
 }
 
 .quadrant-count {
-	padding-inline: .5rem;
+	padding-inline: var(--space-2);
 	border-radius: 1rem;
 	background: var(--grey-100);
 	color: var(--grey-600);
@@ -240,7 +262,7 @@ async function addTask() {
 // Sits on top of the empty list and lets drops through to it.
 .quadrant-empty {
 	margin: -3rem 0 0;
-	padding: 1rem .5rem;
+	padding: var(--space-4) var(--space-2);
 	pointer-events: none;
 	color: var(--grey-500);
 	text-align: center;
@@ -253,6 +275,27 @@ async function addTask() {
 
 .quadrant-more {
 	align-self: center;
+}
+
+.quadrant-move-trigger {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	inline-size: 100%;
+	min-block-size: 44px;
+	padding-inline: var(--space-2);
+	border: none;
+	border-radius: $radius;
+	background: transparent;
+	color: var(--grey-600);
+	font-size: var(--font-size-xs);
+	text-align: start;
+	cursor: pointer;
+
+	&:hover,
+	&:focus-visible {
+		background: var(--grey-100);
+	}
 }
 
 .task-ghost {

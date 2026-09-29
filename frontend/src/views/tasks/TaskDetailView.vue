@@ -3,13 +3,34 @@
 		ref="taskViewContainer"
 		class="loader-container task-view-container"
 		:class="{
-			'is-loading': taskLoading || taskMutating || !visible,
+			'is-loading': taskLoading || taskMutating,
 			'is-modal': isModal,
+			'has-mobile-action-bar': isMobile && (canWrite || isModal || canClassify),
 		}"
 	>
+		<div
+			v-if="!visible"
+			class="task-view task-view-skeleton"
+		>
+			<Skeleton
+				shape="text"
+				width="50%"
+				height="var(--font-size-2xl)"
+				class="mbe-4"
+			/>
+			<Skeleton
+				:lines="3"
+			/>
+			<Skeleton
+				shape="block"
+				height="8rem"
+				class="mbs-4"
+			/>
+		</div>
+
 		<!-- Removing everything until the task is loaded to prevent empty initialization of other components -->
 		<div
-			v-if="visible"
+			v-else
 			class="task-view"
 		>
 			<BaseButton
@@ -436,7 +457,7 @@
 				
 				<!-- Task Actions -->
 				<div
-					v-if="canWrite || isModal || canClassify"
+					v-if="(canWrite || isModal || canClassify) && !isMobile"
 					class="column is-one-third action-buttons d-print-none"
 				>
 					<template v-if="canWrite">
@@ -630,6 +651,166 @@
 			/>
 		</div>
 
+		<MobileTaskActionBar
+			v-if="isMobile && (canWrite || isModal || canClassify)"
+			:can-write="canWrite"
+			:done="task.done ?? false"
+			@toggleDone="toggleTaskDone"
+			@due="setFieldActive('dueDate')"
+			@priority="showPrioritySheet = true"
+			@labels="showLabelsSheet = true"
+			@more="showMoreSheet = true"
+		/>
+
+		<Modal
+			v-if="isMobile"
+			:enabled="showPrioritySheet"
+			variant="sheet"
+			:title="$t('task.attributes.priority')"
+			@close="showPrioritySheet = false"
+		>
+			<PrioritySelect
+				v-model="priorityModel"
+				:disabled="!canWrite"
+				@update:modelValue="setPriorityFromSheet"
+			/>
+		</Modal>
+
+		<Modal
+			v-if="isMobile"
+			:enabled="showLabelsSheet"
+			variant="sheet"
+			:title="$t('task.attributes.labels')"
+			@close="showLabelsSheet = false"
+		>
+			<EditLabels
+				v-model="labelsModel"
+				:disabled="!canWrite"
+				:task-id="taskId"
+				:creatable="!authStore.isLinkShareAuth"
+				:creation-disabled-message="authStore.isLinkShareAuth ? $t('task.label.linkShareCannotCreate') : ''"
+			/>
+		</Modal>
+
+		<Modal
+			v-if="isMobile"
+			:enabled="showMoreSheet"
+			variant="sheet"
+			:title="$t('mobile.taskDetail.moreSheetTitle')"
+			@close="showMoreSheet = false"
+		>
+			<div class="mobile-more-sheet">
+				<template v-if="canWrite">
+					<DropdownItem
+						icon="users"
+						@click="runMoreAction(() => setFieldActive('assignees'))"
+					>
+						{{ $t('task.detail.actions.assign') }}
+					</DropdownItem>
+					<DropdownItem
+						:icon="['far', 'clock']"
+						@click="runMoreAction(() => setFieldActive('reminders'))"
+					>
+						{{ $t('task.detail.actions.reminders') }}
+					</DropdownItem>
+					<DropdownItem
+						icon="history"
+						@click="runMoreAction(() => setFieldActive('repeatAfter'))"
+					>
+						{{ $t('task.detail.actions.repeatAfter') }}
+					</DropdownItem>
+					<DropdownItem
+						icon="list"
+						@click="runMoreAction(() => setFieldActive('moveProject'))"
+					>
+						{{ $t('task.detail.actions.moveProject') }}
+					</DropdownItem>
+					<DropdownItem
+						icon="fill-drip"
+						@click="runMoreAction(() => setFieldActive('color'))"
+					>
+						{{ $t('task.detail.actions.color') }}
+					</DropdownItem>
+					<DropdownItem
+						icon="paperclip"
+						@click="runMoreAction(() => openAttachments())"
+					>
+						{{ $t('task.detail.actions.attachments') }}
+					</DropdownItem>
+					<DropdownItem
+						icon="sitemap"
+						@click="runMoreAction(() => setRelatedTasksActive())"
+					>
+						{{ $t('task.detail.actions.relatedTasks') }}
+					</DropdownItem>
+					<DropdownItem
+						icon="percent"
+						@click="runMoreAction(() => setFieldActive('percentDone'))"
+					>
+						{{ $t('task.detail.actions.percentDone') }}
+					</DropdownItem>
+					<DropdownItem
+						icon="play"
+						@click="runMoreAction(() => setFieldActive('startDate'))"
+					>
+						{{ $t('task.detail.actions.startDate') }}
+					</DropdownItem>
+					<DropdownItem
+						icon="stop"
+						@click="runMoreAction(() => setFieldActive('endDate'))"
+					>
+						{{ $t('task.detail.actions.endDate') }}
+					</DropdownItem>
+					<DropdownItem
+						v-if="timeTrackingEnabled"
+						:icon="['far', 'clock']"
+						@click="runMoreAction(() => setFieldActive('timeTracking'))"
+					>
+						{{ $t('task.detail.actions.timeTracking') }}
+					</DropdownItem>
+					<DropdownItem
+						icon="copy"
+						@click="runMoreAction(() => duplicateCurrentTask())"
+					>
+						{{ $t('task.detail.actions.duplicate') }}
+					</DropdownItem>
+					<DropdownItem
+						:icon="task.is_favorite ? 'star' : ['far', 'star']"
+						@click="runMoreAction(() => toggleFavorite())"
+					>
+						{{ task.is_favorite ? $t('task.detail.actions.unfavorite') : $t('task.detail.actions.favorite') }}
+					</DropdownItem>
+				</template>
+
+				<TaskSubscription
+					v-if="canWrite"
+					entity="task"
+					:entity-id="task.id!"
+					:model-value="task.subscription ?? null"
+					@toggle="toggleSubscription"
+				/>
+
+				<EisenhowerToggles
+					v-if="canClassify && taskQuery.task.value"
+					:task="taskQuery.task.value"
+				/>
+
+				<TaskPomodoro
+					v-if="canClassify && taskQuery.task.value"
+					:task="taskQuery.task.value"
+				/>
+
+				<DropdownItem
+					v-if="canWrite"
+					icon="trash-alt"
+					class="has-text-danger"
+					@click="runMoreAction(() => { showDeleteModal = true })"
+				>
+					{{ $t('task.detail.actions.delete') }}
+				</DropdownItem>
+			</div>
+		</Modal>
+
 		<BaseButton
 			v-if="showScrollToCommentsButton"
 			v-tooltip="$t('task.detail.scrollToBottom')"
@@ -650,10 +831,10 @@
 			</template>
 
 			<template #text>
-				<p class="tw:text-balance">
+				<p class="delete-modal-text">
 					{{ $t('task.detail.delete.text1') }}
 				</p>
-				<p class="tw:text-balance">
+				<p class="delete-modal-text">
 					{{ $t('task.detail.delete.text2') }}
 				</p>
 			</template>
@@ -670,10 +851,11 @@ import {unrefElement, useDebounceFn, useElementSize, useIntersectionObserver, us
 import {klona} from 'klona/lite'
 
 import {useTask} from '@/composables/useTask'
+import {useIsMobile} from '@/composables/useIsMobile'
 import {getHexColor} from '@/helpers/task'
 import {createTaskDraft, mergeTask} from '@/helpers/task'
 
-import type {Task as ITask} from '@/client/generated'
+import type {Task as ITask, Label} from '@/client/generated'
 import type {ProjectResponse} from '@/client/queries/projects'
 
 import {PRIORITIES, type Priority} from '@/constants/priorities'
@@ -682,6 +864,7 @@ import {PRO_FEATURE} from '@/constants/proFeatures'
 import {SHORTCUTS} from '@/constants/shortcuts'
 
 import BaseButton from '@/components/base/BaseButton.vue'
+import DropdownItem from '@/components/misc/DropdownItem.vue'
 
 // partials
 import Attachments from '@/components/tasks/partials/Attachments.vue'
@@ -705,9 +888,11 @@ import Reminders from '@/components/tasks/partials/Reminders.vue'
 import RepeatAfter from '@/components/tasks/partials/RepeatAfter.vue'
 import TaskSubscription from '@/components/misc/Subscription.vue'
 import CustomTransition from '@/components/misc/CustomTransition.vue'
+import Skeleton from '@/components/misc/Skeleton.vue'
 import AssigneeList from '@/components/tasks/partials/AssigneeList.vue'
 import BucketSelect from '@/components/tasks/partials/BucketSelect.vue'
 import Reactions from '@/components/input/Reactions.vue'
+import MobileTaskActionBar from '@/components/tasks/partials/MobileTaskActionBar.vue'
 
 import {getProjectTitle} from '@/helpers/getProjectTitle'
 import {scrollIntoView} from '@/helpers/scrollIntoView'
@@ -770,6 +955,18 @@ const baseStore = useBaseStore()
 // A link share has no user to own a classification.
 const canClassify = computed(() => !authStore.isLinkShareAuth)
 
+const isMobile = useIsMobile()
+const showPrioritySheet = ref(false)
+const showLabelsSheet = ref(false)
+const showMoreSheet = ref(false)
+
+// Closes the "More" sheet before running the tapped action so the revealed
+// field (or nested modal, e.g. delete) isn't hidden behind the sheet.
+function runMoreAction(action: () => void) {
+	showMoreSheet.value = false
+	action()
+}
+
 const taskQuery = useTask(
 	() => props.taskId ?? 0,
 	() => [
@@ -822,6 +1019,25 @@ const endDateInput = computed({
 	},
 })
 const hasAttachments = computed(() => (task.value.attachments?.length ?? 0) > 0)
+
+// v-model targets for the mobile priority/labels sheets. task.priority/labels
+// are typed loosely (optional / a differently-shaped generated Label) by the
+// client codegen, same as the desktop bindings above — narrowed here instead
+// of reproducing that mismatch at a second call site.
+const priorityModel = computed<number>({
+	get: () => task.value.priority ?? PRIORITIES.UNSET,
+	set: (value: number) => {
+		task.value.priority = value
+	},
+})
+const labelsModel = computed<Label[]>({
+	get: () => (task.value.labels ?? []) as Label[],
+	set: (value: Label[]) => {
+		// task.value.labels is typed readonly by the client codegen; replace
+		// the object instead of assigning the field directly.
+		task.value = {...task.value, labels: value}
+	},
+})
 const remindersDefaultRelativeTo = computed(() => {
 	if (parseDateOrNull(task.value.due_date)) {
 		return REMINDER_PERIOD_RELATIVE_TO_TYPES.DUEDATE
@@ -1250,6 +1466,14 @@ async function setPriority(priority: Priority) {
 	return saveTask(newTask)
 }
 
+// PrioritySelect's v-model is typed `number`; setPriority takes the narrower
+// `Priority` union. The desktop binding already relies on this being safe, so
+// keep the mobile sheet's binding explicit rather than reproducing the same
+// tsc mismatch at a second call site.
+function setPriorityFromSheet(priority: number) {
+	return setPriority(priority as Priority)
+}
+
 async function setPercentDone(percentDone: number) {
 	const newTask: ITask = {
 		...task.value,
@@ -1283,34 +1507,56 @@ function setRelatedTasksActive() {
 </script>
 
 <style lang="scss" scoped>
+.delete-modal-text {
+	text-wrap: balance;
+}
+
 .task-view-container {
 	// simulate sass lighten($primary, 30) by increasing lightness 30% to 73%
 	--primary-light: hsla(var(--primary-h), var(--primary-s), 73%, var(--primary-a));
 	padding-block-end: 0;
 
 	@media screen and (min-width: $desktop) {
-		padding-block-end: 1rem;
+		padding-block-end: var(--space-4);
 	}
 }
 
 .task-view {
-	padding-block-start: 1rem;
-	padding-inline: .5rem;
+	padding-block-start: var(--space-4);
+	padding-inline: var(--space-2);
 	background-color: var(--site-background);
 
 	@media screen and (min-width: $desktop) {
-		padding: 1rem;
+		padding: var(--space-4);
 	}
 }
 
 .is-modal .task-view {
 	border-radius: $radius;
-	padding: 1rem;
+	padding: var(--space-4);
 	color: var(--text);
 	background-color: var(--site-background) !important;
 
 	@media screen and (width <= calc(#{$desktop} + 1px)) {
 		border-radius: 0;
+	}
+}
+
+// keep content clear of the fixed MobileTaskActionBar
+.has-mobile-action-bar .task-view {
+	@media screen and (max-width: $tablet) {
+		padding-block-end: calc(4rem + env(safe-area-inset-bottom) + var(--space-4));
+	}
+}
+
+.mobile-more-sheet {
+	:deep(.dropdown-item) {
+		min-block-size: 44px;
+		font-size: var(--font-size-md);
+	}
+
+	> * + * {
+		margin-block-start: var(--space-1);
 	}
 }
 
@@ -1325,7 +1571,7 @@ function setRelatedTasksActive() {
 
 .subtitle {
 	color: var(--grey-500);
-	margin-block-end: 1rem;
+	margin-block-end: var(--space-4);
 
 	a {
 		color: var(--grey-800);
@@ -1348,7 +1594,7 @@ h2 .button {
 .remove {
 	color: var(--danger);
 	vertical-align: middle;
-	padding-inline-start: .5rem;
+	padding-inline-start: var(--space-2);
 	line-height: 1;
 }
 
@@ -1357,7 +1603,7 @@ h2 .button {
 
 	.show {
 		color: var(--text);
-		padding: .25rem .5rem;
+		padding: var(--space-1) var(--space-2);
 		transition: background-color $transition;
 		border-radius: $radius;
 		display: block;
@@ -1376,7 +1622,7 @@ h2 .button {
 }
 
 .details {
-	padding-block-end: 0.75rem;
+	padding-block-end: var(--space-3);
 	flex-flow: row wrap;
 	margin-block-end: 0;
 
@@ -1466,7 +1712,7 @@ h2 .button {
 
 	.button {
 		inline-size: 100%;
-		margin-block-end: .5rem;
+		margin-block-end: var(--space-2);
 		justify-content: left;
 
 		&.has-light-text {
@@ -1511,7 +1757,7 @@ h2 .button {
 }
 
 .checklist-summary {
-	padding-inline-start: .25rem;
+	padding-inline-start: var(--space-1);
 }
 
 .detail-content {
@@ -1523,9 +1769,9 @@ h2 .button {
 .action-heading {
 	text-transform: uppercase;
 	color: var(--grey-700);
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 	font-weight: 700;
-	margin: .5rem 0;
+	margin: var(--space-2) 0;
 	display: inline-block;
 }
 
@@ -1533,7 +1779,7 @@ h2 .button {
 	position: fixed;
 	// Position above the keyboard shortcuts button (which is at bottom: calc(1rem - 4px))
 	inset-block-end: 2.5rem;
-	inset-inline-end: .75rem;
+	inset-inline-end: var(--space-3);
 	z-index: 10;
 	inline-size: 2rem;
 	block-size: 2rem;
@@ -1563,8 +1809,8 @@ h2 .button {
 <style lang="scss">
 // global style to override position when the modal task detail is active
 .modal-content .scroll-to-comments-button {
-	inset-block-end: .75rem;
-	inset-inline-end: 1rem;
+	inset-block-end: var(--space-3);
+	inset-inline-end: var(--space-4);
 }
 
 // the task card spans the full width here, so the modal's white close button sits on it instead of the scrim

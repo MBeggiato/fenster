@@ -107,6 +107,6 @@ const selections = computed(() => [
 
 <style lang="scss" scoped>
 .label {
-	margin-block-end: .5rem;
+	margin-block-end: var(--space-2);
 }
 </style>

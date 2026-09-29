@@ -69,8 +69,8 @@ defineEmits<{
 <style lang="scss" scoped>
 .card {
 	background-color: var(--white);
-	border-radius: $radius;
-	margin-block-end: 1rem;
+	border-radius: var(--radius-lg);
+	margin-block-end: var(--space-4);
 	border: 1px solid var(--card-border-color);
 	box-shadow: var(--shadow-sm);
 	color: var(--text);
@@ -89,7 +89,7 @@ defineEmits<{
 	display: flex;
 	box-shadow: none;
 	border-inline-end: 1px solid var(--card-border-color);
-	border-radius: $radius $radius 0 0;
+	border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 .card-header-title {
@@ -98,7 +98,7 @@ defineEmits<{
 	display: flex;
 	flex-grow: 1;
 	font-weight: 700;
-	padding: 0.75rem 1rem;
+	padding: var(--space-3) var(--space-4);
 
 	&.is-centered {
 		justify-content: center;
@@ -110,21 +110,21 @@ defineEmits<{
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
-	padding: 0.75rem 1rem;
+	padding: var(--space-3) var(--space-4);
 }
 
 .card-content {
 	background-color: transparent;
-	padding: 1.5rem;
+	padding: var(--space-6);
 
 	&:first-child {
-		border-start-start-radius: $radius;
-		border-start-end-radius: $radius;
+		border-start-start-radius: var(--radius-lg);
+		border-start-end-radius: var(--radius-lg);
 	}
 
 	&:last-child {
-		border-end-start-radius: $radius;
-		border-end-end-radius: $radius;
+		border-end-start-radius: var(--radius-lg);
+		border-end-end-radius: var(--radius-lg);
 	}
 
 	// Utility classes like .p-0 are defined globally with lower specificity

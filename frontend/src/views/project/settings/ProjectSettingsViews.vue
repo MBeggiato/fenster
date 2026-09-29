@@ -283,7 +283,7 @@ async function saveViewPosition(e: {newIndex: number}) {
 <style scoped>
 .handle {
 	cursor: grab;
-	margin-inline-start: .25rem;
+	margin-inline-start: var(--space-1);
 }
 
 .actions {

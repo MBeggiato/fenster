@@ -313,17 +313,17 @@ onMounted(loadBots)
 
 <style lang="scss" scoped>
 .bot-card {
-	padding: 1rem;
-	margin-block-start: 1rem;
+	padding: var(--space-4);
+	margin-block-start: var(--space-4);
 	border: 1px solid var(--grey-200);
 	border-radius: 4px;
 }
 
 .bot-header {
 	display: flex;
-	gap: .5rem;
+	gap: var(--space-2);
 	align-items: center;
-	margin-block-end: .5rem;
+	margin-block-end: var(--space-2);
 }
 
 .bot-name-input {
@@ -343,20 +343,20 @@ onMounted(loadBots)
 
 .bot-actions {
 	display: flex;
-	gap: .5rem;
-	margin-block-end: 1rem;
+	gap: var(--space-2);
+	margin-block-end: var(--space-4);
 }
 
 .tokens {
-	margin-block-start: 1rem;
-	padding-block-start: 1rem;
+	margin-block-start: var(--space-4);
+	padding-block-start: var(--space-4);
 	border-block-start: 1px solid var(--grey-200);
 }
 
 .create-form {
 	display: flex;
 	flex-direction: column;
-	gap: .5rem;
-	margin-block-end: 1rem;
+	gap: var(--space-2);
+	margin-block-end: var(--space-4);
 }
 </style>

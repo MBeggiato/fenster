@@ -531,10 +531,10 @@ function getCommentUrl(commentId: string) {
 	align-items: flex-start;
 	display: flex;
 	text-align: inherit;
-	padding-block-start: .5rem;
+	padding-block-start: var(--space-2);
 
 	& + .media {
-		margin-block-start: .5rem;
+		margin-block-start: var(--space-2);
 	}
 }
 
@@ -542,13 +542,13 @@ function getCommentUrl(commentId: string) {
 	flex-basis: auto;
 	flex-grow: 0;
 	flex-shrink: 0;
-	margin: 0 .5rem !important;
+	margin: 0 var(--space-2) !important;
 }
 
 .comment-info {
 	display: flex;
 	align-items: center;
-	gap: .5rem;
+	gap: var(--space-2);
 
 	img {
 		@media screen and (max-width: $tablet) {
@@ -556,7 +556,7 @@ function getCommentUrl(commentId: string) {
 			inline-size: 20px;
 			block-size: 20px;
 			padding-inline-end: 0;
-			margin-inline-end: .5rem;
+			margin-inline-end: var(--space-2);
 		}
 
 		@media screen and (min-width: $tablet) {
@@ -567,14 +567,14 @@ function getCommentUrl(commentId: string) {
 
 	span,
 	.comment-permalink {
-		font-size: .75rem;
+		font-size: var(--font-size-xs);
 		line-height: 1;
 	}
 
 	.comment-permalink {
-		font-size: 1rem;
+		font-size: var(--font-size-md);
 		border: 1px solid transparent;
-		padding: 0.25rem;
+		padding: var(--space-1);
 		border-radius: 1rem;
 		color: var(--grey, hsl(0, 0%, 48%));
 	}
@@ -603,12 +603,12 @@ function getCommentUrl(commentId: string) {
 }
 
 .comment-sort-button {
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 	font-weight: normal;
 	color: var(--grey-500);
 	display: inline-flex;
 	align-items: center;
-	gap: .25rem;
+	gap: var(--space-1);
 
 	&:hover {
 		color: var(--grey-700);

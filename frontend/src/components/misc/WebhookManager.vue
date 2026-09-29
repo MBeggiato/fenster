@@ -254,7 +254,7 @@ function doDelete() {
 
 <style lang="scss" scoped>
 .available-events-check {
-	margin-inline-end: .5rem;
+	margin-inline-end: var(--space-2);
 	inline-size: 12.5rem;
 }
 

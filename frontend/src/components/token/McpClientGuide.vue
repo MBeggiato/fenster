@@ -129,20 +129,20 @@ const steps = computed(() => instructions.value[client.value] ?? [])
 
 <style scoped lang="scss">
 .mcp-steps {
-	margin-inline-start: 1.5rem;
+	margin-inline-start: var(--space-6);
 
 	li {
-		margin-block-end: 1rem;
+		margin-block-end: var(--space-4);
 	}
 }
 
 .mcp-copyable {
-	margin-block: .5rem;
+	margin-block: var(--space-2);
 
 	pre {
 		white-space: pre-wrap;
 		overflow-wrap: anywhere;
-		margin-block-end: .5rem;
+		margin-block-end: var(--space-2);
 	}
 }
 </style>

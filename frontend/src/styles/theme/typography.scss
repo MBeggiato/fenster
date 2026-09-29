@@ -1,8 +1,39 @@
+// Heading scale: the 6-step --font-size-* token ladder mapped 1:1 to h1..h6.
+// Weight/family kept !important — components used to rely on this beating
+// Bulma's .title class (see styles/theme/form.scss); font-size is left
+// overridable so a component-scoped heading can still opt out.
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
+  font-family: $vikunja-font;
+  font-weight: var(--font-weight-semibold) !important;
+  line-height: var(--line-height-tight);
   text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--font-size-2xl);
+}
+
+h2 {
+  font-size: var(--font-size-xl);
+}
+
+h3 {
+  font-size: var(--font-size-lg);
+}
+
+h4 {
+  font-size: var(--font-size-md);
+}
+
+h5 {
+  font-size: var(--font-size-sm);
+}
+
+h6 {
+  font-size: var(--font-size-xs);
 }

@@ -141,7 +141,7 @@ async function changeBucket(bucket: IBucket) {
 
 .change-indicator {
 	font-size: .75em;
-	margin-inline-start: .25rem;
+	margin-inline-start: var(--space-1);
 	color: var(--grey-400);
 }
 

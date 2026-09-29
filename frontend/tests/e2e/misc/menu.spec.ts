@@ -27,14 +27,15 @@ test.describe('The Menu', () => {
 		await expect(page.locator('.menu-container')).toHaveClass(/is-active/)
 	})
 
-	test('Is hidden by default on mobile', async ({authenticatedPage: page}) => {
+	test('Has no drawer on mobile, the tab bar replaces it', async ({authenticatedPage: page}) => {
 		await page.setViewportSize(iPhone8)
-		await expect(page.locator('.menu-container')).not.toHaveClass(/is-active/)
+		await expect(page.locator('.menu-container')).toHaveCount(0)
+		await expect(page.locator('.mobile-tab-bar')).toBeVisible()
 	})
 
-	test('Is can be shown on mobile', async ({authenticatedPage: page}) => {
+	test('Tab bar navigates between destinations on mobile', async ({authenticatedPage: page}) => {
 		await page.setViewportSize(iPhone8)
-		await page.locator('button.menu-show-button:visible').click()
-		await expect(page.locator('.menu-container')).toHaveClass(/is-active/)
+		await page.locator('.mobile-tab-bar__item', {hasText: 'Projects'}).click()
+		await expect(page).toHaveURL(/\/projects$/)
 	})
 })

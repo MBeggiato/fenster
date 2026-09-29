@@ -10,20 +10,11 @@
     min-height: 100vh;
   }
 
-  .box,
-  .card,
-  .switch-view,
-  .project-table .button,
-  .filter-container .button,
-  .search .button {
-    box-shadow: none;
-  }
-
   .task-view {
     border-radius: $radius;
 
     @media screen and (min-width: $tablet) {
-      margin-inline: 1rem;
+      margin-inline: var(--space-4);
     }
   }
 

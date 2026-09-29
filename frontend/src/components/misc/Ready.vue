@@ -92,13 +92,13 @@ const baseStore = useBaseStore()
 }
 
 .logo {
-	margin-block-end: 1rem;
+	margin-block-end: var(--space-4);
 	inline-size: 100px;
 	block-size: 100px;
 }
 
 .loader-container {
-	margin-inline-end: 1rem;
+	margin-inline-end: var(--space-4);
 
 	&.is-loading::after {
 		border-inline-start-color: var(--grey-400);
@@ -118,13 +118,13 @@ const baseStore = useBaseStore()
 	inline-size: 100vw;
 	inset-block-end: 5vh;
 	color: $white;
-	padding: 0 1rem;
+	padding: 0 var(--space-4);
 }
 
 .title {
 	text-align: center;
 	color: $white;
 	font-weight: 700 !important;
-	font-size: 1.5rem;
+	font-size: var(--font-size-xl);
 }
 </style>

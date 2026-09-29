@@ -107,7 +107,7 @@ function removeReminderByIndex(index: number) {
 	}
 
 	&:last-child {
-		margin-block-end: 0.75rem;
+		margin-block-end: var(--space-3);
 	}
 }
 
@@ -118,7 +118,7 @@ function removeReminderByIndex(index: number) {
 .remove {
 	color: var(--danger);
 	vertical-align: top;
-	padding-inline-start: .5rem;
+	padding-inline-start: var(--space-2);
 	line-height: 1;
 }
 </style>

@@ -112,7 +112,7 @@ useTitle(() => title.value)
 
 .image {
 	inline-size: 50%;
-	padding: 1rem;
+	padding: var(--space-4);
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
@@ -156,7 +156,7 @@ useTitle(() => title.value)
 	display: flex;
 	justify-content: space-between;
 	flex-direction: column;
-	padding: 2rem 2rem 1.5rem;
+	padding: 2rem 2rem var(--space-6);
 
 	@media screen and (max-width: $desktop) {
 		inline-size: 100%;
@@ -171,7 +171,7 @@ useTitle(() => title.value)
 
 .logo {
 	max-inline-size: 100%;
-	margin: 1rem 0;
+	margin: var(--space-4) 0;
 }
 
 .image-title {

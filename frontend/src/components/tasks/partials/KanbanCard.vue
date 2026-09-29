@@ -19,10 +19,10 @@
 			v-if="coverImageBlobUrl"
 			:src="coverImageBlobUrl"
 			alt=""
-			class="tw:w-full"
+			class="kanban-card__cover"
 		>
 		<div class="p-2">
-			<div class="tw:flex tw:justify-between">
+			<div class="kanban-card__header">
 				<span class="task-id">
 					<Done
 						class="kanban-card__done"
@@ -32,7 +32,7 @@
 					{{ getTaskIdentifier(task) }}
 					<span
 						v-if="showTaskPosition"
-						class="tw:text-red-600 tw:ps-2"
+						class="task-position"
 					>
 						{{ task.position }}
 					</span>
@@ -116,6 +116,15 @@
 					:task="task"
 					class="checklist"
 				/>
+				<button
+					v-if="isMobile"
+					type="button"
+					class="kanban-card__move"
+					:aria-label="$t('mobile.kanban.moveTaskLabel')"
+					@click.stop="$emit('moveTask', task)"
+				>
+					<Icon icon="right-left" />
+				</button>
 			</div>
 		</div>
 	</div>
@@ -126,6 +135,7 @@ import {computed, onBeforeUnmount, ref, watch} from 'vue'
 import {useRouter} from 'vue-router'
 
 import {useGlobalNow} from '@/composables/useGlobalNow'
+import {useIsMobile} from '@/composables/useIsMobile'
 
 import PriorityLabel from '@/components/tasks/partials/PriorityLabel.vue'
 import ProgressBar from '@/components/misc/ProgressBar.vue'
@@ -141,6 +151,7 @@ import {SUPPORTED_IMAGE_SUFFIX} from '@/helpers/attachmentPreview'
 import {fetchAttachmentUrl, releaseAttachmentUrl} from '@/helpers/attachments'
 
 import {formatDateLong, formatDisplayDate, formatISO} from '@/helpers/time/formatDate'
+import {dueDateState} from '@/helpers/time/dueDateState'
 import {colorIsDark} from '@/helpers/color/colorIsDark'
 import {useUpdateTaskMutation} from '@/client/queries/taskMutations'
 import AssigneeList from '@/components/tasks/partials/AssigneeList.vue'
@@ -156,10 +167,12 @@ const props = defineProps<{
 
 const emit = defineEmits<{
 	'taskCompletedRecurring': [task: ITask]
+	'moveTask': [task: TaskResponse]
 }>()
 
 const router = useRouter()
 const updateTask = useUpdateTaskMutation()
+const isMobile = useIsMobile()
 
 const loadingInternal = ref(false)
 
@@ -179,12 +192,7 @@ const projectTitle = computed(() => {
 const showTaskPosition = computed(() => window.DEBUG_TASK_POSITION)
 
 const {now} = useGlobalNow()
-const isOverdue = computed(() => (
-	!props.task.done &&
-	props.task.due_date !== null &&
-	new Date(props.task.due_date ?? 0).getTime() > 0 &&
-	new Date(props.task.due_date ?? 0).getTime() <= now.value.getTime()
-))
+const isOverdue = computed(() => dueDateState(props.task.due_date, props.task.done, now.value) === 'overdue')
 
 async function toggleTaskDone(task: TaskResponse) {
 	const isRecurringTask = task.repeat_after > 0 || task.repeat_mode === TASK_REPEAT_MODES.REPEAT_MODE_MONTH
@@ -263,6 +271,25 @@ $task-background: var(--white);
 	background: $task-background;
 	overflow: hidden;
 
+	.kanban-card__cover {
+		inline-size: 100%;
+	}
+
+	.kanban-card__header {
+		display: flex;
+		justify-content: space-between;
+
+		// The grip for long-press drag sits above the card, top-inline-end; leave it room.
+		@include mobile {
+			padding-inline-end: 48px;
+		}
+	}
+
+	.task-position {
+		color: var(--danger-text);
+		padding-inline-start: var(--space-2);
+	}
+
 	&.loader-container.is-loading::after {
 		inline-size: 1.5rem;
 		block-size: 1.5rem;
@@ -286,11 +313,11 @@ $task-background: var(--white);
 		float: inline-end;
 		display: flex;
 		align-items: center;
-		padding: 0 .25rem;
+		padding: 0 var(--space-1);
 		font-size: .85rem;
 
 		.icon {
-			margin-inline-end: .25rem;
+			margin-inline-end: var(--space-1);
 		}
 
 	}
@@ -300,7 +327,7 @@ $task-background: var(--white);
 	}
 
 	.label-wrapper .tag {
-		margin: .5rem .5rem 0 0;
+		margin: var(--space-2) var(--space-2) 0 0;
 	}
 
 	.footer {
@@ -309,8 +336,8 @@ $task-background: var(--white);
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: .25rem;
-		margin-block-start: .25rem;
+		gap: var(--space-1);
+		margin-block-start: var(--space-1);
 
 		:deep(.checklist-summary) {
 			padding-inline-start: 0;
@@ -330,12 +357,12 @@ $task-background: var(--white);
 		}
 
 		.priority-label {
-			font-size: .75rem;
-			padding: 0 .5rem 0 .25rem;
+			font-size: var(--font-size-xs);
+			padding: 0 var(--space-2) 0 var(--space-1);
 
 			.icon {
 				block-size: 1rem;
-				padding: 0 .25rem;
+				padding: 0 var(--space-1);
 				margin-block-start: 0;
 			}
 		}
@@ -346,13 +373,13 @@ $task-background: var(--white);
 	.priority-label {
 		background: var(--grey-100);
 		border-radius: $radius;
-		padding: 0 .5rem;
+		padding: 0 var(--space-2);
 	}
 
 	.task-id, .project-title {
 		color: var(--grey-500);
 		font-size: .8rem;
-		margin-block-end: .25rem;
+		margin-block-end: var(--space-1);
 		display: flex;
 	}
 
@@ -369,7 +396,8 @@ $task-background: var(--white);
 
 		.footer .icon,
 		.due-date,
-		.priority-label {
+		.priority-label,
+		.kanban-card__move {
 			background: hsl(220, 13%, 91%);
 		}
 
@@ -389,8 +417,10 @@ $task-background: var(--white);
 
 		.footer .icon,
 		.due-date,
-		.priority-label {
+		.priority-label,
+		.kanban-card__move {
 			background: hsl(215, 27.9%, 16.9%); // grey-800
+			color: inherit;
 		}
 
 		.footer {
@@ -417,7 +447,26 @@ $task-background: var(--white);
 }
 
 .kanban-card__done {
-	margin-inline-end: .25rem;
+	margin-inline-end: var(--space-1);
+}
+
+.kanban-card__move {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-inline-size: 44px;
+	min-block-size: 44px;
+	margin-inline-start: auto;
+	border: none;
+	border-radius: $radius;
+	background: var(--grey-100);
+	color: var(--grey-500);
+	cursor: pointer;
+
+	&:hover,
+	&:focus-visible {
+		background: var(--grey-200);
+	}
 }
 
 .task-progress {
@@ -429,6 +478,6 @@ $task-background: var(--white);
 :deep(.comment-count) {
 	background: var(--grey-100);
 	border-radius: $radius;
-	padding: 0.25rem;
+	padding: var(--space-1);
 }
 </style>

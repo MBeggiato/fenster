@@ -4,6 +4,7 @@
 			v-model="priority"
 			:disabled="disabled || undefined"
 			:aria-label="$t('task.attributes.priority')"
+			:style="{ borderColor: priorityColor }"
 		>
 			<option :value="PRIORITIES.UNSET">
 				{{ $t('task.priority.unset') }}
@@ -28,7 +29,9 @@
 </template>
 
 <script setup lang="ts">
+import {computed} from 'vue'
 import {PRIORITIES} from '@/constants/priorities'
+import {getPriorityColorVar} from '@/helpers/priorityColor'
 
 withDefaults(defineProps<{
 	disabled?: boolean
@@ -40,5 +43,7 @@ const priority = defineModel<number>({
 	required: true,
 	default: 0,
 })
+
+const priorityColor = computed(() => priority.value === PRIORITIES.UNSET ? undefined : getPriorityColorVar(priority.value))
 
 </script>

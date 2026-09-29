@@ -41,7 +41,7 @@ const textAlignClass = computed(() => TEXT_ALIGN_MAP[props.textAlign])
 }
 
 .message {
-	padding: .75rem 1rem;
+	padding: var(--space-3) var(--space-4);
 	border-radius: $radius;
 }
 

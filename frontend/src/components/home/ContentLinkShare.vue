@@ -158,7 +158,7 @@ const isFullWidth = computed(() => {
 .logo {
 	max-inline-size: 300px;
 	inline-size: 90%;
-	margin: 1rem auto 2rem;
+	margin: var(--space-4) auto 2rem;
 	block-size: 100px;
 }
 
@@ -205,7 +205,7 @@ const isFullWidth = computed(() => {
 		border: none;
 
 		.task-add {
-			padding: 1rem 0 0;
+			padding: var(--space-4) 0 0;
 		}
 	}
 }

@@ -68,7 +68,7 @@ async function createTask() {
 
 <style scoped lang="scss">
 .add-new-task {
-	padding: 1rem .7rem .4rem;
+	padding: var(--space-4) .7rem .4rem;
 	display: flex;
 	max-inline-size: 450px;
 

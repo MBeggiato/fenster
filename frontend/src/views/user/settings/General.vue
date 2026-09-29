@@ -721,7 +721,7 @@ async function updateSettings() {
 }
 
 .section-block + .section-block {
-	margin-block-start: 1.5rem;
+	margin-block-start: var(--space-6);
 }
 
 .field-group {
@@ -732,7 +732,7 @@ async function updateSettings() {
 .sticky-save {
 	position: sticky;
 	inset-block-end: 0;
-	padding: .25rem 1rem 1rem;
+	padding: var(--space-1) var(--space-4) var(--space-4);
 }
 
 .pomodoro-notifications-denied {

@@ -222,9 +222,9 @@ async function removeBackground() {
 
 .image-search__result-list {
 	--items-per-row: 1;
-	margin: 1rem 0 0;
+	margin: var(--space-4) 0 0;
 	display: grid;
-	gap: 1rem;
+	gap: var(--space-4);
 	grid-template-columns: repeat(var(--items-per-row), 1fr);
 
 	@media screen and (min-width: $mobile) {
@@ -245,7 +245,7 @@ async function removeBackground() {
 }
 
 .is-load-more-button {
-	margin: 1rem auto 0 !important;
+	margin: var(--space-4) auto 0 !important;
 	display: block;
 	inline-size: 200px;
 }

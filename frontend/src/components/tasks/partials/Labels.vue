@@ -31,7 +31,7 @@ const displayLabels = computed(() =>
 .label-wrapper {
 	display: inline-flex;
 	flex-wrap: wrap;
-	gap: 0.25rem;
+	gap: var(--space-1);
 	align-items: flex-start;
 
 	:deep(.tag) {

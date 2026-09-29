@@ -210,7 +210,7 @@ function showDeleteDialoge(label: Label) {
   	align-items: center;
   	justify-content: center;
 	color: #ffffff; // always white
-	margin-inline-start: .25rem;
+	margin-inline-start: var(--space-1);
 
 	.icon {
 		block-size: .5rem;

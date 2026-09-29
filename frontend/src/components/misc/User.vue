@@ -65,7 +65,7 @@ const isBot = computed(() => (props.user.bot_owner_id ?? props.user.botOwnerId ?
 	position: relative;
 	display: inline-flex;
 	flex-shrink: 0;
-	margin-inline-end: .5rem;
+	margin-inline-end: var(--space-2);
 }
 
 .avatar {

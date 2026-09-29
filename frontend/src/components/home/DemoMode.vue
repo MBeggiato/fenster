@@ -34,7 +34,7 @@ const enabled = computed(() => configStore.demoModeEnabled && !hide.value)
 	inset-inline: 0;
 	background: var(--danger);
 	z-index: 100;
-	padding: .5rem;
+	padding: var(--space-2);
 	text-align: center;
 	
 	&, strong {
@@ -43,10 +43,10 @@ const enabled = computed(() => configStore.demoModeEnabled && !hide.value)
 }
 
 .hide-button {
-	padding: .25rem .5rem;
+	padding: var(--space-1) var(--space-2);
 	cursor: pointer;
 	position: absolute;
-	inset-inline-end: .5rem;
-	inset-block-start: .25rem;
+	inset-inline-end: var(--space-2);
+	inset-block-start: var(--space-1);
 }
 </style>

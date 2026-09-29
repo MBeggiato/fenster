@@ -57,19 +57,56 @@
 					</XButton>
 				</template>
 			</DatepickerWithRange>
-			<FancyCheckbox
-				:model-value="showNulls"
-				class="mie-2"
-				@update:modelValue="setShowNulls"
+
+			<!-- Desktop keeps the checkboxes inline; mobile tucks them behind a compact sheet trigger. -->
+			<template v-if="!isMobile">
+				<FancyCheckbox
+					:model-value="showNulls"
+					class="mie-2"
+					@update:modelValue="setShowNulls"
+				>
+					{{ $t('task.show.noDates') }}
+				</FancyCheckbox>
+				<FancyCheckbox
+					:model-value="showOverdue"
+					@update:modelValue="setShowOverdue"
+				>
+					{{ $t('task.show.overdue') }}
+				</FancyCheckbox>
+			</template>
+			<Popup
+				v-else
+				sheet-on-mobile
+				:sheet-title="$t('mobile.screens.upcoming.filters')"
 			>
-				{{ $t('task.show.noDates') }}
-			</FancyCheckbox>
-			<FancyCheckbox
-				:model-value="showOverdue"
-				@update:modelValue="setShowOverdue"
-			>
-				{{ $t('task.show.overdue') }}
-			</FancyCheckbox>
+				<template #trigger="{toggle}">
+					<XButton
+						variant="secondary"
+						:shadow="false"
+						class="mbe-2"
+						icon="filter"
+						@click.prevent.stop="toggle()"
+					>
+						{{ $t('mobile.screens.upcoming.filters') }}
+					</XButton>
+				</template>
+				<template #content>
+					<div class="show-tasks-filters-sheet">
+						<FancyCheckbox
+							:model-value="showNulls"
+							@update:modelValue="setShowNulls"
+						>
+							{{ $t('task.show.noDates') }}
+						</FancyCheckbox>
+						<FancyCheckbox
+							:model-value="showOverdue"
+							@update:modelValue="setShowOverdue"
+						>
+							{{ $t('task.show.overdue') }}
+						</FancyCheckbox>
+					</div>
+				</template>
+			</Popup>
 		</p>
 		<template v-if="!loading && (!tasks || tasks.length === 0) && showNothingToDo">
 			<h3 class="has-text-centered mbs-6">
@@ -79,7 +116,7 @@
 		</template>
 
 		<Card
-			v-if="hasTasks"
+			v-if="hasTasks && !isMobile"
 			:padding="false"
 			class="has-overflow"
 			:has-content="false"
@@ -100,6 +137,34 @@
 			</ul>
 		</Card>
 		<div
+			v-else-if="hasTasks"
+			class="tasks-grouped loader-container"
+			:class="{'is-loading': loading}"
+		>
+			<section
+				v-for="group in groupedTasks"
+				:key="group.key"
+				class="tasks-grouped__day"
+			>
+				<h3 class="tasks-grouped__day-heading">
+					{{ group.label }}
+				</h3>
+				<ul class="p-2 tasks">
+					<li
+						v-for="task in group.tasks"
+						:key="task.id"
+					>
+						<SingleTaskInProject
+							:show-project="true"
+							:the-task="task"
+							:can-mark-as-done="(projectList.projects[task.project_id]?.max_permission ?? 0) > PERMISSIONS.READ"
+							@taskUpdated="updateTasks"
+						/>
+					</li>
+				</ul>
+			</section>
+		</div>
+		<div
 			v-else
 			:class="{ 'is-loading': loading}"
 			class="spinner"
@@ -118,6 +183,7 @@ import {setTitle} from '@/helpers/setTitle'
 import BaseButton from '@/components/base/BaseButton.vue'
 import Icon from '@/components/misc/Icon'
 import Message from '@/components/misc/Message.vue'
+import Popup from '@/components/misc/Popup.vue'
 import FancyCheckbox from '@/components/input/FancyCheckbox.vue'
 import SingleTaskInProject from '@/components/tasks/partials/SingleTaskInProject.vue'
 import DatepickerWithRange from '@/components/date/DatepickerWithRange.vue'
@@ -127,10 +193,13 @@ import LlamaCool from '@/assets/llama-cool.svg?component'
 import {useAuthStore} from '@/stores/auth'
 import {useProjects} from '@/composables/useProjects'
 import {useLabels} from '@/composables/useLabels'
-import type {TaskFilterParams} from '@/client/queries/tasks'
+import {useIsMobile} from '@/composables/useIsMobile'
+import type {TaskFilterParams, TaskResponse} from '@/client/queries/tasks'
 import {useTasks} from '@/composables/useTasks'
 import type {TaskScope} from '@/client/queries/tasks'
 import {PERMISSIONS} from '@/constants/permissions'
+import {parseDateOrNull} from '@/helpers/parseDateOrNull'
+import {addDays, isSameDay} from '@/helpers/time/dateMath'
 
 const props = withDefaults(defineProps<{
 	dateFrom?: Date | string,
@@ -154,6 +223,7 @@ const emit = defineEmits<{
 const authStore = useAuthStore()
 const projectList = useProjects()
 const {getLabelById} = useLabels()
+const isMobile = useIsMobile()
 
 const route = useRoute()
 const router = useRouter()
@@ -204,6 +274,39 @@ const pageTitle = computed(() => {
 		})
 })
 const hasTasks = computed(() => tasks.value && tasks.value.length > 0)
+
+interface TaskGroup {
+	key: string
+	label: string
+	tasks: TaskResponse[]
+}
+
+// Grouped client-side from the already-fetched (due_date-sorted) list, no extra queries.
+const groupedTasks = computed<TaskGroup[]>(() => {
+	const now = new Date()
+	const groups = new Map<string, TaskGroup>()
+	for (const task of tasks.value ?? []) {
+		const due = parseDateOrNull(task.due_date)
+		const key = due ? due.toDateString() : 'none'
+		let group = groups.get(key)
+		if (!group) {
+			let label: string
+			if (!due) {
+				label = t('mobile.screens.upcoming.noDueDate')
+			} else if (isSameDay(due, now)) {
+				label = t('input.datepicker.today')
+			} else if (isSameDay(due, addDays(now, 1))) {
+				label = t('input.datepicker.tomorrow')
+			} else {
+				label = formatDate(due, 'dddd, MMM D')
+			}
+			group = {key, label, tasks: []}
+			groups.set(key, group)
+		}
+		group.tasks.push(task)
+	}
+	return [...groups.values()]
+})
 const userAuthenticated = computed(() => authStore.authenticated)
 const loading = taskQuery.isFetching
 const filterIdUsedOnOverview = computed(() => authStore.settings?.frontendSettings?.filterIdUsedOnOverview)
@@ -323,19 +426,48 @@ watchEffect(() => setTitle(pageTitle.value))
 .show-tasks-options {
 	display: flex;
 	flex-direction: column;
+
+	@include mobile {
+		flex-direction: row;
+		align-items: center;
+		gap: var(--space-2);
+	}
+}
+
+.show-tasks-filters-sheet {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+}
+
+.tasks-grouped__day + .tasks-grouped__day {
+	margin-block-start: var(--space-4);
+}
+
+.tasks-grouped__day-heading {
+	position: sticky;
+	// Rests just below the fixed mobile header instead of under it.
+	inset-block-start: calc(var(--mobile-header-height) + env(safe-area-inset-top));
+	z-index: 1;
+	margin: 0;
+	padding: var(--space-2) var(--space-1);
+	background: var(--site-background);
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-bold);
+	color: var(--text-muted);
 }
 
 .llama-cool {
-	margin: 3rem auto 0;
+	margin: var(--space-12) auto 0;
 	display: block;
 }
 
 .label-filter-info {
-	margin-block-end: 1rem;
+	margin-block-end: var(--space-4);
 	
 	.clear-filter-button {
 		margin-inline-start: auto;
-		padding: 0.25rem 0.5rem;
+		padding: var(--space-1) var(--space-2);
 		
 		&:hover {
 			color: var(--danger);
@@ -347,7 +479,7 @@ watchEffect(() => setTitle(pageTitle.value))
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 0.5rem;
+		gap: var(--space-2);
 	}
 }
 </style>

@@ -358,8 +358,8 @@ watch(filterQuery, q => {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	gap: 1rem;
-	margin-block-end: 1.5rem;
+	gap: var(--space-4);
+	margin-block-end: var(--space-6);
 }
 
 .time-tracking__range {
@@ -369,12 +369,12 @@ watch(filterQuery, q => {
 
 .time-tracking__buttons {
 	display: flex;
-	gap: .5rem;
+	gap: var(--space-2);
 }
 
 .filter-columns {
 	display: flex;
-	gap: 1rem;
+	gap: var(--space-4);
 
 	> .field {
 		flex: 1;

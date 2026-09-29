@@ -41,6 +41,18 @@
 		"project": {
 			"importText": "Importiere deine Projekte und Aufgaben aus anderen Diensten in Vikunja:",
 			"import": "Importiere deine Daten in Vikunja"
+		},
+		"dashboard": {
+			"heading": "Übersicht",
+			"tiles": {
+				"overdue": "Überfällig",
+				"dueToday": "Heute fällig",
+				"dueWeek": "Diese Woche fällig",
+				"doneWeek": "Diese Woche erledigt"
+			},
+			"focus": {
+				"sessionsToday": "Heute noch keine Fokus-Sitzungen | {count} Fokus-Sitzung heute | {count} Fokus-Sitzungen heute"
+			}
 		}
 	},
 	"demo": {
@@ -837,6 +849,8 @@
 	"navigation": {
 		"overview": "Übersicht",
 		"upcoming": "Anstehend",
+		"eisenhower": "Eisenhower-Matrix",
+		"pomodoro": "Fokus",
 		"settings": "Einstellungen",
 		"imprint": "Impressum",
 		"privacy": "Datenschutzerklärung",
@@ -1088,6 +1102,47 @@
 			"clearLabelFilter": "Label-Filter leeren",
 			"savedFilterIgnored": "Dein gespeicherter Homepage-Filter wird während der Anzeige von Aufgaben per Label nicht angewendet."
 		},
+		"eisenhower": {
+			"title": "Eisenhower-Matrix",
+			"intro": "Sortiere deine offenen Aufgaben aus jedem Projekt nach Dringlichkeit und Wichtigkeit. Deine Einteilung ist persönlich: Niemand sonst sieht oder ändert sie.",
+			"dragHint": "Ziehe eine Aufgabe in einen anderen Bereich, um sie neu einzuordnen, oder in \"Nicht klassifiziert\", um die Klassifizierung zurückzusetzen.",
+			"urgent": "Dringend",
+			"notUrgent": "Nicht dringend",
+			"important": "Wichtig",
+			"notImportant": "Nicht wichtig",
+			"addLabel": "Füge eine Aufgabe zu {quadrant} hinzu",
+			"createdUnclassified": "\"{task}\" wurde erstellt, konnte aber nicht in der Matrix platziert werden. Du findest sie unter \"Nicht klassifiziert\".",
+			"empty": "Keine Aufgaben hier.",
+			"loadMore": "Mehr laden",
+			"filter": {
+				"labelsPlaceholder": "Nach Labels filtern…",
+				"search": "Suchen",
+				"searchPlaceholder": "Aufgaben suchen…",
+				"showDone": "Abgeschlossene Aufgaben anzeigen"
+			},
+			"quadrants": {
+				"do": {
+					"title": "Zuerst erledigen",
+					"hint": "Dringend und wichtig"
+				},
+				"schedule": {
+					"title": "Einplanen",
+					"hint": "Wichtig, nicht dringend"
+				},
+				"delegate": {
+					"title": "Delegieren",
+					"hint": "Dringend, nicht wichtig"
+				},
+				"eliminate": {
+					"title": "Streichen",
+					"hint": "Weder dringend noch wichtig"
+				},
+				"unclassified": {
+					"title": "Nicht klassifiziert",
+					"hint": "Offene Aufgaben, die du noch nicht platziert hast"
+				}
+			}
+		},
 		"detail": {
 			"chooseDueDate": "Klicke hier, um ein Fälligkeitsdatum zu setzen",
 			"chooseStartDate": "Klicke hier, um ein Startdatum zu setzen",
@@ -1124,6 +1179,12 @@
 				"header": "Diese Aufgabe löschen",
 				"text1": "Willst du diese Aufgabe wirklich löschen?",
 				"text2": "Dies wird auch alle Anhänge, Erinnerungen und Verknüpfungen, die zu dieser Aufgabe gehören löschen und kann nicht rückgängig gemacht werden!"
+			},
+			"eisenhower": {
+				"heading": "Meine Priorität",
+				"openMatrix": "Eisenhower-Matrix öffnen",
+				"unclassified": "Noch nicht in deiner Matrix",
+				"reset": "Zurücksetzen"
 			},
 			"actions": {
 				"assign": "Benutzer:in zuweisen",
@@ -1193,6 +1254,7 @@
 			"delete": "Anhang löschen",
 			"deleteTooltip": "Diesen Anhang löschen",
 			"deleteText1": "Soll der Anhang {filename} gelöscht werden?",
+			"deleteSuccess": "Der Anhang wurde erfolgreich gelöscht.",
 			"copyUrlTooltip": "Die URL dieses Anhangs zur Verwendung im Text kopieren",
 			"setAsCover": "Als Titelbild setzen",
 			"unsetAsCover": "Titelbild entfernen",
@@ -1437,6 +1499,11 @@
 			"teams": "Teams aufrufen",
 			"projects": "Projekte aufrufen"
 		},
+		"pomodoro": {
+			"title": "Fokus-Timer",
+			"toggle": "Fokus-Timer starten oder pausieren",
+			"stop": "Fokus-Timer stoppen"
+		},
 		"list": {
 			"title": "Aufgabenliste",
 			"navigateDown": "Nächste Aufgabe hervorheben",
@@ -1529,6 +1596,12 @@
 		"reactedWithAndMany": "{users} und {num} weitere haben mit {value} reagiert",
 		"add": "Reaktion hinzufügen"
 	},
+	"emptyState": {
+		"noSearchResults": "Keine Ergebnisse gefunden",
+		"noSearchResultsText": "Versuche es mit einem anderen Suchbegriff.",
+		"emptyKanbanBucket": "Dieser Bucket ist leer",
+		"emptyKanbanBucketText": "Ziehe eine Aufgabe hierher oder füge unten eine neue hinzu."
+	},
 	"error": {
 		"1001": "Es existiert bereits ein Account mit diesem Anmeldenamen.",
 		"1002": "Es existiert bereits ein:e Benutzer:in mit dieser E-Mail-Adresse.",
@@ -1596,6 +1669,7 @@
 		"4023": "Kann keinen Aufgabenbeziehungszyklus erstellen.",
 		"4034": "Die Datei existiert nicht.",
 		"4035": "Die hochgeladene Datei überschreitet die maximal konfigurierte Dateigröße.",
+		"4036": "Dieser Eisenhower-Matrix-Bereich existiert nicht.",
 		"6001": "Der Teamname kann nicht leer sein.",
 		"6002": "Das Team existiert nicht.",
 		"6004": "Das Team hat bereits Zugriff auf dieses Projekt.",
@@ -1647,6 +1721,94 @@
 		"apiVersion": "API-Version: {version}",
 		"proActive": "Pro aktiv"
 	},
+	"pomodoro": {
+		"title": "Fokus",
+		"start": "Fokus starten",
+		"startWithDuration": "Fokus starten ({minutes} min)",
+		"switchHere": "Fokus hierher wechseln",
+		"pause": "Pausieren",
+		"resume": "Fortsetzen",
+		"stop": "Stoppen",
+		"stopConfirm": "Die laufende Fokus-Sitzung beenden? Sie wird als unterbrochen aufgezeichnet.",
+		"openFocusPage": "Fokus-Seite öffnen",
+		"idle": "Keine Fokus-Sitzung läuft",
+		"phase": {
+			"focus": "Fokus",
+			"short_break": "Kurze Pause",
+			"long_break": "Lange Pause"
+		},
+		"done": {
+			"focus": "Fokus abgeschlossen",
+			"short_break": "Pause vorbei",
+			"long_break": "Pause vorbei",
+			"next": {
+				"focus": "Zurück zum Fokus — {minutes} min",
+				"short_break": "Zeit für {minutes} min Pause",
+				"long_break": "Zeit für eine lange Pause ({minutes} min)"
+			}
+		},
+		"next": {
+			"start": "{phase} starten",
+			"skip": "Überspringen"
+		},
+		"task": {
+			"working": "Arbeite an",
+			"none": "Keine Aufgabe",
+			"search": "Aufgabe suchen…",
+			"clear": "Ohne Aufgabe arbeiten",
+			"estimate": "Schätzung in Fokus-Sitzungen",
+			"estimateShort": "{completed} von {estimate}",
+			"focusTime": "Fokus-Zeit",
+			"noneYet": "Noch keine Fokus-Sitzungen zu dieser Aufgabe."
+		},
+		"today": {
+			"title": "Heute",
+			"focusTime": "{duration} Fokus",
+			"untilLongBreak": "lange Pause nach {count} weiteren",
+			"untilLongBreakNow": "als Nächstes lange Pause",
+			"empty": "Heute noch keine Fokus-Sitzungen.",
+			"completedAt": "Abgeschlossen um {time}",
+			"interruptedAt": "Unterbrochen um {time}"
+		},
+		"tabs": {
+			"timer": "Timer",
+			"stats": "Statistiken"
+		},
+		"stats": {
+			"title": "Statistiken",
+			"range": {
+				"thisWeek": "Diese Woche",
+				"lastWeek": "Letzte Woche",
+				"thisMonth": "Diesen Monat",
+				"custom": "Benutzerdefiniert"
+			},
+			"empty": "Keine Fokus-Sitzungen in diesem Zeitraum.",
+			"focusTime": "Fokus-Zeit",
+			"completed": "Abgeschlossen",
+			"interrupted": "Unterbrochen",
+			"completionRate": "Erfolgsquote",
+			"perDay": "Fokus pro Tag",
+			"topTasks": "Top-Aufgaben",
+			"topProjects": "Top-Projekte",
+			"task": "Aufgabe",
+			"project": "Projekt",
+			"estimate": "Schätzung",
+			"day": "Tag"
+		},
+		"settings": {
+			"title": "Pomodoro",
+			"focusMinutes": "Fokus-Dauer (Minuten)",
+			"shortBreakMinutes": "Kurze Pause (Minuten)",
+			"longBreakMinutes": "Lange Pause (Minuten)",
+			"longBreakEvery": "Lange Pause nach dieser Anzahl von Fokus-Sitzungen",
+			"autoStartBreaks": "Pausen automatisch starten",
+			"autoStartFocus": "Nächste Fokus-Sitzung automatisch starten",
+			"sound": "Einen Ton abspielen, wenn eine Phase endet",
+			"notifications": "Eine Desktop-Benachrichtigung anzeigen, wenn eine Phase endet",
+			"notificationsDenied": "Dein Browser hat Benachrichtigungen für Vikunja blockiert.",
+			"logTimeEntries": "Fertiggestellte Fokus-Sitzungen als Zeiteinträge protokollieren"
+		}
+	},
 	"timeTracking": {
 		"title": "Zeiterfassung",
 		"stop": "Timer stoppen",
@@ -1665,6 +1827,7 @@
 			"emptyTask": "Noch keine Zeit für diese Aufgabe getrackt.",
 			"emptyFiltered": "Keine Zeiterfassung innerhalb der ausgewählten Filter.",
 			"total": "Gesamt",
+			"pageTotal": "Summe auf dieser Seite",
 			"time": "Uhrzeit",
 			"duration": "Dauer"
 		},
@@ -1769,6 +1932,60 @@
 			"deleted": "Einladungslink gelöscht.",
 			"empty": "Noch keine Einladungslinks. Erstelle einen Link, um jemanden in diese Instanz einzuladen.",
 			"futureExpiry": "Wähle ein Ablaufdatum, das in der Zukunft liegt."
+		}
+	},
+	"mobile": {
+		"header": {
+			"openMore": "Mehr"
+		},
+		"tabBar": {
+			"label": "Hauptnavigation",
+			"home": "Startseite",
+			"capture": "Erfassen",
+			"focusActive": "Fokus-Sitzung aktiv"
+		},
+		"moreSheet": {
+			"title": "Mehr"
+		},
+		"capture": {
+			"title": "Neue Aufgabe",
+			"chips": {
+				"today": "Heute",
+				"tomorrow": "Morgen",
+				"project": "Projekt",
+				"label": "Label",
+				"priority": "Priorität"
+			}
+		},
+		"taskDetail": {
+			"actionBarLabel": "Aufgabenaktionen",
+			"more": "Mehr",
+			"moreSheetTitle": "Weitere Aktionen"
+		},
+		"kanban": {
+			"pagerLabel": "Spalten",
+			"moveTaskLabel": "Aufgabe verschieben",
+			"moveToTitle": "Verschieben in…",
+			"dragHandle": "Zum Sortieren ziehen"
+		},
+		"eisenhower": {
+			"back": "Zurück zu den Quadranten",
+			"moveAction": "Zu Quadrant verschieben",
+			"moveActionAria": "\"{task}\" zu anderem Quadrant verschieben",
+			"moveSheet": {
+				"title": "\"{task}\" verschieben",
+				"current": "Aktuell"
+			}
+		},
+		"screens": {
+			"upcoming": {
+				"filters": "Filter",
+				"noDueDate": "Kein Fälligkeitsdatum"
+			}
+		},
+		"swipe": {
+			"done": "Erledigt",
+			"reschedule": "Umdatieren"
 		}
 	}
 }

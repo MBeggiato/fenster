@@ -48,14 +48,14 @@ const emit = defineEmits<{
 
 	&.is-block {
 		display: block;
-		margin: .5rem .2rem;
+		margin: var(--space-2) .2rem;
 	}
 }
 
 .fancy-checkbox__content {
 	font-size: 0.8rem;
 	vertical-align: top;
-	padding-inline-start: .5rem;
+	padding-inline-start: var(--space-2);
 }
 
 .fancy-checkbox__icon:deep() {
@@ -107,6 +107,14 @@ const emit = defineEmits<{
 	polyline {
 		stroke-dashoffset: 42;
 		transition-delay: 0.15s;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.fancy-checkbox__icon,
+	.fancy-checkbox__icon path,
+	.fancy-checkbox__icon polyline {
+		transition: none;
 	}
 }
 </style>

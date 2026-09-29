@@ -130,6 +130,6 @@ function setTime({hours, minutes}: {hours: number, minutes: number}) {
 .datepicker-inline__calendar {
 	flex: 1;
 	min-inline-size: 0;
-	padding: .75rem 1rem 1rem;
+	padding: var(--space-3) var(--space-4) var(--space-4);
 }
 </style>

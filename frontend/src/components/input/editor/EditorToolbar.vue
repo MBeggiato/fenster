@@ -498,7 +498,7 @@ function setLink(event: MouseEvent) {
 	background: var(--white);
 	border: 1px solid var(--grey-200);
 	user-select: none;
-	padding: .5rem;
+	padding: var(--space-2);
 	border-radius: $radius;
 	display: flex;
 	flex-wrap: wrap;
@@ -518,7 +518,7 @@ function setLink(event: MouseEvent) {
 	color: var(--grey-700);
 	transition: all $transition;
 	background: transparent;
-	margin-inline-end: .25rem;
+	margin-inline-end: var(--space-1);
 
 	&:hover {
 		background: var(--grey-100);
@@ -529,7 +529,7 @@ function setLink(event: MouseEvent) {
 		position: relative;
 
 		.icon__lower-text {
-			font-size: .75rem;
+			font-size: var(--font-size-xs);
 			position: absolute;
 			inset-block-end: -3px;
 			inset-inline-end: -2px;
@@ -539,14 +539,14 @@ function setLink(event: MouseEvent) {
 }
 
 .editor-toolbar__table-buttons {
-	margin-block-start: .5rem;
+	margin-block-start: var(--space-2);
 
 	> .editor-toolbar__button {
-		margin-inline-end: .5rem;
-		margin-block-end: .5rem;
-		padding: 0 .25rem;
+		margin-inline-end: var(--space-2);
+		margin-block-end: var(--space-2);
+		padding: 0 var(--space-1);
 		border: 1px solid var(--grey-400);
-		font-size: .75rem;
+		font-size: var(--font-size-xs);
 		block-size: 1.5rem;
 	}
 }

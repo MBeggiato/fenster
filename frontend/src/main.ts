@@ -95,9 +95,9 @@ setLanguage(browserLanguage).then(() => {
 	}
 
 	if (import.meta.env.DEV) {
-		app.config.warnHandler = (msg) => {
+		app.config.warnHandler = (msg, _instance, trace) => {
 			error(msg)
-			throw msg
+			throw `${msg}\n${trace}`
 		}
 
 		// https://stackoverflow.com/a/52076738/15522256

@@ -11,6 +11,7 @@
 //
 
 $family-sans-serif: 'Open Sans', Helvetica, Arial, sans-serif;
+$radius: var(--radius-md);
 
 // the default values get overwritten by the definitions above
 @import "bulma-css-variables/sass/utilities/_all";
@@ -27,6 +28,7 @@ $site-background: var(--grey-100);
 
 $transition-duration: 150ms;
 $transition: $transition-duration ease;
+$transition-glass: var(--duration-glass) var(--ease-glass);
 
 $button-height: 34px;
 $switch-view-height: 2.69rem;
@@ -42,4 +44,10 @@ $close-button-min-space: 84px;
 
 @mixin focus-ring {
   box-shadow: 0 0 0 2px hsla(var(--primary-hsl), 0.5);
+}
+
+@mixin mobile {
+  @media screen and (max-width: $tablet) {
+    @content;
+  }
 }

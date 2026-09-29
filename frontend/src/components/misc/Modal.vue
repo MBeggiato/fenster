@@ -45,7 +45,8 @@
 						class="modal-content"
 						:class="{
 							'has-overflow': overflow,
-							'is-wide': wide
+							'is-wide': wide,
+							'is-glass': !$slots.default
 						}"
 					>
 						<slot>
@@ -280,13 +281,13 @@ $modal-width: 1024px;
 	// Reset UA dialog styles
 	padding: 0;
 	border: none;
-	// The scrim lives on the dialog element, not on ::backdrop: Chromium
-	// intermittently stops painting a styled ::backdrop (e.g. after the
-	// dialog's subtree re-renders, or while display is transitioned) even
-	// though getComputedStyle still reports the color. The dialog fills the
-	// viewport anyway, and its opacity transition fades the scrim with it —
-	// same as the old div-based .modal-mask.
-	background: rgba(0, 0, 0, .8);
+	// The scrim's fill + blur live on ::before, not on this element: applying
+	// backdrop-filter directly here would make .modal-dialog a containing block
+	// for its position: fixed .close descendant. isolation: isolate pins the
+	// ::before's negative z-index to this element's own stacking context instead
+	// of leaking behind .modal-dialog itself.
+	background: transparent;
+	isolation: isolate;
 	color: #ffffff;
 	// Fill viewport
 	position: fixed;
@@ -301,6 +302,8 @@ $modal-width: 1024px;
 	// closeDialog), and transitioning display triggers the Chromium paint
 	// bug above.
 	opacity: 0;
+	// Kept at 150ms/ease (not --duration-glass/--ease-glass): TRANSITION_DURATION
+	// in the script block times the close teardown off this exact value.
 	transition: opacity 150ms ease;
 
 	&[open]:not([data-closing]) {
@@ -311,13 +314,23 @@ $modal-width: 1024px;
 		}
 	}
 
+	&::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: hsla(0, 0%, 4%, .55);
+		backdrop-filter: var(--glass-filter-strong);
+	}
+
 	&::backdrop {
 		background-color: rgba(0, 0, 0, 0);
 	}
 
 	// in quick-add mode the Electron window itself is the overlay — no scrim
-	&:has(.is-quick-add-mode) {
+	&:has(.is-quick-add-mode)::before {
 		background: transparent;
+		backdrop-filter: none;
 	}
 }
 
@@ -367,13 +380,35 @@ $modal-width: 1024px;
 	}
 
 	.button {
-		margin: 0 0.5rem;
+		margin: 0 var(--space-2);
+	}
+}
+
+// Glass shell only for Modal's built-in header/text/actions fallback; slotted
+// content brings its own (opaque) Card, which must not get a glass frame around it.
+.modal-content.is-glass {
+	color: var(--text);
+	background: var(--glass-overlay-bg);
+	backdrop-filter: var(--glass-filter-strong);
+	border: 1px solid var(--glass-hairline);
+	border-radius: var(--radius-lg);
+	box-shadow: var(--glass-specular), var(--shadow-lg);
+	padding: var(--space-6);
+
+	@media screen and (max-width: $tablet) {
+		color: inherit;
+		background: none;
+		backdrop-filter: none;
+		border: none;
+		border-radius: 0;
+		box-shadow: none;
+		padding: 0;
 	}
 }
 
 // anchored below the top edge instead of centered, used for QuickActions
 .top .modal-content {
-	inset-block-start: 3rem;
+	inset-block-start: var(--space-12);
 	transform: translate(-50%, 0);
 	max-block-size: calc(100dvh - 6rem);
 	overflow: auto;
@@ -464,7 +499,9 @@ $modal-width: 1024px;
 
 // No scrim element: the dialog itself paints it, so the container's mousedown-outside is the scrim tap.
 .bottom-sheet {
-	background: hsla(0, 0%, 4%, .4);
+	&::before {
+		background: hsla(0, 0%, 4%, .4);
+	}
 
 	.modal-container {
 		display: flex;
@@ -483,17 +520,20 @@ $modal-width: 1024px;
 	inline-size: 100%;
 	overflow-x: hidden;
 	max-block-size: 92dvh;
-	background: var(--white);
+	background: var(--glass-overlay-bg);
+	backdrop-filter: var(--glass-filter-strong);
 	color: var(--text);
-	border-radius: 18px 18px 0 0;
-	box-shadow: 0 -8px 30px hsla(var(--grey-500-hsl), .18);
+	border: 1px solid var(--glass-hairline);
+	border-block-end: none;
+	border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+	box-shadow: var(--glass-specular), var(--shadow-lg);
 	padding-block-end: env(safe-area-inset-bottom);
 }
 
 .bottom-sheet__handle {
 	inline-size: 2.5rem;
 	block-size: 5px;
-	margin: .5rem auto 0;
+	margin: var(--space-2) auto 0;
 	border-radius: $radius-rounded;
 	background: var(--grey-200);
 	flex-shrink: 0;
@@ -503,7 +543,7 @@ $modal-width: 1024px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: .5rem 1rem .75rem;
+	padding: var(--space-2) var(--space-4) var(--space-3);
 	flex-shrink: 0;
 }
 
@@ -528,7 +568,7 @@ $modal-width: 1024px;
 .close {
 	$close-button-padding: 26px;
 	position: fixed;
-	inset-block-start: .5rem;
+	inset-block-start: var(--space-2);
 	inset-inline-end: $close-button-padding;
 	color: var(--white);
 	font-size: 2rem;
@@ -541,14 +581,14 @@ $modal-width: 1024px;
 
 		// fullscreen has no card to hug — keep the corner position instead
 		.fullscreen & {
-			inset-block-start: .5rem;
+			inset-block-start: var(--space-2);
 			inset-inline-end: $close-button-padding;
 			transform: none;
 		}
 	}
 
 	@media screen and (min-width: $tablet) and (max-width: #{$desktop + $close-button-min-space}) {
-		inset-block-start: .75rem;
+		inset-block-start: var(--space-3);
 	}
 }
 
@@ -605,6 +645,10 @@ $modal-width: 1024px;
 		max-block-size: none;
 		background: transparent;
 
+		&::before {
+			display: none;
+		}
+
 		&::backdrop {
 			display: none;
 		}
@@ -624,7 +668,7 @@ $modal-width: 1024px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	padding: 0 1rem;
+	padding: 0 var(--space-4);
 	min-block-size: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
 }
 

@@ -5,186 +5,215 @@
 	>
 		<div
 			ref="taskRoot"
-			:class="{'is-loading': isLoading}"
+			:class="{'is-loading': isLoading, 'is-completing': isCompleting, 'is-swiping': isSwipeDragging}"
 			class="task loader-container single-task"
 			tabindex="-1"
-			:data-is-overdue="isOverdue || undefined"
+			:data-due-state="dueState || undefined"
 			@click="openTaskDetail"
 			@keyup.enter="openTaskDetail"
 		>
-			<span
-				v-tooltip="!canMarkAsDone ? $t('task.readOnlyCheckbox') : ''"
-				class="is-inline-flex is-align-items-center"
-			>
-				<FancyCheckbox
-					:model-value="task.done ?? false"
-					:disabled="isArchived || disabled || !canMarkAsDone"
-					:aria-label="$t('task.detail.markAsDone', {task: task.title})"
-					@update:modelValue="markAsDone"
-					@click.stop
-				/>
-			</span>
-
-			<ColorBubble
-				v-if="!showProjectSeparately && projectColor !== '' && currentProject?.id !== task.project_id"
-				:color="projectColor"
-				class="mie-1"
-			/>
-
 			<div
-				:class="{ 'done': task.done, 'show-project': showProject && project}"
-				class="tasktext"
+				v-if="isMobile"
+				class="swipe-bg swipe-bg--done"
+				aria-hidden="true"
+				:style="{inlineSize: `${Math.max(swipeOffsetX, 0)}px`}"
 			>
-				<span>
-					<RouterLink
-						v-if="showProject && typeof project !== 'undefined'"
-						v-tooltip="$t('task.detail.belongsToProject', {project: project.title})"
-						:to="{ name: 'project.index', params: { projectId: task.project_id } }"
-						class="task-project mie-1"
-						:class="{'mie-2': task.hex_color !== ''}"
-						@click.stop
-					>
-						{{ project.title }}
-					</RouterLink>
-
-					<ColorBubble
-						v-if="task.hex_color !== ''"
-						:color="getHexColor(task.hex_color)"
-						class="mie-1"
-					/>
-	
-					<PriorityLabel
-						:priority="task.priority ?? 0"
-						:done="task.done"
-						class="pis-2 mie-1"
-					/>
-
-					<TaskGlanceTooltip :task="task">
-						<RouterLink
-							ref="taskLinkRef"
-							:to="taskDetailRoute"
-							class="task-link"
-						>
-							{{ task.title }}
-						</RouterLink>
-					</TaskGlanceTooltip>
-				</span>
-
-				<Labels
-					v-if="(task.labels?.length ?? 0) > 0"
-					class="labels mis-2 mie-1"
-					:labels="task.labels ?? []"
-				/>
-
-				<AssigneeList
-					v-if="(task.assignees?.length ?? 0) > 0"
-					:assignees="task.assignees ?? []"
-					:avatar-size="25"
-					class="mis-1"
-					:inline="true"
-				/>
-
-				<Popup
-					v-if="+new Date(task.due_date) > 0"
-					placement="bottom-start"
-					:anchor="dueDateTriggerEl"
-					sheet-on-mobile
-					:sheet-title="$t('task.deferDueDate.title')"
-				>
-					<template #trigger="{toggle, isOpen}">
-						<BaseButton
-							ref="dueDateTrigger"
-							v-tooltip="formatDateLong(task.due_date)"
-							class="dueDate"
-							@click.prevent.stop="toggle()"
-						>	
-							<time
-								:datetime="formatISO(task.due_date)"
-								class="is-italic"
-								:aria-expanded="isOpen ? 'true' : 'false'"
-							>
-								– {{ $t('task.detail.due', {at: dueDateFormatted}) }}
-							</time>
-						</BaseButton>
-					</template>
-					<template #content="{isOpen}">
-						<DeferTask
-							v-if="isOpen"
-							:model-value="task"
-						/>
-					</template>
-				</Popup>
-
-				<span>
-					<span
-						v-if="(task.attachments?.length ?? 0) > 0"
-						class="project-task-icon"
-						role="img"
-						:aria-label="$t('task.attributes.attachment', (task.attachments?.length ?? 0))"
-					>
-						<Icon icon="paperclip" />
-					</span>
-					<span
-						v-if="!isEditorContentEmpty((task.description ?? ''))"
-						class="project-task-icon is-mirrored-rtl"
-					>
-						<Icon icon="align-left" />
-					</span>
-					<span
-						v-if="isRepeating"
-						class="project-task-icon"
-					>
-						<Icon icon="history" />
-					</span>
-					<CommentCount
-						:task="task"
-						class="project-task-icon"
-					/>
-				</span>
-
-				<ChecklistSummary :task="task" />
+				<Icon icon="check" />
+				<span>{{ $t('mobile.swipe.done') }}</span>
+			</div>
+			<div
+				v-if="isMobile"
+				class="swipe-bg swipe-bg--reschedule"
+				aria-hidden="true"
+				:style="{inlineSize: `${Math.max(-swipeOffsetX, 0)}px`}"
+			>
+				<span>{{ $t('mobile.swipe.reschedule') }}</span>
+				<Icon icon="calendar" />
 			</div>
 
-			<ProgressBar
-				v-if="(task.percent_done ?? 0) > 0"
-				:value="(task.percent_done ?? 0) * 100"
-				is-small
-			/>
-
-			<ColorBubble
-				v-if="showProjectSeparately && projectColor !== '' && currentProject?.id !== task.project_id"
-				:color="projectColor"
-				class="mie-1"
-			/>
-
-			<RouterLink
-				v-if="showProjectSeparately"
-				v-tooltip="$t('task.detail.belongsToProject', {project: project.title})"
-				:to="{ name: 'project.index', params: { projectId: task.project_id } }"
-				class="task-project"
-				@click.stop
+			<div
+				class="task-content"
+				:style="isMobile ? {transform: `translateX(${swipeOffsetX}px)`} : undefined"
 			>
-				{{ project.title }}
-			</RouterLink>
+				<span
+					v-tooltip="!canMarkAsDone ? $t('task.readOnlyCheckbox') : ''"
+					class="is-inline-flex is-align-items-center"
+				>
+					<FancyCheckbox
+						:model-value="task.done ?? false"
+						:disabled="isArchived || disabled || !canMarkAsDone"
+						:aria-label="$t('task.detail.markAsDone', {task: task.title})"
+						@update:modelValue="markAsDone"
+						@click.stop
+					/>
+				</span>
 
-			<BaseButton
-				:class="{'is-favorite': task.is_favorite}"
-				class="favorite"
-				@click.stop="toggleFavorite"
-			>
-				<span class="is-sr-only">{{
-					task.is_favorite ? $t('task.detail.actions.unfavorite') : $t('task.detail.actions.favorite')
-				}}</span>
-				<Icon
-					v-if="task.is_favorite"
-					icon="star"
+				<ColorBubble
+					v-if="!showProjectSeparately && projectColor !== '' && currentProject?.id !== task.project_id"
+					:color="projectColor"
+					class="mie-1"
 				/>
-				<Icon
-					v-else
-					:icon="['far', 'star']"
+
+				<div
+					:class="{ 'done': task.done, 'show-project': showProject && project}"
+					class="tasktext"
+				>
+					<span>
+						<RouterLink
+							v-if="showProject && !isMobile && typeof project !== 'undefined'"
+							v-tooltip="$t('task.detail.belongsToProject', {project: project.title})"
+							:to="{ name: 'project.index', params: { projectId: task.project_id } }"
+							class="task-project mie-1"
+							:class="{'mie-2': task.hex_color !== ''}"
+							@click.stop
+						>
+							{{ project.title }}
+						</RouterLink>
+
+						<ColorBubble
+							v-if="task.hex_color !== '' && !isMobile"
+							:color="getHexColor(task.hex_color)"
+							class="mie-1"
+						/>
+
+						<PriorityLabel
+							v-if="!isMobile"
+							:priority="task.priority ?? 0"
+							:done="task.done"
+							class="pis-2 mie-1"
+						/>
+
+						<TaskGlanceTooltip :task="task">
+							<RouterLink
+								ref="taskLinkRef"
+								:to="taskDetailRoute"
+								class="task-link"
+							>
+								{{ task.title }}
+							</RouterLink>
+						</TaskGlanceTooltip>
+					</span>
+
+					<Labels
+						v-if="(task.labels?.length ?? 0) > 0 && !isMobile"
+						class="labels mis-2 mie-1"
+						:labels="task.labels ?? []"
+					/>
+
+					<AssigneeList
+						v-if="(task.assignees?.length ?? 0) > 0 && !isMobile"
+						:assignees="task.assignees ?? []"
+						:avatar-size="25"
+						class="mis-1"
+						:inline="true"
+					/>
+
+					<Popup
+						v-if="+new Date(task.due_date) > 0"
+						v-model:open="dueDateSheetOpen"
+						placement="bottom-start"
+						:anchor="dueDateTriggerEl"
+						sheet-on-mobile
+						:sheet-title="$t('task.deferDueDate.title')"
+					>
+						<template #trigger="{toggle, isOpen}">
+							<BaseButton
+								ref="dueDateTrigger"
+								v-tooltip="formatDateLong(task.due_date)"
+								class="dueDate"
+								@click.prevent.stop="toggle()"
+							>
+								<time
+									:datetime="formatISO(task.due_date)"
+									class="is-italic"
+									:aria-expanded="isOpen ? 'true' : 'false'"
+								>
+									– {{ $t('task.detail.due', {at: dueDateFormatted}) }}
+								</time>
+							</BaseButton>
+						</template>
+						<template #content="{isOpen}">
+							<DeferTask
+								v-if="isOpen"
+								:model-value="task"
+							/>
+						</template>
+					</Popup>
+
+					<span v-if="!isMobile">
+						<span
+							v-if="(task.attachments?.length ?? 0) > 0"
+							class="project-task-icon"
+							role="img"
+							:aria-label="$t('task.attributes.attachment', (task.attachments?.length ?? 0))"
+						>
+							<Icon icon="paperclip" />
+						</span>
+						<span
+							v-if="!isEditorContentEmpty((task.description ?? ''))"
+							class="project-task-icon is-mirrored-rtl"
+						>
+							<Icon icon="align-left" />
+						</span>
+						<span
+							v-if="isRepeating"
+							class="project-task-icon"
+						>
+							<Icon icon="history" />
+						</span>
+						<CommentCount
+							:task="task"
+							class="project-task-icon"
+						/>
+					</span>
+
+					<ChecklistSummary
+						v-if="!isMobile"
+						:task="task"
+					/>
+				</div>
+
+				<ProgressBar
+					v-if="(task.percent_done ?? 0) > 0 && !isMobile"
+					:value="(task.percent_done ?? 0) * 100"
+					is-small
 				/>
-			</BaseButton>
-			<slot />
+
+				<ColorBubble
+					v-if="showProjectSeparately && projectColor !== '' && currentProject?.id !== task.project_id"
+					:color="projectColor"
+					class="mie-1"
+				/>
+
+				<RouterLink
+					v-if="showProjectSeparately && !isMobile"
+					v-tooltip="$t('task.detail.belongsToProject', {project: project.title})"
+					:to="{ name: 'project.index', params: { projectId: task.project_id } }"
+					class="task-project"
+					@click.stop
+				>
+					{{ project.title }}
+				</RouterLink>
+
+				<BaseButton
+					:class="{'is-favorite': task.is_favorite}"
+					class="favorite"
+					@click.stop="toggleFavorite"
+				>
+					<span class="is-sr-only">{{
+						task.is_favorite ? $t('task.detail.actions.unfavorite') : $t('task.detail.actions.favorite')
+					}}</span>
+					<Icon
+						v-if="task.is_favorite"
+						icon="star"
+					/>
+					<Icon
+						v-else
+						:icon="['far', 'star']"
+					/>
+				</BaseButton>
+				<slot />
+			</div>
 		</div>
 		<template v-if="typeof task.related_tasks?.subtask !== 'undefined'">
 			<template v-for="subtask in task.related_tasks.subtask">
@@ -225,10 +254,13 @@ import Popup from '@/components/misc/Popup.vue'
 
 
 import {formatDisplayDate, formatISO, formatDateLong} from '@/helpers/time/formatDate'
+import {dueDateState} from '@/helpers/time/dueDateState'
 import {success} from '@/message'
 
 import {useProjects} from '@/composables/useProjects'
 import {useCurrentProject} from '@/composables/useCurrentProject'
+import {useIsMobile} from '@/composables/useIsMobile'
+import {useSwipeActions} from '@/composables/useSwipeActions'
 import {useUpdateTaskMutation, useFavoriteTaskMutation} from '@/client/queries/taskMutations'
 import AssigneeList from '@/components/tasks/partials/AssigneeList.vue'
 import {useIntervalFn} from '@vueuse/core'
@@ -310,17 +342,18 @@ onMounted(updateDueDate)
 watch(() => task.value.due_date, updateDueDate)
 
 const {now} = useGlobalNow()
-const isOverdue = computed(() => (
-	!task.value.done &&
-	task.value.due_date !== null &&
-	new Date(task.value.due_date ?? 0).getTime() > 0 &&
-	new Date(task.value.due_date ?? 0).getTime() <= now.value.getTime()
-))
+const dueState = computed(() => dueDateState(task.value.due_date, task.value.done ?? false, now.value))
+
+const isCompleting = ref(false)
 
 let oldTask: ITask
 
 async function markAsDone(checked: boolean, wasReverted: boolean = false) {
 	if (!wasReverted) oldTask = {...task.value}
+
+	// Play the fade/slide-out before the row is actually removed from the list; reset on undo
+	// or un-checking so the row doesn't stay hidden if it's not removed after all.
+	isCompleting.value = checked && !wasReverted
 
 	// Fire the request immediately and with the intended done value snapshotted, so a re-render or
 	// teardown during the animation delay can neither drop the save nor make it send a stale state.
@@ -333,7 +366,10 @@ async function markAsDone(checked: boolean, wasReverted: boolean = false) {
 
 	const finish = async () => {
 		const newTask = await updatePromise
-		if (!newTask) return
+		if (!newTask) {
+			isCompleting.value = false // request failed and was rolled back: the row stays, so un-fade it
+			return
+		}
 
 		updateDueDate()
 
@@ -378,6 +414,32 @@ const dueDateTrigger = ref<InstanceType<typeof BaseButton> | null>(null)
 const dueDateTriggerEl = computed<HTMLElement | null>(() => dueDateTrigger.value?.$el ?? null)
 const taskLinkRef = ref<HTMLElement | null>(null)
 
+const isMobile = useIsMobile()
+const dueDateSheetOpen = ref(false)
+const hasDueDate = computed(() => +new Date(task.value.due_date ?? 0) > 0)
+const canSwipeDone = computed(() => !props.isArchived && !props.disabled && props.canMarkAsDone && !task.value.done)
+
+// Only bound on mobile: desktop keeps plain click/hover behaviour untouched.
+const swipeTarget = computed(() => isMobile.value ? taskRoot.value : null)
+
+// Swipe right marks the task done (reuses the checkbox's own markAsDone incl. fade + undo toast);
+// swipe left opens the same due-date sheet the "due" button opens. A gesture starting on an
+// interactive control or the drag handle is left alone entirely.
+const {offsetX: swipeOffsetX, isDragging: isSwipeDragging} = useSwipeActions(swipeTarget, {
+	canCommit: action => action === 'right' ? canSwipeDone.value : hasDueDate.value,
+	onCommit: action => {
+		if (action === 'right') {
+			markAsDone(true)
+		} else {
+			dueDateSheetOpen.value = true
+		}
+	},
+	// The drag handle runs its own pointer-based gesture (list reorder) — never contest it. Taps on
+	// links/buttons/the checkbox are unaffected: these listeners are passive (no preventDefault), so
+	// a tap that doesn't move far enough to commit still reaches the element's native click.
+	ignoreStart: event => !!(event.target instanceof HTMLElement && event.target.closest('.handle')),
+})
+
 function hasTextSelected() {
 	const isTextSelected = window.getSelection().toString()
 	return !(typeof isTextSelected === 'undefined' || isTextSelected === '' || isTextSelected === '\n')
@@ -402,11 +464,8 @@ defineExpose({
 
 <style lang="scss" scoped>
 .task {
-	display: flex;
-	flex-wrap: wrap;
-	padding: .4rem;
+	position: relative;
 	transition: background-color $transition;
-	align-items: center;
 	cursor: pointer;
 	border-radius: $radius;
 	border: 2px solid transparent;
@@ -431,6 +490,54 @@ defineExpose({
 				box-shadow: none;
 			}
 		}
+	}
+
+	.task-content {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-wrap: wrap;
+		padding: .4rem;
+		align-items: center;
+		transition: transform .25s ease;
+
+		@include mobile {
+			background-color: var(--white);
+		}
+	}
+
+	&.is-swiping .task-content {
+		transition: none;
+	}
+
+	.swipe-bg {
+		position: absolute;
+		inset-block: 0;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+		padding-inline: var(--space-3);
+		font-weight: bold;
+		color: var(--white);
+		white-space: nowrap;
+		transition: inline-size .25s ease;
+
+		&--done {
+			inset-inline-start: 0;
+			justify-content: flex-start;
+			background-color: var(--success);
+		}
+
+		&--reschedule {
+			inset-inline-end: 0;
+			justify-content: flex-end;
+			background-color: var(--primary);
+		}
+	}
+
+	&.is-swiping .swipe-bg {
+		transition: none;
 	}
 
 	.tasktext,
@@ -462,8 +569,20 @@ defineExpose({
 		}
 	}
 
-	&[data-is-overdue] .dueDate {
+	&[data-due-state="overdue"] .dueDate {
 		color: var(--danger-text);
+	}
+
+	&[data-due-state="today"] .dueDate {
+		color: var(--warning-text);
+	}
+
+	&[data-due-state="soon"] .dueDate {
+		color: var(--primary);
+	}
+
+	&[data-due-state="later"] .dueDate {
+		color: var(--text-muted);
 	}
 
 	.task-project {
@@ -507,6 +626,7 @@ defineExpose({
 	}
 
 	.favorite {
+		position: relative;
 		opacity: 1;
 		text-align: center;
 		inline-size: 27px;
@@ -520,6 +640,19 @@ defineExpose({
 		&.is-favorite {
 			opacity: 1;
 			color: var(--warning);
+		}
+
+		// Extend the hit target to >=44x44 without affecting layout (WCAG 2.5.5).
+		@include mobile {
+			&::before {
+				content: '';
+				position: absolute;
+				inset-block-start: 50%;
+				inset-inline-start: 50%;
+				min-block-size: 44px;
+				min-inline-size: 44px;
+				transform: translate(-50%, -50%);
+			}
 		}
 	}
 
@@ -540,7 +673,7 @@ defineExpose({
 	:deep(.fancy-checkbox) {
 		block-size: 18px;
 		padding-block-start: 0;
-		padding-inline-end: .5rem;
+		padding-inline-end: var(--space-2);
 
 		span {
 			display: none;
@@ -575,7 +708,7 @@ defineExpose({
 	}
 
 	.show-project .parent-tasks {
-		padding-inline-start: .25rem;
+		padding-inline-start: var(--space-1);
 	}
 
 	.remove {
@@ -600,6 +733,27 @@ defineExpose({
 		border-inline-start-color: var(--grey-300);
 		border-block-end-color: var(--grey-300);
 	}
+
+	// Matches the 300ms delay markAsDone() waits before the row is actually removed from the list.
+	&.is-completing {
+		transition: opacity .3s ease, transform .3s ease;
+		transform: translateX(8px);
+		opacity: 0;
+		pointer-events: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.task.is-completing {
+		transition: opacity .15s linear;
+		transform: none;
+	}
+
+	// The swipe gesture still tracks, commits and springs back — only the translate visual is off.
+	.task .task-content {
+		transition: none;
+		transform: none !important;
+	}
 }
 
 .subtask-nested {
@@ -613,7 +767,7 @@ defineExpose({
 	color: var(--text);
 
 	&.is-open {
-		padding: 1rem;
+		padding: var(--space-4);
 		border: 1px solid var(--grey-200);
 	}
 }

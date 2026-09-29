@@ -209,28 +209,28 @@ const groups = computed(() => [
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	gap: .5rem;
-	margin-block-end: 1.5rem;
+	gap: var(--space-2);
+	margin-block-end: var(--space-6);
 }
 
 .pomodoro-stats__totals {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
-	gap: 1rem;
+	gap: var(--space-4);
 	margin-block-end: 2rem;
 }
 
 .pomodoro-stats__total {
 	display: flex;
 	flex-direction: column;
-	gap: .25rem;
-	padding: 1rem;
+	gap: var(--space-1);
+	padding: var(--space-4);
 	border-radius: $radius;
 	background: var(--grey-100);
 }
 
 .pomodoro-stats__total-value {
-	font-size: 1.5rem;
+	font-size: var(--font-size-xl);
 	font-weight: 700;
 	font-variant-numeric: tabular-nums;
 }
@@ -245,8 +245,8 @@ const groups = computed(() => [
 }
 
 .pomodoro-stats__heading {
-	margin-block-end: .75rem;
-	font-size: 1rem;
+	margin-block-end: var(--space-3);
+	font-size: var(--font-size-md);
 	font-weight: 600;
 }
 
@@ -263,7 +263,7 @@ const groups = computed(() => [
 	display: grid;
 	grid-template-columns: 6rem 1fr 4.5rem;
 	align-items: center;
-	gap: .75rem;
+	gap: var(--space-3);
 	font-size: .8125rem;
 }
 
@@ -297,7 +297,7 @@ const groups = computed(() => [
 
 .pomodoro-stats__bar-count {
 	color: var(--white);
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 	font-weight: 600;
 }
 

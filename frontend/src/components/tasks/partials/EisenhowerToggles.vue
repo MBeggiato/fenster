@@ -78,7 +78,7 @@ function reset() {
 
 	.button {
 		inline-size: 100%;
-		margin-block-end: .5rem;
+		margin-block-end: var(--space-2);
 		justify-content: left;
 	}
 }
@@ -86,14 +86,14 @@ function reset() {
 .action-heading {
 	text-transform: uppercase;
 	color: var(--grey-700);
-	font-size: .75rem;
+	font-size: var(--font-size-xs);
 	font-weight: 700;
-	margin: .5rem 0;
+	margin: var(--space-2) 0;
 	display: inline-block;
 }
 
 .matrix-link {
-	margin-inline-start: .25rem;
+	margin-inline-start: var(--space-1);
 	color: var(--grey-500);
 }
 
@@ -102,13 +102,13 @@ function reset() {
 }
 
 .eisenhower-state {
-	margin-block: .25rem .75rem;
+	margin-block: var(--space-1) var(--space-3);
 	color: var(--grey-500);
 	font-size: .85rem;
 }
 
 .eisenhower-reset {
-	margin-inline-start: .5rem;
+	margin-inline-start: var(--space-2);
 	color: var(--primary);
 	text-decoration: underline;
 }

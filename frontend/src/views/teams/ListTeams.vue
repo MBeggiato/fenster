@@ -71,7 +71,7 @@ ul.teams {
     a {
       color: var(--text);
       display: block;
-      padding: 0.5rem 1rem;
+      padding: var(--space-2) var(--space-4);
       transition: background-color $transition;
 
       &:hover {

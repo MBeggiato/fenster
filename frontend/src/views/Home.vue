@@ -20,21 +20,14 @@
 			</RouterLink>
 		</Message>
 		<AddTask
-			class="is-max-width-desktop"
+			class="is-max-width-desktop home-add-task"
 			@tasksAdded="updateTaskKey"
 		/>
 		<ImportHint v-if="tasksLoaded" />
-		<div
-			v-if="authStore.settings.frontendSettings.showLastViewed !== false && projectHistory.length > 0"
+		<HomeDashboard
+			v-if="projectList.hasProjects"
 			class="is-max-width-desktop has-text-start mbs-4"
-		>
-			<h2>{{ $t('home.lastViewed') }}</h2>
-			<ProjectCardGrid
-				v-cy="'projectCardGrid'"
-				:projects="projectHistory"
-				:show-even-number-of-projects="true"
-			/>
-		</div>
+		/>
 		<ShowTasks
 			v-if="projectList.hasProjects"
 			:key="showTasksKey"
@@ -52,11 +45,10 @@ import {useRoute, useRouter} from 'vue-router'
 
 import Message from '@/components/misc/Message.vue'
 import ShowTasks from '@/views/tasks/ShowTasks.vue'
-import ProjectCardGrid from '@/components/project/partials/ProjectCardGrid.vue'
 import AddTask from '@/components/tasks/AddTask.vue'
 import ImportHint from '@/components/home/ImportHint.vue'
+import HomeDashboard from '@/components/home/dashboard/HomeDashboard.vue'
 
-import {getHistory} from '@/modules/projectHistory'
 import {parseDateOrNull} from '@/helpers/parseDateOrNull'
 import {formatDateSince, formatDisplayDate} from '@/helpers/time/formatDate'
 import {useDaytimeSalutation} from '@/composables/useDaytimeSalutation'
@@ -70,17 +62,6 @@ const authStore = useAuthStore()
 const projectList = useProjects()
 const route = useRoute()
 const router = useRouter()
-
-const projectHistory = computed(() => {
-	// If we don't check this, it tries to load the project background right after logging out	
-	if(!authStore.authenticated) {
-		return []
-	}
-	
-	return getHistory()
-		.map(l => projectList.projects[l.id])
-		.filter(l => Boolean(l))
-})
 
 const tasksLoaded = ref(false)
 
@@ -116,5 +97,12 @@ function handleClearLabelFilter() {
 <style scoped lang="scss">
 .show-tasks {
 	margin-block-start: 2rem;
+}
+
+// The tab bar's capture button replaces the inline add-task form on mobile.
+.home-add-task {
+	@include mobile {
+		display: none;
+	}
 }
 </style>

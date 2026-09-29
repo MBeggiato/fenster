@@ -37,6 +37,18 @@
     "project": {
       "importText": "Import your projects and tasks from other services into Vikunja:",
       "import": "Import your data into Vikunja"
+    },
+    "dashboard": {
+      "heading": "Overview",
+      "tiles": {
+        "overdue": "Overdue",
+        "dueToday": "Due today",
+        "dueWeek": "Due this week",
+        "doneWeek": "Done this week"
+      },
+      "focus": {
+        "sessionsToday": "No focus sessions today | {count} focus session today | {count} focus sessions today"
+      }
     }
   },
   "demo": {
@@ -1584,6 +1596,12 @@
     "reactedWithAndMany": "{users} and {num} more reacted reacted with {value}",
     "add": "Add your reaction"
   },
+  "emptyState": {
+    "noSearchResults": "No results found",
+    "noSearchResultsText": "Try a different search term.",
+    "emptyKanbanBucket": "This bucket is empty",
+    "emptyKanbanBucketText": "Drag a task here or add a new one below."
+  },
   "error": {
     "error": "Error",
     "success": "Success",
@@ -1914,6 +1932,60 @@
       "deleted": "Invite link deleted.",
       "empty": "No invite links yet. Create a link to invite people to this instance.",
       "futureExpiry": "Choose an expiry in the future."
+    }
+  },
+  "mobile": {
+    "header": {
+      "openMore": "More"
+    },
+    "tabBar": {
+      "label": "Main navigation",
+      "home": "Home",
+      "capture": "Capture",
+      "focusActive": "Focus session active"
+    },
+    "moreSheet": {
+      "title": "More"
+    },
+    "capture": {
+      "title": "New task",
+      "chips": {
+        "today": "Today",
+        "tomorrow": "Tomorrow",
+        "project": "Project",
+        "label": "Label",
+        "priority": "Priority"
+      }
+    },
+    "taskDetail": {
+      "actionBarLabel": "Task actions",
+      "more": "More",
+      "moreSheetTitle": "More actions"
+    },
+    "kanban": {
+      "pagerLabel": "Buckets",
+      "moveTaskLabel": "Move task",
+      "moveToTitle": "Move to…",
+      "dragHandle": "Drag to reorder"
+    },
+    "eisenhower": {
+      "back": "Back to quadrants",
+      "moveAction": "Move to quadrant",
+      "moveActionAria": "Move \"{task}\" to another quadrant",
+      "moveSheet": {
+        "title": "Move \"{task}\"",
+        "current": "Current"
+      }
+    },
+    "screens": {
+      "upcoming": {
+        "filters": "Filters",
+        "noDueDate": "No due date"
+      }
+    },
+    "swipe": {
+      "done": "Done",
+      "reschedule": "Reschedule"
     }
   }
 }

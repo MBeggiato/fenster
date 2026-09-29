@@ -93,7 +93,7 @@ const pages = computed(() => createPagination(props.totalPages, props.currentPag
 	font-size: $size-normal;
 	justify-content: center;
 	margin: -0.25rem;
-	padding-block-end: 1rem;
+	padding-block-end: var(--space-4);
 	text-align: center;
 }
 
@@ -124,7 +124,7 @@ const pages = computed(() => createPagination(props.totalPages, props.currentPag
 	block-size: 2.5em;
 	justify-content: center;
 	line-height: 1.5;
-	margin: 0.25rem;
+	margin: var(--space-1);
 	padding: calc(0.5em - 1px) 0.5em;
 	position: relative;
 	text-align: center;

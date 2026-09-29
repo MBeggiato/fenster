@@ -548,16 +548,16 @@ onMounted(load)
 <style lang="scss" scoped>
 .admin-users__toolbar {
 	display: flex;
-	gap: 0.5rem;
-	margin-block-end: 1rem;
+	gap: var(--space-2);
+	margin-block-end: var(--space-4);
 }
 
 .admin-users__meta {
 	display: grid;
 	grid-template-columns: auto 1fr;
-	column-gap: 1rem;
-	row-gap: 0.25rem;
-	margin-block-end: 1rem;
+	column-gap: var(--space-4);
+	row-gap: var(--space-1);
+	margin-block-end: var(--space-4);
 
 	dt {
 		font-weight: 600;
@@ -571,8 +571,8 @@ onMounted(load)
 
 .admin-users__password-actions {
 	display: flex;
-	gap: 0.5rem;
-	margin-block-end: 1rem;
+	gap: var(--space-2);
+	margin-block-end: var(--space-4);
 }
 
 .admin-users__issuer-url {

@@ -155,7 +155,7 @@ defineExpose({
 label.two-col {
 	display: flex;
 	align-items: center;
-	gap: .5rem;
+	gap: var(--space-2);
 }
 
 label.two-col > span,

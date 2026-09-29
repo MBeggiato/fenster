@@ -179,6 +179,6 @@ fieldset {
 .auth-method {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 1rem;
+	gap: var(--space-4);
 }
 </style>

@@ -165,7 +165,7 @@ onMounted(async () => {
 .admin-overview__grid {
 	display: grid;
 	grid-template-columns: 1fr;
-	gap: 1rem;
+	gap: var(--space-4);
 }
 
 @media screen and (min-width: $tablet) {
@@ -201,7 +201,7 @@ onMounted(async () => {
 	color: var(--grey-600);
 	text-transform: uppercase;
 	letter-spacing: 0.03em;
-	margin-block-end: 0.5rem;
+	margin-block-end: var(--space-2);
 }
 
 .admin-overview__card-value {
@@ -222,9 +222,9 @@ onMounted(async () => {
 .admin-overview__kv {
 	display: grid;
 	grid-template-columns: max-content 1fr;
-	column-gap: 1rem;
-	row-gap: 0.25rem;
-	margin-block-start: 1rem;
+	column-gap: var(--space-4);
+	row-gap: var(--space-1);
+	margin-block-start: var(--space-4);
 	font-size: 0.9rem;
 
 	dt {
@@ -239,11 +239,11 @@ onMounted(async () => {
 
 .admin-overview__hint {
 	color: var(--grey-600);
-	margin-inline-start: 0.25rem;
+	margin-inline-start: var(--space-1);
 }
 
 .admin-overview__card-action {
-	margin-block-start: 1rem;
+	margin-block-start: var(--space-4);
 }
 
 .admin-overview__shares-breakdown {
@@ -251,7 +251,7 @@ onMounted(async () => {
 	inset-block-end: 1.25rem;
 	inset-inline: 1.25rem;
 	margin: 0;
-	font-size: 0.75rem;
+	font-size: var(--font-size-xs);
 	color: var(--grey-500);
 	text-align: end;
 }

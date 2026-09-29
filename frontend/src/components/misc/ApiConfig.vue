@@ -127,7 +127,7 @@ async function setApiUrl() {
 
 <style lang="scss" scoped>
 .api-config {
-	margin-block-end: .75rem;
+	margin-block-end: var(--space-3);
 }
 
 .api-url-info {

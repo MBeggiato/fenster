@@ -10,14 +10,15 @@
 	<Modal
 		:enabled="modalOpen"
 		:overflow="true"
-		variant="hint-modal"
+		:variant="isMobile ? 'sheet' : 'hint-modal'"
+		:title="isMobile ? $t('filters.title') : ''"
 		:aria-label="$t('filters.title')"
 		@close="() => modalOpen = false"
 	>
 		<Filters
 			ref="filtersRef"
 			v-model="value"
-			:has-title="true"
+			:has-title="!isMobile"
 			class="filter-popup"
 			:change-immediately="false"
 			:filter-from-view="filterFromView"
@@ -36,6 +37,7 @@ import Filters from '@/components/project/partials/Filters.vue'
 import type {EditableTaskCollection} from '@/types/EditableTaskCollection'
 import {type TaskFilterParams} from '@/client/queries/tasks'
 import {useProjects} from '@/composables/useProjects'
+import {useIsMobile} from '@/composables/useIsMobile'
 
 const props = defineProps<{
 	modelValue: TaskFilterParams,
@@ -47,6 +49,7 @@ const emit = defineEmits<{
 	'update:modelValue': [value: TaskFilterParams]
 }>()
 
+const isMobile = useIsMobile()
 const projectList = useProjects()
 
 const value = ref<EditableTaskCollection>({
@@ -116,7 +119,7 @@ const filterFromView = computed(() => {
 	margin: 0;
 
 	&.is-open {
-		margin: 2rem 0 1rem;
+		margin: 2rem 0 var(--space-4);
 	}
 }
 
