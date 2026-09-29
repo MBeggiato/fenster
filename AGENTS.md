@@ -31,6 +31,7 @@ Invoke with the `Skill` tool before writing code in these areas:
 Only a Docker image is released, to `ghcr.io/mbeggiato/vikunja-next` (built from the root `Dockerfile`: frontend + API in one `scratch` image, `linux/amd64` + `linux/arm64`).
 
 - **Trigger:** `.github/workflows/ci.yml` runs `test.yml`, then `release.yml` on every push to `main` (a merged PR is a push) and on `v*` tags. PRs only run tests.
+- **Manual run:** Actions → Release → Run workflow (skips the tests; only visible once `release.yml` is on `main`).
 - **Gate:** `release` needs the whole `test` workflow (incl. `check-translations`, lint, unit, Playwright). A red test run means no image.
 - **Tags:** push to `main` → `:unstable`. Tag `vX.Y.Z` → `:X.Y.Z`, `:X.Y`, `:X` (no `:latest`).
 - **Auth:** the repo's `GITHUB_TOKEN` with job-level `packages: write`; no other secrets. The package must be linked to the repo (package settings → Manage Actions access).
