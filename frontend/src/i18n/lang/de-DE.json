@@ -397,7 +397,7 @@
 		},
 		"export": {
 			"title": "Exportiere deine Fenster-Daten",
-			"description": "Du kannst eine Kopie deiner Daten bei Fenster anfordern. Dazu gehören Projekte, Aufgaben und alles, was damit zusammenhängt. Du kannst diese Daten dann in jeder Fenster- oder Fenster-Instanz über die Migrationsfunktion importieren.",
+			"description": "Du kannst eine Kopie deiner Daten bei Fenster anfordern. Dazu gehören Projekte, Aufgaben und alles, was damit zusammenhängt. Du kannst diese Daten dann in jeder Fenster- oder Vikunja-Instanz über die Migrationsfunktion importieren.",
 			"descriptionPasswordRequired": "Bitte gib dein Passwort ein, um fortzufahren:",
 			"request": "Eine Kopie meiner Fenster Daten anfordern",
 			"success": "Du hast deine Daten bei Fenster erfolgreich angefordert! Wir schicken dir eine E-Mail, sobald sie zum Download bereitstehen.",
@@ -871,7 +871,7 @@
 		"searchPlaceholder": "Beginne zu schreiben, um zu suchen…",
 		"previous": "Vorherige",
 		"next": "Weiter",
-		"poweredBy": "Powered by Fenster (based on Fenster)",
+		"poweredBy": "Powered by Fenster (basiert auf Vikunja)",
 		"create": "Erstellen",
 		"doit": "Tu es!",
 		"saving": "Speichern…",
@@ -1721,8 +1721,8 @@
 		"proActive": "Pro aktiv",
 		"license": "Fenster ist freie Software und steht unter der AGPL-3.0-or-later.",
 		"source": "Quellcode",
-		"basedOn": "Basiert auf Fenster",
-		"notAffiliated": "Fenster ist ein unabhängiger Fork und steht in keiner Verbindung zum Fenster-Projekt und wird von diesem nicht unterstützt."
+		"basedOn": "Basiert auf Vikunja",
+		"notAffiliated": "Fenster ist ein unabhängiger Fork und steht in keiner Verbindung zum Vikunja-Projekt und wird von diesem nicht unterstützt."
 	},
 	"pomodoro": {
 		"title": "Fokus",
