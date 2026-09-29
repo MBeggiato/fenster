@@ -850,7 +850,6 @@
     "overview": "Overview",
     "upcoming": "Upcoming",
     "eisenhower": "Eisenhower matrix",
-    "pomodoro": "Focus",
     "settings": "Settings",
     "imprint": "Imprint",
     "privacy": "Privacy Policy",
@@ -1731,7 +1730,6 @@
     "stop": "Stop",
     "stopConfirm": "Stop the running focus session? It will be recorded as interrupted.",
     "openFocusPage": "Open the focus page",
-    "idle": "No focus session running",
     "phase": {
       "focus": "Focus",
       "short_break": "Short break",
@@ -1755,10 +1753,8 @@
       "working": "Working on",
       "none": "No task",
       "search": "Search for a task…",
-      "clear": "Work without a task",
       "estimate": "Estimate in focus sessions",
       "estimateShort": "{completed} of {estimate}",
-      "focusTime": "Focus time",
       "noneYet": "No focus sessions on this task yet."
     },
     "today": {
@@ -1775,7 +1771,6 @@
       "stats": "Stats"
     },
     "stats": {
-      "title": "Statistics",
       "range": {
         "thisWeek": "This week",
         "lastWeek": "Last week",
@@ -1792,8 +1787,7 @@
       "topProjects": "Top projects",
       "task": "Task",
       "project": "Project",
-      "estimate": "Estimate",
-      "day": "Day"
+      "estimate": "Estimate"
     },
     "settings": {
       "title": "Pomodoro",
