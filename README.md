@@ -1,9 +1,7 @@
 <img src="https://vikunja.io/images/vikunja-logo.svg" alt="" style="display: block;width: 50%;margin: 0 auto;" width="50%"/>
 
-[![Build Status](https://github.com/go-vikunja/vikunja/actions/workflows/ci.yml/badge.svg)](https://github.com/go-vikunja/vikunja/actions/workflows/ci.yml)
 [![License: AGPL-3.0-or-later](https://img.shields.io/badge/License-AGPL--3.0--or--later-blue.svg)](LICENSE)
 [![Install](https://img.shields.io/badge/download-v2.6.0-brightgreen.svg)](https://vikunja.io/docs/installing)
-[![Docker Pulls](https://img.shields.io/docker/pulls/vikunja/vikunja.svg)](https://hub.docker.com/r/vikunja/vikunja/)
 [![OpenAPI Docs](https://img.shields.io/badge/swagger-docs-brightgreen.svg)](https://try.vikunja.io/api/v2/docs)
 
 # Vikunja
@@ -57,9 +55,7 @@ Please check out the contribution guidelines on [the website](https://vikunja.io
 
 ## License
 
-Most of this repository is licensed under [AGPL‑3.0‑or‑later](LICENSE).
-The contents of [`desktop/`](desktop/) are licensed under
-[GPL‑3.0‑or‑later](desktop/LICENSE).
+This repository is licensed under [AGPL‑3.0‑or‑later](LICENSE).
 
 ### Unsplash Images
 

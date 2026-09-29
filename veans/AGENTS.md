@@ -39,10 +39,7 @@ this file is veans-specific.
   secret + `VIKUNJA_SERVICE_TESTINGTOKEN`, then `mage test:e2e` from
   `veans/` with `VEANS_E2E_API_URL` + `VEANS_E2E_TESTING_TOKEN`. No
   manual seeding step — the test harness handles it.
-- CI: the `test-veans-e2e` job in `.github/workflows/test.yml` consumes
-  the existing `vikunja_bin` artifact from `api-build`; don't recompile
-  the API in a parallel workflow. The `veans-test` job runs unit tests
-  with `-short` for fast feedback, independent of `api-build`.
+- CI: none. This repo has no test workflow; run `mage test` (unit) and `mage test:e2e` from `veans/` locally.
 
 ## Vikunja wire-format gotchas
 
