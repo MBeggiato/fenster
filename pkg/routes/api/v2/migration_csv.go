@@ -93,7 +93,7 @@ func RegisterMigrationCSVRoutes(api huma.API) {
 	Register(api, withUploadLimits(huma.Operation{
 		OperationID: "migration-csv-migrate",
 		Summary:     "Import a CSV file",
-		Description: "Imports the tasks from the uploaded CSV file into Vikunja using the given config. The import runs in the background: the response only confirms it started. Poll the status endpoint for completion; the user is notified by mail when it finishes or fails.",
+		Description: "Imports the tasks from the uploaded CSV file into Fenster using the given config. The import runs in the background: the response only confirms it started. Poll the status endpoint for completion; the user is notified by mail when it finishes or fails.",
 		Method:      http.MethodPost,
 		Path:        "/migration/csv/migrate",
 		// POST runs an import rather than creating a REST resource, so it

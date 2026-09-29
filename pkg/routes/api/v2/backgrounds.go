@@ -124,7 +124,7 @@ func RegisterBackgroundRoutes(api huma.API) {
 		Register(api, huma.Operation{
 			OperationID: "backgrounds-unsplash-image",
 			Summary:     "Proxy a full-resolution Unsplash image",
-			Description: "Proxies the full-resolution Unsplash image for the given image id through Vikunja, so the client never contacts Unsplash directly (privacy). Vikunja fires the required Unsplash pingback as a side effect. Returns 404 if the image does not exist.",
+			Description: "Proxies the full-resolution Unsplash image for the given image id through Fenster, so the client never contacts Unsplash directly (privacy). Fenster fires the required Unsplash pingback as a side effect. Returns 404 if the image does not exist.",
 			Method:      http.MethodGet,
 			Path:        "/backgrounds/unsplash/images/{image}",
 			Tags:        tags,
@@ -135,7 +135,7 @@ func RegisterBackgroundRoutes(api huma.API) {
 		Register(api, huma.Operation{
 			OperationID: "backgrounds-unsplash-thumb",
 			Summary:     "Proxy an Unsplash image thumbnail",
-			Description: "Proxies a thumbnail (max width 200px) of the Unsplash image for the given image id through Vikunja, so the client never contacts Unsplash directly (privacy). Vikunja fires the required Unsplash pingback as a side effect. Returns 404 if the image does not exist.",
+			Description: "Proxies a thumbnail (max width 200px) of the Unsplash image for the given image id through Fenster, so the client never contacts Unsplash directly (privacy). Fenster fires the required Unsplash pingback as a side effect. Returns 404 if the image does not exist.",
 			Method:      http.MethodGet,
 			Path:        "/backgrounds/unsplash/images/{image}/thumb",
 			Tags:        tags,

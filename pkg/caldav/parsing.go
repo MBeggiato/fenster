@@ -239,7 +239,7 @@ func GetCaldavTodosForTasks(project *models.ProjectWithTasksAndBuckets, projectT
 
 	caldavConfig := &Config{
 		Name:   project.Title,
-		ProdID: "Vikunja Todo App",
+		ProdID: "Fenster Todo App",
 	}
 
 	return ParseTodos(caldavConfig, caldavtodos)

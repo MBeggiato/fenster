@@ -45,7 +45,7 @@ import (
 	"xorm.io/builder"
 )
 
-const logPrefix = "[Vikunja File Import] "
+const logPrefix = "[Fenster File Import] "
 
 // minZipEntryCap ensures data.json / filters.json / VERSION entries can
 // still be read when files.maxsize is tiny.
@@ -109,7 +109,7 @@ type ErrVikunjaFileImportTooLarge struct {
 }
 
 func (err *ErrVikunjaFileImportTooLarge) Error() string {
-	return "The Vikunja export is too large: " + err.Reason
+	return "The Fenster export is too large: " + err.Reason
 }
 
 // ErrCodeVikunjaFileImportTooLarge holds the unique world-error code of this error
@@ -120,7 +120,7 @@ func (err *ErrVikunjaFileImportTooLarge) HTTPError() web.HTTPError {
 	return web.HTTPError{
 		HTTPCode: http.StatusBadRequest,
 		Code:     ErrCodeVikunjaFileImportTooLarge,
-		Message:  "The Vikunja export is too large: " + err.Reason,
+		Message:  "The Fenster export is too large: " + err.Reason,
 	}
 }
 

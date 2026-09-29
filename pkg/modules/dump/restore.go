@@ -226,7 +226,7 @@ func Restore(filename string, overrideConfig bool) error {
 	// Done
 	log.Infof("Done restoring dump.")
 	if overrideConfig {
-		log.Infof("Restart Vikunja to make sure the new configuration file is applied.")
+		log.Infof("Restart Fenster to make sure the new configuration file is applied.")
 	}
 
 	return nil
@@ -498,7 +498,7 @@ func restoreConfig(configFile, dotEnvFile *zip.File, stdin *bufio.Reader) error 
 	}
 
 	log.Warning("No config file found, not restoring one.")
-	log.Warning("You'll likely have had Vikunja configured through environment variables.")
+	log.Warning("You'll likely have had Fenster configured through environment variables.")
 
 	if dotEnvFile != nil {
 		dotenv, err := dotEnvFile.Open()
@@ -550,7 +550,7 @@ func checkVikunjaVersion(versionFile *zip.File) error {
 		}
 
 		if !dumpedVersion.Equal(currentVersion) {
-			return fmt.Errorf("export was created with version %s but this is %s - please make sure you are running the same Vikunja version before restoring", dumpedVersion, currentVersion)
+			return fmt.Errorf("export was created with version %s but this is %s - please make sure you are running the same Fenster version before restoring", dumpedVersion, currentVersion)
 		}
 	}
 

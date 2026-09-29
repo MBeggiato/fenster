@@ -141,7 +141,7 @@ func RegisterUserSettingsRoutes(api huma.API) {
 	Register(api, huma.Operation{
 		OperationID: "user-timezones",
 		Summary:     "List available time zones",
-		Description: "Returns every time zone this Vikunja instance can handle. The list depends on the host system and is unsorted; sort it client-side.",
+		Description: "Returns every time zone this Fenster instance can handle. The list depends on the host system and is unsorted; sort it client-side.",
 		Method:      http.MethodGet,
 		Path:        "/user/timezones",
 		Tags:        tags,

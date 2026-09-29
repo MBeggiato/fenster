@@ -130,7 +130,7 @@ func TestCheckParadeDB_SystemCatalogs(t *testing.T) {
 				assert.Empty(t, results[1].Error)
 			} else {
 				assert.True(t, strings.HasPrefix(results[1].Error, "missing: idx_"), results[1].Error)
-				assert.Contains(t, results[1].Error, "(restart Vikunja to create them)")
+				assert.Contains(t, results[1].Error, "(restart Fenster to create them)")
 			}
 		})
 	}

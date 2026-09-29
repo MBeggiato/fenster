@@ -48,7 +48,7 @@ func checkPostgresSchemaMismatch(x *xorm.Engine) error {
 		JOIN pg_tables m ON m.schemaname = u.schemaname AND m.tablename = 'migration'
 		WHERE u.tablename = 'users'`)
 	if err != nil {
-		return fmt.Errorf("could not check for existing Vikunja tables: %w", err)
+		return fmt.Errorf("could not check for existing Fenster tables: %w", err)
 	}
 	dataSchemas := make([]string, 0, len(results))
 	for _, row := range results {
@@ -77,14 +77,14 @@ func validateSchemaPlacement(configuredSchema, currentSchema string, dataSchemas
 
 	if len(dataSchemas) == 0 || found {
 		if found && len(others) > 0 {
-			log.Warningf("Found Vikunja tables in schema(s) %s in addition to the active schema %q. Vikunja will ignore them, but you may want to clean them up.", strings.Join(others, ", "), currentSchema)
+			log.Warningf("Found Fenster tables in schema(s) %s in addition to the active schema %q. Fenster will ignore them, but you may want to clean them up.", strings.Join(others, ", "), currentSchema)
 		}
 		return nil
 	}
 
 	if currentSchema == "" {
-		return fmt.Errorf("the configured database schema does not exist, but existing Vikunja tables were found in schema(s) %s. Set database.schema (VIKUNJA_DATABASE_SCHEMA) to the schema containing your data", strings.Join(others, ", "))
+		return fmt.Errorf("the configured database schema does not exist, but existing Fenster tables were found in schema(s) %s. Set database.schema (VIKUNJA_DATABASE_SCHEMA) to the schema containing your data", strings.Join(others, ", "))
 	}
 
-	return fmt.Errorf("existing Vikunja tables were found in schema(s) %s, but Vikunja is configured to use schema %q. Running migrations now would create a second, empty set of tables. Set database.schema (VIKUNJA_DATABASE_SCHEMA) to the schema containing your data", strings.Join(others, ", "), currentSchema)
+	return fmt.Errorf("existing Fenster tables were found in schema(s) %s, but Fenster is configured to use schema %q. Running migrations now would create a second, empty set of tables. Set database.schema (VIKUNJA_DATABASE_SCHEMA) to the schema containing your data", strings.Join(others, ", "), currentSchema)
 }

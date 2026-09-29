@@ -99,7 +99,7 @@ func setupMailerConfig(t *testing.T, host string, port int) {
 	config.MailerEnabled.Set(true)
 	config.MailerHost.Set(host)
 	config.MailerPort.Set(port)
-	config.MailerFromEmail.Set("mail@vikunja")
+	config.MailerFromEmail.Set("mail@fenster")
 	config.MailerQueueTimeout.Set(2)
 
 	wasUnderTest := isUnderTest

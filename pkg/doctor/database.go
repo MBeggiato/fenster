@@ -232,7 +232,7 @@ func checkParadeDB() []CheckResult {
 		return append(results, CheckResult{
 			Name:   "ParadeDB indexes",
 			Passed: false,
-			Error:  fmt.Sprintf("missing: %s (restart Vikunja to create them)", strings.Join(missing, ", ")),
+			Error:  fmt.Sprintf("missing: %s (restart Fenster to create them)", strings.Join(missing, ", ")),
 		})
 	}
 

@@ -31,7 +31,7 @@ import (
 
 // AttachmentUploadError is a per-file upload failure.
 type AttachmentUploadError struct {
-	Code    int    `json:"code,omitempty" doc:"Vikunja numeric error code, when the failure carries one."`
+	Code    int    `json:"code,omitempty" doc:"Fenster numeric error code, when the failure carries one."`
 	Message string `json:"message" doc:"A human-readable description of why this file failed."`
 }
 

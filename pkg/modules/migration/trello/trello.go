@@ -100,7 +100,7 @@ func (m *Migration) AuthURL() string {
 		"&scope=read" +
 		"&callback_method=fragment" +
 		"&response_type=token" +
-		"&name=Vikunja%20Migration" +
+		"&name=Fenster%20Migration" +
 		"&key=" + config.MigrationTrelloKey.GetString() +
 		"&return_url=" + config.MigrationTrelloRedirectURL.GetString()
 }
