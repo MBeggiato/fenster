@@ -28,15 +28,14 @@ Invoke with the `Skill` tool before writing code in these areas:
 
 ## Releases
 
-Only a Docker image is released, to `ghcr.io/mbeggiato/vikunja-next` (built from the root `Dockerfile`: frontend + API in one `scratch` image, `linux/amd64` + `linux/arm64`).
+Only a Docker image is released, to `ghcr.io/mbeggiato/vikunja-next` (built from the root `Dockerfile`: frontend + API in one `scratch` image). There are exactly two workflows in `.github/workflows/`:
 
-- **Trigger:** `.github/workflows/ci.yml` runs `test.yml`, then `release.yml` on every push to `main` (a merged PR is a push) and on `v*` tags. PRs only run tests.
-- **Manual run:** Actions → Release → Run workflow (skips the tests; only visible once `release.yml` is on `main`).
-- **Gate:** `release` needs the whole `test` workflow (incl. `check-translations`, lint, unit, Playwright). A red test run means no image.
-- **Tags:** push to `main` → `:unstable`. Tag `vX.Y.Z` → `:X.Y.Z`, `:X.Y`, `:X` (no `:latest`).
-- **Auth:** the repo's `GITHUB_TOKEN` with job-level `packages: write`; no other secrets. The package must be linked to the repo (package settings → Manage Actions access).
-- **Not released:** desktop app, binaries, OS packages, config sample upload, swagger/yaegi regen (removed from `release.yml` on purpose; they need secrets this repo does not have).
-- **Manual build:** `docker build -t ghcr.io/mbeggiato/vikunja-next:dev .` then `docker push` (login: `gh auth token | docker login ghcr.io -u MBeggiato --password-stdin`; needs a token with `write:packages`).
+- **`release.yml`:** runs on every push to `main` (a merged PR is a push). Builds `linux/amd64` + `linux/arm64` and pushes `:latest` and `:<8-char sha>`. No tests run first.
+- **`preview.yml`:** manual only (Actions → Preview image → Run workflow, choose the branch in "Use workflow from"; the branch must contain the file). Builds `linux/amd64` and pushes `:preview-<branch>` (slashes become `-`).
+- **Auth:** the repo's `GITHUB_TOKEN` with job-level `packages: write`; no other secrets. The package must be linked to the repo (package settings → Manage Actions access) and Actions must be enabled.
+- **No versions/tags:** there are no git tags, so the version baked into the binary is the short commit SHA.
+- **No CI tests:** PRs run no checks. Run lint, unit tests and the e2e suite locally before merging.
+- **Manual local build:** `docker build -t ghcr.io/mbeggiato/vikunja-next:dev .` then `docker push` (login: `gh auth token | docker login ghcr.io -u MBeggiato --password-stdin`; needs a token with `write:packages`).
 
 ## Details
 
