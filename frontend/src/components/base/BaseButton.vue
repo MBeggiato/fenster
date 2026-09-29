@@ -2,7 +2,6 @@
 <!-- we have a router link -->
 <!-- just a normal link -->
 <!-- a button it shall be -->
-<!-- note that we only pass the click listener here -->
 <template>
 	<div
 		v-if="disabled === true && (to !== undefined || href !== undefined)"
@@ -19,6 +18,7 @@
 		class="base-button"
 		:aria-disabled="ariaDisabled || undefined"
 		@click.capture="swallowWhenAriaDisabled"
+		@click="onClick"
 		@keydown.enter="swallowWhenAriaDisabled"
 	>
 		<slot />
@@ -31,7 +31,7 @@
 		rel="noreferrer noopener nofollow"
 		:target="openExternalInNewTab ? '_blank' : undefined"
 		:aria-disabled="ariaDisabled || undefined"
-		@click="swallowWhenAriaDisabled"
+		@click="onClick"
 	>
 		<slot />
 	</a>
