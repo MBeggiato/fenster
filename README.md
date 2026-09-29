@@ -1,62 +1,54 @@
-<img src="https://vikunja.io/images/vikunja-logo.svg" alt="" style="display: block;width: 50%;margin: 0 auto;" width="50%"/>
+<!-- Logo: to be added once the Fenster logo exists. -->
 
 [![License: AGPL-3.0-or-later](https://img.shields.io/badge/License-AGPL--3.0--or--later-blue.svg)](LICENSE)
-[![Install](https://img.shields.io/badge/download-v2.6.0-brightgreen.svg)](https://vikunja.io/docs/installing)
-[![OpenAPI Docs](https://img.shields.io/badge/swagger-docs-brightgreen.svg)](https://try.vikunja.io/api/v2/docs)
 
-# Vikunja
+# Fenster
 
-> The task manager you actually own. 
+> A self-hosted to-do app with a liquid-glass interface.
 
-If Vikunja is useful to you, please consider [supporting the project](https://vikunja.io/support/). You can [buy a coffee](https://www.buymeacoffee.com/kolaente), [sponsor on GitHub](https://github.com/sponsors/kolaente) or buy [a sticker pack](https://vikunja.io/stickers).
-We're also offering [a hosted version of Vikunja](https://vikunja.cloud/) if you want a hassle-free solution for yourself or your team.
-If you or your company needs admin panel, audit logs or time tracking, check out [Vikunja Pro](https://vikunja.io/pro/).
+## Based on Vikunja
 
-> [!NOTE]
-> For the development of Vikunja, we're using LLM-Assisted coding tools in various parts of the codebase.
-> Most contributions made @tink-bot are built that way.
+Fenster is a soft fork of [Vikunja](https://github.com/go-vikunja/vikunja) ([vikunja.io](https://vikunja.io)).
+Thanks to the upstream maintainers and all Vikunja contributors, whose work this project builds on.
+Fenster is independent and not affiliated with or endorsed by the Vikunja project. See [NOTICE](NOTICE).
 
-## Table of contents
+## Get the source and build
 
-- [Security Reports](#security-reports)
-- [Features](#features)
-- [Docs](#docs)
-	- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [License](#license)
-	- [Unsplash Images](#unsplash-images)
+Source: https://github.com/MBeggiato/fenster
 
-## Security Reports
+```bash
+git clone https://github.com/MBeggiato/fenster.git
+cd fenster
+docker build -t fenster .
+```
 
-If you find any security-related issues you don't want to disclose publicly, please use [the contact information on our website](https://vikunja.io/contact/#security).
+A prebuilt image is published at `ghcr.io/mbeggiato/fenster`.
 
-## Features
+For build and development commands see [CONTRIBUTING.md](CONTRIBUTING.md).
+Upstream documentation (may differ from Fenster in places): [vikunja.io/docs](https://vikunja.io/docs/).
 
-See [the features page](https://vikunja.io/features/) on our website for a more exhaustive list or 
-try it on [try.vikunja.io](https://try.vikunja.io)!
+## Merging upstream fixes
 
-## Docs
+```bash
+git remote add upstream https://github.com/go-vikunja/vikunja.git
+git fetch upstream
+git merge upstream/main
+```
 
-* [Installing](https://vikunja.io/docs/installing/)
-* [Build from source](https://vikunja.io/docs/build-from-sources/)
-* [Development setup](https://vikunja.io/docs/development/)
-* [Magefile](https://vikunja.io/docs/magefile/)
-* [Testing](https://vikunja.io/docs/testing/)
+## Security reports
 
-All docs can be found on [the Vikunja home page](https://vikunja.io/docs/).
-
-### Roadmap
-
-See [the roadmap](https://my.vikunja.cloud/share/QFyzYEmEYfSyQfTOmIRSwLUpkFjboaBqQCnaPmWd/auth) (hosted on Vikunja!) for more!
+Please report security issues privately through the
+[GitHub security advisories](https://github.com/MBeggiato/fenster/security/advisories/new) of this repository.
 
 ## Contributing
 
-Please check out the contribution guidelines on [the website](https://vikunja.io/docs/development/).
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-This repository is licensed under [AGPL‑3.0‑or‑later](LICENSE).
+Licensed under [AGPL-3.0-or-later](LICENSE). Original work Copyright 2018-present Vikunja and contributors;
+modifications Copyright 2026 Marcel Beggiato. See [NOTICE](NOTICE).
 
 ### Unsplash Images
 
-Background images from Unsplash are distributed under the [Unsplash License](https://unsplash.com/license). The license requires giving credit to the photographer and Unsplash. See [Unsplash’s terms](https://unsplash.com/terms) for more information.
+Background images from Unsplash are distributed under the [Unsplash License](https://unsplash.com/license). The license requires giving credit to the photographer and Unsplash. See [Unsplash’s terms](https://unsplash.com/terms). Other third-party notices are in [NOTICE](NOTICE).

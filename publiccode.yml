@@ -1,11 +1,10 @@
 publiccode-yml-version: '0.2'
-name: 'Vikunja'
-url: 'https://code.vikunja.io/vikunja'
-landingURL: 'https://vikunja.io'
-isBasedOn: 'https://go.dev/'
+name: 'Fenster'
+url: 'https://github.com/MBeggiato/fenster'
+landingURL: 'https://github.com/MBeggiato/fenster'
+isBasedOn: 'https://github.com/go-vikunja/vikunja'
 softwareVersion: 'v2.6.0'
 releaseDate: '2026-08-31'
-logo: 'https://vikunja.io/images/vikunja-logo.svg'
 platforms:
   - 'web'
   - 'linux'
@@ -21,37 +20,31 @@ categories:
   - 'project-management'
   - 'task-management'
   - 'workflow-management'
-usedBy:
-  - 'City of Treuchtlingen'
-roadmap: 'https://my.vikunja.cloud/projects/16/list#share-auth-token=QFyzYEmEYfSyQfTOmIRSwLUpkFjboaBqQCnaPmWd'
 developmentStatus: 'stable'
 softwareType: 'standalone/web'
 intendedAudience:
   scope:
     - 'Providers of standard based workflow management services who wish or are required to use Open Source solutions'
 description:
-  en: ' The open-source, self-hostable to-do app. Organize everything, on all platforms.'
-documentation: 'https://vikunja.io/docs/'
-apiDocumentation: 'https://vikunja.io/docs/api-documentation/'
+  en: 'A self-hosted to-do app with a liquid-glass interface, forked from Vikunja.'
+documentation: 'https://github.com/MBeggiato/fenster#readme'
+apiDocumentation: 'https://vikunja.io/docs/api-documentation/'  # upstream documentation
 features:
   - 'workflow management'
   - 'CalDAV provider'
   - 'kanban tool'
   - 'gantt display tool'
   - 'ticket system'
-screenshots:
-  - 'https://vikunja.io/images/vikunja/09-task-detail-dark.webp'
 videos:
   - 'none'
 legal:
   license: 'GNU AFFERO GENERAL PUBLIC LICENSE Version 3'
-  mainCopyrightOwner: 'Konrad Langenberg Software'
-  repoOwner: 'Konrad Langenberg Software'
-  authorsFile: 'hello@vikunja.io'
+  mainCopyrightOwner: 'Marcel Beggiato'
+  repoOwner: 'Marcel Beggiato'
 maintenance:
-  type: 'https://vikunja.cloud/'
-  contractors:
-    - name: 'Vikunja Cloud '
+  type: 'internal'
+  contacts:
+    - name: 'Marcel Beggiato'
 localisation:
   localisationReady: 'true'
   availableLanguages:

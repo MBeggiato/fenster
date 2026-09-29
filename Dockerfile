@@ -39,12 +39,13 @@ RUN mkdir -p /tmp && chmod 1777 /tmp
 # The actual image
 FROM scratch
 
-LABEL org.opencontainers.image.authors='maintainers@vikunja.io'
-LABEL org.opencontainers.image.url='https://vikunja.io'
-LABEL org.opencontainers.image.documentation='https://vikunja.io/docs'
-LABEL org.opencontainers.image.source='https://code.vikunja.io/vikunja'
-LABEL org.opencontainers.image.licenses='AGPLv3'
-LABEL org.opencontainers.image.title='Vikunja'
+LABEL org.opencontainers.image.authors='Marcel Beggiato'
+LABEL org.opencontainers.image.url='https://github.com/MBeggiato/fenster'
+LABEL org.opencontainers.image.documentation='https://github.com/MBeggiato/fenster#readme'
+LABEL org.opencontainers.image.source='https://github.com/MBeggiato/fenster'
+LABEL org.opencontainers.image.licenses='AGPL-3.0-or-later'
+LABEL org.opencontainers.image.title='Fenster'
+LABEL org.opencontainers.image.description='Fenster, a fork of Vikunja (https://github.com/go-vikunja/vikunja)'
 
 WORKDIR /app/vikunja
 ENTRYPOINT [ "/app/vikunja/vikunja" ]

@@ -1,0 +1,63 @@
+Fenster
+=======
+
+Fenster is a modified version of Vikunja.
+
+  Fenster:  https://github.com/MBeggiato/fenster
+  Upstream: https://github.com/go-vikunja/vikunja (https://vikunja.io)
+
+Copyright
+---------
+
+Original work: Copyright 2018-present Vikunja and contributors.
+Modifications: Modifications Copyright 2026 Marcel Beggiato.
+
+License
+-------
+
+Fenster is free software, licensed under the GNU Affero General Public
+License, version 3 or (at your option) any later version (AGPL-3.0-or-later).
+See the LICENSE file, or https://www.gnu.org/licenses/agpl-3.0.html.
+
+Modifications (AGPL section 5(a))
+---------------------------------
+
+Changes relative to upstream Vikunja, made since 2026-09-25:
+
+  - Liquid-glass user interface
+  - Mobile app shell
+  - Frontend polish
+  - Rebrand to Fenster
+  - CI and Docker release setup
+
+The full history of changes is available in the git log of the repository.
+
+Non-affiliation
+---------------
+
+Fenster is an independent fork. It is not affiliated with or endorsed by the
+Vikunja project or its trademark holders. The Vikunja name and logo belong to
+their respective owners.
+
+Third-party notices
+-------------------
+
+Unsplash images: Background images from Unsplash are distributed under the
+Unsplash License (https://unsplash.com/license). The license requires giving
+credit to the photographer and Unsplash. See https://unsplash.com/terms.
+
+Migration service logos (frontend/originalMedia/images/migration/): the logos
+of Microsoft To Do, Todoist, Trello and Wunderlist are trademarks of their
+respective owners (Microsoft Corporation, Doist Ltd., Atlassian Pty Ltd.). They
+are used only to show that tasks can be imported from these services and imply
+no endorsement. Use them only as allowed by the owners' brand policies. See
+frontend/originalMedia/images/migration/README.md for details.
+
+To verify
+---------
+
+Bundled fonts in frontend/src/assets/fonts: Open Sans and Quicksand. The
+download script (frontend/scripts/fonts-download.sh) fetches them from
+https://github.com/googlefonts/opensans and
+https://github.com/andrew-paglinawan/QuicksandFamily, but no license file ships
+in this repository. The license of each font has not been verified yet.
