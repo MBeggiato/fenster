@@ -1661,7 +1661,7 @@ h2 .button {
 	.textarea,
 	.select:not(.has-defaults) select {
 		cursor: pointer;
-		transition: all $transition-duration;
+		transition: background-color $transition-duration, border-color $transition-duration, box-shadow $transition-duration;
 
 		&::placeholder {
 			color: var(--text-light);
@@ -1792,7 +1792,7 @@ h2 .button {
 	border: 1px solid var(--grey-300);
 	color: var(--grey-500);
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-	transition: all $transition;
+	transition: background-color $transition, color $transition;
 
 	&:hover {
 		background-color: var(--grey-100);

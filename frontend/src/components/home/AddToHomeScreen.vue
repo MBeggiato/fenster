@@ -75,8 +75,12 @@ const shouldShowMessage = computed(() => {
 		display: none;
 	}
 	
+	@include mobile {
+		inset-block-end: calc(var(--mobile-tabbar-height) + env(safe-area-inset-bottom) + var(--space-4));
+	}
+
 	&.has-update-available {
-		inset-block-end: 5rem;
+		inset-block-end: calc(var(--mobile-tabbar-height) + env(safe-area-inset-bottom) + 5rem);
 	}
 }
 

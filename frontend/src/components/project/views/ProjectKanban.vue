@@ -1085,7 +1085,8 @@ $bucket-pager-height: 3rem;
 	}
 
 	@media screen and (max-width: $tablet) {
-		block-size: calc(#{$crazy-height-calculation} - #{$filter-container-height} + 9px - #{$bucket-pager-height});
+		// 11rem: project heading, view switcher, filter row and their margins above the board
+		block-size: calc(100dvh - var(--mobile-header-height) - env(safe-area-inset-top) - var(--mobile-tabbar-height) - env(safe-area-inset-bottom) - #{$bucket-pager-height} - 11rem);
 		scroll-snap-type: x mandatory;
 		margin: 0 -0.5rem;
 	}

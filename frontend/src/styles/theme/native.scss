@@ -1,0 +1,17 @@
+html {
+	-webkit-tap-highlight-color: transparent;
+	touch-action: manipulation;
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+	overscroll-behavior-y: none;
+}
+
+// iOS zooms the page when focusing a field below 16px
+@media screen and (max-width: 768px) {
+	input:not([type='checkbox'], [type='radio'], [type='range'], [type='color'], [type='file']),
+	textarea,
+	select,
+	[contenteditable='true'] {
+		font-size: max(16px, 1em);
+	}
+}

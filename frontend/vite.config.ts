@@ -173,7 +173,9 @@ function getBuildConfig(env: Record<string, string>) {
 				manifest: {
 					name: 'Fenster',
 					short_name: 'Fenster',
-					theme_color: '#1973ff',
+					id: '/',
+					scope: '/',
+					theme_color: '#f3f4f6',
 					icons: [
 						{
 							src: './images/icons/android-chrome-192x192.png',
@@ -194,7 +196,7 @@ function getBuildConfig(env: Record<string, string>) {
 					],
 					start_url: '.',
 					display: 'standalone',
-					background_color: '#000000',
+					background_color: '#f3f4f6',
 					shortcuts: [
 						{
 							name: 'New task',
@@ -205,9 +207,8 @@ function getBuildConfig(env: Record<string, string>) {
 							url: '/',
 						},
 						{
-							name: 'Namespaces And Projects Overview',
-							short_name: 'Namespaces & Projects',
-							url: '/namespaces',
+							name: 'Projects',
+							url: '/projects',
 						},
 						{
 							name: 'Tasks Next Week',
