@@ -92,12 +92,15 @@ const isPomodoroActive = computed(() => isActive.value)
 	display: flex;
 	align-items: stretch;
 	justify-content: space-around;
-	min-block-size: var(--mobile-tabbar-height);
+	block-size: calc(var(--mobile-tabbar-height) + env(safe-area-inset-bottom));
 	padding-block-end: env(safe-area-inset-bottom);
 
-	background: var(--glass-chrome-bg);
-	backdrop-filter: var(--glass-filter);
+	background: var(--chrome-bg-mobile);
+	backdrop-filter: none;
 	box-shadow: var(--glass-specular);
+
+	user-select: none;
+	-webkit-touch-callout: none;
 }
 
 .mobile-tab-bar__item {
@@ -111,9 +114,19 @@ const isPomodoroActive = computed(() => isActive.value)
 	gap: var(--space-1);
 	font-size: var(--font-size-xs);
 	color: var(--grey-400);
+	transition: transform 120ms, opacity 120ms;
 
 	&.is-active {
 		color: var(--primary);
+	}
+
+	&:active {
+		opacity: .6;
+		transform: scale(.96);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		transition: none;
 	}
 }
 
@@ -133,7 +146,7 @@ const isPomodoroActive = computed(() => isActive.value)
 	block-size: 8px;
 	border-radius: 100%;
 	background: var(--success);
-	box-shadow: 0 0 0 2px var(--glass-chrome-bg);
+	box-shadow: 0 0 0 2px var(--chrome-bg-mobile);
 }
 
 .mobile-tab-bar__capture {
@@ -151,5 +164,15 @@ const isPomodoroActive = computed(() => isActive.value)
 	color: var(--white);
 	background: var(--primary);
 	box-shadow: var(--glass-specular), var(--shadow-md);
+	transition: transform 120ms, opacity 120ms;
+
+	&:active {
+		opacity: .6;
+		transform: scale(.96);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		transition: none;
+	}
 }
 </style>

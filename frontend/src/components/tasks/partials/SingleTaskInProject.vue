@@ -13,7 +13,7 @@
 			@keyup.enter="openTaskDetail"
 		>
 			<div
-				v-if="isMobile"
+				v-if="isMobile && showSwipeBg"
 				class="swipe-bg swipe-bg--done"
 				aria-hidden="true"
 				:style="{inlineSize: `${Math.max(swipeOffsetX, 0)}px`}"
@@ -22,7 +22,7 @@
 				<span>{{ $t('mobile.swipe.done') }}</span>
 			</div>
 			<div
-				v-if="isMobile"
+				v-if="isMobile && showSwipeBg"
 				class="swipe-bg swipe-bg--reschedule"
 				aria-hidden="true"
 				:style="{inlineSize: `${Math.max(-swipeOffsetX, 0)}px`}"
@@ -440,6 +440,9 @@ const {offsetX: swipeOffsetX, isDragging: isSwipeDragging} = useSwipeActions(swi
 	ignoreStart: event => !!(event.target instanceof HTMLElement && event.target.closest('.handle')),
 })
 
+// Idle rows skip the background layers; the spring-back keeps them until the offset is 0.
+const showSwipeBg = computed(() => isSwipeDragging.value || swipeOffsetX.value !== 0)
+
 function hasTextSelected() {
 	const isTextSelected = window.getSelection().toString()
 	return !(typeof isTextSelected === 'undefined' || isTextSelected === '' || isTextSelected === '\n')
@@ -508,6 +511,10 @@ defineExpose({
 
 	&.is-swiping .task-content {
 		transition: none;
+	}
+
+	@include mobile {
+		touch-action: pan-y;
 	}
 
 	.swipe-bg {

@@ -85,7 +85,7 @@ const variantClass = computed<string>(() => VARIANT_CLASS_MAP[props.variant])
 	white-space: var(--button-white-space);
 
 	// Custom styles
-	transition: all $transition;
+	transition: background-color $transition, color $transition, border-color $transition, box-shadow $transition, opacity $transition;
 	border: 0;
 	text-transform: uppercase;
 	font-size: 0.85rem;

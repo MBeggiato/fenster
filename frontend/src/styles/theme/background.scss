@@ -8,6 +8,12 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     min-height: 100vh;
+    min-height: 100dvh;
+
+    // iOS WebKit repaints fixed backgrounds on every scroll frame
+    @include mobile {
+      background-attachment: scroll;
+    }
   }
 
   .task-view {
@@ -28,8 +34,7 @@
 }
 
 .app-container-background {
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   position: fixed;
   z-index: 0;
 }
