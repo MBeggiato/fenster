@@ -62,7 +62,7 @@ func validateSchemaPlacement(configuredSchema, currentSchema string, dataSchemas
 	// current_schema() falls back to the next valid search_path entry (e.g. public) when the
 	// configured schema does not exist, so compare against the configured value explicitly.
 	if configuredSchema != "" && currentSchema != configuredSchema {
-		return fmt.Errorf("the configured schema %q does not exist or is not accessible to the database user (active schema: %q). Create it or set database.schema (VIKUNJA_DATABASE_SCHEMA) to an existing schema", configuredSchema, currentSchema)
+		return fmt.Errorf("the configured schema %q does not exist or is not accessible to the database user (active schema: %q). Create it or set database.schema (FENSTER_DATABASE_SCHEMA) to an existing schema", configuredSchema, currentSchema)
 	}
 
 	others := make([]string, 0, len(dataSchemas))
@@ -83,8 +83,8 @@ func validateSchemaPlacement(configuredSchema, currentSchema string, dataSchemas
 	}
 
 	if currentSchema == "" {
-		return fmt.Errorf("the configured database schema does not exist, but existing Fenster tables were found in schema(s) %s. Set database.schema (VIKUNJA_DATABASE_SCHEMA) to the schema containing your data", strings.Join(others, ", "))
+		return fmt.Errorf("the configured database schema does not exist, but existing Fenster tables were found in schema(s) %s. Set database.schema (FENSTER_DATABASE_SCHEMA) to the schema containing your data", strings.Join(others, ", "))
 	}
 
-	return fmt.Errorf("existing Fenster tables were found in schema(s) %s, but Fenster is configured to use schema %q. Running migrations now would create a second, empty set of tables. Set database.schema (VIKUNJA_DATABASE_SCHEMA) to the schema containing your data", strings.Join(others, ", "), currentSchema)
+	return fmt.Errorf("existing Fenster tables were found in schema(s) %s, but Fenster is configured to use schema %q. Running migrations now would create a second, empty set of tables. Set database.schema (FENSTER_DATABASE_SCHEMA) to the schema containing your data", strings.Join(others, ", "), currentSchema)
 }

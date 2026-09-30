@@ -56,9 +56,9 @@ The container runs as user `1000`, so create the data folders first and hand the
 ```bash
 mkdir -p fenster/db fenster/files && cd fenster
 sudo chown 1000 db files
-docker run -p 3456:3456 -v $PWD/db:/db -v $PWD/files:/app/vikunja/files \
-  -e VIKUNJA_SERVICE_PUBLICURL=http://localhost:3456 \
-  -e VIKUNJA_SERVICE_JWTSECRET=change-me \
+docker run -p 3456:3456 -v $PWD/db:/db -v $PWD/files:/app/fenster/files \
+  -e FENSTER_SERVICE_PUBLICURL=http://localhost:3456 \
+  -e FENSTER_SERVICE_JWTSECRET=change-me \
   ghcr.io/mbeggiato/fenster:latest
 ```
 
@@ -74,15 +74,22 @@ services:
       - "3456:3456"
     volumes:
       - ./db:/db
-      - ./files:/app/vikunja/files
+      - ./files:/app/fenster/files
     environment:
-      VIKUNJA_SERVICE_PUBLICURL: https://tasks.example.com
-      VIKUNJA_SERVICE_JWTSECRET: change-me
+      FENSTER_SERVICE_PUBLICURL: https://tasks.example.com
+      FENSTER_SERVICE_JWTSECRET: change-me
     restart: unless-stopped
 ```
 
-Configuration still uses the `VIKUNJA_*` variables inherited from Vikunja, see [vikunja.io/docs/config-options](https://vikunja.io/docs/config-options/).
-A switch to `FENSTER_*` is planned; the old names will keep working during a transition period ([#15](https://github.com/MBeggiato/fenster/issues/15)).
+Configuration uses `FENSTER_*` environment variables, see [vikunja.io/docs/config-options](https://vikunja.io/docs/config-options/) for the option names (replace the `VIKUNJA_` prefix with `FENSTER_`).
+
+**Migrating from the Vikunja names:** the old names keep working, with a warning in the log, until 2027-03-31 ([#15](https://github.com/MBeggiato/fenster/issues/15)):
+
+- `VIKUNJA_*` env vars are now `FENSTER_*` (`FENSTER_*` wins if both are set)
+- config file dirs `/etc/vikunja/` and `~/.config/vikunja` are now `/etc/fenster/` and `~/.config/fenster`
+- SQLite file `vikunja.db` is now `fenster.db` (an existing `vikunja.db` next to it is used if `fenster.db` is missing)
+- Docker files mount `/app/vikunja/files` is now `/app/fenster/files`; DB mount stays `/db`
+- binary `vikunja` is now `fenster`
 
 ## Build from Source
 

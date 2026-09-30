@@ -19,6 +19,7 @@ package config
 import (
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/spf13/viper"
@@ -53,7 +54,7 @@ func TestServiceSecret(t *testing.T) {
 		assert.Equal(t, "legacy-secret", ServiceSecret.GetString())
 	})
 	t.Run("service.jwtsecret is migrated from the environment", func(t *testing.T) {
-		t.Setenv("VIKUNJA_SERVICE_JWTSECRET", "legacy-env-secret")
+		t.Setenv("FENSTER_SERVICE_JWTSECRET", "legacy-env-secret")
 		initConfigFromYAML(t, "")
 
 		assert.Equal(t, "legacy-env-secret", ServiceSecret.GetString())
@@ -93,7 +94,7 @@ func TestLogLevelDefaults(t *testing.T) {
 		assert.Equal(t, "WARNING", LogDatabaseLevel.GetString())
 	})
 	t.Run("category level from the environment wins", func(t *testing.T) {
-		t.Setenv("VIKUNJA_LOG_HTTPLEVEL", "ERROR")
+		t.Setenv("FENSTER_LOG_HTTPLEVEL", "ERROR")
 		initConfigFromYAML(t, "log:\n  level: WARNING\n")
 
 		assert.Equal(t, "ERROR", LogHTTPLevel.GetString())
@@ -148,4 +149,33 @@ func TestResolvePath(t *testing.T) {
 			assert.Equal(t, tt.expected, result)
 		})
 	}
+}
+
+func TestTranslateLegacyEnv(t *testing.T) {
+	// Register cleanup for vars translateLegacyEnv sets via os.Setenv.
+	t.Setenv("FENSTER_TESTLEGACY_A", "")
+	os.Unsetenv("FENSTER_TESTLEGACY_A")
+	t.Setenv("VIKUNJA_TESTLEGACY_A", "old")
+	t.Setenv("VIKUNJA_TESTLEGACY_B", "old")
+	t.Setenv("FENSTER_TESTLEGACY_B", "new")
+
+	warnings := translateLegacyEnv()
+
+	assert.Equal(t, "old", os.Getenv("FENSTER_TESTLEGACY_A"))
+	assert.Equal(t, "new", os.Getenv("FENSTER_TESTLEGACY_B"))
+	joined := strings.Join(warnings, "\n")
+	assert.Contains(t, joined, "VIKUNJA_TESTLEGACY_A is deprecated, use FENSTER_TESTLEGACY_A; support ends 2027-03-31")
+	assert.Contains(t, joined, "VIKUNJA_TESTLEGACY_B is ignored")
+}
+
+func TestLegacySQLiteFallback(t *testing.T) {
+	dir := t.TempDir()
+	newPath := filepath.Join(dir, "fenster.db")
+	oldPath := filepath.Join(dir, "vikunja.db")
+
+	assert.Equal(t, newPath, LegacySQLiteFallback(newPath), "neither exists")
+	require.NoError(t, os.WriteFile(oldPath, nil, 0o600))
+	assert.Equal(t, oldPath, LegacySQLiteFallback(newPath), "only legacy exists")
+	require.NoError(t, os.WriteFile(newPath, nil, 0o600))
+	assert.Equal(t, newPath, LegacySQLiteFallback(newPath), "both exist")
 }

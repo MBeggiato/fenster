@@ -30,7 +30,7 @@ RUN export PATH=$PATH:$GOPATH/bin && \
 	mage build:clean && \
     (cd build && mage release:xgo vikunja "${TARGETOS}/${TARGETARCH}/${TARGETVARIANT}")
 
-RUN mkdir -p /tmp && chmod 1777 /tmp
+RUN mkdir -p /tmp /app/fenster/files && chmod 1777 /tmp
 
 #  ┬─┐┬ ┐┌┐┐┌┐┐┬─┐┬─┐
 #  │┬┘│ │││││││├─ │┬┘
@@ -47,16 +47,17 @@ LABEL org.opencontainers.image.licenses='AGPL-3.0-or-later'
 LABEL org.opencontainers.image.title='Fenster'
 LABEL org.opencontainers.image.description='Fenster, a fork of Vikunja (https://github.com/go-vikunja/vikunja)'
 
-WORKDIR /app/vikunja
-ENTRYPOINT [ "/app/vikunja/vikunja" ]
+WORKDIR /app/fenster
+ENTRYPOINT [ "/app/fenster/fenster" ]
 EXPOSE 3456
 
 COPY --from=apibuilder --chown=1000:1000 --chmod=1777 /tmp /tmp
+COPY --from=apibuilder --chown=1000:1000 /app/fenster /app/fenster
 
 USER 1000
 
-ENV VIKUNJA_SERVICE_ROOTPATH=/app/vikunja/
-ENV VIKUNJA_DATABASE_PATH=/db/vikunja.db
+ENV FENSTER_SERVICE_ROOTPATH=/app/fenster/
+ENV FENSTER_DATABASE_PATH=/db/fenster.db
 
-COPY --from=apibuilder /build/vikunja-* vikunja
+COPY --from=apibuilder /build/fenster-* fenster
 COPY --from=apibuilder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/

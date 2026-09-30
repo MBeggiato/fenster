@@ -57,7 +57,7 @@ func Dump(filename string) error {
 	env := os.Environ()
 	dotEnv := ""
 	for _, e := range env {
-		if strings.Contains(e, "VIKUNJA_") {
+		if strings.Contains(e, "FENSTER_") {
 			dotEnv += e + "\n"
 		}
 	}

@@ -15,6 +15,7 @@ Run
 dist/
 cover.*
 /vikunja
+/fenster
 Test_*
 bin/
 secrets

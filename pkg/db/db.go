@@ -351,7 +351,7 @@ func resolveDatabasePath(cfg DatabasePathConfig, userDataDir func() (string, err
 		}
 	}
 
-	return filepath.Abs(path)
+	return filepath.Abs(config.LegacySQLiteFallback(path))
 }
 
 func databasePathConfig() DatabasePathConfig {
