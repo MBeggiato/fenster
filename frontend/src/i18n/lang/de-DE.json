@@ -1964,7 +1964,9 @@
 		"taskDetail": {
 			"actionBarLabel": "Aufgabenaktionen",
 			"more": "Mehr",
-			"moreSheetTitle": "Weitere Aktionen"
+			"moreSheetTitle": "Weitere Aktionen",
+			"done": "Erledigt",
+			"reopen": "Öffnen"
 		},
 		"kanban": {
 			"pagerLabel": "Spalten",

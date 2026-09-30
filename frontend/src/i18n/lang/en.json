@@ -1958,7 +1958,9 @@
     "taskDetail": {
       "actionBarLabel": "Task actions",
       "more": "More",
-      "moreSheetTitle": "More actions"
+      "moreSheetTitle": "More actions",
+      "done": "Done",
+      "reopen": "Reopen"
     },
     "kanban": {
       "pagerLabel": "Buckets",
