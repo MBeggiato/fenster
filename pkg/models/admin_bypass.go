@@ -17,21 +17,16 @@
 package models
 
 import (
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/user"
 	"code.vikunja.io/api/pkg/web"
 
 	"xorm.io/xorm"
 )
 
-// isInstanceAdmin gates cross-user access on both is_admin and the admin-panel
-// license so flipping is_admin on a free instance cannot recover the paid bypass.
+// isInstanceAdmin gates cross-user access on is_admin.
 // is_admin is re-read from the DB because the auth's flag is claim-derived and
 // stale until the JWT expires.
 func isInstanceAdmin(s *xorm.Session, a web.Auth) bool {
-	if !license.IsFeatureEnabled(license.FeatureAdminPanel) {
-		return false
-	}
 	u, ok := a.(*user.User)
 	if !ok {
 		return false

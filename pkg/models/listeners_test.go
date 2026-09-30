@@ -33,7 +33,6 @@ import (
 	"code.vikunja.io/api/pkg/config"
 	"code.vikunja.io/api/pkg/db"
 	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/user"
 
 	"github.com/ThreeDotsLabs/watermill/message"
@@ -681,9 +680,6 @@ func TestAuditUserDataExportRequested(t *testing.T) {
 	config.AuditLogfile.Set(logfile)
 	require.NoError(t, audit.Init())
 	t.Cleanup(audit.Close)
-
-	license.SetForTests([]license.Feature{license.FeatureAuditLogs})
-	t.Cleanup(license.ResetForTests)
 
 	registerAuditEventsOnce.Do(registerEventsForAuditLogging)
 

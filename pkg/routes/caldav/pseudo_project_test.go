@@ -28,7 +28,6 @@ import (
 	"testing"
 
 	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/models"
 	"code.vikunja.io/api/pkg/user"
 
@@ -235,8 +234,6 @@ END:VCALENDAR`
 // errored out for instance admins on a pseudo id; d5332ac3b fixed that in the model.
 func TestCanReadCollection_InstanceAdmin(t *testing.T) {
 	db.LoadAndAssertFixtures(t)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	s := db.NewSession()
 	defer s.Close()

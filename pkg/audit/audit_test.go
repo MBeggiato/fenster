@@ -29,7 +29,6 @@ import (
 	"code.vikunja.io/api/pkg/audit"
 	"code.vikunja.io/api/pkg/config"
 	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/log"
 	"code.vikunja.io/api/pkg/modules/keyvalue"
 
@@ -41,7 +40,7 @@ import (
 func TestMain(m *testing.M) {
 	log.InitLogger()
 	config.InitDefaultConfig()
-	keyvalue.InitStorage() // license.SetForTests persists state through keyvalue
+	keyvalue.InitStorage()
 	os.Exit(m.Run())
 }
 
@@ -155,8 +154,6 @@ func waitForLines(t *testing.T, logfile string) []string {
 
 func TestAuditPipeline(t *testing.T) {
 	logfile := setupAuditFile(t)
-	license.SetForTests([]license.Feature{license.FeatureAuditLogs})
-	t.Cleanup(license.ResetForTests)
 
 	registerTestEvents()
 	startEventRouter(t)
@@ -193,38 +190,8 @@ func TestAuditPipeline(t *testing.T) {
 	assert.Equal(t, "req-123", entry.RequestID)
 }
 
-func TestAuditLicenseGating(t *testing.T) {
-	logfile := setupAuditFile(t)
-
-	registerTestEvents()
-	startEventRouter(t)
-
-	// Without the licensed feature nothing must be written. The license check
-	// happens per event at handle time, so give the async handler a settle
-	// window before flipping the license back on.
-	license.ResetForTests()
-	require.NoError(t, events.Dispatch(&licenseGateEvent{Marker: "unlicensed"}))
-	require.Never(t, func() bool {
-		content, err := os.ReadFile(logfile)
-		return err == nil && len(content) > 0
-	}, 500*time.Millisecond, 10*time.Millisecond, "unlicensed event must not be written")
-	events.WaitForPendingHandlers()
-
-	license.SetForTests([]license.Feature{license.FeatureAuditLogs})
-	t.Cleanup(license.ResetForTests)
-	require.NoError(t, events.Dispatch(&licenseGateEvent{Marker: "licensed"}))
-
-	lines := waitForLines(t, logfile)
-	require.Len(t, lines, 1)
-	assert.Contains(t, lines[0], `"marker":"licensed"`)
-	assert.NotContains(t, lines[0], "unlicensed")
-	assert.Contains(t, lines[0], `"type":"system"`)
-}
-
 func TestAuditRotation(t *testing.T) {
 	logfile := setupAuditFile(t)
-	license.SetForTests([]license.Feature{license.FeatureAuditLogs})
-	t.Cleanup(license.ResetForTests)
 
 	registerTestEvents()
 	startEventRouter(t)

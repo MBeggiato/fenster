@@ -20,7 +20,6 @@ import (
 	"net/http"
 	"strings"
 
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/log"
 
 	"github.com/labstack/echo/v5"
@@ -366,42 +365,14 @@ func CollectRoutesForAPITokenUsage(route echo.RouteInfo, requiresJWT bool) {
 
 }
 
-// Keep discovery in sync with the request-time license gates.
-func licenseFeaturesForRoute(path string) []license.Feature {
-	switch {
-	case strings.HasPrefix(path, "/api/v2/admin/invite-links"), path == "/api/v2/admin/teams":
-		return []license.Feature{license.FeatureAdminPanel, license.FeatureUserInvites}
-	case strings.HasPrefix(path, "/api/v1/admin/"), strings.HasPrefix(path, "/api/v2/admin/"):
-		return []license.Feature{license.FeatureAdminPanel}
-	case strings.Contains(path, "/time-entries"):
-		return []license.Feature{license.FeatureTimeTracking}
-	}
-	return nil
-}
-
 // GetAPITokenRoutes exposes the registered scoped-token routes for the /routes
 // handler and tests. v1 is the base; v2-only groups and permissions (a v2-only
 // resource like time-entries has no v1 counterpart) are merged in so tokens can
 // discover and grant them. Shared (group, permission) keys keep their v1 entry —
 // CanDoAPIRoute authorises both versions off the same key regardless.
-//
-// License-gated routes are filtered out here, per call, because license state
-// changes at runtime. PermissionsAreValid stays unfiltered: existing tokens
-// keep validating across a license lapse; the request-time gates make them inert.
 func GetAPITokenRoutes() map[string]APITokenRoute {
 	merged := make(map[string]APITokenRoute, len(apiTokenRoutes))
-	featureEnabled := make(map[license.Feature]bool)
 	add := func(group, perm string, rd *RouteDetail) {
-		for _, feature := range licenseFeaturesForRoute(rd.Path) {
-			enabled, checked := featureEnabled[feature]
-			if !checked {
-				enabled = license.IsFeatureEnabled(feature)
-				featureEnabled[feature] = enabled
-			}
-			if !enabled {
-				return
-			}
-		}
 		if merged[group] == nil {
 			merged[group] = make(APITokenRoute)
 		}

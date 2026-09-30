@@ -25,7 +25,6 @@ import (
 	"code.vikunja.io/api/pkg/config"
 	"code.vikunja.io/api/pkg/db"
 	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/models"
 	"code.vikunja.io/api/pkg/notifications"
 	"code.vikunja.io/api/pkg/user"
@@ -40,8 +39,6 @@ func TestHumaAdminOverview(t *testing.T) {
 	t.Run("non-admin user gets 404", func(t *testing.T) {
 		e, err := setupTestEnv()
 		require.NoError(t, err)
-		license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-		defer license.ResetForTests()
 
 		s := db.NewSession()
 		defer s.Close()
@@ -53,23 +50,9 @@ func TestHumaAdminOverview(t *testing.T) {
 		assert.Equal(t, http.StatusNotFound, res.Code)
 	})
 
-	t.Run("admin without the feature gets 404", func(t *testing.T) {
-		e, err := setupTestEnv()
-		require.NoError(t, err)
-		license.SetForTests([]license.Feature{})
-		defer license.ResetForTests()
-
-		admin := promoteToAdmin(t, 1)
-
-		res := adminReq(t, e, http.MethodGet, "/api/v2/admin/overview", admin, "")
-		assert.Equal(t, http.StatusNotFound, res.Code)
-	})
-
 	t.Run("unauthenticated caller gets 401", func(t *testing.T) {
 		e, err := setupTestEnv()
 		require.NoError(t, err)
-		license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-		defer license.ResetForTests()
 
 		res := adminReq(t, e, http.MethodGet, "/api/v2/admin/overview", nil, "")
 		assert.Equal(t, http.StatusUnauthorized, res.Code)
@@ -78,8 +61,6 @@ func TestHumaAdminOverview(t *testing.T) {
 	t.Run("admin with the feature sees the overview", func(t *testing.T) {
 		e, err := setupTestEnv()
 		require.NoError(t, err)
-		license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-		defer license.ResetForTests()
 
 		admin := promoteToAdmin(t, 1)
 		res := adminReq(t, e, http.MethodGet, "/api/v2/admin/overview", admin, "")
@@ -89,17 +70,12 @@ func TestHumaAdminOverview(t *testing.T) {
 		assert.Contains(t, body, `"projects"`)
 		assert.Contains(t, body, `"tasks"`)
 		assert.Contains(t, body, `"shares"`)
-		assert.Contains(t, body, `"license"`)
-		assert.Contains(t, body, `"licensed":true`)
-		assert.Contains(t, body, `"instance_id"`)
 	})
 }
 
 func TestHumaAdminUsersList(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 
@@ -171,8 +147,6 @@ func TestHumaAdminUsersList(t *testing.T) {
 func TestHumaAdminCreateUser(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	// Admin endpoint must bypass the public-registration toggle.
 	prev := config.ServiceEnableRegistration.GetBool()
@@ -251,8 +225,6 @@ func TestHumaAdminCreateUser(t *testing.T) {
 func TestHumaAdminPatchAdmin(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 
@@ -312,8 +284,6 @@ func TestHumaAdminPatchAdmin(t *testing.T) {
 func TestHumaAdminPatchStatus(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 
@@ -377,8 +347,6 @@ func passwordHashOf(t *testing.T, userID int64) string {
 func TestHumaAdminSetPassword(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 
@@ -439,8 +407,6 @@ func TestHumaAdminSetPassword(t *testing.T) {
 func TestHumaAdminPasswordResetEmail(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 
@@ -515,8 +481,6 @@ func TestHumaAdminPasswordResetEmail(t *testing.T) {
 func TestHumaAdminDeleteUser(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 
@@ -573,8 +537,6 @@ func TestHumaAdminDeleteUser(t *testing.T) {
 func TestHumaAdminReassignProjectOwner(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 

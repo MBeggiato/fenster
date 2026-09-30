@@ -9276,52 +9276,6 @@ const docTemplate = `{
                 }
             }
         },
-        "license.Feature": {
-            "type": "integer",
-            "enum": [
-                0,
-                1,
-                2,
-                3,
-                4
-            ],
-            "x-enum-varnames": [
-                "FeatureUnknown",
-                "FeatureAdminPanel",
-                "FeatureTimeTracking",
-                "FeatureAuditLogs",
-                "FeatureUserInvites"
-            ]
-        },
-        "license.Info": {
-            "type": "object",
-            "properties": {
-                "expires_at": {
-                    "type": "string"
-                },
-                "features": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "instance_id": {
-                    "type": "string"
-                },
-                "last_check_failed": {
-                    "type": "boolean"
-                },
-                "licensed": {
-                    "type": "boolean"
-                },
-                "max_users": {
-                    "type": "integer"
-                },
-                "validated_at": {
-                    "type": "string"
-                }
-            }
-        },
         "microsofttodo.Migration": {
             "type": "object",
             "properties": {
@@ -9717,9 +9671,6 @@ const docTemplate = `{
         "models.Overview": {
             "type": "object",
             "properties": {
-                "license": {
-                    "$ref": "#/definitions/license.Info"
-                },
                 "projects": {
                     "type": "integer"
                 },
@@ -11221,12 +11172,6 @@ const docTemplate = `{
                     "type": "array",
                     "items": {
                         "type": "string"
-                    }
-                },
-                "enabled_pro_features": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/license.Feature"
                     }
                 },
                 "frontend_url": {

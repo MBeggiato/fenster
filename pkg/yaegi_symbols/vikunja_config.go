@@ -92,7 +92,6 @@ func init() {
 		"KeyvalueType":                               reflect.ValueOf(config.KeyvalueType),
 		"LegalImprintURL":                            reflect.ValueOf(config.LegalImprintURL),
 		"LegalPrivacyURL":                            reflect.ValueOf(config.LegalPrivacyURL),
-		"LicenseKey":                                 reflect.ValueOf(config.LicenseKey),
 		"LogDatabase":                                reflect.ValueOf(config.LogDatabase),
 		"LogDatabaseLevel":                           reflect.ValueOf(config.LogDatabaseLevel),
 		"LogEnabled":                                 reflect.ValueOf(config.LogEnabled),

@@ -22,7 +22,6 @@ import (
 	"time"
 
 	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/user"
 	"code.vikunja.io/api/pkg/utils"
 	"xorm.io/builder"
@@ -201,9 +200,6 @@ func usableInviteLinkQuery(s *xorm.Session, token string) *xorm.Session {
 }
 
 func GetInviteLinkByToken(s *xorm.Session, token string) (*UserInviteLink, error) {
-	if !license.IsFeatureEnabled(license.FeatureUserInvites) {
-		return nil, ErrInviteLinkInvalid{}
-	}
 	link := &UserInviteLink{}
 	found, err := usableInviteLinkQuery(s, token).Get(link)
 	if err != nil {
@@ -219,9 +215,6 @@ func GetInviteLinkByToken(s *xorm.Session, token string) (*UserInviteLink, error
 }
 
 func RegisterUserViaInviteLink(s *xorm.Session, token string, u *user.User) (*user.User, error) {
-	if !license.IsFeatureEnabled(license.FeatureUserInvites) {
-		return nil, ErrInviteLinkInvalid{}
-	}
 	claimed, err := usableInviteLinkQuery(s, token).Incr("uses").Update(&UserInviteLink{})
 	if err != nil {
 		return nil, fmt.Errorf("claim invite link use: %w", err)

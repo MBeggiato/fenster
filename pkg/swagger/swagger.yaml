@@ -169,39 +169,6 @@ definitions:
       url:
         type: string
     type: object
-  license.Feature:
-    enum:
-    - 0
-    - 1
-    - 2
-    - 3
-    - 4
-    type: integer
-    x-enum-varnames:
-    - FeatureUnknown
-    - FeatureAdminPanel
-    - FeatureTimeTracking
-    - FeatureAuditLogs
-    - FeatureUserInvites
-  license.Info:
-    properties:
-      expires_at:
-        type: string
-      features:
-        items:
-          type: string
-        type: array
-      instance_id:
-        type: string
-      last_check_failed:
-        type: boolean
-      licensed:
-        type: boolean
-      max_users:
-        type: integer
-      validated_at:
-        type: string
-    type: object
   microsofttodo.Migration:
     properties:
       code:
@@ -504,8 +471,6 @@ definitions:
     type: object
   models.Overview:
     properties:
-      license:
-        $ref: '#/definitions/license.Info'
       projects:
         type: integer
       shares:
@@ -1662,10 +1627,6 @@ definitions:
       enabled_background_providers:
         items:
           type: string
-        type: array
-      enabled_pro_features:
-        items:
-          $ref: '#/definitions/license.Feature'
         type: array
       frontend_url:
         type: string

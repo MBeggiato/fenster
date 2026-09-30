@@ -21,7 +21,6 @@ import (
 	"testing"
 
 	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/user"
 
 	"github.com/stretchr/testify/assert"
@@ -33,8 +32,6 @@ import (
 func TestAdminBypass_CanListProjectShares(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	defer license.ResetForTests()
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
 
 	admin := promoteToAdmin(t, 1)
 	res := adminReq(t, e, http.MethodGet, "/api/v1/projects/2/shares", admin, "")
@@ -45,8 +42,6 @@ func TestAdminBypass_CanListProjectShares(t *testing.T) {
 func TestAdminBypass_CanDeleteLinkShare(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	defer license.ResetForTests()
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
 
 	admin := promoteToAdmin(t, 1)
 	res := adminReq(t, e, http.MethodDelete, "/api/v1/projects/2/shares/2", admin, "")
@@ -56,8 +51,6 @@ func TestAdminBypass_CanDeleteLinkShare(t *testing.T) {
 func TestAdminBypass_CanDeleteTeamShare(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	defer license.ResetForTests()
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
 
 	admin := promoteToAdmin(t, 1)
 	// User 1 only has read on project 3; removing a team share would be forbidden without the bypass.
@@ -68,8 +61,6 @@ func TestAdminBypass_CanDeleteTeamShare(t *testing.T) {
 func TestAdminBypass_CanDeleteUserShare(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	defer license.ResetForTests()
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
 
 	admin := promoteToAdmin(t, 1)
 	// Endpoint keys by username, not numeric ID.
@@ -81,8 +72,6 @@ func TestAdminBypass_CanDeleteUserShare(t *testing.T) {
 func TestAdminBypass_NonexistentProjectReturns404(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	defer license.ResetForTests()
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
 
 	admin := promoteToAdmin(t, 1)
 	res := adminReq(t, e, http.MethodGet, "/api/v1/projects/99999", admin, "")
@@ -96,7 +85,6 @@ func TestAdminBypass_NonexistentProjectReturns404(t *testing.T) {
 func TestAdminBypass_NonAdminCannotDeleteLinkShare(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	defer license.ResetForTests()
 
 	s := db.NewSession()
 	u, err := user.GetUserByID(s, 1)
