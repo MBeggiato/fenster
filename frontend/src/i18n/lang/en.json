@@ -856,7 +856,8 @@
     "home": "Fenster home",
     "toggleChildProjects": "Toggle sub-projects",
     "main": "Main navigation",
-    "savedFilters": "Saved filters"
+    "savedFilters": "Saved filters",
+    "section": "Section"
   },
   "misc": {
     "loading": "Loading…",

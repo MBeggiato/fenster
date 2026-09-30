@@ -1,6 +1,35 @@
 <template>
 	<div class="content-widescreen">
 		<div class="side-nav-shell">
+			<div class="navigation-select select is-fullwidth">
+				<select
+					:value="activeValue"
+					:aria-label="$t('navigation.section')"
+					@change="onSelect"
+				>
+					<option
+						v-if="activeValue === ''"
+						value=""
+						disabled
+					>
+						{{ $t('navigation.section') }}
+					</option>
+					<option
+						v-for="item in navigationItems"
+						:key="item.routeName"
+						:value="item.routeName"
+					>
+						{{ item.title }}
+					</option>
+					<option
+						v-for="({text}, index) in extraLinks"
+						:key="`extra-${index}`"
+						:value="`extra-${index}`"
+					>
+						{{ text }} ↗
+					</option>
+				</select>
+			</div>
 			<nav class="navigation">
 				<ul>
 					<li
@@ -50,7 +79,8 @@
 </template>
 
 <script setup lang="ts">
-import {useRoute} from 'vue-router'
+import {computed} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
 
 import BaseButton from '@/components/base/BaseButton.vue'
 
@@ -65,7 +95,7 @@ export interface SideNavExtraLink {
 	text: string
 }
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
 	navigationItems: SideNavItem[]
 	extraLinks?: SideNavExtraLink[]
 	exact?: boolean
@@ -76,8 +106,27 @@ withDefaults(defineProps<{
 
 const route = useRoute()
 
+const router = useRouter()
+
 function isAliasActive(item: SideNavItem) {
 	return item.activeRouteNames?.includes(route.name as string) ?? false
+}
+
+// Same rule as the links: exact route, or the item's route anywhere in the matched chain (child pages).
+const activeValue = computed(() => props.navigationItems.find(item => isAliasActive(item) || (props.exact
+	? route.name === item.routeName
+	: route.matched.some(record => record.name === item.routeName)))?.routeName ?? '')
+
+function onSelect(event: Event) {
+	const select = event.target as HTMLSelectElement
+	const extra = select.value.startsWith('extra-') ? props.extraLinks[Number(select.value.slice(6))] : undefined
+	if (extra) {
+		window.open(extra.url, '_blank', 'noopener,noreferrer')
+		// External links leave the current page open, so the picker keeps showing it.
+		select.value = activeValue.value
+		return
+	}
+	router.push({name: select.value})
 }
 </script>
 
@@ -95,8 +144,20 @@ function isAliasActive(item: SideNavItem) {
 	padding-inline-end: var(--space-4);
 
 	@media screen and (max-width: $tablet) {
-		inline-size: 100%;
-		padding-inline-start: 0;
+		display: none;
+	}
+}
+
+// Phones get the native picker instead of a long stacked list.
+.navigation-select {
+	display: none;
+
+	@media screen and (max-width: $tablet) {
+		display: block;
+	}
+
+	select {
+		min-block-size: 44px;
 	}
 }
 
