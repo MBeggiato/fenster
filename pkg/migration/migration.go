@@ -19,6 +19,7 @@ package migration
 import (
 	"os"
 	"sort"
+	"strings"
 
 	"github.com/MBeggiato/fenster/pkg/config"
 	"github.com/MBeggiato/fenster/pkg/db"
@@ -77,12 +78,51 @@ func initMigration(x *xorm.Engine) *xormigrate.Xormigrate {
 // Migrate runs all migrations
 func Migrate(x *xorm.Engine) {
 	log.Info("Running migrations…")
+	if x == nil {
+		var err error
+		x, err = db.CreateDBEngine()
+		if err != nil {
+			log.Fatalf("Could not connect to db: %v", err.Error())
+		}
+	}
 	m := initMigration(x)
 	err := m.Migrate()
 	if err != nil {
 		log.Fatalf("Migration failed: %v", err)
 	}
 	log.Info("Ran all migrations successfully.")
+	warnUnknownMigrations(x)
+}
+
+// warnUnknownMigrations logs migrations recorded in the database that this build
+// doesn't know, typically because the database comes from a newer Vikunja.
+func warnUnknownMigrations(x *xorm.Engine) {
+	applied := []*xormigrate.Migration{}
+	if err := x.Find(&applied); err != nil {
+		log.Warningf("Could not read the migration table: %s", err)
+		return
+	}
+	unknown := unknownMigrationIDs(applied, migrations)
+	if len(unknown) == 0 {
+		return
+	}
+	log.Warningf("The database contains %d migration(s) this Fenster version does not know (%s), probably from a newer Vikunja. "+
+		"If something does not work, see https://github.com/MBeggiato/fenster/blob/main/docs/migrating-from-vikunja.md",
+		len(unknown), strings.Join(unknown, ", "))
+}
+
+func unknownMigrationIDs(applied, known []*xormigrate.Migration) []string {
+	knownIDs := make(map[string]bool, len(known))
+	for _, m := range known {
+		knownIDs[m.ID] = true
+	}
+	var unknown []string
+	for _, m := range applied {
+		if m.ID != "SCHEMA_INIT" && !knownIDs[m.ID] {
+			unknown = append(unknown, m.ID)
+		}
+	}
+	return unknown
 }
 
 // ListMigrations pretty-prints a list with all migrations.

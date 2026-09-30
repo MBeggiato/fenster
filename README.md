@@ -113,6 +113,7 @@ Screenshots are generated with demo data by `frontend/scripts/readme-screenshots
 Fenster started as a fork of [Vikunja](https://github.com/go-vikunja/vikunja) ([vikunja.io](https://vikunja.io)) and has been developed independently since September 2026; upstream changes are no longer merged.
 Thanks to the Vikunja maintainers and all Vikunja contributors, whose work this project builds on.
 Fenster is independent and not affiliated with or endorsed by the Vikunja project. See [NOTICE](NOTICE).
+Coming from Vikunja? See [Migrating from Vikunja](docs/migrating-from-vikunja.md).
 
 ## Contributing
 
