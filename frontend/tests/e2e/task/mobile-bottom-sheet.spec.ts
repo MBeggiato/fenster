@@ -75,6 +75,9 @@ test.describe('Mobile bottom sheet', () => {
 	test('Locks page scrolling while the sheet is open', async ({authenticatedPage: page}) => {
 		await openDueDateSheet(page)
 
+		// iOS scrolls whatever element is the page scroller when a swipe starts on the scrim, so the lock must sit on html.
+		expect(await page.evaluate(() => getComputedStyle(document.documentElement).overflowY)).toBe('hidden')
+
 		const scrollY = await page.evaluate(() => window.scrollY)
 
 		// The strip left free at the top by the panel (see closeViaScrim).
