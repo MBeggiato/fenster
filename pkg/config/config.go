@@ -343,7 +343,7 @@ func getRootpathLocation() string {
 	if runtime.GOOS == "windows" {
 		exeSuffix = ".exe"
 	}
-	if exeLocation, err := exec.LookPath("vikunja" + exeSuffix); err == nil {
+	if exeLocation, err := exec.LookPath("fenster" + exeSuffix); err == nil {
 		return filepath.Dir(exeLocation)
 	}
 
@@ -423,7 +423,7 @@ func initDefaultConfig() {
 	DatabaseUser.setDefault("vikunja")
 	DatabasePassword.setDefault("")
 	DatabaseDatabase.setDefault("vikunja")
-	DatabasePath.setDefault(ResolvePath("vikunja.db"))
+	DatabasePath.setDefault(ResolvePath("fenster.db"))
 	DatabaseMaxOpenConnections.setDefault(100)
 	DatabaseMaxIdleConnections.setDefault(50)
 	DatabaseMaxConnectionLifetime.setDefault(1800000)
@@ -623,8 +623,8 @@ func setConfigFromEnv() error {
 		}
 		key, value := keyValue[0], keyValue[1]
 
-		if strings.HasPrefix(key, "VIKUNJA_") {
-			formattedKey := strings.ToLower(strings.TrimPrefix(key, "VIKUNJA_"))
+		if strings.HasPrefix(key, "FENSTER_") {
+			formattedKey := strings.ToLower(strings.TrimPrefix(key, "FENSTER_"))
 			keys := strings.Split(formattedKey, "_")
 			currentMap := configMap
 
@@ -688,34 +688,43 @@ func anchorRootpathToConfigFile() {
 	// The default baked in initDefaultConfig() points at the caller's cwd, which
 	// would split the database off from the rest of the pinned install.
 	if !viper.InConfig(string(DatabasePath)) {
-		DatabasePath.setDefault(ResolvePath("vikunja.db"))
+		DatabasePath.setDefault(ResolvePath("fenster.db"))
 	}
 }
 
 // InitConfig initializes the config, sets defaults etc.
 func InitConfig() {
+	legacyEnv := translateLegacyEnv()
 
 	// Set defaults
 	initDefaultConfig()
 
 	// Init checking for environment variables
-	viper.SetEnvPrefix("vikunja")
+	viper.SetEnvPrefix("fenster")
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	viper.AutomaticEnv()
 
 	log.ConfigureStandardLogger(LogEnabled.GetBool(), LogStandard.GetString(), LogPath.GetString(), LogLevel.GetString(), LogFormat.GetString())
+
+	warnLegacy(legacyEnv)
 
 	// Load the config file
 	if configFileOverride != "" {
 		viper.SetConfigFile(configFileOverride)
 	} else {
 		viper.AddConfigPath(ServiceRootpath.GetString())
-		viper.AddConfigPath("/etc/vikunja/")
+		viper.AddConfigPath("/etc/fenster/")
 
 		homeDir, err := os.UserHomeDir()
 		if err != nil {
-			log.Debugf("No home directory found, not using config from ~/.config/vikunja/. Error was: %s\n", err.Error())
+			log.Debugf("No home directory found, not using config from ~/.config/fenster/. Error was: %s\n", err.Error())
 		} else {
+			viper.AddConfigPath(path.Join(homeDir, ".config", "fenster"))
+		}
+
+		// ponytail: remove after 2027-03-31 (#15)
+		viper.AddConfigPath("/etc/vikunja/")
+		if homeDir != "" {
 			viper.AddConfigPath(path.Join(homeDir, ".config", "vikunja"))
 		}
 
@@ -737,6 +746,7 @@ func InitConfig() {
 
 	if viper.ConfigFileUsed() != "" {
 		log.Infof("Using config file: %s", viper.ConfigFileUsed())
+		warnLegacyConfigDir(viper.ConfigFileUsed())
 
 		if err != nil {
 			log.Warning(err.Error())
@@ -854,4 +864,81 @@ func GetMaxFileSizeInMBytes() uint64 {
 		return 20
 	}
 	return maxFileSizeInBytes
+}
+
+// legacyRemoval is the date all Vikunja-name fallbacks are dropped (#15).
+const legacyRemoval = "2027-03-31"
+
+// ponytail: remove after 2027-03-31 (#15)
+// translateLegacyEnv copies every VIKUNJA_<X> env var to FENSTER_<X> unless
+// FENSTER_<X> is already set, and returns warnings to log once the logger is up.
+func translateLegacyEnv() (warnings []string) {
+	for _, kv := range os.Environ() {
+		key, value, ok := strings.Cut(kv, "=")
+		if !ok || !strings.HasPrefix(key, "VIKUNJA_") {
+			continue
+		}
+		newKey := "FENSTER_" + strings.TrimPrefix(key, "VIKUNJA_")
+		if _, set := os.LookupEnv(newKey); set {
+			warnings = append(warnings, fmt.Sprintf("%s is ignored because %s is set; support for %s ends %s", key, newKey, key, legacyRemoval))
+			continue
+		}
+		_ = os.Setenv(newKey, value)
+		warnings = append(warnings, fmt.Sprintf("%s is deprecated, use %s; support ends %s", key, newKey, legacyRemoval))
+	}
+	return warnings
+}
+
+// ponytail: remove after 2027-03-31 (#15)
+func warnLegacy(warnings []string) {
+	for _, w := range warnings {
+		log.Warning(w)
+	}
+}
+
+// ponytail: remove after 2027-03-31 (#15)
+func warnLegacyConfigDir(file string) {
+	dir := filepath.ToSlash(filepath.Dir(file))
+	if dir == "/etc/vikunja" || strings.HasSuffix(dir, "/.config/vikunja") {
+		log.Warningf("Config file %s is in a legacy vikunja directory, move it to the fenster equivalent; support ends %s", file, legacyRemoval)
+	}
+}
+
+// ponytail: remove after 2027-03-31 (#15)
+// LegacySQLiteFallback returns the sibling vikunja.db when path (fenster.db) does
+// not exist but the old file does.
+func LegacySQLiteFallback(path string) string {
+	if filepath.Base(path) != "fenster.db" {
+		return path
+	}
+	if _, err := os.Stat(path); err == nil {
+		return path
+	}
+	legacy := filepath.Join(filepath.Dir(path), "vikunja.db")
+	if _, err := os.Stat(legacy); err != nil {
+		return path
+	}
+	log.Warningf("Using legacy database %s, rename it to fenster.db; support ends %s", legacy, legacyRemoval)
+	return legacy
+}
+
+// legacyFilesDir is where the old Docker image kept uploaded files.
+const legacyFilesDir = "/app/vikunja/files"
+
+// ponytail: remove after 2027-03-31 (#15)
+// ResolveFilesBasePath resolves files.basepath. If it is left at its default,
+// the resolved dir is missing or empty and the old Docker files dir exists, that is used.
+func ResolveFilesBasePath() string {
+	resolved := ResolvePath(FilesBasePath.GetString())
+	if FilesBasePath.GetString() != "files" || resolved == legacyFilesDir {
+		return resolved
+	}
+	if entries, err := os.ReadDir(resolved); err == nil && len(entries) > 0 {
+		return resolved
+	}
+	if _, err := os.Stat(legacyFilesDir); err != nil {
+		return resolved
+	}
+	log.Warningf("Using legacy files dir %s, mount it at %s instead; support ends %s", legacyFilesDir, resolved, legacyRemoval)
+	return legacyFilesDir
 }

@@ -53,7 +53,7 @@ const (
 )
 
 var (
-	Executable    = "vikunja"
+	Executable    = "fenster"
 	Ldflags       = ""
 	Tags          = ""
 	VersionNumber = "dev"
@@ -543,7 +543,7 @@ func (Test) E2E(ctx context.Context, args string) error {
 	// Start the API server — all config via env vars, no config file
 	// Uses in-memory SQLite (no DB file on disk)
 	fmt.Println("\n--- Starting API server ---")
-	apiCmd := exec.CommandContext(ctx, "./vikunja", "web")
+	apiCmd := exec.CommandContext(ctx, "./"+Executable, "web")
 	apiCmd.Env = append(os.Environ(),
 		fmt.Sprintf("VIKUNJA_SERVICE_INTERFACE=:%d", apiPort),
 		fmt.Sprintf("VIKUNJA_SERVICE_PUBLICURL=http://127.0.0.1:%d/", apiPort),

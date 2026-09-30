@@ -44,7 +44,7 @@ import (
 var storage FileStorage
 
 func setDefaultLocalConfig() {
-	config.FilesBasePath.Set(config.ResolvePath(config.FilesBasePath.GetString()))
+	config.FilesBasePath.Set(config.ResolveFilesBasePath())
 }
 
 // Wrap Signer to remove header
