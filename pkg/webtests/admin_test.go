@@ -25,7 +25,6 @@ import (
 	"code.vikunja.io/api/pkg/config"
 	"code.vikunja.io/api/pkg/db"
 	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/models"
 	"code.vikunja.io/api/pkg/modules/auth"
 	"code.vikunja.io/api/pkg/user"
@@ -64,33 +63,9 @@ func adminReq(t *testing.T, e *echo.Echo, method, path string, u *user.User, bod
 	return res
 }
 
-func TestAdmin_GateUnlicensed(t *testing.T) {
-	e, err := setupTestEnv()
-	require.NoError(t, err)
-	license.ResetForTests()
-
-	admin := promoteToAdmin(t, 1)
-
-	res := adminReq(t, e, http.MethodGet, "/api/v1/admin/overview", admin, "")
-	assert.Equal(t, http.StatusNotFound, res.Code)
-}
-
-func TestAdmin_GateUnlicensedV2(t *testing.T) {
-	e, err := setupTestEnv()
-	require.NoError(t, err)
-	license.ResetForTests()
-
-	admin := promoteToAdmin(t, 1)
-
-	res := adminReq(t, e, http.MethodGet, "/api/v2/admin/overview", admin, "")
-	assert.Equal(t, http.StatusNotFound, res.Code)
-}
-
 func TestAdmin_GateNonAdmin(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	s := db.NewSession()
 	defer s.Close()
@@ -112,8 +87,6 @@ func TestAdmin_GateNonAdmin(t *testing.T) {
 func TestAdmin_GateNonAdminV2(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	s := db.NewSession()
 	defer s.Close()
@@ -132,8 +105,6 @@ func TestAdmin_GateNonAdminV2(t *testing.T) {
 func TestAdmin_GateUnauthenticated(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	// echojwt rejects with 401 before the license/admin gates see the request.
 	res := adminReq(t, e, http.MethodGet, "/api/v1/admin/overview", nil, "")
@@ -143,8 +114,6 @@ func TestAdmin_GateUnauthenticated(t *testing.T) {
 func TestAdmin_Overview(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 	res := adminReq(t, e, http.MethodGet, "/api/v1/admin/overview", admin, "")
@@ -154,18 +123,11 @@ func TestAdmin_Overview(t *testing.T) {
 	assert.Contains(t, body, `"projects"`)
 	assert.Contains(t, body, `"tasks"`)
 	assert.Contains(t, body, `"shares"`)
-	assert.Contains(t, body, `"license"`)
-	assert.Contains(t, body, `"licensed":true`)
-	assert.Contains(t, body, `"features"`)
-	assert.Contains(t, body, `"expires_at"`)
-	assert.Contains(t, body, `"instance_id"`)
 }
 
 func TestAdmin_ListUsers(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 
@@ -197,8 +159,6 @@ func TestAdmin_ListUsers(t *testing.T) {
 func TestAdmin_PatchAdmin(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 
@@ -259,8 +219,6 @@ func TestAdmin_PatchAdmin(t *testing.T) {
 func TestAdmin_ListProjects(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 	res := adminReq(t, e, http.MethodGet, "/api/v1/admin/projects", admin, "")
@@ -276,8 +234,6 @@ func TestAdmin_ListProjects(t *testing.T) {
 func TestAdmin_PatchStatus(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 
@@ -347,8 +303,6 @@ func TestAdmin_PatchStatus(t *testing.T) {
 func TestAdmin_GuardLastAdmin_IgnoresNonActive(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 
@@ -378,8 +332,6 @@ func TestAdmin_GuardLastAdmin_IgnoresNonActive(t *testing.T) {
 func TestAdmin_DeleteUser(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 
@@ -438,8 +390,6 @@ func TestAdmin_DeleteUser(t *testing.T) {
 func TestAdmin_CreateUser(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	// Admin endpoint must bypass the public-registration toggle.
 	prev := config.ServiceEnableRegistration.GetBool()
@@ -515,23 +465,9 @@ func TestAdmin_CreateUser(t *testing.T) {
 }
 
 // Without the admin-panel license the endpoint must 404 so unlicensed instances cannot mint admins.
-func TestAdmin_CreateUser_LicenseInactive(t *testing.T) {
-	e, err := setupTestEnv()
-	require.NoError(t, err)
-	license.ResetForTests()
-
-	admin := promoteToAdmin(t, 1)
-
-	body := `{"username":"unlicensed-create","password":"averyl0ngpassword","email":"unlicensed-create@example.com"}`
-	res := adminReq(t, e, http.MethodPost, "/api/v1/admin/users", admin, body)
-	assert.Equal(t, http.StatusNotFound, res.Code)
-}
-
 func TestAdmin_ReassignProjectOwner(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 
@@ -580,8 +516,6 @@ func TestAdmin_ReassignProjectOwner(t *testing.T) {
 func TestAdmin_StaleAdminJWT_Gate(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 
@@ -598,8 +532,6 @@ func TestAdmin_StaleAdminJWT_Gate(t *testing.T) {
 func TestAdmin_StaleAdminJWT_DeletedUser(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 
@@ -617,8 +549,6 @@ func TestAdmin_StaleAdminJWT_DeletedUser(t *testing.T) {
 func TestAdmin_StaleAdminJWT_PermissionBypass(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 
@@ -638,8 +568,6 @@ func TestAdmin_StaleAdminJWT_PermissionBypass(t *testing.T) {
 func TestAdmin_StaleAdminJWT_CreateUser(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 
 	admin := promoteToAdmin(t, 1)
 

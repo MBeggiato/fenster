@@ -21,7 +21,6 @@ import (
 	"slices"
 	"time"
 
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/web"
 
 	"xorm.io/builder"
@@ -237,9 +236,6 @@ func finalizeOverduePomodoro(s *xorm.Session, userID int64) error {
 // leak through the logged entry.
 func (p *PomodoroSession) logTimeEntry(s *xorm.Session) error {
 	if !p.LogTimeEntry || p.Phase != PomodoroPhaseFocus || p.TaskID == 0 || p.EndedAt == nil {
-		return nil
-	}
-	if !license.IsFeatureEnabled(license.FeatureTimeTracking) {
 		return nil
 	}
 

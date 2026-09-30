@@ -63,58 +63,6 @@
 						{{ configStore.version }}
 					</p>
 				</div>
-				<div class="admin-overview__card admin-overview__card--wide">
-					<h2 class="admin-overview__card-title">
-						{{ $t('admin.overview.license') }}
-					</h2>
-					<dl class="admin-overview__kv">
-						<dt>{{ $t('admin.overview.licenseValidUntil') }}</dt>
-						<dd>
-							<TimeDisplay :date="data.license.expiresAt" />
-							<span
-								v-if="expiresInDays !== null"
-								class="admin-overview__hint"
-							>
-								({{ $t('admin.overview.licenseExpiresIn', {days: expiresInDays}) }})
-							</span>
-						</dd>
-						<dt>{{ $t('admin.overview.licenseLastVerified') }}</dt>
-						<dd>
-							<TimeDisplay
-								:date="data.license.validatedAt"
-								mode="relative"
-								:fallback="$t('admin.overview.licenseNever')"
-							/>
-							<span
-								v-if="data.license.lastCheckFailed"
-								class="has-text-danger admin-overview__hint"
-							>
-								({{ $t('admin.overview.licenseLastCheckFailed') }})
-							</span>
-						</dd>
-						<template v-if="data.license.features.length">
-							<dt>{{ $t('admin.overview.licenseFeatures') }}</dt>
-							<dd>{{ data.license.features.join(', ') }}</dd>
-						</template>
-						<template v-if="data.license.instanceId">
-							<dt>{{ $t('admin.overview.licenseInstance') }}</dt>
-							<dd><code>{{ data.license.instanceId }}</code></dd>
-						</template>
-					</dl>
-					<p class="admin-overview__card-action">
-						<a
-							href="https://console.vikunja.io"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							{{ $t('admin.overview.licenseManage') }}
-							<Icon
-								icon="arrow-up-right-from-square"
-								class="admin-overview__external-icon"
-							/>
-						</a>
-					</p>
-				</div>
 			</div>
 		</div>
 	</Card>
@@ -122,10 +70,7 @@
 
 <script setup lang="ts">
 import {ref, computed, onMounted} from 'vue'
-import dayjs from 'dayjs'
 import Card from '@/components/misc/Card.vue'
-import Icon from '@/components/misc/Icon'
-import TimeDisplay from '@/components/misc/TimeDisplay.vue'
 import AdminOverviewService from '@/services/admin/overviewService'
 import type {IAdminOverview} from '@/modelTypes/IAdminOverview'
 import {useConfigStore} from '@/stores/config'
@@ -136,12 +81,6 @@ const configStore = useConfigStore()
 
 const data = ref<IAdminOverview | null>(null)
 const loading = ref(false)
-
-const expiresInDays = computed<number | null>(() => {
-	const expiresAt = data.value?.license?.expiresAt
-	if (!expiresAt) return null
-	return Math.max(0, dayjs(expiresAt).diff(dayjs(), 'day'))
-})
 
 const totalShares = computed<number>(() => {
 	const shares = data.value?.shares
@@ -186,9 +125,6 @@ onMounted(async () => {
 	border: 1px solid var(--grey-200);
 	border-radius: 6px;
 	padding: 1.25rem;
-}
-
-.admin-overview__card:not(.admin-overview__card--wide) {
 	min-block-size: 7.5rem;
 }
 
@@ -215,37 +151,6 @@ onMounted(async () => {
 	overflow-wrap: anywhere;
 }
 
-.admin-overview__card--wide {
-	grid-column: 1 / -1;
-}
-
-.admin-overview__kv {
-	display: grid;
-	grid-template-columns: max-content 1fr;
-	column-gap: var(--space-4);
-	row-gap: var(--space-1);
-	margin-block-start: var(--space-4);
-	font-size: 0.9rem;
-
-	dt {
-		font-weight: 600;
-		color: var(--grey-700);
-	}
-
-	dd {
-		margin: 0;
-	}
-}
-
-.admin-overview__hint {
-	color: var(--grey-600);
-	margin-inline-start: var(--space-1);
-}
-
-.admin-overview__card-action {
-	margin-block-start: var(--space-4);
-}
-
 .admin-overview__shares-breakdown {
 	position: absolute;
 	inset-block-end: 1.25rem;
@@ -256,9 +161,4 @@ onMounted(async () => {
 	text-align: end;
 }
 
-.admin-overview__external-icon {
-	margin-inline-start: 0.35em;
-	font-size: 0.85em;
-	opacity: 0.7;
-}
 </style>

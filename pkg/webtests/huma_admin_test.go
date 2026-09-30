@@ -22,7 +22,6 @@ import (
 	"testing"
 
 	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/user"
 
 	"github.com/stretchr/testify/assert"
@@ -35,8 +34,6 @@ func TestHumaAdminProjects(t *testing.T) {
 	t.Run("non-admin user gets 404", func(t *testing.T) {
 		e, err := setupTestEnv()
 		require.NoError(t, err)
-		license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-		defer license.ResetForTests()
 
 		s := db.NewSession()
 		defer s.Close()
@@ -48,24 +45,9 @@ func TestHumaAdminProjects(t *testing.T) {
 		assert.Equal(t, http.StatusNotFound, res.Code)
 	})
 
-	t.Run("admin without the feature gets 404", func(t *testing.T) {
-		e, err := setupTestEnv()
-		require.NoError(t, err)
-		// Empty feature set = licensed instance without the admin feature.
-		license.SetForTests([]license.Feature{})
-		defer license.ResetForTests()
-
-		admin := promoteToAdmin(t, 1)
-
-		res := adminReq(t, e, http.MethodGet, "/api/v2/admin/projects", admin, "")
-		assert.Equal(t, http.StatusNotFound, res.Code)
-	})
-
 	t.Run("admin with the feature sees every project", func(t *testing.T) {
 		e, err := setupTestEnv()
 		require.NoError(t, err)
-		license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-		defer license.ResetForTests()
 
 		admin := promoteToAdmin(t, 1)
 
@@ -102,8 +84,6 @@ func TestHumaAdminProjects(t *testing.T) {
 	t.Run("unauthenticated caller gets 401", func(t *testing.T) {
 		e, err := setupTestEnv()
 		require.NoError(t, err)
-		license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-		defer license.ResetForTests()
 
 		// The token middleware rejects with 401 before the gate runs, matching v1.
 		res := adminReq(t, e, http.MethodGet, "/api/v2/admin/projects", nil, "")

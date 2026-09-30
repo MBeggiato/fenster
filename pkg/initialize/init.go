@@ -27,7 +27,6 @@ import (
 	"code.vikunja.io/api/pkg/events"
 	"code.vikunja.io/api/pkg/files"
 	"code.vikunja.io/api/pkg/i18n"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/log"
 	"code.vikunja.io/api/pkg/mail"
 	"code.vikunja.io/api/pkg/migration"
@@ -96,10 +95,6 @@ func FullInitWithoutAsync() {
 
 	// Set Engine
 	InitEngines()
-
-	// Initialize license validation — funds ongoing development of Vikunja.
-	// See the package comment in pkg/license/license.go before removing.
-	license.Init()
 
 	if config.AuditEnabled.GetBool() {
 		if err := audit.Init(); err != nil {

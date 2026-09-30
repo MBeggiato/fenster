@@ -32,7 +32,6 @@ import (
 	"code.vikunja.io/api/pkg/config"
 	"code.vikunja.io/api/pkg/cron"
 	"code.vikunja.io/api/pkg/initialize"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/log"
 	"code.vikunja.io/api/pkg/plugins"
 	"code.vikunja.io/api/pkg/routes"
@@ -196,7 +195,6 @@ var webCmd = &cobra.Command{
 			log.Fatalf("Server shutdown failed: %v", err)
 		}
 		cron.Stop()
-		license.Shutdown() // See the package comment in pkg/license/license.go before removing.
 		plugins.Shutdown()
 	},
 }

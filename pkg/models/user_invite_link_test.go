@@ -29,7 +29,6 @@ import (
 	"code.vikunja.io/api/pkg/mail"
 
 	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/user"
 	"code.vikunja.io/api/pkg/utils"
 	"xorm.io/builder"
@@ -43,8 +42,6 @@ import (
 func inviteLinkSetup(t *testing.T) (*xorm.Session, *user.User) {
 	t.Helper()
 	adminActionsSetup(t)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel, license.FeatureUserInvites})
-	t.Cleanup(license.ResetForTests)
 	s := db.NewSession()
 	t.Cleanup(func() { events.CleanupPending(s); _ = s.Close() })
 	_, err := s.ID(1).Cols("is_admin").Update(&user.User{IsAdmin: true})
@@ -234,13 +231,9 @@ func TestInviteLinkRegistration(t *testing.T) {
 }
 
 func TestInviteLinkUnavailable(t *testing.T) {
-	for _, token := range []string{"unknown", "expired", "exhausted", "feature-off"} {
+	for _, token := range []string{"unknown", "expired", "exhausted"} {
 		t.Run(token, func(t *testing.T) {
 			s, _ := inviteLinkSetup(t)
-			if token == "feature-off" {
-				license.ResetForTests()
-				token = "unlimited"
-			}
 			_, err := GetInviteLinkByToken(s, token)
 			require.ErrorIs(t, err, ErrInviteLinkInvalid{})
 			_, err = RegisterUserViaInviteLink(s, token, &user.User{Username: "blocked", Email: "blocked@example.com", Password: "12345678"})

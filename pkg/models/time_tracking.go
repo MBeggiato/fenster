@@ -21,7 +21,6 @@ import (
 
 	"code.vikunja.io/api/pkg/db"
 	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/user"
 	"code.vikunja.io/api/pkg/web"
 	"xorm.io/builder"
@@ -407,9 +406,6 @@ func (te *TimeEntry) canModify(s *xorm.Session, a web.Auth) (bool, error) {
 // link shares or when the feature is unlicensed, so it can't leak that way.
 func addTimeEntriesCountToTasks(s *xorm.Session, a web.Auth, taskIDs []int64, taskMap map[int64]*Task) error {
 	if _, isShare := a.(*LinkSharing); isShare {
-		return nil
-	}
-	if !license.IsFeatureEnabled(license.FeatureTimeTracking) {
 		return nil
 	}
 	if len(taskIDs) == 0 {

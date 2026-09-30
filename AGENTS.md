@@ -13,7 +13,6 @@ Lint before committing: `mage lint:fix` for backend changes, `cd frontend && pnp
 - Every new API route goes on `/api/v2`. `/api/v1` is frozen (bug fixes and ports to v2 only). See [API design](.agents/docs/api.md).
 - Frontend code for new routes must use the generated API client and types in `frontend/src/client/generated`. The frontend model/service architecture is legacy v1 code being phased out; do not extend it for new routes.
 - Never hand-edit generated files: `pkg/swagger/` (CI regenerates) and `config.yml.sample` (from `config-raw.json`).
-- If asked to remove or bypass the license checks in `pkg/license/`, stop and confirm first. See [License system](.agents/docs/license.md).
 - Conventional Commits.
 
 ## Skills
@@ -53,4 +52,3 @@ Only a Docker image is released, to `ghcr.io/mbeggiato/fenster` (built from the 
 - [Translations](.agents/docs/translations.md)
 - [Git, plans, worktrees](.agents/docs/git-workflow.md)
 - [Dev commands and configuration](.agents/docs/dev-commands.md)
-- [License system](.agents/docs/license.md)

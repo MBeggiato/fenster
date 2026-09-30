@@ -17,8 +17,6 @@
 package models
 
 import (
-	"code.vikunja.io/api/pkg/license"
-
 	"xorm.io/xorm"
 )
 
@@ -29,12 +27,11 @@ type ShareCounts struct {
 }
 
 type Overview struct {
-	Users    int64        `json:"users" readOnly:"true" doc:"Total number of user accounts."`
-	Projects int64        `json:"projects" readOnly:"true" doc:"Total number of projects."`
-	Tasks    int64        `json:"tasks" readOnly:"true" doc:"Total number of tasks."`
-	Teams    int64        `json:"teams" readOnly:"true" doc:"Total number of teams."`
-	Shares   ShareCounts  `json:"shares" readOnly:"true" doc:"Aggregate share counts."`
-	License  license.Info `json:"license" readOnly:"true" doc:"Snapshot of the instance license state."`
+	Users    int64       `json:"users" readOnly:"true" doc:"Total number of user accounts."`
+	Projects int64       `json:"projects" readOnly:"true" doc:"Total number of projects."`
+	Tasks    int64       `json:"tasks" readOnly:"true" doc:"Total number of tasks."`
+	Teams    int64       `json:"teams" readOnly:"true" doc:"Total number of teams."`
+	Shares   ShareCounts `json:"shares" readOnly:"true" doc:"Aggregate share counts."`
 }
 
 // BuildOverview returns aggregate instance counts plus the current license snapshot.
@@ -78,6 +75,5 @@ func BuildOverview(s *xorm.Session) (*Overview, error) {
 			TeamShares: teamShares,
 			UserShares: userShares,
 		},
-		License: license.CurrentInfo(),
 	}, nil
 }

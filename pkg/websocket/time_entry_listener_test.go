@@ -20,7 +20,6 @@ import (
 	"testing"
 
 	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/models"
 
 	"github.com/stretchr/testify/assert"
@@ -40,8 +39,6 @@ func TestTimeEntryListener(t *testing.T) {
 		InitHub()
 		conn := timerConn(1)
 		GetHub().Register(conn)
-		license.SetForTests([]license.Feature{license.FeatureTimeTracking})
-		defer license.ResetForTests()
 
 		ev := &models.TimeEntryCreatedEvent{TimeEntry: &models.TimeEntry{ID: 4, UserID: 1}}
 		events.TestListener(t, ev, &TimeEntryListener{wsEvent: "timer.created"})
@@ -58,8 +55,6 @@ func TestTimeEntryListener(t *testing.T) {
 		InitHub()
 		conn := timerConn(1)
 		GetHub().Register(conn)
-		license.SetForTests([]license.Feature{license.FeatureTimeTracking})
-		defer license.ResetForTests()
 
 		ev := &models.TimeEntryUpdatedEvent{TimeEntry: &models.TimeEntry{ID: 4, UserID: 1}}
 		events.TestListener(t, ev, &TimeEntryListener{wsEvent: "timer.updated"})
@@ -72,8 +67,6 @@ func TestTimeEntryListener(t *testing.T) {
 		InitHub()
 		conn := timerConn(1)
 		GetHub().Register(conn)
-		license.SetForTests([]license.Feature{license.FeatureTimeTracking})
-		defer license.ResetForTests()
 
 		ev := &models.TimeEntryDeletedEvent{TimeEntry: &models.TimeEntry{ID: 4, UserID: 1}}
 		events.TestListener(t, ev, &TimeEntryListener{wsEvent: "timer.deleted"})
@@ -86,24 +79,10 @@ func TestTimeEntryListener(t *testing.T) {
 		assert.Equal(t, int64(4), te.ID)
 	})
 
-	t.Run("does not push when the feature is disabled", func(t *testing.T) {
-		InitHub()
-		conn := timerConn(1)
-		GetHub().Register(conn)
-		license.ResetForTests() // free mode
-
-		ev := &models.TimeEntryUpdatedEvent{TimeEntry: &models.TimeEntry{ID: 4, UserID: 1}}
-		events.TestListener(t, ev, &TimeEntryListener{wsEvent: "timer.updated"})
-
-		assert.Empty(t, conn.send)
-	})
-
 	t.Run("only pushes to the entry owner", func(t *testing.T) {
 		InitHub()
 		other := timerConn(2)
 		GetHub().Register(other)
-		license.SetForTests([]license.Feature{license.FeatureTimeTracking})
-		defer license.ResetForTests()
 
 		ev := &models.TimeEntryUpdatedEvent{TimeEntry: &models.TimeEntry{ID: 4, UserID: 1}}
 		events.TestListener(t, ev, &TimeEntryListener{wsEvent: "timer.updated"})

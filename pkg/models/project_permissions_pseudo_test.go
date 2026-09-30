@@ -20,7 +20,6 @@ import (
 	"testing"
 
 	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/user"
 
 	"github.com/stretchr/testify/assert"
@@ -68,8 +67,6 @@ func TestProjectCanWritePseudoProject(t *testing.T) {
 
 func TestProjectCanWritePseudoProjectAsInstanceAdmin(t *testing.T) {
 	db.LoadAndAssertFixtures(t)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 	s := db.NewSession()
 	defer s.Close()
 
@@ -279,8 +276,6 @@ func TestProjectCanReadPseudoProject(t *testing.T) {
 
 func TestProjectPseudoProjectPermissionsAsInstanceAdmin(t *testing.T) {
 	db.LoadAndAssertFixtures(t)
-	license.SetForTests([]license.Feature{license.FeatureAdminPanel})
-	defer license.ResetForTests()
 	s := db.NewSession()
 	defer s.Close()
 

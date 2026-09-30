@@ -27,7 +27,6 @@ import (
 	"code.vikunja.io/api/pkg/db"
 	"code.vikunja.io/api/pkg/events"
 	"code.vikunja.io/api/pkg/files"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/log"
 	"code.vikunja.io/api/pkg/models"
 	"code.vikunja.io/api/pkg/modules/keyvalue"
@@ -67,7 +66,7 @@ func setupTestingEnv(t *testing.T, token string) *echo.Echo {
 	// doesn't hit "no such table" (the same gap that kept v1 from testing it).
 	engine, err := db.CreateTestEngine()
 	require.NoError(t, err)
-	extraTables := append(append([]any{new(xormigrate.Migration)}, license.GetTables()...), migration.GetTables()...)
+	extraTables := append([]any{new(xormigrate.Migration)}, migration.GetTables()...)
 	require.NoError(t, engine.Sync2(extraTables...))
 
 	require.NoError(t, db.LoadFixtures())

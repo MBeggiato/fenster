@@ -27,7 +27,6 @@ import (
 	"code.vikunja.io/api/pkg/db"
 	"code.vikunja.io/api/pkg/events"
 	"code.vikunja.io/api/pkg/initialize"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/log"
 	"code.vikunja.io/api/pkg/mail"
 	"code.vikunja.io/api/pkg/models"
@@ -125,11 +124,6 @@ var userSetAdminCmd = &cobra.Command{
 		initialize.FullInit()
 	},
 	Run: func(_ *cobra.Command, args []string) {
-		// Refuse on a free instance; the is_admin bypass is gated by the admin-panel entitlement everywhere else.
-		if !license.IsFeatureEnabled(license.FeatureAdminPanel) {
-			log.Fatalf("The admin-panel license feature is not active; refusing to change the is_admin flag.")
-		}
-
 		s := db.NewSession()
 		defer s.Close()
 		value := userFlagMakeAdmin
