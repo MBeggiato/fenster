@@ -23,8 +23,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/modules/keyvalue"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/modules/keyvalue"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

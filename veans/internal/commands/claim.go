@@ -22,8 +22,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"code.vikunja.io/veans/internal/output"
-	"code.vikunja.io/veans/internal/status"
+	"github.com/MBeggiato/fenster/veans/internal/output"
+	"github.com/MBeggiato/fenster/veans/internal/status"
 )
 
 func newClaimCmd() *cobra.Command {

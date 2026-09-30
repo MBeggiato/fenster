@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"strings"
 
-	"code.vikunja.io/api/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/log"
 
 	"src.techknowlogick.com/xormigrate"
 	"xorm.io/xorm"

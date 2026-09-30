@@ -22,14 +22,14 @@ import (
 	"strconv"
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/i18n"
-	"code.vikunja.io/api/pkg/mail"
-	"code.vikunja.io/api/pkg/modules/avatar"
-	"code.vikunja.io/api/pkg/notifications"
-	"code.vikunja.io/api/pkg/user"
-	"code.vikunja.io/api/pkg/utils"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/i18n"
+	"github.com/MBeggiato/fenster/pkg/mail"
+	"github.com/MBeggiato/fenster/pkg/modules/avatar"
+	"github.com/MBeggiato/fenster/pkg/notifications"
+	"github.com/MBeggiato/fenster/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/utils"
 )
 
 func init() {

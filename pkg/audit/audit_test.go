@@ -26,11 +26,11 @@ import (
 	"testing"
 	"time"
 
-	"code.vikunja.io/api/pkg/audit"
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/modules/keyvalue"
+	"github.com/MBeggiato/fenster/pkg/audit"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/events"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/modules/keyvalue"
 
 	"github.com/ThreeDotsLabs/watermill/message"
 	"github.com/stretchr/testify/assert"

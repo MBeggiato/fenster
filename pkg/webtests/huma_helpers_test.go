@@ -21,8 +21,8 @@ import (
 	"strings"
 	"testing"
 
-	"code.vikunja.io/api/pkg/modules/auth"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/modules/auth"
+	"github.com/MBeggiato/fenster/pkg/user"
 
 	"github.com/labstack/echo/v5"
 	"github.com/stretchr/testify/require"

@@ -16,7 +16,7 @@
 
 package notifications
 
-import "code.vikunja.io/api/pkg/db"
+import "github.com/MBeggiato/fenster/pkg/db"
 
 func init() {
 	db.RegisterTables(GetTables())

@@ -22,9 +22,9 @@ import (
 	"strings"
 	"time"
 
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/user"
-	"code.vikunja.io/api/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/web"
 
 	"github.com/danielgtaylor/huma/v2"
 	"xorm.io/builder"

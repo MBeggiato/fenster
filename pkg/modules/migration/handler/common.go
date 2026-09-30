@@ -19,8 +19,8 @@ package handler
 import (
 	"net/http"
 
-	"code.vikunja.io/api/pkg/modules/migration"
-	user2 "code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/modules/migration"
+	user2 "github.com/MBeggiato/fenster/pkg/user"
 	"github.com/labstack/echo/v5"
 )
 

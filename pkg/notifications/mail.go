@@ -19,9 +19,9 @@ package notifications
 import (
 	"fmt"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/i18n"
-	"code.vikunja.io/api/pkg/mail"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/i18n"
+	"github.com/MBeggiato/fenster/pkg/mail"
 )
 
 // Mail is a mail message

@@ -24,8 +24,8 @@ import (
 	"testing"
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/routes"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/routes"
 
 	"github.com/labstack/echo/v5"
 

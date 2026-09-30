@@ -20,9 +20,9 @@ import (
 	"slices"
 	"testing"
 
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/notifications"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/notifications"
+	"github.com/MBeggiato/fenster/pkg/user"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

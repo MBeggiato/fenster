@@ -21,9 +21,9 @@ package caldav
 import (
 	"testing"
 
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/user"
 
 	"github.com/samedi/caldav-go/data"
 	"github.com/samedi/caldav-go/errs"

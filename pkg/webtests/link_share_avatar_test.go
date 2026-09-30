@@ -21,8 +21,8 @@ import (
 	"strconv"
 	"testing"
 
-	"code.vikunja.io/api/pkg/models"
-	apiv1 "code.vikunja.io/api/pkg/routes/api/v1"
+	"github.com/MBeggiato/fenster/pkg/models"
+	apiv1 "github.com/MBeggiato/fenster/pkg/routes/api/v1"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

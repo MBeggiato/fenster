@@ -20,7 +20,7 @@ import (
 	"testing"
 	"time"
 
-	"code.vikunja.io/api/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/db"
 
 	"github.com/stretchr/testify/require"
 	"xorm.io/builder"

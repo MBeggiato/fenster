@@ -6,8 +6,8 @@ this file is veans-specific.
 
 ## Module layout
 
-- `veans/` is its own Go module (`code.vikunja.io/veans`), separate from
-  the parent. Don't try to import `code.vikunja.io/api/...` — that pulls
+- `veans/` is its own Go module (`github.com/MBeggiato/fenster/veans`), separate from
+  the parent. Don't try to import `github.com/MBeggiato/fenster/...` — that pulls
   XORM into the CLI binary. Wire types live in `internal/client/types.go`
   as plain JSON-tagged structs that mirror the parent models.
 - License headers are enforced by `goheader` in `veans/.golangci.yml`.

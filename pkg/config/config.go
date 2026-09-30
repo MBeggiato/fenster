@@ -29,7 +29,7 @@ import (
 	"time"
 	_ "time/tzdata" // Imports time zone data instead of relying on the os
 
-	"code.vikunja.io/api/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/log"
 
 	"github.com/c2h5oh/datasize"
 	"github.com/spf13/viper"

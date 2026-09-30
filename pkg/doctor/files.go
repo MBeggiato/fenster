@@ -25,8 +25,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/files"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/files"
 )
 
 // s3ProbeTimeout bounds every S3 round trip the check makes. An unreachable but

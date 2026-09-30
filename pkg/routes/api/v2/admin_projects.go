@@ -21,10 +21,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/web/handler"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/events"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/web/handler"
 
 	"github.com/danielgtaylor/huma/v2"
 )

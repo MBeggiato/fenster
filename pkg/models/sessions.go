@@ -20,12 +20,12 @@ import (
 	"encoding/hex"
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/cron"
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/utils"
-	"code.vikunja.io/api/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/cron"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/utils"
+	"github.com/MBeggiato/fenster/pkg/web"
 
 	"github.com/google/uuid"
 	"xorm.io/builder"

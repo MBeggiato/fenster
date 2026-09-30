@@ -21,10 +21,10 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"code.vikunja.io/api/pkg/modules/migration"
-	"code.vikunja.io/api/pkg/modules/migration/csv"
-	migrationHandler "code.vikunja.io/api/pkg/modules/migration/handler"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/modules/migration"
+	"github.com/MBeggiato/fenster/pkg/modules/migration/csv"
+	migrationHandler "github.com/MBeggiato/fenster/pkg/modules/migration/handler"
+	"github.com/MBeggiato/fenster/pkg/user"
 
 	"github.com/danielgtaylor/huma/v2"
 )

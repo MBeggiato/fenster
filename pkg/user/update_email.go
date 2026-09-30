@@ -21,9 +21,9 @@ import (
 	"strconv"
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/modules/keyvalue"
-	"code.vikunja.io/api/pkg/notifications"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/modules/keyvalue"
+	"github.com/MBeggiato/fenster/pkg/notifications"
 	"xorm.io/xorm"
 )
 

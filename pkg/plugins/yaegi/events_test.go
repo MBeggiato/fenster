@@ -19,7 +19,7 @@ package yaegi
 import (
 	"testing"
 
-	"code.vikunja.io/api/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/log"
 )
 
 func TestPluginEventListener(t *testing.T) {

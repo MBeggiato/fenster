@@ -20,7 +20,7 @@ import (
 	"encoding/base64"
 	"fmt"
 
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/user"
 )
 
 // Provider represents the empty avatar provider

@@ -17,7 +17,7 @@
 package models
 
 import (
-	"code.vikunja.io/api/pkg/files"
+	"github.com/MBeggiato/fenster/pkg/files"
 	"xorm.io/xorm"
 )
 

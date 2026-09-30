@@ -28,11 +28,11 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/files"
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/routes"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/files"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/routes"
 
 	"github.com/labstack/echo/v5"
 	"github.com/stretchr/testify/assert"

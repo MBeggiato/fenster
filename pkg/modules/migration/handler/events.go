@@ -17,7 +17,7 @@
 package handler
 
 import (
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/user"
 )
 
 // MigrationRequestedEvent represents a MigrationRequestedEvent event

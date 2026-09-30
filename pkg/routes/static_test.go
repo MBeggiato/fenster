@@ -21,7 +21,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"code.vikunja.io/api/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/log"
 
 	"github.com/labstack/echo/v5"
 	"github.com/stretchr/testify/assert"

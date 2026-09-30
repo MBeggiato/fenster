@@ -17,8 +17,8 @@
 package ldap
 
 import (
-	"code.vikunja.io/api/pkg/modules/avatar/upload"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/modules/avatar/upload"
+	"github.com/MBeggiato/fenster/pkg/user"
 )
 
 type Provider struct{}

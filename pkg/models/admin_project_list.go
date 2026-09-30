@@ -17,9 +17,9 @@
 package models
 
 import (
-	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/user"
-	"code.vikunja.io/api/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/events"
+	"github.com/MBeggiato/fenster/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/web"
 
 	"xorm.io/xorm"
 )

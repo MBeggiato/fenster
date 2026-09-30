@@ -20,11 +20,11 @@ import (
 	"context"
 	"net/http"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/modules/auth"
-	"code.vikunja.io/api/pkg/modules/humabridge"
-	"code.vikunja.io/api/pkg/routes/api/shared"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/modules/auth"
+	"github.com/MBeggiato/fenster/pkg/modules/humabridge"
+	"github.com/MBeggiato/fenster/pkg/routes/api/shared"
+	"github.com/MBeggiato/fenster/pkg/user"
 
 	"github.com/danielgtaylor/huma/v2"
 )

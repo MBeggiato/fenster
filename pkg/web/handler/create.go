@@ -21,9 +21,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/modules/auth"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/modules/auth"
 
 	"github.com/labstack/echo/v5"
 )

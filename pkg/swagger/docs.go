@@ -9089,38 +9089,6 @@ const docTemplate = `{
                 }
             }
         },
-        "code_vikunja_io_api_pkg_modules_auth_openid.Provider": {
-            "type": "object",
-            "properties": {
-                "auth_url": {
-                    "type": "string"
-                },
-                "client_id": {
-                    "type": "string"
-                },
-                "email_fallback": {
-                    "type": "boolean"
-                },
-                "force_user_info": {
-                    "type": "boolean"
-                },
-                "key": {
-                    "type": "string"
-                },
-                "logout_url": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "scope": {
-                    "type": "string"
-                },
-                "username_fallback": {
-                    "type": "boolean"
-                }
-            }
-        },
         "csv.ColumnMapping": {
             "type": "object",
             "properties": {
@@ -9265,6 +9233,38 @@ const docTemplate = `{
                 },
                 "size": {
                     "type": "integer"
+                }
+            }
+        },
+        "github_com_MBeggiato_fenster_pkg_modules_auth_openid.Provider": {
+            "type": "object",
+            "properties": {
+                "auth_url": {
+                    "type": "string"
+                },
+                "client_id": {
+                    "type": "string"
+                },
+                "email_fallback": {
+                    "type": "boolean"
+                },
+                "force_user_info": {
+                    "type": "boolean"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "logout_url": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "scope": {
+                    "type": "string"
+                },
+                "username_fallback": {
+                    "type": "boolean"
                 }
             }
         },
@@ -11135,7 +11135,7 @@ const docTemplate = `{
                 "providers": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/code_vikunja_io_api_pkg_modules_auth_openid.Provider"
+                        "$ref": "#/definitions/github_com_MBeggiato_fenster_pkg_modules_auth_openid.Provider"
                     }
                 }
             }

@@ -1,7 +1,7 @@
 # Vikunja Web Handler
 
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](LICENSE)
-[![Go Report Card](https://goreportcard.com/badge/code.vikunja.io/web)](https://goreportcard.com/report/code.vikunja.io/web)
+[![Go Report Card](https://goreportcard.com/badge/github.com/MBeggiato/fenster/pkg/web)](https://goreportcard.com/report/github.com/MBeggiato/fenster/pkg/web)
 
 > When I started Vikunja, I started like everyone else, by writing a bunch of functions to do the logic and then a bunch of
 handler functions to parse the request data and call the implemented functions to do the logic and eventually return a dataset.
@@ -47,7 +47,7 @@ other handler implementations, enabling a lot of flexibility while developing.
 
 ## Installation
 
-Using the web handler in your application is pretty straight forward, simply run `go get -u code.vikunja.io/web` and start using it. 
+Using the web handler in your application is pretty straight forward, simply run `go get -u github.com/MBeggiato/fenster/pkg/web` and start using it. 
 
 In order to use the common web handler, the struct must implement the `web.CRUDable` and `web.Permissions` interface.
 

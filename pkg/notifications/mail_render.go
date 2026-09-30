@@ -27,10 +27,10 @@ import (
 	"strings"
 	templatetext "text/template"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/i18n"
-	"code.vikunja.io/api/pkg/mail"
-	"code.vikunja.io/api/pkg/utils"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/i18n"
+	"github.com/MBeggiato/fenster/pkg/mail"
+	"github.com/MBeggiato/fenster/pkg/utils"
 
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/yuin/goldmark/v2/ast"

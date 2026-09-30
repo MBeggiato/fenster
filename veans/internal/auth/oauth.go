@@ -32,8 +32,8 @@ import (
 
 	"github.com/pkg/browser"
 
-	"code.vikunja.io/veans/internal/client"
-	"code.vikunja.io/veans/internal/output"
+	"github.com/MBeggiato/fenster/veans/internal/client"
+	"github.com/MBeggiato/fenster/veans/internal/output"
 )
 
 // oauthClientID is what veans presents to Vikunja's authorization server.

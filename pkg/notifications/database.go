@@ -20,8 +20,8 @@ import (
 	"errors"
 	"time"
 
-	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/events"
+	"github.com/MBeggiato/fenster/pkg/log"
 
 	"xorm.io/builder"
 	"xorm.io/xorm"

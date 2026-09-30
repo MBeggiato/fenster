@@ -22,7 +22,7 @@ import (
 	"math"
 	"strconv"
 
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/user"
 )
 
 // Provider generates a random avatar based on https://github.com/boringdesigners/boring-avatars

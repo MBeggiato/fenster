@@ -31,7 +31,7 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"code.vikunja.io/veans/internal/output"
+	"github.com/MBeggiato/fenster/veans/internal/output"
 )
 
 // Filename is the canonical config name. Walked upward from cwd by Find.

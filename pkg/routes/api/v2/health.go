@@ -20,9 +20,9 @@ import (
 	"context"
 	"net/http"
 
-	"code.vikunja.io/api/pkg/health"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/modules/auth/openid"
+	"github.com/MBeggiato/fenster/pkg/health"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/modules/auth/openid"
 
 	"github.com/danielgtaylor/huma/v2"
 )

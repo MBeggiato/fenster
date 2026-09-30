@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"os"
 
-	"code.vikunja.io/api/pkg/health"
-	"code.vikunja.io/api/pkg/initialize"
+	"github.com/MBeggiato/fenster/pkg/health"
+	"github.com/MBeggiato/fenster/pkg/initialize"
 
 	"github.com/spf13/cobra"
 )

@@ -19,7 +19,7 @@ package commands
 import (
 	"testing"
 
-	"code.vikunja.io/veans/internal/client"
+	"github.com/MBeggiato/fenster/veans/internal/client"
 )
 
 func TestIsReady(t *testing.T) {

@@ -25,7 +25,7 @@ import (
 	"testing"
 	"time"
 
-	"code.vikunja.io/veans/internal/output"
+	"github.com/MBeggiato/fenster/veans/internal/output"
 )
 
 func TestMapHTTPError_StatusCodeMapping(t *testing.T) {

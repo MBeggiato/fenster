@@ -16,7 +16,7 @@
 
 package notifications
 
-import "code.vikunja.io/api/pkg/events"
+import "github.com/MBeggiato/fenster/pkg/events"
 
 // NotificationCreatedEvent is dispatched after a notification is committed to the database.
 // The listener reloads the full record from the DB to get accurate timestamps.

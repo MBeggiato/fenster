@@ -20,7 +20,7 @@ import (
 	"strings"
 	"testing"
 
-	"code.vikunja.io/api/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

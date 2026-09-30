@@ -20,9 +20,9 @@ import (
 	"context"
 	"net/http"
 
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/modules/humabridge"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/modules/humabridge"
+	"github.com/MBeggiato/fenster/pkg/user"
 
 	"github.com/danielgtaylor/huma/v2"
 )

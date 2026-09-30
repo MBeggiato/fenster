@@ -17,9 +17,9 @@
 package cmd
 
 import (
-	"code.vikunja.io/api/pkg/initialize"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/modules/dump"
+	"github.com/MBeggiato/fenster/pkg/initialize"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/modules/dump"
 	"github.com/spf13/cobra"
 )
 

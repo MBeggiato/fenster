@@ -27,11 +27,11 @@ import (
 	"strings"
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/modules/migration"
-	"code.vikunja.io/api/pkg/user"
-	"code.vikunja.io/api/pkg/utils"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/modules/migration"
+	"github.com/MBeggiato/fenster/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/utils"
 
 	"github.com/gocarina/gocsv"
 )

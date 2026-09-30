@@ -19,7 +19,7 @@ package planka
 import (
 	"net/http"
 
-	"code.vikunja.io/api/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/web"
 )
 
 // ErrImportBudgetExceeded aborts a Planka import whose job budget is exhausted (GHSA-wq92-8x3r-fm38).

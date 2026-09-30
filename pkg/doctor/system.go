@@ -21,7 +21,7 @@ import (
 	"os"
 	"runtime"
 
-	"code.vikunja.io/api/pkg/version"
+	"github.com/MBeggiato/fenster/pkg/version"
 )
 
 // CheckSystem returns system information checks.

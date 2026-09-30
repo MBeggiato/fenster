@@ -22,8 +22,8 @@ import (
 	"os"
 	"runtime"
 
-	"code.vikunja.io/veans/internal/client"
-	"code.vikunja.io/veans/internal/commands"
+	"github.com/MBeggiato/fenster/veans/internal/client"
+	"github.com/MBeggiato/fenster/veans/internal/commands"
 )
 
 // version is overwritten via -ldflags at release time.

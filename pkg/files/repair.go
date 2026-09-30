@@ -19,7 +19,7 @@ package files
 import (
 	"fmt"
 
-	"code.vikunja.io/api/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/log"
 
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/schollz/progressbar/v3"

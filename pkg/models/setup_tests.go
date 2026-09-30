@@ -17,11 +17,11 @@
 package models
 
 import (
-	_ "code.vikunja.io/api/pkg/config" // To trigger its init() which initializes the config
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/mail"
-	"code.vikunja.io/api/pkg/notifications"
+	_ "github.com/MBeggiato/fenster/pkg/config" // To trigger its init() which initializes the config
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/mail"
+	"github.com/MBeggiato/fenster/pkg/notifications"
 )
 
 // SetupTests takes care of seting up the db, fixtures etc.

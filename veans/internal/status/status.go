@@ -23,8 +23,8 @@ import (
 	"fmt"
 	"strings"
 
-	"code.vikunja.io/veans/internal/config"
-	"code.vikunja.io/veans/internal/output"
+	"github.com/MBeggiato/fenster/veans/internal/config"
+	"github.com/MBeggiato/fenster/veans/internal/output"
 )
 
 // Status is the agent-facing state name.

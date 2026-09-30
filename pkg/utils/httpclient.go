@@ -25,8 +25,8 @@ import (
 	"sync"
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/version"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/version"
 
 	"code.dny.dev/ssrf"
 	"golang.org/x/net/http/httpproxy"

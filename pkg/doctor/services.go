@@ -25,10 +25,10 @@ import (
 	"net/http"
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/modules/auth/ldap"
-	"code.vikunja.io/api/pkg/modules/auth/openid"
-	"code.vikunja.io/api/pkg/red"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/modules/auth/ldap"
+	"github.com/MBeggiato/fenster/pkg/modules/auth/openid"
+	"github.com/MBeggiato/fenster/pkg/red"
 )
 
 // CheckOptionalServices runs the checks for all enabled optional services, passing

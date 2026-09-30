@@ -20,9 +20,9 @@ import (
 	"context"
 	"errors"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/red"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/red"
 )
 
 // Check verifies the main service dependencies are reachable.

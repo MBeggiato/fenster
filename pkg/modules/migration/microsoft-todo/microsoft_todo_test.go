@@ -22,8 +22,8 @@ import (
 	"testing"
 	"time"
 
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/modules/migration"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/modules/migration"
 
 	"github.com/d4l3k/messagediff"
 	"github.com/stretchr/testify/assert"

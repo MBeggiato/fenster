@@ -17,18 +17,18 @@
 package shared
 
 import (
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/modules/auth/openid"
-	csvmigrator "code.vikunja.io/api/pkg/modules/migration/csv"
-	microsofttodo "code.vikunja.io/api/pkg/modules/migration/microsoft-todo"
-	"code.vikunja.io/api/pkg/modules/migration/planka"
-	"code.vikunja.io/api/pkg/modules/migration/ticktick"
-	"code.vikunja.io/api/pkg/modules/migration/todoist"
-	"code.vikunja.io/api/pkg/modules/migration/trello"
-	vikunja_file "code.vikunja.io/api/pkg/modules/migration/vikunja-file"
-	"code.vikunja.io/api/pkg/modules/migration/wekan"
-	"code.vikunja.io/api/pkg/version"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/modules/auth/openid"
+	csvmigrator "github.com/MBeggiato/fenster/pkg/modules/migration/csv"
+	microsofttodo "github.com/MBeggiato/fenster/pkg/modules/migration/microsoft-todo"
+	"github.com/MBeggiato/fenster/pkg/modules/migration/planka"
+	"github.com/MBeggiato/fenster/pkg/modules/migration/ticktick"
+	"github.com/MBeggiato/fenster/pkg/modules/migration/todoist"
+	"github.com/MBeggiato/fenster/pkg/modules/migration/trello"
+	vikunja_file "github.com/MBeggiato/fenster/pkg/modules/migration/vikunja-file"
+	"github.com/MBeggiato/fenster/pkg/modules/migration/wekan"
+	"github.com/MBeggiato/fenster/pkg/version"
 )
 
 // VikunjaInfos holds public information about this Vikunja instance.

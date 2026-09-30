@@ -19,9 +19,9 @@ package user
 import (
 	"strings"
 
-	"code.vikunja.io/api/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/config"
 
-	"code.vikunja.io/api/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/db"
 
 	"xorm.io/builder"
 	"xorm.io/xorm"

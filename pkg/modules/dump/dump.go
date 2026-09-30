@@ -23,11 +23,11 @@ import (
 	"os"
 	"strings"
 
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/files"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/utils"
-	"code.vikunja.io/api/pkg/version"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/files"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/utils"
+	"github.com/MBeggiato/fenster/pkg/version"
 	"github.com/spf13/viper"
 )
 

@@ -21,12 +21,12 @@ import (
 	"testing"
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/modules/migration"
-	migrationHandler "code.vikunja.io/api/pkg/modules/migration/handler"
-	"code.vikunja.io/api/pkg/routes"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/events"
+	"github.com/MBeggiato/fenster/pkg/modules/migration"
+	migrationHandler "github.com/MBeggiato/fenster/pkg/modules/migration/handler"
+	"github.com/MBeggiato/fenster/pkg/routes"
 
 	"github.com/labstack/echo/v5"
 	"github.com/stretchr/testify/assert"

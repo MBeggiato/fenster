@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"runtime"
 
-	"code.vikunja.io/api/pkg/version"
+	"github.com/MBeggiato/fenster/pkg/version"
 	"github.com/spf13/cobra"
 )
 

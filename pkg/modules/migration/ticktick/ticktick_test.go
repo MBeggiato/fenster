@@ -28,10 +28,10 @@ import (
 	"testing"
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/modules/migration"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/modules/migration"
 
-	"code.vikunja.io/api/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/models"
 	"github.com/gocarina/gocsv"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

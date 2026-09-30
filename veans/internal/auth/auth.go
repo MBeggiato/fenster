@@ -33,8 +33,8 @@ import (
 
 	"golang.org/x/term"
 
-	"code.vikunja.io/veans/internal/client"
-	"code.vikunja.io/veans/internal/output"
+	"github.com/MBeggiato/fenster/veans/internal/client"
+	"github.com/MBeggiato/fenster/veans/internal/output"
 )
 
 // Prompter abstracts stdin / TTY reads so tests can inject scripted answers.

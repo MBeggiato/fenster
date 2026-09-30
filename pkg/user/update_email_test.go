@@ -22,10 +22,10 @@ import (
 	"testing"
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/mail"
-	"code.vikunja.io/api/pkg/modules/keyvalue"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/mail"
+	"github.com/MBeggiato/fenster/pkg/modules/keyvalue"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

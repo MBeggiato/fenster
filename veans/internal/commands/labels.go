@@ -20,7 +20,7 @@ import (
 	"context"
 	"strings"
 
-	"code.vikunja.io/veans/internal/client"
+	"github.com/MBeggiato/fenster/veans/internal/client"
 )
 
 // labelNamespace is auto-prepended to label names that don't already have it,

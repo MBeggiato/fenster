@@ -23,11 +23,11 @@ import (
 	"reflect"
 	"strings"
 
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/modules/auth"
-	"code.vikunja.io/api/pkg/web"
-	"code.vikunja.io/api/pkg/web/handler"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/modules/auth"
+	"github.com/MBeggiato/fenster/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/web/handler"
 
 	"github.com/danielgtaylor/huma/v2"
 )

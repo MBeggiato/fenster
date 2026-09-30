@@ -21,7 +21,7 @@ import (
 	"testing"
 	"time"
 
-	"code.vikunja.io/api/pkg/modules/keyvalue/memory"
+	"github.com/MBeggiato/fenster/pkg/modules/keyvalue/memory"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

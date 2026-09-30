@@ -22,7 +22,7 @@ import (
 	"strings"
 	"testing"
 
-	"code.vikunja.io/api/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/config"
 
 	"github.com/labstack/echo/v5"
 	"github.com/stretchr/testify/assert"

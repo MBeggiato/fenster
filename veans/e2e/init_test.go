@@ -23,8 +23,8 @@ import (
 	"testing"
 	"time"
 
-	"code.vikunja.io/veans/internal/config"
-	"code.vikunja.io/veans/internal/credentials"
+	"github.com/MBeggiato/fenster/veans/internal/config"
+	"github.com/MBeggiato/fenster/veans/internal/credentials"
 )
 
 // TestInit_HappyPath exercises the full bootstrap: pick project + view,

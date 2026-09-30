@@ -20,8 +20,8 @@ import (
 	"net/http"
 	"testing"
 
-	apiv1 "code.vikunja.io/api/pkg/routes/api/v1"
-	"code.vikunja.io/api/pkg/user"
+	apiv1 "github.com/MBeggiato/fenster/pkg/routes/api/v1"
+	"github.com/MBeggiato/fenster/pkg/user"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

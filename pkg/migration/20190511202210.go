@@ -19,8 +19,8 @@ package migration
 import (
 	"strconv"
 
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/utils"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/utils"
 
 	"src.techknowlogick.com/xormigrate"
 	"xorm.io/xorm"

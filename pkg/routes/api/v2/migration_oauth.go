@@ -20,12 +20,12 @@ import (
 	"context"
 	"net/http"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/modules/migration"
-	migrationHandler "code.vikunja.io/api/pkg/modules/migration/handler"
-	microsofttodo "code.vikunja.io/api/pkg/modules/migration/microsoft-todo"
-	"code.vikunja.io/api/pkg/modules/migration/todoist"
-	"code.vikunja.io/api/pkg/modules/migration/trello"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/modules/migration"
+	migrationHandler "github.com/MBeggiato/fenster/pkg/modules/migration/handler"
+	microsofttodo "github.com/MBeggiato/fenster/pkg/modules/migration/microsoft-todo"
+	"github.com/MBeggiato/fenster/pkg/modules/migration/todoist"
+	"github.com/MBeggiato/fenster/pkg/modules/migration/trello"
 
 	"github.com/danielgtaylor/huma/v2"
 )

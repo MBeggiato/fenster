@@ -22,10 +22,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/health"
-	"code.vikunja.io/api/pkg/modules/auth/openid"
-	"code.vikunja.io/api/pkg/routes"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/health"
+	"github.com/MBeggiato/fenster/pkg/modules/auth/openid"
+	"github.com/MBeggiato/fenster/pkg/routes"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

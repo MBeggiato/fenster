@@ -21,11 +21,11 @@ import (
 	"net/http"
 	"net/http/pprof"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/metrics"
-	"code.vikunja.io/api/pkg/models"
-	auth2 "code.vikunja.io/api/pkg/modules/auth"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/metrics"
+	"github.com/MBeggiato/fenster/pkg/models"
+	auth2 "github.com/MBeggiato/fenster/pkg/modules/auth"
 
 	"github.com/labstack/echo/v5"
 	"github.com/labstack/echo/v5/middleware"

@@ -21,7 +21,7 @@ import (
 
 	"github.com/labstack/echo/v5"
 
-	"code.vikunja.io/api/pkg/health"
+	"github.com/MBeggiato/fenster/pkg/health"
 )
 
 // HealthcheckHandler handles healthckeck 'OK' response

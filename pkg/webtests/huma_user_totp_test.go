@@ -22,7 +22,7 @@ import (
 	"testing"
 	"time"
 
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/user"
 
 	"github.com/pquerna/otp/totp"
 	"github.com/stretchr/testify/assert"

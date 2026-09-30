@@ -19,9 +19,9 @@ package models
 import (
 	"encoding/json"
 
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/notifications"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/notifications"
+	"github.com/MBeggiato/fenster/pkg/user"
 
 	"xorm.io/xorm"
 )

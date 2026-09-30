@@ -20,12 +20,12 @@ import (
 	"context"
 	"net/http"
 
-	"code.vikunja.io/api/pkg/modules/migration"
-	migrationHandler "code.vikunja.io/api/pkg/modules/migration/handler"
-	"code.vikunja.io/api/pkg/modules/migration/ticktick"
-	vikunja_file "code.vikunja.io/api/pkg/modules/migration/vikunja-file"
-	"code.vikunja.io/api/pkg/modules/migration/wekan"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/modules/migration"
+	migrationHandler "github.com/MBeggiato/fenster/pkg/modules/migration/handler"
+	"github.com/MBeggiato/fenster/pkg/modules/migration/ticktick"
+	vikunja_file "github.com/MBeggiato/fenster/pkg/modules/migration/vikunja-file"
+	"github.com/MBeggiato/fenster/pkg/modules/migration/wekan"
+	"github.com/MBeggiato/fenster/pkg/user"
 
 	"github.com/danielgtaylor/huma/v2"
 )

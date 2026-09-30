@@ -17,8 +17,8 @@
 package models
 
 import (
-	"code.vikunja.io/api/pkg/notifications"
-	"code.vikunja.io/api/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/notifications"
+	"github.com/MBeggiato/fenster/pkg/web"
 
 	"xorm.io/builder"
 	"xorm.io/xorm"

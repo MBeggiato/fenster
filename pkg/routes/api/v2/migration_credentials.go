@@ -17,8 +17,8 @@
 package apiv2
 
 import (
-	"code.vikunja.io/api/pkg/modules/migration"
-	"code.vikunja.io/api/pkg/modules/migration/planka"
+	"github.com/MBeggiato/fenster/pkg/modules/migration"
+	"github.com/MBeggiato/fenster/pkg/modules/migration/planka"
 
 	"github.com/danielgtaylor/huma/v2"
 )

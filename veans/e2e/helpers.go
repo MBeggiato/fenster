@@ -43,7 +43,7 @@ import (
 	"testing"
 	"time"
 
-	"code.vikunja.io/veans/internal/client"
+	"github.com/MBeggiato/fenster/veans/internal/client"
 )
 
 // Hard-coded seed credentials. The hash is the bcrypt of "1234" and

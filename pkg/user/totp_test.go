@@ -20,9 +20,9 @@ import (
 	"testing"
 	"time"
 
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/modules/keyvalue"
-	"code.vikunja.io/api/pkg/utils"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/modules/keyvalue"
+	"github.com/MBeggiato/fenster/pkg/utils"
 
 	"github.com/pquerna/otp/totp"
 	"github.com/stretchr/testify/assert"

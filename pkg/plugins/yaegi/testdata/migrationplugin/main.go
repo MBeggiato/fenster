@@ -17,7 +17,7 @@
 package main
 
 import (
-	"code.vikunja.io/api/pkg/plugins"
+	"github.com/MBeggiato/fenster/pkg/plugins"
 
 	"src.techknowlogick.com/xormigrate"
 	"xorm.io/xorm"

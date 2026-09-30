@@ -23,7 +23,7 @@ import (
 	"strconv"
 	"strings"
 
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/user"
 )
 
 // Provider represents the provider implementation of the initials provider

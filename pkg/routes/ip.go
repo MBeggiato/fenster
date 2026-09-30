@@ -21,7 +21,7 @@ import (
 	"net/http"
 	"strings"
 
-	"code.vikunja.io/api/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/log"
 
 	"github.com/labstack/echo/v5"
 )

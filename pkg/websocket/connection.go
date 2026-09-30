@@ -22,8 +22,8 @@ import (
 	"sync"
 	"time"
 
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/modules/auth"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/modules/auth"
 
 	"github.com/coder/websocket"
 )

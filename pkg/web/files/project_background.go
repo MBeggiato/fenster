@@ -21,7 +21,7 @@ import (
 	"net/http"
 	"os"
 
-	"code.vikunja.io/api/pkg/files"
+	"github.com/MBeggiato/fenster/pkg/files"
 )
 
 // WriteProjectBackground streams a project's background file (its .File reader must be

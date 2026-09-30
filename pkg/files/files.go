@@ -26,11 +26,11 @@ import (
 	"strconv"
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/log"
 
-	"code.vikunja.io/api/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/web"
 	"github.com/c2h5oh/datasize"
 	"github.com/gabriel-vasile/mimetype"
 	"xorm.io/xorm"

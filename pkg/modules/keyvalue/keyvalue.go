@@ -19,10 +19,10 @@ package keyvalue
 import (
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/modules/keyvalue/memory"
-	"code.vikunja.io/api/pkg/modules/keyvalue/redis"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/modules/keyvalue/memory"
+	"github.com/MBeggiato/fenster/pkg/modules/keyvalue/redis"
 )
 
 // Storage defines an interface for saving key-value pairs

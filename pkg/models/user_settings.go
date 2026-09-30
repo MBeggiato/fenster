@@ -19,8 +19,8 @@ package models
 import (
 	"context"
 
-	"code.vikunja.io/api/pkg/modules/avatar"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/modules/avatar"
+	"github.com/MBeggiato/fenster/pkg/user"
 
 	"xorm.io/xorm"
 )

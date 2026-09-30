@@ -25,10 +25,10 @@ import (
 
 	"github.com/getsentry/sentry-go"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/errorreport"
-	"code.vikunja.io/api/pkg/log"
-	vmetrics "code.vikunja.io/api/pkg/metrics"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/errorreport"
+	"github.com/MBeggiato/fenster/pkg/log"
+	vmetrics "github.com/MBeggiato/fenster/pkg/metrics"
 	"github.com/ThreeDotsLabs/watermill"
 	"github.com/ThreeDotsLabs/watermill/components/metrics"
 	"github.com/ThreeDotsLabs/watermill/message"

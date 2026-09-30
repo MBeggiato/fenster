@@ -19,14 +19,14 @@ package v1
 import (
 	"net/http"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/modules/auth"
-	"code.vikunja.io/api/pkg/routes/api/shared"
-	user2 "code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/events"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/modules/auth"
+	"github.com/MBeggiato/fenster/pkg/routes/api/shared"
+	user2 "github.com/MBeggiato/fenster/pkg/user"
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/labstack/echo/v5"

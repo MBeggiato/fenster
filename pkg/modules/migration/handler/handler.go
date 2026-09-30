@@ -19,11 +19,11 @@ package handler
 import (
 	"net/http"
 
-	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/modules/migration"
-	user2 "code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/events"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/modules/migration"
+	user2 "github.com/MBeggiato/fenster/pkg/user"
 	"github.com/labstack/echo/v5"
 )
 

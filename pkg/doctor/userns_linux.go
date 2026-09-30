@@ -19,7 +19,7 @@
 package doctor
 
 import (
-	"code.vikunja.io/api/pkg/utils"
+	"github.com/MBeggiato/fenster/pkg/utils"
 )
 
 func checkUserNamespace() CheckResult {
