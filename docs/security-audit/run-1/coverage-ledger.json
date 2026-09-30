@@ -1,0 +1,1747 @@
+[
+ {
+  "coverage_id": "Dockerfile%23build%2C%20CI%20workflows%2C%20plugins%20loader::.github%2Fworkflows%23permissions%20and%20pinning::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Wildcard",
+  "canonical_refs": {
+   "surface": "Dockerfile#build, CI workflows, plugins loader",
+   "boundary": ".github/workflows#permissions and pinning",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Wildcard"
+  },
+  "surface": "build, CI workflows, plugins loader",
+  "boundary": "permissions and pinning",
+  "subsystem": "all in-scope subsystems (quick profile)",
+  "attack_class": "Wildcard",
+  "starting_paths": [
+   "Dockerfile",
+   ".github/workflows",
+   "pkg/plugins",
+   "pkg/config/config.go"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Wildcard",
+  "selected_companion_blocks": [
+   "SUPPLY-CHAIN-AND-RELEASE.md#Mutable and unbound build inputs",
+   "SUPPLY-CHAIN-AND-RELEASE.md#Untrusted code in a privileged workflow",
+   "SUPPLY-CHAIN-AND-RELEASE.md#Plugin and extension trust expansion",
+   "SUPPLY-CHAIN-AND-RELEASE.md#Core discipline",
+   "SUPPLY-CHAIN-AND-RELEASE.md#Universal moves",
+   "SUPPLY-CHAIN-AND-RELEASE.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "DATA-ISOLATION-AND-LIFECYCLE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "CLIENT-SIDE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary in this unit"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go memory-safe source; no unsafe/native parser in this unit"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "hunter-01",
+  "reviewed_paths": [
+   ".github/workflows/pr.yml",
+   ".github/workflows/preview.yml",
+   ".github/workflows/release.yml",
+   "Dockerfile",
+   "pkg/plugins/manager.go",
+   "pkg/plugins/yaegi/loader.go",
+   "pkg/config/config.go"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "hunter-01",
+    "reviewed_paths": [
+     ".github/workflows/pr.yml",
+     ".github/workflows/preview.yml",
+     ".github/workflows/release.yml"
+    ],
+    "invariant": "privileged workflows not reachable by untrusted code; actions pinned",
+    "method": "source",
+    "result": "pull_request only, contents:read, SHA-pinned actions, no expression injection",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-01",
+    "reviewed_paths": [
+     "Dockerfile"
+    ],
+    "invariant": "release image inputs bound",
+    "method": "source",
+    "result": "base images digest-pinned; mage@latest and corepack unpinned (hardening)",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-01",
+    "reviewed_paths": [
+     "pkg/plugins/manager.go",
+     "pkg/plugins/yaegi/loader.go",
+     "pkg/config/config.go"
+    ],
+    "invariant": "plugin loading operator-gated",
+    "method": "source",
+    "result": "plugins.enabled default false; operator dir; admin trust",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "frontend%2Fsrc%2Fcomponents%2Finput%2Feditor%23TipTap%2C%20v-html%2C%20deep%20links%2C%20OAuth%20authorize::frontend%2Fsrc%2Fcomponents%2Finput%2Feditor%2FTipTap.vue%23schema%20filtering%20and%20DOMPurify::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Injection",
+  "canonical_refs": {
+   "surface": "frontend/src/components/input/editor#TipTap, v-html, deep links, OAuth authorize",
+   "boundary": "frontend/src/components/input/editor/TipTap.vue#schema filtering and DOMPurify",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Injection"
+  },
+  "surface": "TipTap, v-html, deep links, OAuth authorize",
+  "boundary": "schema filtering and DOMPurify",
+  "subsystem": "all in-scope subsystems (quick profile)",
+  "attack_class": "Injection",
+  "starting_paths": [
+   "frontend/src/components/input/editor",
+   "frontend/src/views/user/OAuthAuthorize.vue",
+   "frontend/src/router/index.ts",
+   "frontend/src/views/project/ProjectInfo.vue",
+   "frontend/src/helpers"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Injection",
+  "selected_companion_blocks": [
+   "CLIENT-SIDE.md#DOM-based XSS",
+   "CLIENT-SIDE.md#Client-side navigation confusion",
+   "CLIENT-SIDE.md#Browser-storage disclosure and stale authorization",
+   "CLIENT-SIDE.md#Core discipline",
+   "CLIENT-SIDE.md#Universal moves",
+   "CLIENT-SIDE.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "DATA-ISOLATION-AND-LIFECYCLE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "SUPPLY-CHAIN-AND-RELEASE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary in this unit"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go memory-safe source; no unsafe/native parser in this unit"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "hunter-02",
+  "reviewed_paths": [
+   "frontend/src/views/project/ProjectInfo.vue",
+   "frontend/src/components/input/editor/TipTap.vue",
+   "frontend/src/components/input/editor/editorExtensions.ts",
+   "frontend/src/components/input/editor/taskLink.ts",
+   "frontend/src/components/tasks/partials/Comments.vue",
+   "frontend/src/views/user/OAuthAuthorize.vue",
+   "pkg/modules/auth/oauth2server/client.go",
+   "frontend/src/router/index.ts",
+   "frontend/src/helpers/redirectToProvider.ts"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "hunter-02",
+    "reviewed_paths": [
+     "frontend/src/views/project/ProjectInfo.vue"
+    ],
+    "invariant": "only v-html is DOMPurify-sanitized",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-02",
+    "reviewed_paths": [
+     "frontend/src/components/input/editor/TipTap.vue",
+     "frontend/src/components/input/editor/editorExtensions.ts",
+     "frontend/src/components/input/editor/taskLink.ts",
+     "frontend/src/components/tasks/partials/Comments.vue"
+    ],
+    "invariant": "stored HTML reaches DOM only via TipTap schema; links protocol-restricted",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-02",
+    "reviewed_paths": [
+     "frontend/src/views/user/OAuthAuthorize.vue",
+     "pkg/modules/auth/oauth2server/client.go",
+     "frontend/src/router/index.ts",
+     "frontend/src/helpers/redirectToProvider.ts"
+    ],
+    "invariant": "navigation sinks not attacker-drivable to javascript:/arbitrary",
+    "method": "source",
+    "result": "held (consent gap tracked under hunter-06)",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "frontend%2Fsrc%2Fsw.ts%23service%20worker%2C%20browser%20storage%20and%20token%20handling::frontend%2Fsrc%2Fhelpers%2Fauth.ts%23stored%20auth%20and%20cached%20responses::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Feature%20abuse%20and%20data%20leakage",
+  "canonical_refs": {
+   "surface": "frontend/src/sw.ts#service worker, browser storage and token handling",
+   "boundary": "frontend/src/helpers/auth.ts#stored auth and cached responses",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Feature abuse and data leakage"
+  },
+  "surface": "service worker, browser storage and token handling",
+  "boundary": "stored auth and cached responses",
+  "subsystem": "all in-scope subsystems (quick profile): frontend storage and service worker",
+  "attack_class": "Feature abuse and data leakage",
+  "starting_paths": [
+   "frontend/src/sw.ts",
+   "frontend/src/registerServiceWorker.ts",
+   "frontend/src/helpers/auth.ts",
+   "frontend/src/helpers/desktopAuth.ts",
+   "frontend/src/helpers/editorDraftStorage.ts",
+   "frontend/src/stores/auth.ts",
+   "frontend/src/sentry.ts"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Feature abuse and data leakage",
+  "selected_companion_blocks": [
+   "CLIENT-SIDE.md#Browser-storage disclosure and stale authorization",
+   "CLIENT-SIDE.md#Client-side navigation confusion",
+   "CLIENT-SIDE.md#Core discipline",
+   "CLIENT-SIDE.md#Universal moves",
+   "CLIENT-SIDE.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go/TypeScript memory-safe"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "deferred",
+  "agent_id": null,
+  "reviewed_paths": [],
+  "local_checks": [],
+  "result_fingerprints": [],
+  "unresolved": [
+   "quick_profile_final_critic: browser-storage companion block has no reviewed paths in service worker, storage or Sentry scrubbing"
+  ]
+ },
+ {
+  "coverage_id": "pkg%2Ffiles%23attachment%2C%20avatar%2C%20background%2C%20Unsplash%20upload%20and%20download::pkg%2Ffiles%2Ffiles.go%23CreateWithSession::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Resource%20and%20file%20handling",
+  "canonical_refs": {
+   "surface": "pkg/files#attachment, avatar, background, Unsplash upload and download",
+   "boundary": "pkg/files/files.go#CreateWithSession",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Resource and file handling"
+  },
+  "surface": "attachment, avatar, background, Unsplash upload and download",
+  "boundary": "CreateWithSession",
+  "subsystem": "all in-scope subsystems (quick profile)",
+  "attack_class": "Resource and file handling",
+  "starting_paths": [
+   "pkg/files",
+   "pkg/web/files",
+   "pkg/modules/avatar",
+   "pkg/modules/background",
+   "pkg/modules/imageutils",
+   "pkg/routes/api/v1/user_export.go"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Resource and file handling",
+  "selected_companion_blocks": [
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Decompression and representation amplification",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Unbounded buffering and cardinality",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Core discipline",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Universal moves",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "DATA-ISOLATION-AND-LIFECYCLE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "CLIENT-SIDE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "SUPPLY-CHAIN-AND-RELEASE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary in this unit"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go memory-safe source; no unsafe/native parser in this unit"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "candidate",
+  "agent_id": "hunter-03",
+  "reviewed_paths": [
+   "pkg/files/files.go",
+   "pkg/files/storage_local.go",
+   "pkg/routes/routes.go",
+   "pkg/web/files/file.go",
+   "pkg/routes/api/v1/user_export.go",
+   "pkg/modules/background/unsplash/unsplash.go",
+   "pkg/modules/background/unsplash/proxy.go",
+   "pkg/modules/imageutils/image.go",
+   "pkg/modules/avatar/upload/upload.go",
+   "pkg/models/task_attachment.go"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "hunter-03",
+    "reviewed_paths": [
+     "pkg/files/files.go",
+     "pkg/files/storage_local.go",
+     "pkg/routes/routes.go"
+    ],
+    "invariant": "upload size measured/capped; server-generated storage keys",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-03",
+    "reviewed_paths": [
+     "pkg/web/files/file.go",
+     "pkg/routes/api/v1/user_export.go"
+    ],
+    "invariant": "downloads not active content; no header injection",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-03",
+    "reviewed_paths": [
+     "pkg/modules/background/unsplash/unsplash.go",
+     "pkg/modules/background/unsplash/proxy.go"
+    ],
+    "invariant": "unsplash reaches only Unsplash hosts; caches bounded",
+    "method": "source",
+    "result": "host fixed; two availability candidates",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-03",
+    "reviewed_paths": [
+     "pkg/modules/imageutils/image.go",
+     "pkg/modules/avatar/upload/upload.go",
+     "pkg/models/task_attachment.go"
+    ],
+    "invariant": "decoders gated by dimension check",
+    "method": "source",
+    "result": "50MP cap without concurrency bound; candidate",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [
+   "unsplash-empty-search-cache-concurrent-map-fatal",
+   "unsplash-doget-no-status-check-negative-cache-unbounded",
+   "imageutils-50mp-decode-unbounded-concurrency-oom"
+  ],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "pkg%2Ffiles%2Fstorage_s3.go%23S3%20storage%20backend%20and%20file-record%20ownership::pkg%2Ffiles%2Fdb.go%23file%20id%20to%20owner%20mapping::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Resource%20and%20file%20handling",
+  "canonical_refs": {
+   "surface": "pkg/files/storage_s3.go#S3 storage backend and file-record ownership",
+   "boundary": "pkg/files/db.go#file id to owner mapping",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Resource and file handling"
+  },
+  "surface": "S3 storage backend and file-record ownership",
+  "boundary": "file id to owner mapping",
+  "subsystem": "all in-scope subsystems (quick profile): pkg/files S3/repair/dump",
+  "attack_class": "Resource and file handling",
+  "starting_paths": [
+   "pkg/files/storage_s3.go",
+   "pkg/files/storage.go",
+   "pkg/files/db.go",
+   "pkg/files/repair.go",
+   "pkg/files/dump.go"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Resource and file handling",
+  "selected_companion_blocks": [
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Missing tenant or owner enforcement",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Export and backup scope expansion",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Unbounded buffering and cardinality",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Core discipline",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Universal moves",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Validation rules",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Core discipline",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Universal moves",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go/TypeScript memory-safe"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "deferred",
+  "agent_id": null,
+  "reviewed_paths": [],
+  "local_checks": [],
+  "result_fingerprints": [],
+  "unresolved": [
+   "quick_profile_final_critic: hunter-03 reviewed only storage_local.go and files.go; S3, db.go, repair.go, dump.go never read"
+  ]
+ },
+ {
+  "coverage_id": "pkg%2Fmodels%2Fapi_tokens.go%23API%20token%20creation%2C%20expiry%20and%20scope%20expansion::pkg%2Fmodels%2Fapi_tokens_permissions.go%23token%20creation%20scope%20validation::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Access%20control",
+  "canonical_refs": {
+   "surface": "pkg/models/api_tokens.go#API token creation, expiry and scope expansion",
+   "boundary": "pkg/models/api_tokens_permissions.go#token creation scope validation",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Access control"
+  },
+  "surface": "API token creation, expiry and scope expansion",
+  "boundary": "token creation scope validation",
+  "subsystem": "all in-scope subsystems (quick profile): API token creation and sessions",
+  "attack_class": "Access control",
+  "starting_paths": [
+   "pkg/models/api_tokens.go",
+   "pkg/models/api_tokens_permissions.go",
+   "pkg/routes/api/v2/api_tokens.go",
+   "pkg/routes/api/v2/caldav_tokens.go",
+   "pkg/routes/api/v2/sessions.go",
+   "pkg/user/caldav_token.go"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Access control",
+  "selected_companion_blocks": [
+   "WEB-PROTOCOL-AND-AUTH.md#API-key scope and resource binding",
+   "WEB-PROTOCOL-AND-AUTH.md#API-key exposure and unsafe transport",
+   "WEB-PROTOCOL-AND-AUTH.md#Session fixation and invalidation",
+   "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+   "WEB-PROTOCOL-AND-AUTH.md#Universal moves",
+   "WEB-PROTOCOL-AND-AUTH.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go/TypeScript memory-safe"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "deferred",
+  "agent_id": null,
+  "reviewed_paths": [],
+  "local_checks": [],
+  "result_fingerprints": [],
+  "unresolved": [
+   "quick_profile_final_critic: existing units checked token authentication and route matching but not creation-time scope validation, bot token minting or v1/v2 create parity"
+  ]
+ },
+ {
+  "coverage_id": "pkg%2Fmodels%2Flink_sharing.go%23link-share%20auth%2C%20password%20and%20renew%20flows::pkg%2Fmodels%2Flink_sharing_permissions.go%23share%20creation%20and%20auth::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Access%20control",
+  "canonical_refs": {
+   "surface": "pkg/models/link_sharing.go#link-share auth, password and renew flows",
+   "boundary": "pkg/models/link_sharing_permissions.go#share creation and auth",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Access control"
+  },
+  "surface": "link-share auth, password and renew flows",
+  "boundary": "share creation and auth",
+  "subsystem": "all in-scope subsystems (quick profile): link-share auth and renew",
+  "attack_class": "Access control",
+  "starting_paths": [
+   "pkg/models/link_sharing.go",
+   "pkg/models/link_sharing_permissions.go",
+   "pkg/routes/api/v2/link_sharing.go",
+   "pkg/routes/api/v2/auth_public.go",
+   "pkg/routes/api/shared/auth.go",
+   "frontend/src/stores/auth.ts"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Access control",
+  "selected_companion_blocks": [
+   "WEB-PROTOCOL-AND-AUTH.md#JWT verification and claim binding",
+   "WEB-PROTOCOL-AND-AUTH.md#Session fixation and invalidation",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Stale authorization and derived copy use",
+   "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+   "WEB-PROTOCOL-AND-AUTH.md#Universal moves",
+   "WEB-PROTOCOL-AND-AUTH.md#Validation rules",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Core discipline",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Universal moves",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go/TypeScript memory-safe"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "deferred",
+  "agent_id": null,
+  "reviewed_paths": [],
+  "local_checks": [],
+  "result_fingerprints": [],
+  "unresolved": [
+   "quick_profile_final_critic: share password check, hash brute-force limiting, v1/v2 parallel auth paths, share renew and hash exposure were not checked by any unit"
+  ]
+ },
+ {
+  "coverage_id": "pkg%2Fmodels%2Ftask_search.go%23filter%20DSL%2C%20sort%2C%20search%2C%20static%20config%20template::pkg%2Fmodels%2Ftask_search.go%23param.validate::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Injection",
+  "canonical_refs": {
+   "surface": "pkg/models/task_search.go#filter DSL, sort, search, static config template",
+   "boundary": "pkg/models/task_search.go#param.validate",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Injection"
+  },
+  "surface": "filter DSL, sort, search, static config template",
+  "boundary": "param.validate",
+  "subsystem": "all in-scope subsystems (quick profile)",
+  "attack_class": "Injection",
+  "starting_paths": [
+   "pkg/models/task_search.go",
+   "pkg/models/task_collection.go",
+   "pkg/models/saved_filters.go",
+   "pkg/routes/static.go",
+   "pkg/db"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Injection",
+  "selected_companion_blocks": [],
+  "excluded_blocks": [
+   {
+    "block": "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "DATA-ISOLATION-AND-LIFECYCLE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "CLIENT-SIDE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "SUPPLY-CHAIN-AND-RELEASE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary in this unit"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go memory-safe source; no unsafe/native parser in this unit"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "hunter-04",
+  "reviewed_paths": [
+   "pkg/models/task_search.go",
+   "pkg/models/task_collection.go",
+   "pkg/models/task_collection_filter.go",
+   "pkg/db/helpers.go",
+   "pkg/routes/static.go"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "hunter-04",
+    "reviewed_paths": [
+     "pkg/models/task_search.go",
+     "pkg/models/task_collection.go",
+     "pkg/models/task_collection_filter.go",
+     "pkg/db/helpers.go"
+    ],
+    "invariant": "sort/filter/search never concatenated into SQL unallowlisted",
+    "method": "source",
+    "result": "allowlist + bound params",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-04",
+    "reviewed_paths": [
+     "pkg/routes/static.go"
+    ],
+    "invariant": "static config template operator-only",
+    "method": "source",
+    "result": "operator-only; hardening",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "pkg%2Fmodels%2Fwebhooks.go%23outbound%20HTTP%3A%20webhooks%2C%20migration%20downloads%2C%20OIDC%20avatar::pkg%2Futils%2Fhttpclient.go%23NewSSRFSafeHTTPClient::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Feature%20abuse%20and%20data%20leakage",
+  "canonical_refs": {
+   "surface": "pkg/models/webhooks.go#outbound HTTP: webhooks, migration downloads, OIDC avatar",
+   "boundary": "pkg/utils/httpclient.go#NewSSRFSafeHTTPClient",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Feature abuse and data leakage"
+  },
+  "surface": "outbound HTTP: webhooks, migration downloads, OIDC avatar",
+  "boundary": "NewSSRFSafeHTTPClient",
+  "subsystem": "all in-scope subsystems (quick profile)",
+  "attack_class": "Feature abuse and data leakage",
+  "starting_paths": [
+   "pkg/utils/httpclient.go",
+   "pkg/models/webhooks.go",
+   "pkg/utils/avatar.go",
+   "pkg/modules/migration/helpers.go",
+   "pkg/modules/background/unsplash"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Feature abuse and data leakage",
+  "selected_companion_blocks": [
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Pre-authentication work imbalance",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Core discipline",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Universal moves",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "DATA-ISOLATION-AND-LIFECYCLE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "CLIENT-SIDE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "SUPPLY-CHAIN-AND-RELEASE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary in this unit"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go memory-safe source; no unsafe/native parser in this unit"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "candidate",
+  "agent_id": "hunter-05",
+  "reviewed_paths": [
+   "pkg/utils/httpclient.go",
+   "pkg/models/webhooks.go",
+   "pkg/utils/avatar.go",
+   "pkg/modules/auth/openid/openid.go",
+   "pkg/modules/migration/helpers.go",
+   "pkg/modules/background/unsplash/proxy.go",
+   "pkg/models/webhooks_permissions.go",
+   "pkg/routes/api/v2/webhooks.go"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "hunter-05",
+    "reviewed_paths": [
+     "pkg/utils/httpclient.go",
+     "pkg/models/webhooks.go",
+     "pkg/utils/avatar.go",
+     "pkg/modules/auth/openid/openid.go"
+    ],
+    "invariant": "user-influenced outbound fetches SSRF-guarded",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-05",
+    "reviewed_paths": [
+     "pkg/modules/migration/helpers.go",
+     "pkg/modules/background/unsplash/proxy.go"
+    ],
+    "invariant": "migration/unsplash fetches bounded to trusted hosts",
+    "method": "source",
+    "result": "held; uncapped download is hardening",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-05",
+    "reviewed_paths": [
+     "pkg/models/webhooks.go",
+     "pkg/models/webhooks_permissions.go",
+     "pkg/routes/api/v2/webhooks.go"
+    ],
+    "invariant": "webhook secrets visible only to managers",
+    "method": "source",
+    "result": "target_url returned to read-only members; candidate",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [
+   "webhooks.readall.target_url.exposed.to.read-only.members"
+  ],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "pkg%2Fmodules%2Fauth%23JWT%20sessions%2C%20refresh%2C%20OIDC%2C%20LDAP%2C%20OAuth2%20server%2C%20websocket::pkg%2Fmodules%2Fauth%2Fauth.go%23token%20validation::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Cryptography%20and%20secrets",
+  "canonical_refs": {
+   "surface": "pkg/modules/auth#JWT sessions, refresh, OIDC, LDAP, OAuth2 server, websocket",
+   "boundary": "pkg/modules/auth/auth.go#token validation",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Cryptography and secrets"
+  },
+  "surface": "JWT sessions, refresh, OIDC, LDAP, OAuth2 server, websocket",
+  "boundary": "token validation",
+  "subsystem": "all in-scope subsystems (quick profile)",
+  "attack_class": "Cryptography and secrets",
+  "starting_paths": [
+   "pkg/modules/auth",
+   "pkg/routes/api/shared/auth.go",
+   "pkg/websocket",
+   "pkg/routes/api_tokens.go",
+   "pkg/user"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Cryptography and secrets",
+  "selected_companion_blocks": [
+   "WEB-PROTOCOL-AND-AUTH.md#JWT verification and claim binding",
+   "WEB-PROTOCOL-AND-AUTH.md#OAuth/OIDC request and callback binding",
+   "WEB-PROTOCOL-AND-AUTH.md#Account linking and identity collision",
+   "WEB-PROTOCOL-AND-AUTH.md#Session fixation and invalidation",
+   "WEB-PROTOCOL-AND-AUTH.md#Password reset and broader recovery",
+   "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+   "WEB-PROTOCOL-AND-AUTH.md#Universal moves",
+   "WEB-PROTOCOL-AND-AUTH.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "DATA-ISOLATION-AND-LIFECYCLE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "CLIENT-SIDE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "SUPPLY-CHAIN-AND-RELEASE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary in this unit"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go memory-safe source; no unsafe/native parser in this unit"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "candidate",
+  "agent_id": "hunter-06",
+  "reviewed_paths": [
+   "pkg/modules/auth/auth.go",
+   "pkg/routes/api_tokens.go",
+   "pkg/config/config.go",
+   "pkg/models/link_sharing.go",
+   "pkg/models/sessions.go",
+   "pkg/routes/api/shared/auth.go",
+   "pkg/user/user_password_reset.go",
+   "pkg/modules/auth/openid/openid.go",
+   "pkg/modules/auth/ldap/ldap.go",
+   "pkg/user/totp.go",
+   "pkg/modules/auth/oauth2server/authorize.go",
+   "pkg/modules/auth/oauth2server/client.go",
+   "pkg/modules/auth/oauth2server/token.go",
+   "frontend/src/views/user/OAuthAuthorize.vue",
+   "pkg/websocket/connection.go",
+   "pkg/websocket/hub.go"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "hunter-06",
+    "reviewed_paths": [
+     "pkg/modules/auth/auth.go",
+     "pkg/routes/api_tokens.go",
+     "pkg/config/config.go",
+     "pkg/models/link_sharing.go"
+    ],
+    "invariant": "JWT pinned HMAC, claim binding",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-06",
+    "reviewed_paths": [
+     "pkg/models/sessions.go",
+     "pkg/routes/api/shared/auth.go",
+     "pkg/user/user_password_reset.go"
+    ],
+    "invariant": "refresh/session lifecycle and reset tokens",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-06",
+    "reviewed_paths": [
+     "pkg/modules/auth/openid/openid.go",
+     "pkg/modules/auth/ldap/ldap.go",
+     "pkg/user/totp.go"
+    ],
+    "invariant": "OIDC/LDAP binding and account linking",
+    "method": "source",
+    "result": "held with hardening",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-06",
+    "reviewed_paths": [
+     "pkg/modules/auth/oauth2server/authorize.go",
+     "pkg/modules/auth/oauth2server/client.go",
+     "pkg/modules/auth/oauth2server/token.go",
+     "frontend/src/views/user/OAuthAuthorize.vue"
+    ],
+    "invariant": "OAuth2 redirect ownership and consent",
+    "method": "source",
+    "result": "no client registry / consent; candidate",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-06",
+    "reviewed_paths": [
+     "pkg/websocket/connection.go",
+     "pkg/websocket/hub.go",
+     "pkg/modules/auth/auth.go"
+    ],
+    "invariant": "websocket rebound to live session",
+    "method": "source",
+    "result": "not revalidated; candidate",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [
+   "websocket-auth-not-revalidated-after-revocation",
+   "oauth2-authorize-silent-consent-no-client-registry"
+  ],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "pkg%2Fmodules%2Favatar%23avatar%20providers%20and%20LDAP%2FOIDC%20group%20sync::pkg%2Fmodules%2Fauth%2Fldap%2Fldap.go%23LDAP%20group%20and%20avatar%20sync::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Feature%20abuse%20and%20data%20leakage",
+  "canonical_refs": {
+   "surface": "pkg/modules/avatar#avatar providers and LDAP/OIDC group sync",
+   "boundary": "pkg/modules/auth/ldap/ldap.go#LDAP group and avatar sync",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Feature abuse and data leakage"
+  },
+  "surface": "avatar providers and LDAP/OIDC group sync",
+  "boundary": "LDAP group and avatar sync",
+  "subsystem": "all in-scope subsystems (quick profile): avatar providers, LDAP/OIDC sync",
+  "attack_class": "Feature abuse and data leakage",
+  "starting_paths": [
+   "pkg/modules/avatar",
+   "pkg/routes/api/v2/avatar.go",
+   "pkg/utils/avatar.go",
+   "pkg/modules/auth/ldap/ldap.go",
+   "pkg/modules/auth/openid/openid.go",
+   "pkg/models/teams.go"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Feature abuse and data leakage",
+  "selected_companion_blocks": [
+   "WEB-PROTOCOL-AND-AUTH.md#Account linking and identity collision",
+   "WEB-PROTOCOL-AND-AUTH.md#OAuth/OIDC request and callback binding",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Pre-authentication work imbalance",
+   "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+   "WEB-PROTOCOL-AND-AUTH.md#Universal moves",
+   "WEB-PROTOCOL-AND-AUTH.md#Validation rules",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Core discipline",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Universal moves",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go/TypeScript memory-safe"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "deferred",
+  "agent_id": null,
+  "reviewed_paths": [],
+  "local_checks": [],
+  "result_fingerprints": [],
+  "unresolved": [
+   "quick_profile_final_critic: only avatar upload.go reviewed; gravatar/marble/initials, LDAP group-to-team sync and OIDC team sync got no per-provider review"
+  ]
+ },
+ {
+  "coverage_id": "pkg%2Fmodules%2Fmigration%23file%2FCSV%2FOAuth%20importers%20and%20dump%20restore::pkg%2Fmodules%2Fmigration%2Fcreate_from_structure.go%23InsertFromStructure::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Resource%20and%20file%20handling",
+  "canonical_refs": {
+   "surface": "pkg/modules/migration#file/CSV/OAuth importers and dump restore",
+   "boundary": "pkg/modules/migration/create_from_structure.go#InsertFromStructure",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Resource and file handling"
+  },
+  "surface": "file/CSV/OAuth importers and dump restore",
+  "boundary": "InsertFromStructure",
+  "subsystem": "all in-scope subsystems (quick profile)",
+  "attack_class": "Resource and file handling",
+  "starting_paths": [
+   "pkg/modules/migration",
+   "pkg/modules/dump",
+   "pkg/routes/api/v2/migration_file.go",
+   "pkg/routes/api/v2/migration_csv.go"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Resource and file handling",
+  "selected_companion_blocks": [
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Import and restore authority expansion",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Migration default and ownership confusion",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Export and backup scope expansion",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Core discipline",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Universal moves",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "CLIENT-SIDE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "SUPPLY-CHAIN-AND-RELEASE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary in this unit"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go memory-safe source; no unsafe/native parser in this unit"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "hunter-07",
+  "reviewed_paths": [
+   "pkg/modules/migration/create_from_structure.go",
+   "pkg/models/tasks.go",
+   "pkg/models/project.go",
+   "pkg/modules/migration/vikunja-file/vikunja.go",
+   "pkg/modules/migration/import_upload.go",
+   "pkg/modules/migration/handler/handler_file.go",
+   "pkg/modules/migration/csv/csv.go",
+   "pkg/modules/migration/helpers.go",
+   "pkg/modules/migration/planka/client.go",
+   "pkg/modules/migration/trello/trello.go",
+   "pkg/utils/httpclient.go",
+   "pkg/modules/dump/restore.go",
+   "pkg/modules/dump/dump.go"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "hunter-07",
+    "reviewed_paths": [
+     "pkg/modules/migration/create_from_structure.go",
+     "pkg/models/tasks.go",
+     "pkg/models/project.go"
+    ],
+    "invariant": "imports cannot create/mutate outside importing user project",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-07",
+    "reviewed_paths": [
+     "pkg/modules/migration/vikunja-file/vikunja.go",
+     "pkg/modules/migration/import_upload.go",
+     "pkg/modules/migration/handler/handler_file.go",
+     "pkg/modules/migration/csv/csv.go"
+    ],
+    "invariant": "archives bounded, no zip-slip",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-07",
+    "reviewed_paths": [
+     "pkg/modules/migration/helpers.go",
+     "pkg/modules/migration/planka/client.go",
+     "pkg/modules/migration/trello/trello.go",
+     "pkg/utils/httpclient.go"
+    ],
+    "invariant": "importer fetches SSRF-guarded",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-07",
+    "reviewed_paths": [
+     "pkg/modules/dump/restore.go",
+     "pkg/modules/dump/dump.go"
+    ],
+    "invariant": "dump/restore CLI-only",
+    "method": "source",
+    "result": "held; operator trust",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "pkg%2Fplugins%23plugin-registered%20routes%20and%20yaegi%20symbol%20exposure::pkg%2Froutes%2Froutes.go%23plugin%20route%20group%20wiring::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Access%20control",
+  "canonical_refs": {
+   "surface": "pkg/plugins#plugin-registered routes and yaegi symbol exposure",
+   "boundary": "pkg/routes/routes.go#plugin route group wiring",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Access control"
+  },
+  "surface": "plugin-registered routes and yaegi symbol exposure",
+  "boundary": "plugin route group wiring",
+  "subsystem": "all in-scope subsystems (quick profile): plugin routes",
+  "attack_class": "Access control",
+  "starting_paths": [
+   "pkg/plugins/manager.go",
+   "pkg/plugins/interfaces.go",
+   "pkg/routes/routes.go",
+   "pkg/yaegi_symbols"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Access control",
+  "selected_companion_blocks": [
+   "SUPPLY-CHAIN-AND-RELEASE.md#Plugin and extension trust expansion",
+   "WEB-PROTOCOL-AND-AUTH.md#API-key scope and resource binding",
+   "SUPPLY-CHAIN-AND-RELEASE.md#Core discipline",
+   "SUPPLY-CHAIN-AND-RELEASE.md#Universal moves",
+   "SUPPLY-CHAIN-AND-RELEASE.md#Validation rules",
+   "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+   "WEB-PROTOCOL-AND-AUTH.md#Universal moves",
+   "WEB-PROTOCOL-AND-AUTH.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go/TypeScript memory-safe"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "deferred",
+  "agent_id": null,
+  "reviewed_paths": [],
+  "local_checks": [],
+  "result_fingerprints": [],
+  "unresolved": [
+   "quick_profile_final_critic: plugin route group wiring (unauthenticated group, rate limit, token scoping) and yaegi_symbols exposure not checked"
+  ]
+ },
+ {
+  "coverage_id": "pkg%2Frichtext%23server-side%20richtext%20HTML%20storage%20and%20mention%20resolution::pkg%2Frichtext%2Fmentions_html.go%23mention%20resolution%20and%20stored%20raw%20HTML::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Injection",
+  "canonical_refs": {
+   "surface": "pkg/richtext#server-side richtext HTML storage and mention resolution",
+   "boundary": "pkg/richtext/mentions_html.go#mention resolution and stored raw HTML",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Injection"
+  },
+  "surface": "server-side richtext HTML storage and mention resolution",
+  "boundary": "mention resolution and stored raw HTML",
+  "subsystem": "all in-scope subsystems (quick profile): pkg/richtext, mentions, CalDAV/v1/v2/importer richtext",
+  "attack_class": "Injection",
+  "starting_paths": [
+   "pkg/richtext/mentions_html.go",
+   "pkg/richtext/markdowntohtml.go",
+   "pkg/richtext/htmltomarkdown.go",
+   "pkg/models/mentions.go",
+   "pkg/routes/api/v2/richtext.go",
+   "pkg/caldav/caldav.go",
+   "pkg/routes/caldav/listStorageProvider.go"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Injection",
+  "selected_companion_blocks": [
+   "CLIENT-SIDE.md#DOM-based XSS",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Missing tenant or owner enforcement",
+   "CLIENT-SIDE.md#Core discipline",
+   "CLIENT-SIDE.md#Universal moves",
+   "CLIENT-SIDE.md#Validation rules",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Core discipline",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Universal moves",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go/TypeScript memory-safe"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "deferred",
+  "agent_id": null,
+  "reviewed_paths": [],
+  "local_checks": [],
+  "result_fingerprints": [],
+  "unresolved": [
+   "quick_profile_final_critic: pkg/richtext has no unit or local_check; server stores raw HTML and mention resolution is a parallel path from CalDAV, v1, v2 and importers"
+  ]
+ },
+ {
+  "coverage_id": "pkg%2Froutes%2Fadmin_gate.go%23admin%2C%20testing%2C%20metrics%2C%20pprof%2C%20MCP%20endpoints::pkg%2Froutes%2Fadmin_gate.go%23RequireInstanceAdmin::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Business%20logic",
+  "canonical_refs": {
+   "surface": "pkg/routes/admin_gate.go#admin, testing, metrics, pprof, MCP endpoints",
+   "boundary": "pkg/routes/admin_gate.go#RequireInstanceAdmin",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Business logic"
+  },
+  "surface": "admin, testing, metrics, pprof, MCP endpoints",
+  "boundary": "RequireInstanceAdmin",
+  "subsystem": "all in-scope subsystems (quick profile)",
+  "attack_class": "Business logic",
+  "starting_paths": [
+   "pkg/routes/admin_gate.go",
+   "pkg/routes/api/v1/testing.go",
+   "pkg/routes/api/v2/testing.go",
+   "pkg/routes/metrics.go",
+   "pkg/modules/mcp",
+   "pkg/models/admin_bypass.go"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Business logic",
+  "selected_companion_blocks": [
+   "WEB-PROTOCOL-AND-AUTH.md#API-key scope and resource binding",
+   "WEB-PROTOCOL-AND-AUTH.md#API-key exposure and unsafe transport",
+   "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+   "WEB-PROTOCOL-AND-AUTH.md#Universal moves",
+   "WEB-PROTOCOL-AND-AUTH.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "DATA-ISOLATION-AND-LIFECYCLE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "CLIENT-SIDE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "SUPPLY-CHAIN-AND-RELEASE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary in this unit"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go memory-safe source; no unsafe/native parser in this unit"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "hunter-08",
+  "reviewed_paths": [
+   "pkg/routes/admin_gate.go",
+   "pkg/routes/routes.go",
+   "pkg/models/admin_bypass.go",
+   "pkg/routes/api/v2/admin_users.go",
+   "pkg/routes/api/v1/testing.go",
+   "pkg/routes/api/v2/testing.go",
+   "pkg/routes/metrics.go",
+   "pkg/modules/mcp/mcp.go",
+   "pkg/modules/mcp/loopback.go",
+   "pkg/modules/mcp/exposure.go",
+   "pkg/routes/api/v2/mcp.go"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "hunter-08",
+    "reviewed_paths": [
+     "pkg/routes/admin_gate.go",
+     "pkg/routes/routes.go",
+     "pkg/models/admin_bypass.go",
+     "pkg/routes/api/v2/admin_users.go"
+    ],
+    "invariant": "admin routes require live is_admin",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-08",
+    "reviewed_paths": [
+     "pkg/routes/api/v1/testing.go",
+     "pkg/routes/api/v2/testing.go",
+     "pkg/routes/metrics.go"
+    ],
+    "invariant": "testing/metrics/pprof gated",
+    "method": "source",
+    "result": "held; partial-credential metrics fail-open is hardening",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-08",
+    "reviewed_paths": [
+     "pkg/modules/mcp/mcp.go",
+     "pkg/modules/mcp/loopback.go",
+     "pkg/modules/mcp/exposure.go",
+     "pkg/routes/api/v2/mcp.go"
+    ],
+    "invariant": "MCP limited to mcp:access token and allowlist",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "pkg%2Froutes%2Fcaldav%23CalDAV%2C%20feeds%2C%20mail%20rendering::pkg%2Froutes%2Fcaldav%2Fauth.go%23basic%20auth::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Injection",
+  "canonical_refs": {
+   "surface": "pkg/routes/caldav#CalDAV, feeds, mail rendering",
+   "boundary": "pkg/routes/caldav/auth.go#basic auth",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Injection"
+  },
+  "surface": "CalDAV, feeds, mail rendering",
+  "boundary": "basic auth",
+  "subsystem": "all in-scope subsystems (quick profile)",
+  "attack_class": "Injection",
+  "starting_paths": [
+   "pkg/routes/caldav",
+   "pkg/caldav",
+   "pkg/routes/feeds",
+   "pkg/notifications/mail_render.go",
+   "pkg/mail"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Injection",
+  "selected_companion_blocks": [
+   "WEB-PROTOCOL-AND-AUTH.md#API-key scope and resource binding",
+   "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+   "WEB-PROTOCOL-AND-AUTH.md#Universal moves",
+   "WEB-PROTOCOL-AND-AUTH.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "DATA-ISOLATION-AND-LIFECYCLE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "CLIENT-SIDE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "SUPPLY-CHAIN-AND-RELEASE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary in this unit"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go memory-safe source; no unsafe/native parser in this unit"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "candidate",
+  "agent_id": "hunter-09",
+  "reviewed_paths": [
+   "pkg/routes/caldav/auth.go",
+   "pkg/routes/feeds/auth.go",
+   "pkg/models/api_tokens.go",
+   "pkg/routes/caldav/handler.go",
+   "pkg/routes/caldav/listStorageProvider.go",
+   "pkg/routes/caldav/sync_collection.go",
+   "pkg/caldav/caldav.go",
+   "pkg/routes/feeds/handler.go",
+   "pkg/notifications/mail_render.go"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "hunter-09",
+    "reviewed_paths": [
+     "pkg/routes/caldav/auth.go",
+     "pkg/routes/feeds/auth.go",
+     "pkg/models/api_tokens.go"
+    ],
+    "invariant": "basic-auth binds token scope/owner/status",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-09",
+    "reviewed_paths": [
+     "pkg/routes/caldav/handler.go",
+     "pkg/routes/caldav/listStorageProvider.go",
+     "pkg/routes/caldav/sync_collection.go",
+     "pkg/caldav/caldav.go",
+     "pkg/routes/feeds/handler.go",
+     "pkg/notifications/mail_render.go"
+    ],
+    "invariant": "untrusted values escaped in iCal/XML/Atom/mail",
+    "method": "source",
+    "result": "held except caldav-go displayname (external dependency unreadable)",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [
+   "caldav/go-caldav-displayname-xml-unescaped-title"
+  ],
+  "unresolved": [
+   "caldav-go fork displayname escaping unreadable offline"
+  ]
+ },
+ {
+  "coverage_id": "pkg%2Froutes%2Frate_limit.go%23unauthenticated%20work%20and%20limits::pkg%2Froutes%2Frate_limit.go%23limiters::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Obvious%20things",
+  "canonical_refs": {
+   "surface": "pkg/routes/rate_limit.go#unauthenticated work and limits",
+   "boundary": "pkg/routes/rate_limit.go#limiters",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Obvious things"
+  },
+  "surface": "unauthenticated work and limits",
+  "boundary": "limiters",
+  "subsystem": "all in-scope subsystems (quick profile)",
+  "attack_class": "Obvious things",
+  "starting_paths": [
+   "pkg/routes/rate_limit.go",
+   "pkg/routes/routes.go",
+   "pkg/routes/ip.go",
+   "pkg/websocket",
+   "pkg/config/config.go"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Obvious things",
+  "selected_companion_blocks": [
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Pre-authentication work imbalance",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Reachable fatal error or deadlock",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Core discipline",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Universal moves",
+   "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "DATA-ISOLATION-AND-LIFECYCLE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "CLIENT-SIDE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "SUPPLY-CHAIN-AND-RELEASE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary in this unit"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go memory-safe source; no unsafe/native parser in this unit"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "hunter-10",
+  "reviewed_paths": [
+   "pkg/routes/rate_limit.go",
+   "pkg/routes/routes.go",
+   "pkg/routes/ip.go",
+   "pkg/config/config.go",
+   "pkg/websocket/connection.go",
+   "pkg/websocket/handler.go",
+   "pkg/websocket/hub.go"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "hunter-10",
+    "reviewed_paths": [
+     "pkg/routes/rate_limit.go",
+     "pkg/routes/routes.go",
+     "pkg/routes/ip.go",
+     "pkg/config/config.go"
+    ],
+    "invariant": "unauth credential/expensive routes behind always-on per-IP limiter; key not header-spoofable",
+    "method": "source",
+    "result": "held (IPv6 /64 rotation is hardening)",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-10",
+    "reviewed_paths": [
+     "pkg/websocket/connection.go",
+     "pkg/websocket/handler.go",
+     "pkg/websocket/hub.go"
+    ],
+    "invariant": "unauth websocket bounded",
+    "method": "source",
+    "result": "30s auth timeout, 32KiB read limit, rate limited",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "pkg%2Froutes%2Froutes.go%23%2Fapi%2Fv1%2C%2Fapi%2Fv2%20resource%20CRUD::pkg%2Fmodels%2Fproject_permissions.go%23Can%2A%20permission%20checks::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Access%20control",
+  "canonical_refs": {
+   "surface": "pkg/routes/routes.go#/api/v1,/api/v2 resource CRUD",
+   "boundary": "pkg/models/project_permissions.go#Can* permission checks",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Access control"
+  },
+  "surface": "/api/v1,/api/v2 resource CRUD",
+  "boundary": "Can* permission checks",
+  "subsystem": "all in-scope subsystems (quick profile)",
+  "attack_class": "Access control",
+  "starting_paths": [
+   "pkg/models",
+   "pkg/routes/api/v1",
+   "pkg/routes/api/v2",
+   "pkg/web/handler"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Access control",
+  "selected_companion_blocks": [
+   "WEB-PROTOCOL-AND-AUTH.md#API-key scope and resource binding",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Missing tenant or owner enforcement",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Stale authorization and derived copy use",
+   "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+   "WEB-PROTOCOL-AND-AUTH.md#Universal moves",
+   "WEB-PROTOCOL-AND-AUTH.md#Validation rules",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Core discipline",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Universal moves",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "CLIENT-SIDE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "SUPPLY-CHAIN-AND-RELEASE.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Core discipline",
+    "reason": "boundary for this domain not present in this unit"
+   },
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary in this unit"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go memory-safe source; no unsafe/native parser in this unit"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "covered",
+  "agent_id": "hunter-11",
+  "reviewed_paths": [
+   "pkg/models/project_permissions.go",
+   "pkg/models/project_access.go",
+   "pkg/models/admin_bypass.go",
+   "pkg/models/tasks_permissions.go",
+   "pkg/models/task_attachment.go",
+   "pkg/models/task_comments.go",
+   "pkg/models/label_task.go",
+   "pkg/models/bulk_task.go",
+   "pkg/models/link_sharing_permissions.go",
+   "pkg/models/webhooks_permissions.go",
+   "pkg/models/teams_permissions.go",
+   "pkg/models/api_tokens_permissions.go",
+   "pkg/models/api_routes.go",
+   "pkg/routes/api_tokens.go",
+   "pkg/web/handler/core.go",
+   "pkg/modules/mcp/loopback.go"
+  ],
+  "local_checks": [
+   {
+    "agent_id": "hunter-11",
+    "reviewed_paths": [
+     "pkg/models/project_permissions.go",
+     "pkg/models/project_access.go",
+     "pkg/models/admin_bypass.go"
+    ],
+    "invariant": "project Can* bind right project/permission/principal",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-11",
+    "reviewed_paths": [
+     "pkg/models/tasks_permissions.go",
+     "pkg/models/task_attachment.go",
+     "pkg/models/task_comments.go",
+     "pkg/models/label_task.go",
+     "pkg/models/bulk_task.go"
+    ],
+    "invariant": "task children authorize against real project",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-11",
+    "reviewed_paths": [
+     "pkg/models/link_sharing_permissions.go",
+     "pkg/models/webhooks_permissions.go",
+     "pkg/models/teams_permissions.go",
+     "pkg/models/api_tokens_permissions.go"
+    ],
+    "invariant": "sharing/team/webhook/token resources owner/admin only",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   },
+   {
+    "agent_id": "hunter-11",
+    "reviewed_paths": [
+     "pkg/models/api_routes.go",
+     "pkg/routes/api_tokens.go",
+     "pkg/web/handler/core.go",
+     "pkg/modules/mcp/loopback.go"
+    ],
+    "invariant": "API token scope exact; handler.Do* enforce Can*",
+    "method": "source",
+    "result": "held",
+    "artifact": null
+   }
+  ],
+  "result_fingerprints": [],
+  "unresolved": []
+ },
+ {
+  "coverage_id": "pkg%2Fuser%23user%20lifecycle%3A%20deletion%2C%20export%2C%20email%20confirm%2C%20invite%20links%2C%20bot%20users%2C%20notifications::pkg%2Fmodels%2Fuser_delete.go%23user-owned%20lifecycle%20actions::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Business%20logic",
+  "canonical_refs": {
+   "surface": "pkg/user#user lifecycle: deletion, export, email confirm, invite links, bot users, notifications",
+   "boundary": "pkg/models/user_delete.go#user-owned lifecycle actions",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Business logic"
+  },
+  "surface": "user lifecycle: deletion, export, email confirm, invite links, bot users, notifications",
+  "boundary": "user-owned lifecycle actions",
+  "subsystem": "all in-scope subsystems (quick profile): user lifecycle",
+  "attack_class": "Business logic",
+  "starting_paths": [
+   "pkg/user/delete.go",
+   "pkg/models/user_delete.go",
+   "pkg/models/export.go",
+   "pkg/routes/api/v2/user_export.go",
+   "pkg/models/user_invite_link.go",
+   "pkg/routes/api/v2/bot_users.go",
+   "pkg/models/notifications_permissions.go"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Business logic",
+  "selected_companion_blocks": [
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Export and backup scope expansion",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Missing tenant or owner enforcement",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Stale authorization and derived copy use",
+   "WEB-PROTOCOL-AND-AUTH.md#Account linking and identity collision",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Core discipline",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Universal moves",
+   "DATA-ISOLATION-AND-LIFECYCLE.md#Validation rules",
+   "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+   "WEB-PROTOCOL-AND-AUTH.md#Universal moves",
+   "WEB-PROTOCOL-AND-AUTH.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go/TypeScript memory-safe"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "deferred",
+  "agent_id": null,
+  "reviewed_paths": [],
+  "local_checks": [],
+  "result_fingerprints": [],
+  "unresolved": [
+   "quick_profile_final_critic: user deletion, export content scope, invite-link registration, email change/confirm, bot ownership and notification permissions in no unit"
+  ]
+ },
+ {
+  "coverage_id": "veans%23veans%20CLI%20module::veans%2Finternal%2Fcredentials%23credential%20storage%20and%20bootstrap::profile%2Fquick%2Fall-in-scope-subsystems::ATTACK-CLASSES.md%23Cryptography%20and%20secrets",
+  "canonical_refs": {
+   "surface": "veans#veans CLI module",
+   "boundary": "veans/internal/credentials#credential storage and bootstrap",
+   "subsystem": "profile/quick/all-in-scope-subsystems",
+   "attack_class": "ATTACK-CLASSES.md#Cryptography and secrets"
+  },
+  "surface": "veans CLI module",
+  "boundary": "credential storage and bootstrap",
+  "subsystem": "all in-scope subsystems (quick profile): veans CLI",
+  "attack_class": "Cryptography and secrets",
+  "starting_paths": [
+   "veans/internal/auth",
+   "veans/internal/credentials",
+   "veans/internal/bootstrap",
+   "veans/internal/client",
+   "veans/internal/config",
+   "veans/nfpm.yaml"
+  ],
+  "ordinary_attack_class_block": "ATTACK-CLASSES.md#Cryptography and secrets",
+  "selected_companion_blocks": [
+   "WEB-PROTOCOL-AND-AUTH.md#API-key exposure and unsafe transport",
+   "SUPPLY-CHAIN-AND-RELEASE.md#Mutable and unbound build inputs",
+   "WEB-PROTOCOL-AND-AUTH.md#Core discipline",
+   "WEB-PROTOCOL-AND-AUTH.md#Universal moves",
+   "WEB-PROTOCOL-AND-AUTH.md#Validation rules",
+   "SUPPLY-CHAIN-AND-RELEASE.md#Core discipline",
+   "SUPPLY-CHAIN-AND-RELEASE.md#Universal moves",
+   "SUPPLY-CHAIN-AND-RELEASE.md#Validation rules"
+  ],
+  "excluded_blocks": [
+   {
+    "block": "AI-AND-LLM.md#Core discipline",
+    "reason": "no model-facing boundary"
+   },
+   {
+    "block": "MEMORY-SAFETY-AND-BINARY.md#Core discipline",
+    "reason": "Go/TypeScript memory-safe"
+   }
+  ],
+  "prior_status": "none",
+  "attempts": [],
+  "wave": 1,
+  "status": "deferred",
+  "agent_id": null,
+  "reviewed_paths": [],
+  "local_checks": [],
+  "result_fingerprints": [],
+  "unresolved": [
+   "quick_profile_final_critic: veans/ is a separate module in scope but appears in no unit"
+  ]
+ }
+]

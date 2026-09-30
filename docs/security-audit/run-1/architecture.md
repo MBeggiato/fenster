@@ -1,0 +1,20 @@
+# Fenster architecture summary (run-1, quick profile)
+
+**Product.** Self-hosted to-do/project app, independent fork of Vikunja (AGPL). Go API (`pkg/`, echo v5 + huma v2 for `/api/v2`, xorm; sqlite/mysql/postgres), Vue 3 frontend embedded via go:embed (`frontend/src`), separate `veans/` CLI module. Single shared DB; tenancy = per-user/team/link-share row ownership plus one instance-admin flag.
+
+**Principals.** Anonymous (register, login, reset, OIDC callback, link-share auth, metrics/testing if configured); local user (JWT session, 10 min access + rotating refresh cookie); link share (project-scoped JWT, DB-validated); API token (`tk_`, route-scoped via `CanDoAPIRoute`, `caldav:access`/`feeds:access`/`mcp:access` special scopes); bot user (token only); OAuth2 client (PKCE, no client registry); instance admin (bypass on projects, admin routes re-read DB `is_admin`).
+
+**Comparable baseline.** Vikunja upstream (README.md:111-114); shares most code, so upstream defect patterns (link share, API-token route matching, migrations, webhooks SSRF) are relevant calibration.
+
+**Stack/deploy.** mage build, Docker `FROM scratch` USER 1000, config `FENSTER_*`. Deployment-dependent: `service.secret`/JWT secret persistence, `ipextractionmethod`/`trustedproxies` (default direct), `ratelimit.enabled` default false, CORS origins, registration default true, testingtoken, metrics creds, TLS/cookie Secure via publicurl, plugins.enabled (default false; yaegi has full stdlib, no sandbox = admin trust).
+**Offline limits.** Go module cache is empty and no node_modules: no target build/test can run. All findings are source-only; anything needing execution is `needs_validation`.
+
+**Entry surfaces / paths.** routes: `pkg/routes/routes.go` (unauth allowlist :309-362; v1 :294; v2 :298; admin gate :447-469,965-985; plugins :988-997). Auth: `pkg/modules/auth/*`, `pkg/routes/api/shared/auth.go`, `pkg/websocket`, `pkg/modules/mcp`. Models/permissions: `pkg/models/*_permissions.go`, `api_routes.go`, `link_sharing*.go`. Files: `pkg/files`, `pkg/modules/avatar`, `pkg/modules/background` (incl. unsplash), migrations `pkg/modules/migration/*`, dump/restore `pkg/modules/dump`. Outbound: `pkg/utils/httpclient.go` (SSRF-safe), `pkg/models/webhooks.go`. CalDAV `pkg/routes/caldav`, `pkg/caldav`; feeds; mail `pkg/notifications/mail_render.go`. Frontend: `frontend/src/components/input/editor`, `views/user/OAuthAuthorize.vue`, `router/index.ts`.
+
+**Trust boundaries and strongest controls.** Can* model permissions; echojwt + session refresh reuse detection; API token route scoping; MCP exposure allowlist; SSRF dialer control (`code.dny.dev/ssrf`); zip traversal checks; DOMPurify on the single `v-html`; server stores raw HTML (no server sanitizer except mail).
+
+**Leads from recon (not findings).** access JWT/WebSocket not checked against sessions/user status (10 min window); OAuth2 redirect URI/`client_id` no registry; OIDC callback no server-side state/nonce seen and client-supplied `RedirectURL`; Unsplash path params unvalidated into upstream URL; `DownloadFile*` migration helpers without size cap and Trello auth header sent on redirect; testing token compared with `!=`; MCP loopback path-param substitution; background upload lacks pixel-cap; `user_export` hand-built Content-Disposition; `unauthenticated` plugin routes; unpinned `mage@latest`/corepack in Dockerfile.
+
+**Prior coverage.** No prior ledger exists; every unit is `prior_status: none`.
+
+**Companions selected.** WEB-PROTOCOL-AND-AUTH (JWT, OIDC, session, API-key), DATA-ISOLATION-AND-LIFECYCLE (owner enforcement, import/restore, stale authz), CLIENT-SIDE (DOM XSS, navigation), SUPPLY-CHAIN-AND-RELEASE (CI/Dockerfile/plugins), RESOURCE-EXHAUSTION-AND-AVAILABILITY (pre-auth work, unbounded buffering). Excluded: AI-AND-LLM (MCP is a token-scoped API façade, covered under WEB api-key), MEMORY-SAFETY (Go; no unsafe/cgo surface besides sqlite), DESKTOP-MOBILE, CLOUD-AND-DEPLOYMENT (no IaC in repo), PROTOCOLS-RPC (no custom RPC).
