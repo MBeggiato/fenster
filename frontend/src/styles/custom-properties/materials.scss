@@ -6,6 +6,8 @@
   // Fill: alpha floor of .72 so text keeps its contrast over any backdrop
   --glass-chrome-bg: hsla(0, 0%, 100%, .72);
   --glass-overlay-bg: hsla(0, 0%, 100%, .8);
+  // Mobile bars skip backdrop blur (scroll jank on iOS WebKit): near-opaque site background instead
+  --chrome-bg-mobile: hsla(var(--grey-100-hsl), .92);
   --glass-filter: blur(20px) saturate(180%);
   --glass-filter-strong: blur(32px) saturate(200%);
 

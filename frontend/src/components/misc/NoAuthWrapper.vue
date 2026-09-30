@@ -87,6 +87,7 @@ useTitle(() => title.value)
 	background: var(--site-background) url("@/assets/glass-panes.svg?url") no-repeat
 		fixed bottom left;
 	min-block-size: 100vh;
+	min-block-size: 100dvh;
 	display: flex;
 	flex-direction: column;
 	place-items: center;

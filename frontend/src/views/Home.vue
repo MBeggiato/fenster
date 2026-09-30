@@ -56,6 +56,8 @@ import {useDaytimeSalutation} from '@/composables/useDaytimeSalutation'
 import {useProjects} from '@/composables/useProjects'
 import {useAuthStore} from '@/stores/auth'
 
+defineOptions({name: 'HomeView'})
+
 const salutation = useDaytimeSalutation()
 
 const authStore = useAuthStore()

@@ -78,6 +78,10 @@ function refreshApp() {
 	border-radius: $radius;
 	font-size: .9rem;
 	color: hsl(220.9, 39.3%, 11%); // color copied to avoid it changing in dark mode
+
+	@include mobile {
+		inset-block-end: calc(var(--mobile-tabbar-height) + env(safe-area-inset-bottom) + var(--space-4));
+	}
 }
 
 .update-notification__message {

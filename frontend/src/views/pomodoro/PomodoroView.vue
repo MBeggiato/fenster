@@ -169,6 +169,8 @@ import {SHORTCUTS} from '@/constants/shortcuts'
 import type {PomodoroPhase, PomodoroSessionResponse} from '@/client/queries/pomodoro'
 import type {TaskResponse} from '@/client/queries/tasks'
 
+defineOptions({name: 'PomodoroView'})
+
 const {t} = useI18n()
 const pomodoro = usePomodoro()
 

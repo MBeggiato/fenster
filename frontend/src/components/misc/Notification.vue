@@ -91,7 +91,7 @@ onBeforeUnmount(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .vue-notification {
 	z-index: 9999;
 
@@ -103,6 +103,14 @@ onBeforeUnmount(() => {
 	 */
 	border-radius: var(--radius-md);
 	box-shadow: var(--glass-specular), var(--shadow-md);
+}
+
+.global-notification {
+	@include mobile {
+		inset-block-end: calc(var(--mobile-tabbar-height) + env(safe-area-inset-bottom) + var(--space-4)) !important;
+		inset-inline: var(--space-4) !important;
+		inline-size: auto !important;
+	}
 }
 
 .duplicate-count {

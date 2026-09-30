@@ -135,6 +135,10 @@ function lockBodyScroll() {
 	if (holdsScrollLock) return
 	holdsScrollLock = true
 	openModalCount++
+	// html is the page scroller (Bulma sets its overflow-y), so locking only body leaves the page
+	// scrollable; iOS then scrolls it when a swipe starts on the scrim. The gutter avoids a desktop shift.
+	document.documentElement.style.overflow = 'hidden'
+	document.documentElement.style.scrollbarGutter = 'stable'
 	document.body.style.overflow = 'hidden'
 }
 
@@ -143,6 +147,8 @@ function releaseBodyScroll() {
 	holdsScrollLock = false
 	openModalCount--
 	if (openModalCount === 0) {
+		document.documentElement.style.overflow = ''
+		document.documentElement.style.scrollbarGutter = ''
 		document.body.style.overflow = ''
 	}
 }

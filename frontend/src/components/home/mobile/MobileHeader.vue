@@ -1,8 +1,5 @@
 <template>
-	<header
-		class="mobile-header d-print-none"
-		:class="{'is-hidden': isHidden}"
-	>
+	<header class="mobile-header d-print-none">
 		<div class="mobile-header__title">
 			<template v-if="currentProject?.id">
 				<ColorBubble
@@ -38,10 +35,9 @@
 </template>
 
 <script setup lang="ts">
-import {computed, ref, watch} from 'vue'
+import {computed} from 'vue'
 import {useRoute} from 'vue-router'
 import {useI18n} from 'vue-i18n'
-import {useScroll, usePreferredReducedMotion} from '@vueuse/core'
 
 import BaseButton from '@/components/base/BaseButton.vue'
 import OpenQuickActions from '@/components/misc/OpenQuickActions.vue'
@@ -69,26 +65,6 @@ const pageTitle = computed(() => {
 	const title = route.meta.title as string | undefined
 	return title ? t(title) : ''
 })
-
-// Hide on scroll down, reveal on scroll up; always visible when the user prefers reduced motion.
-const {y} = useScroll(window, {throttle: 100})
-const reducedMotion = usePreferredReducedMotion()
-const isHidden = ref(false)
-let lastY = 0
-watch(y, newY => {
-	const delta = newY - lastY
-	lastY = newY
-
-	if (reducedMotion.value === 'reduce' || newY <= 8) {
-		isHidden.value = false
-		return
-	}
-	if (delta > 4) {
-		isHidden.value = true
-	} else if (delta < -4) {
-		isHidden.value = false
-	}
-})
 </script>
 
 <style lang="scss" scoped>
@@ -103,24 +79,16 @@ watch(y, newY => {
 	align-items: center;
 	justify-content: space-between;
 	gap: var(--space-2);
-	min-block-size: var(--mobile-header-height);
+	block-size: calc(var(--mobile-header-height) + env(safe-area-inset-top));
 	padding-block-start: env(safe-area-inset-top);
 	padding-inline: var(--space-4);
 
-	background: var(--glass-chrome-bg);
-	backdrop-filter: var(--glass-filter);
+	background: var(--chrome-bg-mobile);
+	backdrop-filter: none;
 	box-shadow: var(--glass-specular);
 
-	transition: transform var(--duration-glass) var(--ease-glass);
-
-	&.is-hidden {
-		transform: translateY(-100%);
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		transition: none;
-		transform: none !important;
-	}
+	user-select: none;
+	-webkit-touch-callout: none;
 }
 
 .mobile-header__title {

@@ -39,18 +39,31 @@ body {
   // Tier-0 ambient substrate: faint primary-tinted glows so the glass chrome has something to refract
   --ambient-glow-a: hsla(var(--primary-h), 70%, 70%, .16);
   --ambient-glow-b: hsla(calc(var(--primary-h) + 40deg), 60%, 72%, .12);
-  background:
-    radial-gradient(60vmax 50vmax at 0% 0%, var(--ambient-glow-a), transparent 70%),
-    radial-gradient(50vmax 45vmax at 100% 100%, var(--ambient-glow-b), transparent 70%),
-    var(--site-background);
-  background-attachment: fixed;
+  background: var(--site-background);
   min-height: 100vh;
+  min-height: 100dvh;
 
   :root.dark & {
     --ambient-glow-a: hsla(var(--primary-h), 60%, 45%, .1);
     --ambient-glow-b: hsla(calc(var(--primary-h) + 40deg), 50%, 45%, .07);
   }
  
+  // Fixed layer instead of `background-attachment: fixed`, which repaints on scroll in iOS WebKit
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(60vmax 50vmax at 0% 0%, var(--ambient-glow-a), transparent 70%),
+      radial-gradient(50vmax 45vmax at 100% 100%, var(--ambient-glow-b), transparent 70%);
+
+    @media print {
+      display: none;
+    }
+  }
+
   @media print {
     background: #fff;
   }

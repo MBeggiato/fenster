@@ -20,7 +20,6 @@ import Login from '@/views/user/Login.vue'
 import Register from '@/views/user/Register.vue'
 import LinkSharingAuth from '@/views/sharing/LinkSharingAuth.vue'
 import OpenIdAuth from '@/views/user/OpenIdAuth.vue'
-import UpcomingTasks from '@/views/tasks/ShowTasks.vue'
 
 import NotFoundComponent from '@/views/404.vue'
 
@@ -224,7 +223,7 @@ const router = createRouter({
 		{
 			path: '/tasks/by/upcoming',
 			name: 'tasks.range',
-			component: UpcomingTasks,
+			component: () => import('@/views/tasks/ShowTasks.vue'),
 			props: route => ({
 				dateFrom: parseDateOrString(route.query.from as string, new Date()),
 				dateTo: parseDateOrString(route.query.to as string, getNextWeekDate()),
@@ -694,5 +693,21 @@ router.beforeEach(async (to, from) => {
 		return to.fullPath + to.hash
 	}
 })
+
+// Warm the tab-bar chunks after the first navigation so tapping a tab never waits for a download.
+router.isReady().then(() => {
+	const prefetch = () => {
+		void import('@/views/Home.vue')
+		void import('@/views/tasks/ShowTasks.vue')
+		void import('@/views/project/ListProjects.vue')
+		void import('@/views/pomodoro/PomodoroView.vue')
+		void import('@/views/tasks/TaskDetailView.vue')
+	}
+	if ('requestIdleCallback' in window) {
+		requestIdleCallback(prefetch)
+	} else {
+		setTimeout(prefetch, 1500)
+	}
+}).catch(() => undefined)
 
 export default router

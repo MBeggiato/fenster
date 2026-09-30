@@ -78,12 +78,15 @@ defineEmits<{
 	display: flex;
 	align-items: stretch;
 	justify-content: space-around;
-	min-block-size: 4rem;
+	block-size: calc(4rem + env(safe-area-inset-bottom));
 	padding-block-end: env(safe-area-inset-bottom);
 
-	background: var(--glass-chrome-bg);
-	backdrop-filter: var(--glass-filter);
+	background: var(--chrome-bg-mobile);
+	backdrop-filter: none;
 	box-shadow: var(--glass-specular);
+
+	user-select: none;
+	-webkit-touch-callout: none;
 }
 
 .mobile-task-action-bar__btn {
@@ -99,6 +102,16 @@ defineEmits<{
 	background: transparent;
 	font-size: var(--font-size-xs);
 	color: var(--grey-700);
+	transition: transform 120ms, opacity 120ms;
+
+	&:active:not(:disabled) {
+		opacity: .6;
+		transform: scale(.96);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		transition: none;
+	}
 
 	&:disabled {
 		opacity: .4;

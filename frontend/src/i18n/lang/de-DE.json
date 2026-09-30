@@ -857,7 +857,8 @@
 		"home": "Fenster Startseite",
 		"toggleChildProjects": "Unterprojekte ein-/ausschalten",
 		"main": "Hauptnavigation",
-		"savedFilters": "Gespeicherte Filter"
+		"savedFilters": "Gespeicherte Filter",
+		"section": "Bereich"
 	},
 	"misc": {
 		"loading": "Wird geladen…",
