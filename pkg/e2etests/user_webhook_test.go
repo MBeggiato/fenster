@@ -329,8 +329,9 @@ func TestUserWebhookHMACSigning(t *testing.T) {
 	delivery := capture.waitForPayload(t)
 
 	// Verify the HMAC signature header is present and correct
-	signature := delivery.Headers.Get("X-Vikunja-Signature")
-	require.NotEmpty(t, signature, "X-Vikunja-Signature header should be set")
+	signature := delivery.Headers.Get("X-Fenster-Signature")
+	require.NotEmpty(t, signature, "X-Fenster-Signature header should be set")
+	assert.Equal(t, signature, delivery.Headers.Get("X-Vikunja-Signature"), "legacy header must carry the same signature until 2027-03-31")
 
 	mac := hmac.New(sha256.New, []byte(secret))
 	_, err = mac.Write(delivery.Body)

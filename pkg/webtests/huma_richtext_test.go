@@ -89,9 +89,9 @@ func TestHumaRichText_FormatDocumented(t *testing.T) {
 	// it would be a trap (markdown stored as HTML). Stripped by stripPatchFormatQuery.
 	assert.False(t, hasParam("/labels/{id}", "patch", "format", "query"), "PATCH must not advertise ?format")
 
-	// The X-Vikunja-Format header is documented centrally, not as a per-op param.
-	assert.False(t, hasParam("/labels/{id}", "get", "X-Vikunja-Format", "header"))
-	assert.False(t, hasParam("/labels/{id}", "patch", "X-Vikunja-Format", "header"))
+	// The X-Fenster-Format header is documented centrally, not as a per-op param.
+	assert.False(t, hasParam("/labels/{id}", "get", "X-Fenster-Format", "header"))
+	assert.False(t, hasParam("/labels/{id}", "patch", "X-Fenster-Format", "header"))
 
 	// Non-rich-text ops carry no format param.
 	assert.False(t, hasParam("/tasks/{task}/comments/{commentid}", "delete", "format", "query"))
@@ -99,7 +99,7 @@ func TestHumaRichText_FormatDocumented(t *testing.T) {
 	// The cross-cutting behavior, including the PATCH header, is in the API description.
 	assert.Contains(t, spec.Info.Description, "Rich-text fields")
 	assert.Contains(t, spec.Info.Description, "CalDAV always exchanges")
-	assert.Contains(t, spec.Info.Description, "X-Vikunja-Format")
+	assert.Contains(t, spec.Info.Description, "X-Fenster-Format")
 }
 
 func TestHumaRichText_Read(t *testing.T) {
@@ -310,26 +310,28 @@ func TestHumaRichText_Write(t *testing.T) {
 		assert.Equal(t, md1, md2, "markdown projection must be stable across a round trip")
 	})
 
-	t.Run("patch honours markdown via header", func(t *testing.T) {
-		rec := humaRequest(t, e, http.MethodPost, "/api/v2/labels",
-			`{"title":"w5","description":"<p>old</p>","hex_color":"112233"}`, token, "")
-		require.Equal(t, http.StatusCreated, rec.Code, "body: %s", rec.Body.String())
-		id, _ := decodeLabel(t, rec.Body.Bytes())
+	for _, header := range []string{"X-Fenster-Format", "X-Vikunja-Format"} {
+		t.Run("patch honours markdown via "+header, func(t *testing.T) {
+			rec := humaRequest(t, e, http.MethodPost, "/api/v2/labels",
+				`{"title":"w5","description":"<p>old</p>","hex_color":"112233"}`, token, "")
+			require.Equal(t, http.StatusCreated, rec.Code, "body: %s", rec.Body.String())
+			id, _ := decodeLabel(t, rec.Body.Bytes())
 
-		// AutoPatch strips the query string but forwards headers, so PATCH markdown
-		// support rides on X-Vikunja-Format.
-		req := httptest.NewRequest(http.MethodPatch, fmt.Sprintf("/api/v2/labels/%d", id),
-			strings.NewReader(`{"description":"new **bold**"}`))
-		req.Header.Set("Content-Type", "application/merge-patch+json")
-		req.Header.Set("Authorization", "Bearer "+token)
-		req.Header.Set("X-Vikunja-Format", "markdown")
-		rec = httptest.NewRecorder()
-		e.ServeHTTP(rec, req)
-		require.Equal(t, http.StatusOK, rec.Code, "body: %s", rec.Body.String())
+			// AutoPatch strips the query string but forwards headers, so PATCH markdown
+			// support rides on X-Fenster-Format.
+			req := httptest.NewRequest(http.MethodPatch, fmt.Sprintf("/api/v2/labels/%d", id),
+				strings.NewReader(`{"description":"new **bold**"}`))
+			req.Header.Set("Content-Type", "application/merge-patch+json")
+			req.Header.Set("Authorization", "Bearer "+token)
+			req.Header.Set(header, "markdown")
+			rec = httptest.NewRecorder()
+			e.ServeHTTP(rec, req)
+			require.Equal(t, http.StatusOK, rec.Code, "body: %s", rec.Body.String())
 
-		rec = humaRequest(t, e, http.MethodGet, fmt.Sprintf("/api/v2/labels/%d", id), "", token, "")
-		require.Equal(t, http.StatusOK, rec.Code, "body: %s", rec.Body.String())
-		_, desc := decodeLabel(t, rec.Body.Bytes())
-		assert.Equal(t, "<p>new <strong>bold</strong></p>", desc)
-	})
+			rec = humaRequest(t, e, http.MethodGet, fmt.Sprintf("/api/v2/labels/%d", id), "", token, "")
+			require.Equal(t, http.StatusOK, rec.Code, "body: %s", rec.Body.String())
+			_, desc := decodeLabel(t, rec.Body.Bytes())
+			assert.Equal(t, "<p>new <strong>bold</strong></p>", desc)
+		})
+	}
 }

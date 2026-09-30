@@ -359,6 +359,8 @@ func (w *Webhook) sendWebhookPayload(p *WebhookPayload) (err error) {
 			log.Errorf("Could not generate webhook signature for Webhook %d: %s", w.ID, err)
 		}
 		signature := hex.EncodeToString(sig256.Sum(nil))
+		req.Header.Add("X-Fenster-Signature", signature)
+		// ponytail: remove after 2027-03-31 (#15), receivers may still verify the old name
 		req.Header.Add("X-Vikunja-Signature", signature)
 	}
 
