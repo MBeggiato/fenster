@@ -142,7 +142,7 @@ export type AdminUser = {
 
 export type AttachmentUploadError = {
     /**
-     * Vikunja numeric error code, when the failure carries one.
+     * Fenster numeric error code, when the failure carries one.
      */
     code?: number;
     /**
@@ -468,7 +468,7 @@ export type CreateUserBody = {
      */
     is_admin?: boolean;
     /**
-     * IETF BCP 47 language code; must exist in Vikunja.
+     * IETF BCP 47 language code; must exist in Fenster.
      */
     language?: string;
     /**
@@ -654,16 +654,6 @@ export type Image = {
      * The full-size URL of the image.
      */
     url?: string;
-};
-
-export type Info = {
-    expires_at?: string;
-    features?: Array<string> | null;
-    instance_id?: string;
-    last_check_failed?: boolean;
-    licensed?: boolean;
-    max_users?: number;
-    validated_at?: string;
 };
 
 export type InviteLinkCheckBody = {
@@ -1092,10 +1082,6 @@ export type Overview = {
      * A URL to the JSON Schema for this object.
      */
     readonly $schema?: string;
-    /**
-     * Snapshot of the instance license state.
-     */
-    readonly license?: Info;
     /**
      * Total number of projects.
      */
@@ -1937,7 +1923,7 @@ export type Provider = {
 
 export type ProviderStatus = {
     /**
-     * True when the provider is initialized and offered for login. This reflects the last initialization attempt, not the provider's current reachability. A configured but unavailable provider was unreachable or misconfigured when Vikunja last initialized its providers; initialization is retried automatically with exponential backoff, after at most 15 minutes.
+     * True when the provider is initialized and offered for login. This reflects the last initialization attempt, not the provider's current reachability. A configured but unavailable provider was unreachable or misconfigured when Fenster last initialized its providers; initialization is retried automatically with exponential backoff, after at most 15 minutes.
      */
     available?: boolean;
     /**
@@ -3556,7 +3542,7 @@ export type VikunjaErrorModel = {
      */
     readonly $schema?: string;
     /**
-     * Vikunja numeric error code; see https://vikunja.io/docs/errors/
+     * Fenster numeric error code; see https://vikunja.io/docs/errors/
      */
     readonly code?: number;
     /**
@@ -3629,10 +3615,6 @@ export type VikunjaInfos = {
      */
     enabled_background_providers?: Array<string> | null;
     /**
-     * The licensed pro features enabled on this instance.
-     */
-    enabled_pro_features?: Array<number> | null;
-    /**
      * The publicly configured frontend URL of this instance.
      */
     frontend_url?: string;
@@ -3677,7 +3659,7 @@ export type VikunjaInfos = {
      */
     user_deletion_enabled?: boolean;
     /**
-     * The Vikunja version this instance runs.
+     * The Fenster version this instance runs.
      */
     version?: string;
     /**
@@ -3963,7 +3945,7 @@ export type CreateUserBodyWritable = {
      */
     is_admin?: boolean;
     /**
-     * IETF BCP 47 language code; must exist in Vikunja.
+     * IETF BCP 47 language code; must exist in Fenster.
      */
     language?: string;
     /**
@@ -4193,10 +4175,6 @@ export type MigrationMigrateBodyWritable = {
      * The OAuth code obtained after authorizing against the auth url.
      */
     code?: string;
-};
-
-export type OverviewWritable = {
-    [key: string]: never;
 };
 
 export type PaginatedApiTokenWritable = {
@@ -5273,10 +5251,6 @@ export type VikunjaInfosWritable = {
      */
     enabled_background_providers?: Array<string> | null;
     /**
-     * The licensed pro features enabled on this instance.
-     */
-    enabled_pro_features?: Array<number> | null;
-    /**
      * The publicly configured frontend URL of this instance.
      */
     frontend_url?: string;
@@ -5321,7 +5295,7 @@ export type VikunjaInfosWritable = {
      */
     user_deletion_enabled?: boolean;
     /**
-     * The Vikunja version this instance runs.
+     * The Fenster version this instance runs.
      */
     version?: string;
     /**
@@ -6806,7 +6780,7 @@ export type MigrationPlankaStatusResponse = MigrationPlankaStatusResponses[keyof
 export type MigrationTicktickMigrateData = {
     body: {
         /**
-         * The export file to import. Its expected format depends on the migrator (e.g. a Vikunja export zip, a TickTick CSV, a WeKan JSON export).
+         * The export file to import. Its expected format depends on the migrator (e.g. a Fenster export zip, a TickTick CSV, a WeKan JSON export).
          */
         import: Blob | File;
     };
@@ -7011,7 +6985,7 @@ export type MigrationTrelloStatusResponse = MigrationTrelloStatusResponses[keyof
 export type MigrationVikunjaFileMigrateData = {
     body: {
         /**
-         * The export file to import. Its expected format depends on the migrator (e.g. a Vikunja export zip, a TickTick CSV, a WeKan JSON export).
+         * The export file to import. Its expected format depends on the migrator (e.g. a Fenster export zip, a TickTick CSV, a WeKan JSON export).
          */
         import: Blob | File;
     };
@@ -7066,7 +7040,7 @@ export type MigrationVikunjaFileStatusResponse = MigrationVikunjaFileStatusRespo
 export type MigrationWekanMigrateData = {
     body: {
         /**
-         * The export file to import. Its expected format depends on the migrator (e.g. a Vikunja export zip, a TickTick CSV, a WeKan JSON export).
+         * The export file to import. Its expected format depends on the migrator (e.g. a Fenster export zip, a TickTick CSV, a WeKan JSON export).
          */
         import: Blob | File;
     };

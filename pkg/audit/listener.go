@@ -20,7 +20,6 @@ import (
 	"encoding/json"
 
 	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/license"
 
 	"github.com/ThreeDotsLabs/watermill/message"
 )
@@ -46,9 +45,6 @@ func RegisterEventForAudit[T any, PT interface {
 }](toEntry func(PT) *Entry) {
 	name := PT(new(T)).Name()
 	events.RegisterListener(name, &auditListener{handle: func(msg *message.Message) error {
-		if !license.IsFeatureEnabled(license.FeatureAuditLogs) {
-			return nil // license is runtime-mutable — checked per event, not at registration
-		}
 		e := PT(new(T)) // fresh instance per message — handlers run concurrently
 		if err := json.Unmarshal(msg.Payload, e); err != nil {
 			return err

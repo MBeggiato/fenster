@@ -28,6 +28,6 @@ import (
 func TestMain(m *testing.M) {
 	log.InitLogger()
 	config.InitDefaultConfig()
-	keyvalue.InitStorage() // license.SetForTests persists state through keyvalue
+	keyvalue.InitStorage()
 	os.Exit(m.Run())
 }

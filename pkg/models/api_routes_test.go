@@ -21,8 +21,6 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"code.vikunja.io/api/pkg/license"
-
 	"github.com/labstack/echo/v5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -163,8 +161,6 @@ func TestCollectRoutes_TimeEntriesV2(t *testing.T) {
 // discover and grant them, without mutating the v1 table itself.
 func TestGetAPITokenRoutes_ExposesV2Only(t *testing.T) {
 	resetAPITokenRoutes(t)
-	license.SetForTests([]license.Feature{license.FeatureTimeTracking})
-	defer license.ResetForTests()
 
 	CollectRoutesForAPITokenUsage(echo.RouteInfo{Method: "GET", Path: "/api/v1/labels"}, true)
 	CollectRoutesForAPITokenUsage(echo.RouteInfo{Method: "GET", Path: "/api/v2/time-entries"}, true)
@@ -180,49 +176,6 @@ func TestGetAPITokenRoutes_ExposesV2Only(t *testing.T) {
 
 	_, v1HasTE := apiTokenRoutes["time_entries"]
 	assert.False(t, v1HasTE, "the merge must not mutate the v1 table")
-}
-
-// TestGetAPITokenRoutes_LicenseFilter verifies the /routes payload omits
-// routes whose license feature is off — including licensed permissions nested
-// inside always-available groups (tasks.time_entries) — while validation and
-// authorisation of existing tokens stay unfiltered.
-func TestGetAPITokenRoutes_LicenseFilter(t *testing.T) {
-	resetAPITokenRoutes(t)
-
-	CollectRoutesForAPITokenUsage(echo.RouteInfo{Method: "GET", Path: "/api/v1/labels"}, true)
-	CollectRoutesForAPITokenUsage(echo.RouteInfo{Method: "GET", Path: "/api/v1/admin/users"}, true)
-	CollectRoutesForAPITokenUsage(echo.RouteInfo{Method: "GET", Path: "/api/v2/tasks"}, true)
-	CollectRoutesForAPITokenUsage(echo.RouteInfo{Method: "GET", Path: "/api/v2/time-entries"}, true)
-	CollectRoutesForAPITokenUsage(echo.RouteInfo{Method: "GET", Path: "/api/v2/tasks/:task_id/time-entries"}, true)
-
-	t.Run("unlicensed", func(t *testing.T) {
-		license.ResetForTests()
-		routes := GetAPITokenRoutes()
-
-		assert.Contains(t, routes, "labels")
-		assert.NotContains(t, routes, "admin")
-		assert.NotContains(t, routes, "time_entries")
-		require.Contains(t, routes, "tasks")
-		assert.Contains(t, routes["tasks"], "read_all")
-		assert.NotContains(t, routes["tasks"], "time_entries")
-
-		// Existing tokens with gated scopes must keep validating — the
-		// request-time gates already make them inert.
-		perms := APIPermissions{"time_entries": []string{"read_all"}}
-		assert.NoError(t, PermissionsAreValid(perms))
-	})
-
-	t.Run("licensed", func(t *testing.T) {
-		license.SetForTests([]license.Feature{license.FeatureTimeTracking, license.FeatureAdminPanel})
-		defer license.ResetForTests()
-		routes := GetAPITokenRoutes()
-
-		assert.Contains(t, routes, "admin")
-		require.Contains(t, routes, "time_entries")
-		assert.Contains(t, routes["time_entries"], "read_all")
-		require.Contains(t, routes, "tasks")
-		assert.Contains(t, routes["tasks"], "time_entries")
-	})
 }
 
 // TestCanDoAPIRoute_TimeEntriesHyphenLegacy proves a token stored under the old

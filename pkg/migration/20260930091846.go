@@ -14,21 +14,23 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-package routes
+package migration
 
 import (
-	"code.vikunja.io/api/pkg/license"
-	"github.com/labstack/echo/v5"
+	"src.techknowlogick.com/xormigrate"
+	"xorm.io/xorm"
 )
 
-// RequireFeature serves 404 so gated routes are indistinguishable from unregistered ones.
-func RequireFeature(f license.Feature) echo.MiddlewareFunc {
-	return func(next echo.HandlerFunc) echo.HandlerFunc {
-		return func(c *echo.Context) error {
-			if !license.IsFeatureEnabled(f) {
-				return echo.ErrNotFound
-			}
-			return next(c)
-		}
-	}
+func init() {
+	migrations = append(migrations, &xormigrate.Migration{
+		ID:          "20260930091846",
+		Description: "Drop the license_status table of the removed license system",
+		Migrate: func(tx *xorm.Engine) error {
+			// xorm emits DROP TABLE IF EXISTS on all three dialects.
+			return tx.DropTables("license_status")
+		},
+		Rollback: func(_ *xorm.Engine) error {
+			return nil
+		},
+	})
 }

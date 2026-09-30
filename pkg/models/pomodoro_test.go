@@ -21,7 +21,6 @@ import (
 	"time"
 
 	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/user"
 
 	"github.com/stretchr/testify/assert"
@@ -286,8 +285,6 @@ func TestPomodoroSession_logTimeEntry(t *testing.T) {
 		db.LoadAndAssertFixtures(t)
 		s := db.NewSession()
 		defer s.Close()
-		license.SetForTests([]license.Feature{license.FeatureTimeTracking})
-		defer license.ResetForTests()
 
 		before := countEntries(t, s, 8)
 		// Session 8 has log_time_entry and is overdue, so reading it finalizes it.
@@ -303,23 +300,10 @@ func TestPomodoroSession_logTimeEntry(t *testing.T) {
 		require.NotNil(t, entry.EndTime)
 		assert.Equal(t, 25*time.Minute, entry.EndTime.Sub(entry.StartTime))
 	})
-	t.Run("nothing is logged when the feature is unlicensed", func(t *testing.T) {
-		db.LoadAndAssertFixtures(t)
-		s := db.NewSession()
-		defer s.Close()
-		license.ResetForTests()
-
-		before := countEntries(t, s, 8)
-		_, err := GetCurrentPomodoroSession(s, &user.User{ID: 8})
-		require.NoError(t, err)
-		assert.Equal(t, before, countEntries(t, s, 8))
-	})
 	t.Run("a session without a task logs nothing", func(t *testing.T) {
 		db.LoadAndAssertFixtures(t)
 		s := db.NewSession()
 		defer s.Close()
-		license.SetForTests([]license.Feature{license.FeatureTimeTracking})
-		defer license.ResetForTests()
 
 		before := countEntries(t, s, 6)
 		// Session 6 is overdue but carries no task.
@@ -331,8 +315,6 @@ func TestPomodoroSession_logTimeEntry(t *testing.T) {
 		db.LoadAndAssertFixtures(t)
 		s := db.NewSession()
 		defer s.Close()
-		license.SetForTests([]license.Feature{license.FeatureTimeTracking})
-		defer license.ResetForTests()
 
 		u := &user.User{ID: 1}
 		before := countEntries(t, s, 1)
@@ -345,8 +327,6 @@ func TestPomodoroSession_logTimeEntry(t *testing.T) {
 		db.LoadAndAssertFixtures(t)
 		s := db.NewSession()
 		defer s.Close()
-		license.SetForTests([]license.Feature{license.FeatureTimeTracking})
-		defer license.ResetForTests()
 
 		u := &user.User{ID: 1}
 		before := countEntries(t, s, 1)

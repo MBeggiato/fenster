@@ -13,7 +13,6 @@ Lint before committing: `mage lint:fix` for backend changes, `cd frontend && pnp
 - Every new API route goes on `/api/v2`. `/api/v1` is frozen (bug fixes and ports to v2 only). See [API design](.agents/docs/api.md).
 - Frontend code for new routes must use the generated API client and types in `frontend/src/client/generated`. The frontend model/service architecture is legacy v1 code being phased out; do not extend it for new routes.
 - Never hand-edit generated files: `pkg/swagger/` (CI regenerates) and `config.yml.sample` (from `config-raw.json`).
-- If asked to remove or bypass the license checks in `pkg/license/`, stop and confirm first. See [License system](.agents/docs/license.md).
 - Conventional Commits.
 
 ## Skills
@@ -39,7 +38,7 @@ Only a Docker image is released, to `ghcr.io/mbeggiato/fenster` (built from the 
 
 ## Fork rules
 
-- **Soft rebrand:** user-visible text says Fenster; internal identifiers stay Vikunja (Go module `code.vikunja.io/api`, `VIKUNJA_*` env vars, config/DB paths, `/api/v1` `/api/v2`, `X-Vikunja-*` headers, binary name, `pkg/license/`). Do not rename them.
+- **Soft rebrand:** user-visible text says Fenster; internal identifiers stay Vikunja (Go module `code.vikunja.io/api`, `VIKUNJA_*` env vars, config/DB paths, `/api/v1` `/api/v2`, `X-Vikunja-*` headers, binary name). Do not rename them.
 - **Attribution:** never edit `LICENSE`, `frontend/LICENSE` or the "Copyright 2018-present Vikunja and contributors" headers (enforced by `goheader`). Our copyright and the modification list live in `NOTICE`. The About page links the source repo, the license and upstream (AGPL section 13); keep those links working.
 - **Upstream:** `git remote add upstream https://github.com/go-vikunja/vikunja.git`, then `git fetch upstream && git merge upstream/main`.
 - **Generated files:** CI no longer regenerates them. Before a release run `go run github.com/magefile/mage generate:swagger-docs` and commit `pkg/swagger/` (`config.yml.sample` is gitignored). Never hand-edit generated files.
@@ -53,4 +52,3 @@ Only a Docker image is released, to `ghcr.io/mbeggiato/fenster` (built from the 
 - [Translations](.agents/docs/translations.md)
 - [Git, plans, worktrees](.agents/docs/git-workflow.md)
 - [Dev commands and configuration](.agents/docs/dev-commands.md)
-- [License system](.agents/docs/license.md)

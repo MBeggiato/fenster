@@ -21,7 +21,6 @@ import (
 	"time"
 
 	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/license"
 	"code.vikunja.io/api/pkg/models"
 	"code.vikunja.io/api/pkg/modules/mcp"
 	"code.vikunja.io/api/pkg/user"
@@ -123,11 +122,6 @@ func newAllScopesMCPClient(t *testing.T) *mcpClient {
 	t.Helper()
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{
-		license.FeatureAdminPanel,
-		license.FeatureTimeTracking,
-	})
-	t.Cleanup(license.ResetForTests)
 	permissions := models.APIPermissions{}
 	for group, perms := range models.GetAPITokenRoutes() {
 		for perm := range perms {

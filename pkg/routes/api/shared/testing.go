@@ -19,8 +19,6 @@ package shared
 import (
 	"code.vikunja.io/api/pkg/db"
 	"code.vikunja.io/api/pkg/events"
-	"code.vikunja.io/api/pkg/license"
-	"code.vikunja.io/api/pkg/log"
 	"code.vikunja.io/api/pkg/models"
 )
 
@@ -65,13 +63,6 @@ func ReplaceTableContents(table string, content []map[string]interface{}, trunca
 		}
 	}
 
-	// License state is cached at startup; re-apply so tests take effect without a restart.
-	if table == "license_status" {
-		if err := license.ReloadFromCache(); err != nil {
-			return nil, err
-		}
-	}
-
 	s := db.NewSession()
 	defer s.Close()
 	data := []map[string]interface{}{}
@@ -100,11 +91,5 @@ func TruncateAllTestingTables() error {
 		return err
 	}
 
-	// Reload after truncate; otherwise features enabled by a prior test outlive
-	// the now-empty license_status table. A reload failure here is non-fatal —
-	// the truncate already succeeded — so it is logged and swallowed.
-	if err := license.ReloadFromCache(); err != nil {
-		log.Errorf("Error reloading license after truncate: %v", err)
-	}
 	return nil
 }

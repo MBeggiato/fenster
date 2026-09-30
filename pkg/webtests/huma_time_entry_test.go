@@ -22,8 +22,6 @@ import (
 	"net/url"
 	"testing"
 
-	"code.vikunja.io/api/pkg/license"
-
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -32,56 +30,9 @@ import (
 // 2 = user1 on project 1, 3 = user3 on project 3 (user1 can read), 4 = user1's
 // running timer on task 1. user1 (testuser1) can read all four.
 
-// The gate is the one v2-specific concern with no model-level equivalent: every
-// time-tracking route 404s on an instance without the feature.
-func TestHumaTimeEntry_LicenseGate(t *testing.T) {
-	t.Run("disabled feature 404s the list", func(t *testing.T) {
-		e, err := setupTestEnv()
-		require.NoError(t, err)
-		license.SetForTests([]license.Feature{}) // licensed, but not time tracking
-		defer license.ResetForTests()
-
-		rec := humaRequest(t, e, http.MethodGet, "/api/v2/time-entries", "", humaTokenFor(t, &testuser1), "")
-		assert.Equal(t, http.StatusNotFound, rec.Code)
-	})
-
-	t.Run("disabled feature 404s timer/stop", func(t *testing.T) {
-		e, err := setupTestEnv()
-		require.NoError(t, err)
-		license.SetForTests([]license.Feature{})
-		defer license.ResetForTests()
-
-		rec := humaRequest(t, e, http.MethodPost, "/api/v2/time-entries/timer/stop", "", humaTokenFor(t, &testuser1), "")
-		assert.Equal(t, http.StatusNotFound, rec.Code)
-	})
-
-	t.Run("disabled feature 404s the task-scoped list", func(t *testing.T) {
-		e, err := setupTestEnv()
-		require.NoError(t, err)
-		license.SetForTests([]license.Feature{})
-		defer license.ResetForTests()
-
-		rec := humaRequest(t, e, http.MethodGet, "/api/v2/tasks/1/time-entries", "", humaTokenFor(t, &testuser1), "")
-		assert.Equal(t, http.StatusNotFound, rec.Code)
-	})
-
-	t.Run("enabled feature serves the list", func(t *testing.T) {
-		e, err := setupTestEnv()
-		require.NoError(t, err)
-		license.SetForTests([]license.Feature{license.FeatureTimeTracking})
-		defer license.ResetForTests()
-
-		rec := humaRequest(t, e, http.MethodGet, "/api/v2/time-entries", "", humaTokenFor(t, &testuser1), "")
-		assert.Equal(t, http.StatusOK, rec.Code, rec.Body.String())
-	})
-}
-
 func TestHumaTimeEntry(t *testing.T) {
-	// SetForTests must come after setupTestEnv — the latter re-inits the license to free.
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureTimeTracking})
-	defer license.ResetForTests()
 
 	testHandler := webHandlerTestV2{
 		user:     &testuser1,
@@ -126,8 +77,6 @@ func TestHumaTimeEntry_Create(t *testing.T) {
 	t.Run("saving an entry with end_time", func(t *testing.T) {
 		e, err := setupTestEnv()
 		require.NoError(t, err)
-		license.SetForTests([]license.Feature{license.FeatureTimeTracking})
-		defer license.ResetForTests()
 
 		body := `{"task_id":1,"start_time":"2020-01-01T09:00:00Z","end_time":"2020-01-01T10:00:00Z","comment":"work"}`
 		rec := humaRequest(t, e, http.MethodPost, "/api/v2/time-entries", body, humaTokenFor(t, &testuser1), "")
@@ -139,8 +88,6 @@ func TestHumaTimeEntry_Create(t *testing.T) {
 	t.Run("starting a timer without end_time", func(t *testing.T) {
 		e, err := setupTestEnv()
 		require.NoError(t, err)
-		license.SetForTests([]license.Feature{license.FeatureTimeTracking})
-		defer license.ResetForTests()
 
 		body := `{"task_id":1,"start_time":"2020-01-01T09:00:00Z","comment":"timer"}`
 		rec := humaRequest(t, e, http.MethodPost, "/api/v2/time-entries", body, humaTokenFor(t, &testuser1), "")
@@ -156,8 +103,6 @@ func TestHumaTimeEntry_Create(t *testing.T) {
 func TestHumaTimeEntry_Filter(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureTimeTracking})
-	defer license.ResetForTests()
 	token := humaTokenFor(t, &testuser1)
 
 	t.Run("by task", func(t *testing.T) {
@@ -178,8 +123,6 @@ func TestHumaTimeEntry_Filter(t *testing.T) {
 func TestHumaTimeEntry_TimerStop(t *testing.T) {
 	e, err := setupTestEnv()
 	require.NoError(t, err)
-	license.SetForTests([]license.Feature{license.FeatureTimeTracking})
-	defer license.ResetForTests()
 
 	t.Run("stops the caller's running timer", func(t *testing.T) {
 		rec := humaRequest(t, e, http.MethodPost, "/api/v2/time-entries/timer/stop", "", humaTokenFor(t, &testuser1), "")
