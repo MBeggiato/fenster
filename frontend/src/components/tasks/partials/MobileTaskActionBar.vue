@@ -11,7 +11,7 @@
 			@click="$emit('toggleDone')"
 		>
 			<Icon icon="check-double" />
-			<span>{{ done ? $t('task.detail.undone') : $t('task.detail.done') }}</span>
+			<span>{{ done ? $t('mobile.taskDetail.reopen') : $t('mobile.taskDetail.done') }}</span>
 		</button>
 		<template v-if="canWrite">
 			<button
