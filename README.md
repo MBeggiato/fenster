@@ -58,7 +58,7 @@ mkdir -p fenster/db fenster/files && cd fenster
 sudo chown 1000 db files
 docker run -p 3456:3456 -v $PWD/db:/db -v $PWD/files:/app/fenster/files \
   -e FENSTER_SERVICE_PUBLICURL=http://localhost:3456 \
-  -e FENSTER_SERVICE_JWTSECRET=change-me \
+  -e FENSTER_SERVICE_SECRET=change-me \
   ghcr.io/mbeggiato/fenster:latest
 ```
 
@@ -77,7 +77,7 @@ services:
       - ./files:/app/fenster/files
     environment:
       FENSTER_SERVICE_PUBLICURL: https://tasks.example.com
-      FENSTER_SERVICE_JWTSECRET: change-me
+      FENSTER_SERVICE_SECRET: change-me
     restart: unless-stopped
 ```
 
@@ -87,7 +87,7 @@ Configuration uses `FENSTER_*` environment variables, see [vikunja.io/docs/confi
 
 - `VIKUNJA_*` env vars are now `FENSTER_*` (`FENSTER_*` wins if both are set)
 - config file dirs `/etc/vikunja/` and `~/.config/vikunja` are now `/etc/fenster/` and `~/.config/fenster`
-- SQLite file `vikunja.db` is now `fenster.db` (an existing `vikunja.db` next to it is used if `fenster.db` is missing)
+- SQLite file `vikunja.db` is now `fenster.db` (an existing `vikunja.db` next to it is used if `fenster.db` is missing). To rename it, stop the container first (`docker stop`, not `docker rm -f`) and rename `vikunja.db-wal` and `vikunja.db-shm` along with it, otherwise recent changes are lost
 - Docker files mount `/app/vikunja/files` is now `/app/fenster/files`; DB mount stays `/db`
 - binary `vikunja` is now `fenster`
 
