@@ -27,13 +27,13 @@ Invoke with the `Skill` tool before writing code in these areas:
 
 ## Releases
 
-Only a Docker image is released, to `ghcr.io/mbeggiato/fenster` (built from the root `Dockerfile`: frontend + API in one `scratch` image). There are exactly two workflows in `.github/workflows/`:
+Only a Docker image is released, to `ghcr.io/mbeggiato/fenster` (built from the root `Dockerfile`: frontend + API in one `scratch` image). There are three workflows in `.github/workflows/`:
 
 - **`release.yml`:** runs on every push to `main` (a merged PR is a push). Builds `linux/amd64` + `linux/arm64` and pushes `:latest` and `:<8-char sha>`. No tests run first.
 - **`preview.yml`:** manual only (Actions → Preview image → Run workflow, choose the branch in "Use workflow from"; the branch must contain the file). Builds `linux/amd64` and pushes `:preview-<branch>` (slashes become `-`).
 - **Auth:** the repo's `GITHUB_TOKEN` with job-level `packages: write`; no other secrets. The package must be linked to the repo (package settings → Manage Actions access) and Actions must be enabled.
 - **No versions/tags:** there are no git tags, so the version baked into the binary is the short commit SHA.
-- **No CI tests:** PRs run no checks. Run lint, unit tests and the e2e suite locally before merging.
+- **`pr.yml`:** runs on every PR to `main`: `check:golangci`, `test:feature`, `test:web`, frontend `lint`, `lint:styles` and `test:unit`. Not covered: typecheck (pre-existing errors), swagger/yaegi drift, `test:e2EApi` and Playwright e2e. Run those locally before merging when a change touches them.
 - **Manual local build:** `docker build -t ghcr.io/mbeggiato/fenster:dev .` then `docker push` (login: `gh auth token | docker login ghcr.io -u MBeggiato --password-stdin`; needs a token with `write:packages`).
 
 ## Fork rules
