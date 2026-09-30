@@ -81,7 +81,8 @@ services:
     restart: unless-stopped
 ```
 
-Configuration uses the upstream `VIKUNJA_*` variables, see [vikunja.io/docs/config-options](https://vikunja.io/docs/config-options/).
+Configuration still uses the `VIKUNJA_*` variables inherited from Vikunja, see [vikunja.io/docs/config-options](https://vikunja.io/docs/config-options/).
+A switch to `FENSTER_*` is planned; the old names will keep working during a transition period ([#15](https://github.com/MBeggiato/fenster/issues/15)).
 
 ## Build from Source
 
@@ -94,7 +95,7 @@ docker build -t fenster .
 ```
 
 For build and development commands, see [CONTRIBUTING.md](CONTRIBUTING.md).
-Upstream documentation (may differ from Fenster in places): [vikunja.io/docs](https://vikunja.io/docs/).
+Vikunja documentation (increasingly differs from Fenster): [vikunja.io/docs](https://vikunja.io/docs/).
 
 ## Regenerating the screenshots
 
@@ -102,17 +103,9 @@ Screenshots are generated with demo data by `frontend/scripts/readme-screenshots
 
 ## Based on Vikunja
 
-Fenster is a soft fork of [Vikunja](https://github.com/go-vikunja/vikunja) ([vikunja.io](https://vikunja.io)).
-Thanks to the upstream maintainers and all Vikunja contributors, whose work this project builds on.
+Fenster started as a fork of [Vikunja](https://github.com/go-vikunja/vikunja) ([vikunja.io](https://vikunja.io)) and has been developed independently since September 2026; upstream changes are no longer merged.
+Thanks to the Vikunja maintainers and all Vikunja contributors, whose work this project builds on.
 Fenster is independent and not affiliated with or endorsed by the Vikunja project. See [NOTICE](NOTICE).
-
-## Merging Upstream Fixes
-
-```bash
-git remote add upstream https://github.com/go-vikunja/vikunja.git
-git fetch upstream
-git merge upstream/main
-```
 
 ## Contributing
 

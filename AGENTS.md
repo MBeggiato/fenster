@@ -1,6 +1,6 @@
 # AGENT Instructions
 
-Fenster: self-hosted to-do app, a soft fork of [Vikunja](https://github.com/go-vikunja/vikunja) (AGPL-3.0-or-later, see `NOTICE`). Go API in `pkg/`, Vue 3 + TypeScript frontend in `frontend/` (pnpm). `veans/` is a separate Go module with its own `AGENTS.md`.
+Fenster: self-hosted to-do app, an independent fork of [Vikunja](https://github.com/go-vikunja/vikunja) (AGPL-3.0-or-later, see `NOTICE`). Go API in `pkg/`, Vue 3 + TypeScript frontend in `frontend/` (pnpm). `veans/` is a separate Go module with its own `AGENTS.md`.
 
 ## Commands
 
@@ -38,9 +38,9 @@ Only a Docker image is released, to `ghcr.io/mbeggiato/fenster` (built from the 
 
 ## Fork rules
 
-- **Soft rebrand:** user-visible text says Fenster; internal identifiers stay Vikunja (Go module `code.vikunja.io/api`, `VIKUNJA_*` env vars, config/DB paths, `/api/v1` `/api/v2`, `X-Vikunja-*` headers, binary name). Do not rename them.
+- **Independent since 2026-09-30:** upstream Vikunja is no longer merged. Don't add an `upstream` remote or merge upstream branches; port a specific upstream fix by hand only when asked.
+- **Rename in progress:** user-visible text says Fenster. Internal identifiers (Go module `code.vikunja.io/api`, `VIKUNJA_*` env vars, config/DB paths, `X-Vikunja-*` headers, binary name) are being renamed in dedicated PRs; until that PR lands, keep the existing name. `VIKUNJA_*` env vars must keep working as a fallback until 2027-03-31 (issue #15). `/api/v1` and `/api/v2` stay.
 - **Attribution:** never edit `LICENSE`, `frontend/LICENSE` or the "Copyright 2018-present Vikunja and contributors" headers (enforced by `goheader`). Our copyright and the modification list live in `NOTICE`. The About page links the source repo, the license and upstream (AGPL section 13); keep those links working.
-- **Upstream:** `git remote add upstream https://github.com/go-vikunja/vikunja.git`, then `git fetch upstream && git merge upstream/main`.
 - **Generated files:** CI no longer regenerates them. Before a release run `go run github.com/magefile/mage generate:swagger-docs` and commit `pkg/swagger/` (`config.yml.sample` is gitignored). Never hand-edit generated files.
 - **Brand assets:** masters are in `frontend/originalMedia/brand/` (see its README.md).
 

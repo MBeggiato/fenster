@@ -2,7 +2,7 @@
 
 Thanks for your interest in contributing!
 
-Fenster is a fork of [Vikunja](https://github.com/go-vikunja/vikunja). The upstream documentation at https://vikunja.io/docs/development/ mostly applies, but may differ from Fenster.
+Fenster is a fork of [Vikunja](https://github.com/go-vikunja/vikunja). The Vikunja development documentation at https://vikunja.io/docs/development/ mostly applies, but may differ from Fenster.
 
 ## AI-Assisted Contributions
 
