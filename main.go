@@ -16,7 +16,7 @@
 
 package main
 
-import "code.vikunja.io/api/pkg/cmd"
+import "github.com/MBeggiato/fenster/pkg/cmd"
 
 func main() {
 	cmd.Execute()

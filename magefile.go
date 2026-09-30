@@ -41,14 +41,14 @@ import (
 	"syscall"
 	"time"
 
-	apiv2 "code.vikunja.io/api/pkg/routes/api/v2"
+	apiv2 "github.com/MBeggiato/fenster/pkg/routes/api/v2"
 
 	"github.com/iancoleman/strcase"
 	"github.com/magefile/mage/mg"
 )
 
 const (
-	PACKAGE = `code.vikunja.io/api`
+	PACKAGE = `github.com/MBeggiato/fenster`
 	DIST    = `dist`
 )
 
@@ -1569,13 +1569,13 @@ var yaegiSymbolPackages = []struct {
 	importPath string
 	outFile    string
 }{
-	{"code.vikunja.io/api/pkg/config", "vikunja_config.go"},
-	{"code.vikunja.io/api/pkg/db", "vikunja_db.go"},
-	{"code.vikunja.io/api/pkg/events", "vikunja_events.go"},
-	{"code.vikunja.io/api/pkg/log", "vikunja_log.go"},
-	{"code.vikunja.io/api/pkg/models", "vikunja_models.go"},
-	{"code.vikunja.io/api/pkg/plugins", "vikunja_plugins.go"},
-	{"code.vikunja.io/api/pkg/user", "vikunja_user.go"},
+	{"github.com/MBeggiato/fenster/pkg/config", "vikunja_config.go"},
+	{"github.com/MBeggiato/fenster/pkg/db", "vikunja_db.go"},
+	{"github.com/MBeggiato/fenster/pkg/events", "vikunja_events.go"},
+	{"github.com/MBeggiato/fenster/pkg/log", "vikunja_log.go"},
+	{"github.com/MBeggiato/fenster/pkg/models", "vikunja_models.go"},
+	{"github.com/MBeggiato/fenster/pkg/plugins", "vikunja_plugins.go"},
+	{"github.com/MBeggiato/fenster/pkg/user", "vikunja_user.go"},
 	{"github.com/labstack/echo/v5", "echo.go"},
 	{"github.com/ThreeDotsLabs/watermill/message", "watermill.go"},
 	{"github.com/spf13/viper", "viper.go"},

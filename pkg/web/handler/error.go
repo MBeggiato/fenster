@@ -19,7 +19,7 @@ package handler
 import (
 	"net/http"
 
-	"code.vikunja.io/api/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/web"
 )
 
 // ErrGenericForbidden indicates the authenticated caller lacks permission

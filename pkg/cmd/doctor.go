@@ -20,9 +20,9 @@ import (
 	"fmt"
 	"os"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/doctor"
-	"code.vikunja.io/api/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/doctor"
+	"github.com/MBeggiato/fenster/pkg/log"
 
 	"github.com/spf13/cobra"
 )

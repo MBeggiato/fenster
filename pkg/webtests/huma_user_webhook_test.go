@@ -21,9 +21,9 @@ import (
 	"net/http"
 	"testing"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/routes"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/routes"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

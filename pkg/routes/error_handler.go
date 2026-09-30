@@ -21,10 +21,10 @@ import (
 	"errors"
 	"net/http"
 
-	"code.vikunja.io/api/pkg/errorreport"
-	"code.vikunja.io/api/pkg/files"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/errorreport"
+	"github.com/MBeggiato/fenster/pkg/files"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/web"
 
 	"github.com/getsentry/sentry-go"
 	"github.com/labstack/echo/v5"

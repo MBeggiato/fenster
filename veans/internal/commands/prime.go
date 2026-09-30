@@ -26,7 +26,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"code.vikunja.io/veans/internal/config"
+	"github.com/MBeggiato/fenster/veans/internal/config"
 )
 
 //go:embed prompt.tmpl

@@ -20,11 +20,11 @@ import (
 	"net/http"
 	"strconv"
 
-	"code.vikunja.io/api/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/db"
 
-	"code.vikunja.io/api/pkg/models"
-	auth2 "code.vikunja.io/api/pkg/modules/auth"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/models"
+	auth2 "github.com/MBeggiato/fenster/pkg/modules/auth"
+	"github.com/MBeggiato/fenster/pkg/user"
 	"github.com/labstack/echo/v5"
 )
 

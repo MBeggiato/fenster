@@ -17,10 +17,10 @@
 package cmd
 
 import (
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/files"
-	"code.vikunja.io/api/pkg/initialize"
-	"code.vikunja.io/api/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/files"
+	"github.com/MBeggiato/fenster/pkg/initialize"
+	"github.com/MBeggiato/fenster/pkg/log"
 
 	"github.com/spf13/cobra"
 )

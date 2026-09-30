@@ -17,10 +17,10 @@
 package openid
 
 import (
-	"code.vikunja.io/api/pkg/cron"
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/cron"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/models"
 
 	"xorm.io/builder"
 	"xorm.io/xorm"

@@ -24,9 +24,9 @@ import (
 	"testing"
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/log"
-	auth2 "code.vikunja.io/api/pkg/modules/auth"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/log"
+	auth2 "github.com/MBeggiato/fenster/pkg/modules/auth"
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/labstack/echo/v5"

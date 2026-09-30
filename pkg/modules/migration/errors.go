@@ -21,7 +21,7 @@ import (
 	"net/http"
 	"time"
 
-	"code.vikunja.io/api/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/web"
 )
 
 // upstreamErrorBodyLimit caps the response body kept in an ErrUpstreamRequestFailed: it ends up in

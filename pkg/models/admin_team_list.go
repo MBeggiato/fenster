@@ -19,7 +19,7 @@ package models
 import (
 	"fmt"
 
-	"code.vikunja.io/api/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/db"
 	"xorm.io/builder"
 	"xorm.io/xorm"
 )

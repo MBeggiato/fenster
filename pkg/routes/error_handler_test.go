@@ -23,8 +23,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/models"
 
 	"github.com/labstack/echo/v5"
 	"github.com/stretchr/testify/assert"

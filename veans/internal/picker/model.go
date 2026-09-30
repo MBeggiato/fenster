@@ -22,7 +22,7 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 	"charm.land/lipgloss/v2"
-	"code.vikunja.io/veans/internal/client"
+	"github.com/MBeggiato/fenster/veans/internal/client"
 )
 
 const maxVisibleRows = 12

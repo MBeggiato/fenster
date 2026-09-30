@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"code.vikunja.io/api/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/web"
 )
 
 // =====================

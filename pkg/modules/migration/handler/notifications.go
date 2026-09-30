@@ -20,9 +20,9 @@ import (
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/i18n"
-	"code.vikunja.io/api/pkg/notifications"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/i18n"
+	"github.com/MBeggiato/fenster/pkg/notifications"
 )
 
 // MigrationDoneNotification represents a MigrationDoneNotification notification

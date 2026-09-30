@@ -25,7 +25,7 @@ import (
 	"strconv"
 	"syscall"
 
-	"code.vikunja.io/api/pkg/utils"
+	"github.com/MBeggiato/fenster/pkg/utils"
 	"golang.org/x/sys/unix"
 )
 

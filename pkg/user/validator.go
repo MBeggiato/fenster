@@ -20,7 +20,7 @@ import (
 	"regexp"
 	"strings"
 
-	"code.vikunja.io/api/pkg/i18n"
+	"github.com/MBeggiato/fenster/pkg/i18n"
 
 	"github.com/asaskevich/govalidator"
 )

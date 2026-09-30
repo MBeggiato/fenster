@@ -21,11 +21,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/models"
-	webfiles "code.vikunja.io/api/pkg/web/files"
-	"code.vikunja.io/api/pkg/web/handler"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/models"
+	webfiles "github.com/MBeggiato/fenster/pkg/web/files"
+	"github.com/MBeggiato/fenster/pkg/web/handler"
 
 	"github.com/danielgtaylor/huma/v2"
 	"github.com/danielgtaylor/huma/v2/adapters/humaecho"

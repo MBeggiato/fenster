@@ -19,7 +19,7 @@ package doctor
 import (
 	"path/filepath"
 
-	"code.vikunja.io/api/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/config"
 
 	"github.com/spf13/viper"
 )

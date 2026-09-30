@@ -21,10 +21,10 @@ import (
 	"fmt"
 	"io"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/utils"
-	"code.vikunja.io/api/pkg/version"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/utils"
+	"github.com/MBeggiato/fenster/pkg/version"
 
 	"github.com/wneessen/go-mail"
 )

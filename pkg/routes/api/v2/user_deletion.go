@@ -20,8 +20,8 @@ import (
 	"context"
 	"net/http"
 
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/user"
 
 	"github.com/danielgtaylor/huma/v2"
 	"xorm.io/xorm"

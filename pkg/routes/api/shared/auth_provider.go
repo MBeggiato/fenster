@@ -20,8 +20,8 @@
 package shared
 
 import (
-	"code.vikunja.io/api/pkg/modules/auth/openid"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/modules/auth/openid"
+	"github.com/MBeggiato/fenster/pkg/user"
 )
 
 // GetAuthProviderName resolves the human-readable name of the source a user

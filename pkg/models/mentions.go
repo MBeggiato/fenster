@@ -20,9 +20,9 @@ import (
 	"bytes"
 	"strings"
 
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/modules/avatar"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/modules/avatar"
+	"github.com/MBeggiato/fenster/pkg/user"
 
 	"golang.org/x/net/html"
 	"golang.org/x/net/html/atom"

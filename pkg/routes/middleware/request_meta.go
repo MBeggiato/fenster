@@ -17,7 +17,7 @@
 package middleware
 
 import (
-	"code.vikunja.io/api/pkg/events"
+	"github.com/MBeggiato/fenster/pkg/events"
 
 	"github.com/labstack/echo/v5"
 )

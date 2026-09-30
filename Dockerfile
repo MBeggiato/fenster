@@ -19,7 +19,7 @@ FROM --platform=$BUILDPLATFORM ghcr.io/techknowlogick/xgo:go-1.27.x@sha256:8cc74
 RUN go install github.com/magefile/mage@latest && \
     mv /go/bin/mage /usr/local/go/bin
 
-WORKDIR /go/src/code.vikunja.io/api
+WORKDIR /go/src/github.com/MBeggiato/fenster
 COPY . ./
 COPY --from=frontendbuilder /build/dist ./frontend/dist
 

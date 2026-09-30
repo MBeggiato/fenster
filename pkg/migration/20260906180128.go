@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"time"
 
-	"code.vikunja.io/api/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/db"
 
 	"src.techknowlogick.com/xormigrate"
 	"xorm.io/xorm"

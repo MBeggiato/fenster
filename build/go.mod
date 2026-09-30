@@ -1,4 +1,4 @@
-module code.vikunja.io/build
+module github.com/MBeggiato/fenster/build
 
 go 1.27.0
 

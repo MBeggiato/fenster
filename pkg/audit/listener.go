@@ -19,7 +19,7 @@ package audit
 import (
 	"encoding/json"
 
-	"code.vikunja.io/api/pkg/events"
+	"github.com/MBeggiato/fenster/pkg/events"
 
 	"github.com/ThreeDotsLabs/watermill/message"
 )

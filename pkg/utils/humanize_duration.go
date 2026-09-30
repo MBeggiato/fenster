@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"code.vikunja.io/api/pkg/i18n"
+	"github.com/MBeggiato/fenster/pkg/i18n"
 )
 
 // HumanizeDuration formats a time.Duration in a human-friendly format.

@@ -19,7 +19,7 @@ package migration
 import (
 	"time"
 
-	"code.vikunja.io/api/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/models"
 	"src.techknowlogick.com/xormigrate"
 	"xorm.io/xorm"
 )

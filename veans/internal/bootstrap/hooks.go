@@ -25,8 +25,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"code.vikunja.io/veans/internal/auth"
-	"code.vikunja.io/veans/internal/output"
+	"github.com/MBeggiato/fenster/veans/internal/auth"
+	"github.com/MBeggiato/fenster/veans/internal/output"
 )
 
 // veansPrimeCommand is the literal command line every hook ends up invoking.

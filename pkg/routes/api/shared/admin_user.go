@@ -17,8 +17,8 @@
 package shared
 
 import (
-	"code.vikunja.io/api/pkg/modules/auth/openid"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/modules/auth/openid"
+	"github.com/MBeggiato/fenster/pkg/user"
 )
 
 // AdminUser re-exposes fields hidden by the default user.User JSON view.

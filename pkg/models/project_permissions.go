@@ -19,8 +19,8 @@ package models
 import (
 	"errors"
 
-	"code.vikunja.io/api/pkg/user"
-	"code.vikunja.io/api/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/web"
 
 	"xorm.io/xorm"
 )

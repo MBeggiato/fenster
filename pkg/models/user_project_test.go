@@ -19,8 +19,8 @@ package models
 import (
 	"testing"
 
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/user"
 	"gopkg.in/d4l3k/messagediff.v1"
 )
 

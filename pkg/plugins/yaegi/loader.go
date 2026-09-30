@@ -22,8 +22,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"code.vikunja.io/api/pkg/plugins"
-	"code.vikunja.io/api/pkg/yaegi_symbols"
+	"github.com/MBeggiato/fenster/pkg/plugins"
+	"github.com/MBeggiato/fenster/pkg/yaegi_symbols"
 
 	"github.com/traefik/yaegi/interp"
 	"github.com/traefik/yaegi/stdlib"

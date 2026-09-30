@@ -25,8 +25,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/web"
 )
 
 // AttachmentUploadError is a per-file upload failure.

@@ -39,7 +39,7 @@ Only a Docker image is released, to `ghcr.io/mbeggiato/fenster` (built from the 
 ## Fork rules
 
 - **Independent since 2026-09-30:** upstream Vikunja is no longer merged. Don't add an `upstream` remote or merge upstream branches; port a specific upstream fix by hand only when asked.
-- **Rename in progress:** user-visible text says Fenster. Internal identifiers (Go module `code.vikunja.io/api`, `VIKUNJA_*` env vars, config/DB paths, `X-Vikunja-*` headers, binary name) are being renamed in dedicated PRs; until that PR lands, keep the existing name. `VIKUNJA_*` env vars must keep working as a fallback until 2027-03-31 (issue #15). `/api/v1` and `/api/v2` stay.
+- **Rename in progress:** user-visible text says Fenster. The Go module path is now `github.com/MBeggiato/fenster` (veans: `.../veans`). Other internal identifiers (`VIKUNJA_*` env vars, config/DB paths, `X-Vikunja-*` headers, binary name) are being renamed in dedicated PRs; until that PR lands, keep the existing name. `VIKUNJA_*` env vars must keep working as a fallback until 2027-03-31 (issue #15). `/api/v1` and `/api/v2` stay.
 - **Attribution:** never edit `LICENSE`, `frontend/LICENSE` or the "Copyright 2018-present Vikunja and contributors" headers (enforced by `goheader`). Our copyright and the modification list live in `NOTICE`. The About page links the source repo, the license and upstream (AGPL section 13); keep those links working.
 - **Generated files:** CI no longer regenerates them. Before a release run `go run github.com/magefile/mage generate:swagger-docs` and commit `pkg/swagger/` (`config.yml.sample` is gitignored). Never hand-edit generated files.
 - **Brand assets:** masters are in `frontend/originalMedia/brand/` (see its README.md).

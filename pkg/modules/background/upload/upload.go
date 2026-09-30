@@ -21,10 +21,10 @@ import (
 
 	"xorm.io/xorm"
 
-	"code.vikunja.io/api/pkg/files"
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/modules/background"
-	"code.vikunja.io/api/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/files"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/modules/background"
+	"github.com/MBeggiato/fenster/pkg/web"
 )
 
 // Provider represents an upload provider

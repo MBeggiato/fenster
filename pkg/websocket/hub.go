@@ -19,7 +19,7 @@ package websocket
 import (
 	"sync"
 
-	"code.vikunja.io/api/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/log"
 )
 
 // Hub maintains the set of active connections and delivers messages to them.

@@ -21,7 +21,7 @@ import (
 	"strings"
 	"testing"
 
-	"code.vikunja.io/api/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/models"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

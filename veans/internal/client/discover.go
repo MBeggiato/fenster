@@ -22,7 +22,7 @@ import (
 	"net/url"
 	"strings"
 
-	"code.vikunja.io/veans/internal/output"
+	"github.com/MBeggiato/fenster/veans/internal/output"
 )
 
 // defaultAPIPort is what `VIKUNJA_SERVICE_INTERFACE` ships with — handy

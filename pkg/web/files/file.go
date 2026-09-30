@@ -22,7 +22,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"code.vikunja.io/api/pkg/files"
+	"github.com/MBeggiato/fenster/pkg/files"
 )
 
 // WriteFileDownload streams a loaded file (its .File reader must be open) to the

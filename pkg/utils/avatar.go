@@ -29,8 +29,8 @@ import (
 	"net/http"
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/modules/imageutils"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/modules/imageutils"
 )
 
 // CropAvatarTo1x1 crops the avatar image to a 1:1 aspect ratio, centered on the image

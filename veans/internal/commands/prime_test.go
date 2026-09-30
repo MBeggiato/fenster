@@ -22,7 +22,7 @@ import (
 	"testing"
 	"text/template"
 
-	"code.vikunja.io/veans/internal/config"
+	"github.com/MBeggiato/fenster/veans/internal/config"
 )
 
 func TestPrimeTemplate_RendersAnchors(t *testing.T) {

@@ -23,7 +23,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"code.vikunja.io/api/pkg/files"
+	"github.com/MBeggiato/fenster/pkg/files"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

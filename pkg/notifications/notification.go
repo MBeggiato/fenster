@@ -20,8 +20,8 @@ import (
 	"encoding/json"
 	"slices"
 
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/log"
 
 	"xorm.io/xorm"
 )

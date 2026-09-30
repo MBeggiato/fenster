@@ -21,7 +21,7 @@ import (
 
 	"github.com/labstack/echo/v5"
 
-	"code.vikunja.io/api/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/config"
 )
 
 // ChangePasswordRedirect implements https://www.w3.org/TR/change-password-url/

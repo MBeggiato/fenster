@@ -29,10 +29,10 @@ import (
 	"slices"
 	"strings"
 
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/modules/humabridge"
-	apiv2 "code.vikunja.io/api/pkg/routes/api/v2"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/modules/humabridge"
+	apiv2 "github.com/MBeggiato/fenster/pkg/routes/api/v2"
 
 	"github.com/danielgtaylor/huma/v2"
 	"github.com/labstack/echo/v5"

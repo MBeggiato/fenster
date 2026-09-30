@@ -19,7 +19,7 @@ package models
 import (
 	"time"
 
-	"code.vikunja.io/api/pkg/utils"
+	"github.com/MBeggiato/fenster/pkg/utils"
 
 	"xorm.io/xorm"
 )

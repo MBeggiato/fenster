@@ -30,8 +30,8 @@ import (
 	"sync"
 	"text/template"
 
-	"code.vikunja.io/api/frontend"
-	"code.vikunja.io/api/pkg/config"
+	"github.com/MBeggiato/fenster/frontend"
+	"github.com/MBeggiato/fenster/pkg/config"
 
 	etaggenerator "github.com/hhsnopek/etag"
 	"github.com/labstack/echo/v5"

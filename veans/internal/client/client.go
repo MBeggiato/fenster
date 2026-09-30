@@ -28,7 +28,7 @@ import (
 	"strings"
 	"time"
 
-	"code.vikunja.io/veans/internal/output"
+	"github.com/MBeggiato/fenster/veans/internal/output"
 )
 
 // Client is a thin JSON wrapper around the Vikunja REST API. It holds the

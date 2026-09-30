@@ -19,9 +19,9 @@ package openid
 import (
 	"net/url"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/models"
 )
 
 // EndSessionEndpoint returns the provider's RP-Initiated Logout endpoint

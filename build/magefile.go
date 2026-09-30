@@ -96,7 +96,7 @@ func vikunjaProject() *project {
 			// Matches the parent magefile's pre-refactor ldflags. The
 			// main.Tags value is the literal build-tag string baked in
 			// for `vikunja info` to report.
-			return fmt.Sprintf(`-X "code.vikunja.io/api/pkg/version.Version=%s" -X "main.Tags=osusergo netgo"`, v)
+			return fmt.Sprintf(`-X "github.com/MBeggiato/fenster/pkg/version.Version=%s" -X "main.Tags=osusergo netgo"`, v)
 		},
 		NfpmConfigPath:     "nfpm.yaml",
 		NfpmBinPathDefault: "vikunja",

@@ -25,9 +25,9 @@ import (
 
 	petname "github.com/dustinkirkland/golang-petname"
 
-	"code.vikunja.io/veans/internal/auth"
-	"code.vikunja.io/veans/internal/client"
-	"code.vikunja.io/veans/internal/output"
+	"github.com/MBeggiato/fenster/veans/internal/auth"
+	"github.com/MBeggiato/fenster/veans/internal/client"
+	"github.com/MBeggiato/fenster/veans/internal/output"
 )
 
 // resolveBotUser settles the bot identity for `veans init`:

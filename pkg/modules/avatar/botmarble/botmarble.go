@@ -17,8 +17,8 @@
 package botmarble
 
 import (
-	"code.vikunja.io/api/pkg/modules/avatar/marble"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/modules/avatar/marble"
+	"github.com/MBeggiato/fenster/pkg/user"
 )
 
 // botColors is a cool-toned palette distinct from the marble default so bot avatars are visually recognizable as bots at a glance.

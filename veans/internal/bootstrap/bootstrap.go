@@ -34,13 +34,13 @@ import (
 	"strconv"
 	"strings"
 
-	"code.vikunja.io/veans/internal/auth"
-	"code.vikunja.io/veans/internal/client"
-	"code.vikunja.io/veans/internal/config"
-	"code.vikunja.io/veans/internal/credentials"
-	"code.vikunja.io/veans/internal/output"
-	"code.vikunja.io/veans/internal/picker"
-	"code.vikunja.io/veans/internal/status"
+	"github.com/MBeggiato/fenster/veans/internal/auth"
+	"github.com/MBeggiato/fenster/veans/internal/client"
+	"github.com/MBeggiato/fenster/veans/internal/config"
+	"github.com/MBeggiato/fenster/veans/internal/credentials"
+	"github.com/MBeggiato/fenster/veans/internal/output"
+	"github.com/MBeggiato/fenster/veans/internal/picker"
+	"github.com/MBeggiato/fenster/veans/internal/status"
 )
 
 // Options configures Init. All fields are optional unless noted; missing

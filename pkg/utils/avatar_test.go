@@ -27,8 +27,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/modules/imageutils"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/modules/imageutils"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

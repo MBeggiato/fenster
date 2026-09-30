@@ -21,9 +21,9 @@ import (
 	"testing"
 	"time"
 
-	"code.vikunja.io/api/pkg/db"
-	apiv1 "code.vikunja.io/api/pkg/routes/api/v1"
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/db"
+	apiv1 "github.com/MBeggiato/fenster/pkg/routes/api/v1"
+	"github.com/MBeggiato/fenster/pkg/user"
 
 	"github.com/pquerna/otp/totp"
 	"github.com/stretchr/testify/assert"

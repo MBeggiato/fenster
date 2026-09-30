@@ -23,9 +23,9 @@ import (
 	"net/http"
 	"strings"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/log"
-	_ "code.vikunja.io/api/pkg/swagger" // To make sure the swag files are properly registered
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/log"
+	_ "github.com/MBeggiato/fenster/pkg/swagger" // To make sure the swag files are properly registered
 
 	"github.com/labstack/echo/v5"
 	"github.com/swaggo/swag"

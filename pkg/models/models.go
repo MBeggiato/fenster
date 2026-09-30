@@ -19,9 +19,9 @@ package models
 import (
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/log"
 	_ "github.com/go-sql-driver/mysql" // Because.
 	_ "github.com/jackc/pgx/v5/stdlib" // Because.
 	"xorm.io/xorm"

@@ -21,7 +21,7 @@ import (
 	"strings"
 	"testing"
 
-	"code.vikunja.io/veans/internal/output"
+	"github.com/MBeggiato/fenster/veans/internal/output"
 )
 
 func TestSuggestPetname_ShapeAndPrefix(t *testing.T) {

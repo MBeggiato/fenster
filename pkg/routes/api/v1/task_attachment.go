@@ -20,10 +20,10 @@ import (
 	"errors"
 	"net/http"
 
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/models"
-	auth2 "code.vikunja.io/api/pkg/modules/auth"
-	webfiles "code.vikunja.io/api/pkg/web/files"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/models"
+	auth2 "github.com/MBeggiato/fenster/pkg/modules/auth"
+	webfiles "github.com/MBeggiato/fenster/pkg/web/files"
 
 	"github.com/labstack/echo/v5"
 )

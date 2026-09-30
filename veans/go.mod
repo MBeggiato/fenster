@@ -1,4 +1,4 @@
-module code.vikunja.io/veans
+module github.com/MBeggiato/fenster/veans
 
 go 1.27.0
 

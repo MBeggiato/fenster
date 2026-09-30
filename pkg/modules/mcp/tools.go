@@ -22,7 +22,7 @@ import (
 	"sort"
 	"strings"
 
-	"code.vikunja.io/api/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/models"
 
 	"github.com/danielgtaylor/huma/v2"
 )

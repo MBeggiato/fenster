@@ -25,7 +25,7 @@ import (
 	"strings"
 	"time"
 
-	"code.vikunja.io/api/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/config"
 
 	"github.com/ganigeorgiev/fexpr"
 	"github.com/iancoleman/strcase"

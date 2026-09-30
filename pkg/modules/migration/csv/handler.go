@@ -20,10 +20,10 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/modules/migration"
-	migrationHandler "code.vikunja.io/api/pkg/modules/migration/handler"
-	user2 "code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/modules/migration"
+	migrationHandler "github.com/MBeggiato/fenster/pkg/modules/migration/handler"
+	user2 "github.com/MBeggiato/fenster/pkg/user"
 	"github.com/labstack/echo/v5"
 )
 

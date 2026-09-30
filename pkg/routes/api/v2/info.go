@@ -20,7 +20,7 @@ import (
 	"context"
 	"net/http"
 
-	"code.vikunja.io/api/pkg/routes/api/shared"
+	"github.com/MBeggiato/fenster/pkg/routes/api/shared"
 
 	"github.com/danielgtaylor/huma/v2"
 )

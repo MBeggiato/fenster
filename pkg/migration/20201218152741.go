@@ -19,8 +19,8 @@ package migration
 import (
 	"strings"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/log"
 	"src.techknowlogick.com/xormigrate"
 	"xorm.io/xorm"
 )

@@ -22,7 +22,7 @@ import (
 	"net/http"
 	"testing"
 
-	"code.vikunja.io/api/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/web"
 
 	"github.com/getsentry/sentry-go"
 	"github.com/go-sql-driver/mysql"

@@ -19,7 +19,7 @@ package migration
 import (
 	"io"
 
-	"code.vikunja.io/api/pkg/user"
+	"github.com/MBeggiato/fenster/pkg/user"
 )
 
 type MigratorName interface {

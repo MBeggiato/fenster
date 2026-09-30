@@ -20,7 +20,7 @@ import (
 	"context"
 	"errors"
 
-	"code.vikunja.io/veans/internal/output"
+	"github.com/MBeggiato/fenster/veans/internal/output"
 )
 
 // CreateBotUser provisions a bot user via POST /user/bots. The username must

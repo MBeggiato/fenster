@@ -21,7 +21,7 @@ import (
 	"slices"
 	"time"
 
-	"code.vikunja.io/api/pkg/web"
+	"github.com/MBeggiato/fenster/pkg/web"
 
 	"xorm.io/builder"
 	"xorm.io/xorm"

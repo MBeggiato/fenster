@@ -26,12 +26,12 @@ import (
 	"strconv"
 	"strings"
 
-	"code.vikunja.io/api/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/db"
 
-	caldav2 "code.vikunja.io/api/pkg/caldav"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/user"
+	caldav2 "github.com/MBeggiato/fenster/pkg/caldav"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/user"
 	"github.com/labstack/echo/v5"
 	"github.com/samedi/caldav-go"
 	"github.com/samedi/caldav-go/data"

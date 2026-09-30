@@ -19,7 +19,7 @@ package status
 import (
 	"testing"
 
-	"code.vikunja.io/veans/internal/config"
+	"github.com/MBeggiato/fenster/veans/internal/config"
 )
 
 func TestParse(t *testing.T) {

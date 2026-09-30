@@ -17,8 +17,8 @@
 package user
 
 import (
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/notifications"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/notifications"
 	"xorm.io/xorm"
 )
 

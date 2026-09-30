@@ -27,8 +27,8 @@ import (
 	"sync"
 	"testing"
 
-	"code.vikunja.io/veans/internal/client"
-	"code.vikunja.io/veans/internal/config"
+	"github.com/MBeggiato/fenster/veans/internal/client"
+	"github.com/MBeggiato/fenster/veans/internal/config"
 )
 
 func TestComposeDescription_FullReplace(t *testing.T) {

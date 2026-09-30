@@ -34,15 +34,15 @@ import (
 
 	"github.com/hashicorp/go-version"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/db"
-	"code.vikunja.io/api/pkg/files"
-	"code.vikunja.io/api/pkg/initialize"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/migration"
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/utils"
-	vversion "code.vikunja.io/api/pkg/version"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/db"
+	"github.com/MBeggiato/fenster/pkg/files"
+	"github.com/MBeggiato/fenster/pkg/initialize"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/migration"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/utils"
+	vversion "github.com/MBeggiato/fenster/pkg/version"
 
 	"src.techknowlogick.com/xormigrate"
 )

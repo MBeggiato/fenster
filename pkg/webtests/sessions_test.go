@@ -22,10 +22,10 @@ import (
 	"strings"
 	"testing"
 
-	"code.vikunja.io/api/pkg/models"
-	"code.vikunja.io/api/pkg/modules/auth"
-	apiv1 "code.vikunja.io/api/pkg/routes/api/v1"
-	"code.vikunja.io/api/pkg/web/handler"
+	"github.com/MBeggiato/fenster/pkg/models"
+	"github.com/MBeggiato/fenster/pkg/modules/auth"
+	apiv1 "github.com/MBeggiato/fenster/pkg/routes/api/v1"
+	"github.com/MBeggiato/fenster/pkg/web/handler"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

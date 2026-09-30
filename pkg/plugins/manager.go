@@ -22,9 +22,9 @@ import (
 	"path/filepath"
 	goplugin "plugin"
 
-	"code.vikunja.io/api/pkg/config"
-	"code.vikunja.io/api/pkg/log"
-	"code.vikunja.io/api/pkg/migration"
+	"github.com/MBeggiato/fenster/pkg/config"
+	"github.com/MBeggiato/fenster/pkg/log"
+	"github.com/MBeggiato/fenster/pkg/migration"
 
 	"github.com/labstack/echo/v5"
 )
