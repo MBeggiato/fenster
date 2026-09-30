@@ -28,6 +28,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           build-args: |
-            RELEASE_VERSION=preview-${{ github.ref_name }}
+            RELEASE_VERSION=${{ steps.meta.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
